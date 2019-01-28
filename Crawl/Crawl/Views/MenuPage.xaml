@@ -5,12 +5,13 @@
              Title="Menu">
     <StackLayout VerticalOptions="FillAndExpand">
         <ListView x:Name="ListViewMenu"
-                  HasUnevenRows="True">
+                  HasUnevenRows="True"
+                  BackgroundColor="{DynamicResource LightBackgroundColor}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid Padding="10">
-                            <Label Text="{Binding Title}" FontSize="20"/>
+                            <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

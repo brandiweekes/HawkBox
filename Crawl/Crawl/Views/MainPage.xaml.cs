@@ -22,6 +22,7 @@ namespace Crawl.Views
 
         public async Task NavigateFromMenu(int id)
         {
+
             if (!MenuPages.ContainsKey(id))
             {
                 switch (id)

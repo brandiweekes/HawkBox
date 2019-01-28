@@ -16,6 +16,7 @@
                 <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryDark}" />
                 <Setter Property="BarTextColor"  Value="{StaticResource YellowTextColor}" />
                 <Setter Property="BackgroundColor" Value="{StaticResource DarkBackgroundColor}" />
+                
             </Style>
 
             <Style TargetType="Label">
