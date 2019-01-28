@@ -44,6 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseCharacter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Character.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HomeMenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Entity.cs" />
@@ -101,6 +102,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Characters\CharacterNewPage.xaml.cs">
       <DependentUpon>CharacterNewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Items\ItemDeletePage.xaml.cs">
       <DependentUpon>ItemDeletePage.xaml</DependentUpon>
     </Compile>
@@ -125,6 +130,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ManagePage.xaml.cs">
       <DependentUpon>ManagePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Monsters\MonsterDeletePage.xaml.cs">
@@ -249,6 +258,18 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Battle\AutoBattlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <!--#if (CreateBackendProject)
