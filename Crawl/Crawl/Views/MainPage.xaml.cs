@@ -22,27 +22,32 @@ namespace Crawl.Views
 
         public async Task NavigateFromMenu(int id)
         {
-            switch (id)
+            if (!MenuPages.ContainsKey(id))
             {
-                case (int)MenuItemType.Home:
-                    MenuPages.Add(id, new NavigationPage(new HomePage()));
-                    break;
-                case (int)MenuItemType.Aliens:
-                    MenuPages.Add(id, new NavigationPage(new CharactersPage()));
-                    break;
-                case (int)MenuItemType.Agents:
-                    MenuPages.Add(id, new NavigationPage(new MonstersPage()));
-                    break;
-                case (int)MenuItemType.Items:
-                    MenuPages.Add(id, new NavigationPage(new ItemsPage()));
-                    break;
-                case (int)MenuItemType.Score:
-                    MenuPages.Add(id, new NavigationPage(new ScoresPage()));
-                    break;
-                case (int)MenuItemType.About:
-                    MenuPages.Add(id, new NavigationPage(new AboutPage()));
-                    break;
+                switch (id)
+                {
+                    case (int)MenuItemType.Home:
+                        MenuPages.Add(id, new NavigationPage(new HomePage()));
+                        break;
+                    case (int)MenuItemType.Aliens:
+                        MenuPages.Add(id, new NavigationPage(new CharactersPage()));
+                        break;
+                    case (int)MenuItemType.Agents:
+                        MenuPages.Add(id, new NavigationPage(new MonstersPage()));
+                        break;
+                    case (int)MenuItemType.Items:
+                        MenuPages.Add(id, new NavigationPage(new ItemsPage()));
+                        break;
+                    case (int)MenuItemType.Score:
+                        MenuPages.Add(id, new NavigationPage(new ScoresPage()));
+                        break;
+                    case (int)MenuItemType.About:
+                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                        break;
+                }
+
             }
+            
 
             var newPage = MenuPages[id];
 
