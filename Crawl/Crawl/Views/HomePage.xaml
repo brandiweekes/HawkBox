@@ -3,10 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.HomePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        
+            <StackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Orientation="Vertical">
+                
+                <Label Text="MiBliens"
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand" />
+           
+                <Label Text="Let the intergalactic battle begin!"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource LightBackgroundColor}"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

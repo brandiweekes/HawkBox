@@ -25,6 +25,7 @@
                 <Setter Property="TextColor" Value="{StaticResource YellowTextColor}" />
                 <Setter Property="FontAttributes" Value="None" />
                 <Setter Property="FontSize" Value="Small" />
+                
             </Style>
 
             <Style TargetType="Label"
