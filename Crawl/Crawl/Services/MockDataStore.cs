@@ -162,31 +162,44 @@ namespace Crawl.Services
         public async Task<bool> AddAsync_Character(Character data)
         {
             // Implement
-            return false;
+            _characterDataset.Add(data);
+
+            return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateAsync_Character(Character data)
         {
             // Implement
-            return false;
+            var myData = _characterDataset.FirstOrDefault(arg => arg.Id == data.Id);
+            if (myData == null)
+            {
+                return false;
+            }
+
+            myData.Update(data);
+
+            return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteAsync_Character(Character data)
         {
             // Implement
-            return false;
+            var myData = _characterDataset.FirstOrDefault(arg => arg.Id == data.Id);
+            _characterDataset.Remove(myData);
+
+            return await Task.FromResult(true);
         }
 
         public async Task<Character> GetAsync_Character(string id)
         {
             // Implement
-            return null;
+            return await Task.FromResult(_characterDataset.FirstOrDefault(s => s.Id == id));
         }
 
         public async Task<IEnumerable<Character>> GetAllAsync_Character(bool forceRefresh = false)
         {
             // Implement
-            return null;
+            return await Task.FromResult(_characterDataset);
         }
 
         #endregion Character

@@ -64,9 +64,31 @@ namespace Crawl.Models
         // Updates the attribute string
         public void Update(Character newData)
         {
-
-            // Implement
+            if(newData == null)
+            {
                 return;
+            }
+
+            this.Name = newData.Name;
+            this.Description = newData.Description;
+            this.Level = newData.Level;
+            this.ExperienceTotal = newData.ExperienceTotal;
+            this.ImageURI = newData.ImageURI;
+            this.Alive = newData.Alive;
+
+            // Populate the Attributes
+            this.AttributeString = newData.AttributeString;
+
+            this.Attribute = new AttributeBase(newData.AttributeString);
+
+            // Set the strings for the items
+            this.Head = newData.Head;
+            this.Feet = newData.Feet;
+            this.Necklass = newData.Necklass;
+            this.RightFinger = newData.RightFinger;
+            this.LeftFinger = newData.LeftFinger;
+            this.Feet = newData.Feet;
+            return;
         }
 
         // Helper to combine the attributes into a single line, to make it easier to display the item as a string
