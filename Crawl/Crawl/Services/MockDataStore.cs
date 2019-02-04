@@ -26,21 +26,19 @@ namespace Crawl.Services
         }
 
         private List<Item> _itemDataset = new List<Item>();
-        private List<Character> _characterDataset = new List<Character>();
+        private List<BaseCharacter> _characterDataset = new List<BaseCharacter>();
         private List<Monster> _monsterDataset = new List<Monster>();
         private List<Score> _scoreDataset = new List<Score>();
 
         private MockDataStore()
         {
-            InitilizeSeedData();
+            InitializeSeedData();
         }
 
-        private void InitilizeSeedData()
+        private void InitializeSeedData()
         {
 
-            // Implement
-
-            // Load Items.
+            // Load Items
             _itemDataset.Add(new Item("Gold Sword", "Sword made of Gold, really expensive looking",
                 "http://www.clker.com/cliparts/e/L/A/m/I/c/sword-md.png", 0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Defense));
 
@@ -50,47 +48,31 @@ namespace Crawl.Services
             _itemDataset.Add(new Item("Bunny Hat", "Pink hat with fluffy ears",
                 "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png", 0, 10, -1, ItemLocationEnum.Head, AttributeEnum.Speed));
 
-            // Implement Characters
+            // Load Characters
+            _characterDataset.Add(new BaseCharacter(new Character(
+                "3 Eyed", "Predicts future attacks with extra eye.", "http://gdurl.com/RxRK",
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+
+            _characterDataset.Add(new BaseCharacter(new Character(
+                "Sea Alien", "Small and quick to attack.", "http://gdurl.com/dgT5",
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+
+            _characterDataset.Add(new BaseCharacter(new Character(
+                "Happy Alien", "Smiling can be dangerous!!", "http://gdurl.com/NvcO",
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+
+            _characterDataset.Add(new BaseCharacter(new Character(
+                "8 Arms", "Multiple arms makes it hard to attack.", "http://gdurl.com/fxM0",
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+
 
             // Implement Monsters
 
             // Implement Scores
-        }
-
-        private void CreateTables()
-        {
-            // Do nothing...
-        }
-
-        // Delete the Datbase Tables by dropping them
-        public void DeleteTables()
-        {
-            // Implement
-        }
-
-        // Tells the View Models to update themselves.
-        private void NotifyViewModelsOfDataChange()
-        {
-            ItemsViewModel.Instance.SetNeedsRefresh(true);
-            // Implement Monsters
-
-            // Implement Characters 
-
-            // Implement Scores
-        }
-
-        public void InitializeDatabaseNewTables()
-        {
-            DeleteTables();
-
-            // make them again
-            CreateTables();
-
-            // Populate them
-            InitilizeSeedData();
-
-            // Tell View Models they need to refresh
-            NotifyViewModelsOfDataChange();
         }
 
         #region Item
@@ -161,20 +143,16 @@ namespace Crawl.Services
         // Character
         public async Task<bool> AddAsync_Character(Character data)
         {
-            // Implement
-            _characterDataset.Add(data);
+            _characterDataset.Add(new BaseCharacter(data));
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateAsync_Character(Character data)
         {
-            // Implement
             var myData = _characterDataset.FirstOrDefault(arg => arg.Id == data.Id);
             if (myData == null)
-            {
-                return false;
-            }
+                return await Task.FromResult(false);
 
             myData.Update(data);
 
@@ -183,7 +161,6 @@ namespace Crawl.Services
 
         public async Task<bool> DeleteAsync_Character(Character data)
         {
-            // Implement
             var myData = _characterDataset.FirstOrDefault(arg => arg.Id == data.Id);
             _characterDataset.Remove(myData);
 
@@ -192,14 +169,22 @@ namespace Crawl.Services
 
         public async Task<Character> GetAsync_Character(string id)
         {
-            // Implement
-            return await Task.FromResult(_characterDataset.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(ConvertToCharacter(_characterDataset.FirstOrDefault(s => s.Id == id)));
         }
 
         public async Task<IEnumerable<Character>> GetAllAsync_Character(bool forceRefresh = false)
         {
-            // Implement
-            return await Task.FromResult(_characterDataset);
+            var list = new List<Character>();
+            foreach (var baseCharacter in _characterDataset)
+            {
+                list.Add(ConvertToCharacter(baseCharacter));
+            }
+            return await Task.FromResult(list);
+        }
+
+        private static Character ConvertToCharacter(BaseCharacter data)
+        {
+            return new Character(data);
         }
 
         #endregion Character
