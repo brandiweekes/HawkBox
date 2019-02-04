@@ -26,7 +26,7 @@
                 </StackLayout>
                 <StackLayout Grid.Row="1" Grid.Column="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                     <Label Text="Status" FontSize="Medium"></Label>
-                    <Label x:Name="CharacterStatus"></Label>
+                    <Label x:Name="CharacterStatus" HorizontalOptions="CenterAndExpand"></Label>
                 </StackLayout>
             </Grid>
         </StackLayout>
