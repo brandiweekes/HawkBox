@@ -48,7 +48,8 @@ namespace Crawl.ViewModels
 
             MessagingCenter.Subscribe<CharacterNewPage, Character>(this, "AddCharacter", async (obj, data) =>
             {
-                await AddAsync(data);
+                var newCharacter = data as Character;
+                await AddAsync(newCharacter);
             });
 
             MessagingCenter.Subscribe<CharacterEditPage, Character>(this, "EditCharacter", async (obj, data) =>

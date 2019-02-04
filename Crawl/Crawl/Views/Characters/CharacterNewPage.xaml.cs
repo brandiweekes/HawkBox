@@ -20,8 +20,20 @@ namespace Crawl.Views
             {
                 Name = "Character Name",
                 Description = "This is a Character description.",
+                ImageURI = "http://gdurl.com/RxRK",
                 Level =1,
-                Id = Guid.NewGuid().ToString()
+                Id = Guid.NewGuid().ToString(),
+
+                Attribute = new AttributeBase(1, 1, 1, 10 ,10),
+                //AttributeString = AttributeBase.GetAttributeString(Attribute),
+
+                Head = "head",
+                Feet = "feet",
+                Necklace = "necklace",
+                PrimaryHand = "primaryHand",
+                OffHand = "offhand",
+                RightFinger = "rightFinger",
+                LeftFinger = "leftFinger"
             };
 
             BindingContext = this;
@@ -29,7 +41,7 @@ namespace Crawl.Views
 
         public async void Save_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "AddData", Data);
+            MessagingCenter.Send(this, "AddCharacter", Data);
             await Navigation.PopAsync();
         }
 
