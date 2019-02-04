@@ -11,6 +11,9 @@
 
     <ScrollView Padding="0, 20, 0, 0">
         <StackLayout Padding="5, 0, 5, 0">
+
+            <Label Text="Alien Detail Page" FontSize="Small" VerticalOptions="Start"/>
+            
             <Image Source="{Binding Data.ImageURI}" 
                        WidthRequest="300" HeightRequest="300" 
                        HorizontalOptions="CenterAndExpand"></Image>

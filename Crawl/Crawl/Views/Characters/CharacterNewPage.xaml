@@ -10,7 +10,8 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
+        <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
+            <Label Text="Alien Create Page" FontSize="Small" />
 
             <StackLayout Orientation="Horizontal">
                 <Label Text="Name:" />

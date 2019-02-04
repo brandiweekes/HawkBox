@@ -9,7 +9,8 @@
 
     </ContentPage.ToolbarItems>
 
-    <StackLayout Spacing="20" Padding="15">
+    <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
+        <Label Text="Alien Delete Page" FontSize="Small" />
 
 
 
