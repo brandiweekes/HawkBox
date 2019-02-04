@@ -8,8 +8,8 @@
         <ToolbarItem Text="Add" Clicked="AddCharacter"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Padding="0, 10, 0, 0">
+        <ScrollView Padding="0, 20, 0, 0">
+            <StackLayout Padding="5, 0, 5, 0">
                 <ListView x:Name="ItemsListView"
                           ItemsSource="{Binding Dataset}"
                           VerticalOptions="FillAndExpand"

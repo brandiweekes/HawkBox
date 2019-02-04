@@ -3,13 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.CharacterDetailPage"
              Title="{Binding Title}">
-
-
     <ContentPage.ToolbarItems>
-
+        <ToolbarItem Text="Edit" Clicked="EditCharacter"></ToolbarItem>
+        <ToolbarItem Text="Delete" Clicked="DeleteCharacter"></ToolbarItem>
+        <ToolbarItem Text="Cancel" Clicked="CancelCharacter"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <StackLayout Spacing="20" Padding="15">
-
-    </StackLayout>
+    <ScrollView Padding="0, 20, 0, 0">
+        <StackLayout Padding="5, 0, 5, 0">
+            <Image Source="{Binding Data.ImageURI}" 
+                       WidthRequest="300" HeightRequest="300" 
+                       HorizontalOptions="CenterAndExpand"></Image>
+            <Grid Padding="0, 10, 0, 0">
+                <Label Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding Data.Description, StringFormat='Description : {0}'}" LineBreakMode="WordWrap"></Label>
+                <StackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Label Text="Level" FontSize="Medium"></Label>
+                    <Label Text="{Binding Data.Level}"></Label>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Label Text="XP" FontSize="Medium"></Label>
+                    <Label Text="{Binding Data.ExperienceTotal}"></Label>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Label Text="Status" FontSize="Medium"></Label>
+                    <Label x:Name="CharacterStatus"></Label>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

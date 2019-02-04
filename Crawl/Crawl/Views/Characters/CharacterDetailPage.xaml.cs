@@ -20,6 +20,7 @@ namespace Crawl.Views
             InitializeComponent();
 
             BindingContext = _viewModel = viewModel;
+            SetCharacterStatus();
         }
 
         public CharacterDetailPage()
@@ -35,20 +36,25 @@ namespace Crawl.Views
 
             _viewModel = new CharacterDetailViewModel(data);
             BindingContext = _viewModel;
+            SetCharacterStatus();
         }
 
+        private void SetCharacterStatus()
+        {
+            CharacterStatus.Text = _viewModel.Data.Alive ? "Alive" : "Dead";
+        }
 
-        public async void Edit_Clicked(object sender, EventArgs e)
+        public async void EditCharacter(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new CharacterEditPage(_viewModel));
         }
 
-        private async void Delete_Clicked(object sender, EventArgs e)
+        private async void DeleteCharacter(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new CharacterDeletePage(_viewModel));
         }
 
-        private async void Cancel_Clicked(object sender, EventArgs e)
+        private async void CancelCharacter(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
