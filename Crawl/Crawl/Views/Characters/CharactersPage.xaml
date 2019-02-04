@@ -5,13 +5,35 @@
               Title="{Binding Title}"
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
-        
+        <ToolbarItem Text="Add" Clicked="AddCharacter"></ToolbarItem>
     </ContentPage.ToolbarItems>
-    
     <ContentPage.Content>
-        <StackLayout>
-            
-            
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="0, 10, 0, 0">
+                <ListView x:Name="ItemsListView"
+                          ItemsSource="{Binding Dataset}"
+                          VerticalOptions="FillAndExpand"
+                          HasUnevenRows="true"
+                          RefreshCommand="{Binding LoadCharactersCommand}"
+                          IsPullToRefreshEnabled="true"
+                          IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                          CachingStrategy="RecycleElement"
+                          ItemSelected="OnCharacterSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" Padding="10">
+                                    <Image Source="{Binding ImageURI}" WidthRequest="50" HeightRequest="50"></Image>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                        <Label Text="{Binding Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

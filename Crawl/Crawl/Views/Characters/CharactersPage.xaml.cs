@@ -17,6 +17,42 @@ namespace Crawl.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = CharactersViewModel.Instance;
+            _viewModel.Title = "Aliens Page";
+        }
+
+        private void AddCharacter(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CharacterNewPage());
+        }
+
+        private async void OnCharacterSelected(object sender, SelectedItemChangedEventArgs args)
+        {
+            if (!(args.SelectedItem is Character character))
+                return;
+
+            await Navigation.PushAsync(new CharacterDetailPage(new CharacterDetailViewModel(character)));
+
+            // Manually deselect item.
+            ItemsListView.SelectedItem = null;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            BindingContext = null;
+
+            if (ToolbarItems.Count > 0)
+            {
+                ToolbarItems.RemoveAt(0);
+            }
+
+            InitializeComponent();
+
+            if (_viewModel.Dataset.Count == 0 || _viewModel.NeedsRefresh())
+                _viewModel.LoadCharactersCommand.Execute(null);
+
+            BindingContext = _viewModel;
         }
     }
 }
