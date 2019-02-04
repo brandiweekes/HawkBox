@@ -35,7 +35,7 @@ namespace Crawl.Models
             // Set the strings for the items
             Head = newData.Head;
             Feet = newData.Feet;
-            Necklass = newData.Necklass;
+            Necklace = newData.Necklace;
             RightFinger = newData.RightFinger;
             LeftFinger = newData.LeftFinger;
             Feet = newData.Feet;
@@ -44,8 +44,27 @@ namespace Crawl.Models
         // Update character from the passed in data
         public void Update(BaseCharacter newData)
         {
+            if (newData == null)
                 return;
-        
+
+            Name = newData.Name;
+            Description = newData.Description;
+            Level = newData.Level;
+            ExperienceTotal = newData.ExperienceTotal;
+            ImageURI = newData.ImageURI;
+            Alive = newData.Alive;
+
+            // Populate the Attributes
+            AttributeString = newData.AttributeString;
+
+            // Set the strings for the items
+            Head = newData.Head;
+            Feet = newData.Feet;
+            Necklace = newData.Necklace;
+            RightFinger = newData.RightFinger;
+            LeftFinger = newData.LeftFinger;
+            Feet = newData.Feet;
+
         }
 
     }

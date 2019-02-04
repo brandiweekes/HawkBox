@@ -28,7 +28,7 @@ namespace Crawl.Models
             return myReturn.Trim();
         }
 
-        // Construtor sets defaults
+        // Constructor sets defaults
         public AttributeBase()
         {
             SetDefaultValues();
@@ -44,7 +44,7 @@ namespace Crawl.Models
             MaxHealth = 1;
         }
 
-        // Return attributebase based on a string as the constructor.
+        // Return AttributeBase based on a string as the constructor.
         public AttributeBase(string data)
         {
             if (string.IsNullOrEmpty(data))
@@ -62,7 +62,18 @@ namespace Crawl.Models
             MaxHealth = myAttributes.MaxHealth;
         }
 
-        // Return a formated string of the datastruture
+        // create Attributes
+        public AttributeBase(int speed, int attack, int defense, int maxHealth, int currentHealth)
+        {
+            SetDefaultValues();
+            Speed = speed;
+            Attack = attack;
+            Defense = defense;
+            MaxHealth = maxHealth;
+            CurrentHealth = currentHealth;
+        }
+
+        // Return a formatted string of the AttributeBase
         public static string GetAttributeString (AttributeBase data)
         {
             var myString = (JObject)JToken.FromObject(data);
@@ -77,9 +88,9 @@ namespace Crawl.Models
 
             // Convert the string to json object
             // convert the json object to the class
-            // retun the class
+            // return the class
 
-            // make sure the object is properly formated json for the object type
+            // make sure the object is properly formatted json for the object type
             try
             {
                 myResult = JsonConvert.DeserializeObject<AttributeBase>(data);

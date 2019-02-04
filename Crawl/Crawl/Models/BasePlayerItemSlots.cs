@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Crawl.Models
 {
-    // Folding ItemSolts into the overall class inheritance, to show approach.  
+    // Folding ItemSlots into the overall class inheritance, to show approach.  
     // C# does not support multiple inheritance
     // Could use simulated by using a pattern of interfaces, but for this, just doing it the simple way...
 
@@ -16,8 +16,8 @@ namespace Crawl.Models
         // Feet is a string referencing the database table
         public string Feet { get; set; }
 
-        // Necklasss is a string referencing the database table
-        public string Necklass { get; set; }
+        // Necklace is a string referencing the database table
+        public string Necklace { get; set; }
 
         // PrimaryHand is a string referencing the database table
         public string PrimaryHand { get; set; }
@@ -31,10 +31,10 @@ namespace Crawl.Models
         // LeftFinger is a string referencing the database table
         public string LeftFinger { get; set; }
 
-        // This uses relfection, to get the property from a string
+        // This uses reflection, to get the property from a string
         // Then based on the property, it gets the value which will be the string pointing to the item
         // Then it calls to the view model who has the list of items, and asks for it
-        // then it returns the formated string for the Item, and Value.
+        // then it returns the formatted string for the Item, and Value.
         private string FormatOutputSlot(string slot)
         {
             var myReturn = "Implement";

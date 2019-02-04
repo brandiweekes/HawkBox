@@ -3,11 +3,12 @@
 namespace Crawl.Models
 {
     // This is the base class, that everything comes from that gets saved in the DB.
-    // The fields requried by the DB for all records are here.
+    // The fields required by the DB for all records are here.
 
     public class BaseEntity<T>
     {
-        // Datbase record key for the entry into the database, used to fetch the data
+        // Database record key for the entry into the database, used to fetch the data
+
         [PrimaryKey]
         public string Id { get; set; }
 

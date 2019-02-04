@@ -41,7 +41,7 @@ namespace Crawl.Models
             // Set the strings for the items
             Head = newData.Head;
             Feet = newData.Feet;
-            Necklass = newData.Necklass;
+            Necklace = newData.Necklace;
             RightFinger = newData.RightFinger;
             LeftFinger = newData.LeftFinger;
             Feet = newData.Feet;

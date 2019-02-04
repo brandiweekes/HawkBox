@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Crawl.Models
 {
-    // The Character is the higher level concept.  This is the Character with all attirbutes defined.
+    // The Character is the higher level concept.  This is the Character with all attributes defined.
     public class Character : BaseCharacter
     {
         // Add in the actual attribute class
@@ -16,6 +16,32 @@ namespace Crawl.Models
         {
             Attribute = new AttributeBase();
             Alive = true;
+        }
+
+        // Create new Character.
+        public Character(string name, string description, string imageUri,
+            int level, int xpTotal, bool alive, 
+            int speed, int attack, int defense, int maxHealth, int currentHealth,
+            string head, string feet, string necklace, string primaryHand, string offhand, string rightFinger, string leftFinger)
+        {
+            Name = name;
+            Description = description;
+            ImageURI = imageUri;
+
+            Level = level;
+            ExperienceTotal = xpTotal;
+            Alive = alive;
+
+            Attribute = new AttributeBase(speed, attack, defense, maxHealth,currentHealth);
+            AttributeString = AttributeBase.GetAttributeString(this.Attribute);
+
+            Head = head;
+            Feet = feet;
+            Necklace = necklace;
+            PrimaryHand = primaryHand;
+            OffHand = offhand;
+            RightFinger = rightFinger;
+            LeftFinger = leftFinger;
         }
 
         // Create a new character, based on a passed in BaseCharacter
@@ -42,7 +68,7 @@ namespace Crawl.Models
             // Set the strings for the items
             Head = newData.Head;
             Feet = newData.Feet;
-            Necklass = newData.Necklass;
+            Necklace = newData.Necklace;
             RightFinger = newData.RightFinger;
             LeftFinger = newData.LeftFinger;
             Feet = newData.Feet;
@@ -51,13 +77,24 @@ namespace Crawl.Models
         // Create a new character, based on existing Character
         public Character(Character newData)
         {
-            // Implement
-        }
+            Name = newData.Name;
+            Description = newData.Description;
+            ImageURI = newData.ImageURI;
 
-        // Upgrades to a set level
-        public void ScaleLevel(int level)
-        {
-            // Implement
+            Level = newData.Level;
+            ExperienceTotal = newData.ExperienceTotal;
+            Alive = newData.Alive;
+
+            AttributeString = newData.AttributeString;
+            Attribute = new AttributeBase(newData.AttributeString);
+
+            Head = newData.Head;
+            Feet = newData.Feet;
+            Necklace = newData.Necklace;
+            PrimaryHand = newData.PrimaryHand;
+            OffHand = newData.OffHand;
+            RightFinger = newData.RightFinger;
+            LeftFinger = newData.LeftFinger;
         }
 
         // Update the character information
@@ -65,9 +102,7 @@ namespace Crawl.Models
         public void Update(Character newData)
         {
             if(newData == null)
-            {
                 return;
-            }
 
             this.Name = newData.Name;
             this.Description = newData.Description;
@@ -84,7 +119,7 @@ namespace Crawl.Models
             // Set the strings for the items
             this.Head = newData.Head;
             this.Feet = newData.Feet;
-            this.Necklass = newData.Necklass;
+            this.Necklace = newData.Necklace;
             this.RightFinger = newData.RightFinger;
             this.LeftFinger = newData.LeftFinger;
             this.Feet = newData.Feet;
@@ -99,6 +134,13 @@ namespace Crawl.Models
         }
 
         #region Basics
+
+        // Upgrades to a set level
+        public void ScaleLevel(int level)
+        {
+            // Implement
+        }
+
         // Level Up
         public bool LevelUp()
         {
@@ -107,7 +149,7 @@ namespace Crawl.Models
         }
 
         // Level up to a number, say Level 3
-        public int LevelUpToValue(int Value)
+        public int LevelUpToValue(int value)
         {
             // Implement
             return Level;
@@ -118,6 +160,15 @@ namespace Crawl.Models
         {
             // Implement
             return false;
+        }
+
+        // Take Damage
+        // If the damage received is > health, then death occurs
+        // Return the number of experience received for this attack 
+        // monsters give experience to characters.  Characters don't accept experience from monsters
+        public void TakeDamage(int damage)
+        {
+            // Implement
         }
 
         #endregion Basics
@@ -290,14 +341,5 @@ namespace Crawl.Models
         }
 
         #endregion Items
-
-        // Take Damage
-        // If the damage recived, is > health, then death occurs
-        // Return the number of experience received for this attack 
-        // monsters give experience to characters.  Characters don't accept expereince from monsters
-        public void TakeDamage(int damage)
-        {
-            // Implement
-        }
     }
 }
