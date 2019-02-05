@@ -54,7 +54,8 @@ namespace Crawl.ViewModels
 
             MessagingCenter.Subscribe<CharacterEditPage, Character>(this, "EditCharacter", async (obj, data) =>
             {
-                await UpdateAsync(data);
+                var newCharacter = data as Character;
+                await UpdateAsync(newCharacter);
             });
 
             #endregion Messages

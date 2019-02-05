@@ -25,7 +25,7 @@ namespace Crawl.Views
                 Id = Guid.NewGuid().ToString(),
 
                 Attribute = new AttributeBase(1, 1, 1, 10 ,10),
-                //AttributeString = AttributeBase.GetAttributeString(Attribute),
+                AttributeString = AttributeBase.GetAttributeString(new AttributeBase(1,1,1,10,10)),
 
                 Head = "head",
                 Feet = "feet",
