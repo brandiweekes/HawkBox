@@ -33,7 +33,7 @@ namespace Crawl.Views
             await Navigation.PushAsync(new CharacterDetailPage(new CharacterDetailViewModel(character)));
 
             // Manually deselect item.
-            ItemsListView.SelectedItem = null;
+            CharactersListView.SelectedItem = null;
         }
 
         protected override void OnAppearing()
