@@ -21,7 +21,9 @@
                 <Label Grid.Row="0" Grid.ColumnSpan="3" 
                        Text="{Binding Data.Description, StringFormat='Description : {0}'}" LineBreakMode="WordWrap"></Label>
                 
-                <StackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <StackLayout Grid.Row="1" Grid.Column="0" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="CenterAndExpand">
                     <Label Text="Level" FontSize="Medium"></Label>
                     <Label Text="{Binding Data.Level}"></Label>
                 </StackLayout>
