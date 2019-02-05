@@ -130,9 +130,11 @@ namespace Crawl.ViewModels
 
         public async Task<bool> DeleteAsync(Character data)
         {
-            var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
-            Dataset.Remove(myData);
-            return await DataStore.DeleteAsync_Character(data);
+            //var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
+            //Dataset.Remove(myData);
+            Dataset.Remove(data);
+            var myReturn = await DataStore.DeleteAsync_Character(data);
+            return myReturn;
         }
 
         public async Task<bool> UpdateAsync(Character data)

@@ -28,7 +28,7 @@ namespace Crawl.Views
 
 	    private async void Delete_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "DeleteData", Data);
+            MessagingCenter.Send(this, "DeleteCharacter", Data);
 
             // Remove Character Details Page manualy
             Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
