@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.CharacterDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Data.Name}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit" Clicked="EditCharacter"></ToolbarItem>
         <ToolbarItem Text="Delete" Clicked="DeleteCharacter"></ToolbarItem>
