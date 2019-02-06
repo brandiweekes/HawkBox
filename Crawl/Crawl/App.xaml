@@ -55,6 +55,11 @@
                 <Setter Property="FontSize" Value="Small" />
             </Style>
 
+            <Style TargetType="Stepper">
+                <Setter Property="BackgroundColor" Value="{DynamicResource LightBackgroundColor}"/>
+            </Style>
+            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
