@@ -43,9 +43,7 @@ namespace Crawl.Views
             BindingContext = null;
 
             if (ToolbarItems.Count > 0)
-            {
-                ToolbarItems.RemoveAt(0);
-            }
+                ToolbarItems.Clear();
 
             InitializeComponent();
 

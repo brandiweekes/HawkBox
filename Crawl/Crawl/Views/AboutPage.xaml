@@ -46,7 +46,7 @@
 
                     <Label 
                 FontSize="Small"
-                Text="Mike Koenig"
+                Text="Team HawkBox"
                 VerticalOptions="Center" 
                 HorizontalOptions="CenterAndExpand" />
 
@@ -64,13 +64,13 @@
         VerticalOptions="StartAndExpand"
         HorizontalOptions="CenterAndExpand" 
         Orientation="Vertical">
-                    
-                <!--Database Settings-->
-                <StackLayout
+
+                    <!--Database Settings-->
+                    <StackLayout
                         x:Name="DatabaseSettingsFrame"
                         IsVisible="True"
                         BackgroundColor="WhiteSmoke">
-  
+
 
                         <StackLayout 
                             VerticalOptions="StartAndExpand"
@@ -82,19 +82,19 @@
                                 VerticalOptions="Start"
                                 Orientation="Horizontal">
 
-                                    <Label 
+                                <Label 
                                         FontSize="Small"
                                         Text="Use Mock DataStore"
                                         HorizontalTextAlignment="Start"
                                         HorizontalOptions="StartAndExpand"/>
 
-                                    <Switch 
+                                <Switch 
                                         x:Name="UseMockDataSource"
                                         HorizontalOptions="EndAndExpand"
                                         Toggled="UseMockDataSourceSwitch_OnToggled"
                                         IsToggled="False"/>
                             </StackLayout>
-                            
+
                             <StackLayout
                                     HorizontalOptions="FillAndExpand"
                                     Orientation="Horizontal">
@@ -135,98 +135,98 @@
                                     HorizontalOptions="EndAndExpand"
                                     TextColor="Black" />
                             </StackLayout>
-                        
+
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
 
 
 
-                <StackLayout 
+                    <StackLayout 
                     Margin="0,50,0,0"
                         HorizontalOptions="CenterAndExpand"
                         VerticalOptions="Start"
                         Orientation="Vertical">
 
-                    <StackLayout
+                        <StackLayout
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="Start"
                         Orientation="Horizontal">
 
-                        <Label 
+                            <Label 
                             FontSize="Small"
                             Text="Debug Settings"
                             HorizontalTextAlignment="Start"
                             HorizontalOptions="Start"/>
 
-                        <Switch 
+                            <Switch 
                             x:Name="EnableDebugSettings"
                             HorizontalOptions="EndAndExpand"
                             Toggled="EnableDebugSettings_OnToggled"
                             IsToggled="True"/>
-                    </StackLayout>
+                        </StackLayout>
 
-                    <StackLayout
+                        <StackLayout
                         x:Name="DebugSettingsFrame"
                         IsVisible="True"
                         BackgroundColor="WhiteSmoke"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="StartAndExpand">
-                        
-                        <StackLayout
+
+                            <StackLayout
                         HorizontalOptions="FillAndExpand"
                         Orientation="Horizontal">
 
-                            <Label 
+                                <Label 
                             Text="Critical Hit Double Damage"
                             Style="{DynamicResource DebugSwitchLabel}"
                             />
 
-                            <Switch 
+                                <Switch 
                             x:Name="EnableCriticalHitDamage"
                             HorizontalOptions="EndAndExpand"
                             Toggled="EnableCriticalHitDamage_OnToggled"
                             IsToggled="False"/>
-                        </StackLayout>
+                            </StackLayout>
 
 
-                        <StackLayout
+                            <StackLayout
                         HorizontalOptions="FillAndExpand"
                         Orientation="Horizontal">
 
-                            <Label 
+                                <Label 
                             Text="Critical Miss Bad Things"
                             Style="{DynamicResource DebugSwitchLabel}"
                             />
 
-                            <Switch 
+                                <Switch 
                             x:Name="EnableCriticalMissProblems"
                             HorizontalOptions="EndAndExpand"
                             Toggled="EnableCriticalMissProblems_OnToggled"
                             IsToggled="False"/>
+                            </StackLayout>
                         </StackLayout>
                     </StackLayout>
-                </StackLayout>
 
-                <!--// Example of a Grid Layout-->
-                <Grid
+                    <!--// Example of a Grid Layout-->
+                    <Grid
                     RowSpacing="1"
                     ColumnSpacing="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Data Version" Grid.Row="0" Grid.Column="0" />
-                    <Label Text="1" Grid.Row="0" Grid.Column="1" />
-                    <Label Text="Code Version" Grid.Row="1" Grid.Column="0" />
-                    <Label Text="2" Grid.Row="1" Grid.Column="1" />
-                </Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Data Version" Grid.Row="0" Grid.Column="0" />
+                        <Label Text="1" Grid.Row="0" Grid.Column="1" />
+                        <Label Text="Code Version" Grid.Row="1" Grid.Column="0" />
+                        <Label Text="2" Grid.Row="1" Grid.Column="1" />
+                    </Grid>
 
                 </StackLayout>
             </StackLayout>
-    </StackLayout>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

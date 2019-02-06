@@ -25,8 +25,8 @@ namespace Crawl.Views
             // Give the Xaml layout you want to add the data to a good x:Name, so you can access it.  Here "DateRoot" is what I am using.
             var dateLabel = new Label
             {
-                Text = DateTime.Now.ToShortDateString(),
-                HorizontalOptions = LayoutOptions.Center,
+                Text = String.Format("{0:MMMM d, yyyy HH:mm}", DateTime.Now),
+            HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
                 FontFamily = "Helvetica Neue",
                 FontAttributes = FontAttributes.Bold,
@@ -73,7 +73,7 @@ namespace Crawl.Views
         private void UseMockDataSourceSwitch_OnToggled(object sender, ToggledEventArgs e)
         {
             // This will change out the DataStore to be the Mock Store if toggled on, or the SQL if off.
-            SetDataSource(e.Value);
+            SetDataSource(UseMockDataSource.IsToggled);
         }
 
         // Debug Switches
