@@ -36,7 +36,8 @@ namespace Crawl.Services
             ModifyDataStoreOnViewModels();
 
             // Load the Data
-            ForceDataRestoreAll();
+            RefreshViewModels();
+
         }
 
         private static void ModifyDataStoreOnViewModels()
@@ -45,6 +46,12 @@ namespace Crawl.Services
             CharactersViewModel.Instance.SetDataStore(_dataStoreEnum);
             // Implement Monster
             // Implement Score
+        }
+
+        private static void RefreshViewModels()
+        {
+            ItemsViewModel.Instance.SetNeedsRefresh(true);
+            CharactersViewModel.Instance.SetNeedsRefresh(true);
         }
 
         // Force all modes to load data...

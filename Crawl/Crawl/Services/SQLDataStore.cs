@@ -206,7 +206,7 @@ namespace Crawl.Services
         // Then then convert the list to characters to push up to the view model
         public async Task<IEnumerable<Character>> GetAllAsync_Character(bool forceRefresh = false)
         {
-            var baseCharactersList = App.Database.Table<Character>().ToListAsync().Result;
+            var baseCharactersList = App.Database.Table<BaseCharacter>().ToListAsync().Result;
             var list = new List<Character>();
             foreach (var baseCharacter in baseCharactersList)
             {
