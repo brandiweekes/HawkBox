@@ -69,6 +69,26 @@ namespace Crawl.Services
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
+            _characterDataset.Add(new BaseCharacter(new Character(
+                "Grass Hopper", "Multiple arms makes it hard to attack.", "http://gdurl.com/c2iZ",
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+
+            _characterDataset.Add(new BaseCharacter(new Character(
+                "Pumpkin Ghost", "Ariel attacks are deadly!!!", "http://gdurl.com/HSHv",
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+
+            _characterDataset.Add(new BaseCharacter(new Character(
+                "Mixed Horns", "Simple creature with most defense.", "http://gdurl.com/IGNK",
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+
+            _characterDataset.Add(new BaseCharacter(new Character(
+                "Guitar Ghost", "Attacks with sound of red guitar.", "http://gdurl.com/O6wJ",
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+
 
             // Implement Monsters
 
