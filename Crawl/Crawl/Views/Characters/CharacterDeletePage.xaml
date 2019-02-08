@@ -6,7 +6,6 @@
 
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" Clicked="Delete_Clicked" />
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
     </ContentPage.ToolbarItems>
 
@@ -17,7 +16,7 @@
             Spacing="20" 
             Padding="15" 
             VerticalOptions="Start">
-            
+
             <Label Text="Alien Delete Page" FontSize="Small" />
 
             <Image Source="{Binding Data.ImageURI}"
@@ -55,6 +54,16 @@
                        TextColor="{DynamicResource DarkBackgroundColor}"
                        BackgroundColor="{DynamicResource Primary}"/>
             </StackLayout>
-         </StackLayout>
+
+            <StackLayout
+                Orientation="Vertical"
+                HorizontalOptions="CenterAndExpand">
+
+                <Button Text="Confirm Delete"
+                        VerticalOptions="CenterAndExpand" 
+                        HorizontalOptions="CenterAndExpand" 
+                        Clicked="DeleteConfirmButton_Command"/>
+            </StackLayout>
+        </StackLayout>
     </ScrollView>
 </ContentPage>
