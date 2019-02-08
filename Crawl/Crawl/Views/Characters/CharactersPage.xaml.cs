@@ -44,7 +44,7 @@ namespace Crawl.Views
 
             if (ToolbarItems.Count > 0)
                 ToolbarItems.Clear();
-
+            
             InitializeComponent();
 
             if (_viewModel.Dataset.Count == 0 || _viewModel.NeedsRefresh())
