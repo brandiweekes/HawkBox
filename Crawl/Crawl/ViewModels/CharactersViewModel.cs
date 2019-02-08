@@ -129,11 +129,16 @@ namespace Crawl.ViewModels
             return await DataStore.AddAsync_Character(data);
         }
 
+        /// <summary>
+        /// Deletes a requested Character
+        /// Checks if exists in list then removes if found
+        /// </summary>
+        /// <param name="data">Character to be deleted</param>
+        /// <returns>true if success</returns>
         public async Task<bool> DeleteAsync(Character data)
         {
-            //var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
-            //Dataset.Remove(myData);
-            Dataset.Remove(data);
+            var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
+            Dataset.Remove(myData);
             var myReturn = await DataStore.DeleteAsync_Character(data);
             return myReturn;
         }

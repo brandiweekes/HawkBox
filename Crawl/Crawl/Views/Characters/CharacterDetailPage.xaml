@@ -21,24 +21,19 @@
                 <Label Grid.Row="0" Grid.ColumnSpan="3" 
                        Text="{Binding Data.Description, StringFormat='Description : {0}'}" LineBreakMode="WordWrap"></Label>
                 
-                <StackLayout Grid.Row="1" Grid.Column="0" 
+                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" 
                              HorizontalOptions="CenterAndExpand" 
                              VerticalOptions="CenterAndExpand">
                     <Label Text="Level" FontSize="Medium"></Label>
-                    <Label Text="{Binding Data.Level}"></Label>
+                    <Label Text="{Binding Data.Level}"
+                           HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
-                <StackLayout Grid.Row="1" Grid.Column="1" 
+                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" 
                              HorizontalOptions="CenterAndExpand" 
                              VerticalOptions="CenterAndExpand">
                     <Label Text="XP" FontSize="Medium"></Label>
-                    <Label Text="{Binding Data.ExperienceTotal}"></Label>
-                </StackLayout>
-                <StackLayout Grid.Row="1" Grid.Column="2" 
-                             HorizontalOptions="CenterAndExpand" 
-                             VerticalOptions="CenterAndExpand">
-                    <Label Text="Status" FontSize="Medium"></Label>
-                    <Label x:Name="CharacterStatus" 
-                           HorizontalOptions="CenterAndExpand"></Label>
+                    <Label Text="{Binding Data.ExperienceTotal}"
+                           HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
 
                 <StackLayout Grid.Row="2" Grid.ColumnSpan="3">

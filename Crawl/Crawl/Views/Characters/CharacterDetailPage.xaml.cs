@@ -20,7 +20,6 @@ namespace Crawl.Views
             InitializeComponent();
 
             BindingContext = _viewModel = viewModel;
-            SetCharacterStatus();
         }
 
         public CharacterDetailPage()
@@ -29,19 +28,13 @@ namespace Crawl.Views
 
             var data = new Character
             {
-                Name = "Item 1",
-                Description = "This is an item description.",
+                Name = "Character Name",
+                Description = "This is a Character description.",
                 Level = 1
             };
 
             _viewModel = new CharacterDetailViewModel(data);
             BindingContext = _viewModel;
-            SetCharacterStatus();
-        }
-
-        private void SetCharacterStatus()
-        {
-            CharacterStatus.Text = _viewModel.Data.Alive ? "Alive" : "Dead";
         }
 
         public async void EditCharacter(object sender, EventArgs e)
