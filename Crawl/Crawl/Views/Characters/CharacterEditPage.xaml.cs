@@ -25,7 +25,7 @@ namespace Crawl.Views
         {
             // Save off the item
             Data = viewModel.Data;
-            viewModel.Title = "Edit " + viewModel.Title;
+            viewModel.Title = "Edit" + viewModel.Title;
 
             oldXP = Data.ExperienceTotal;
             oldAttack = Data.Attribute.Attack;
@@ -42,9 +42,6 @@ namespace Crawl.Views
 
 	    public async void Save_Clicked(object sender, EventArgs e)
         {
-            //Data.Attribute.Attack = newAttack;
-            //Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
-
             MessagingCenter.Send(this, "EditCharacter", Data);
 
             // removing the old ItemDetails page, 2 up counting this page
@@ -57,7 +54,20 @@ namespace Crawl.Views
             Navigation.RemovePage(this);
         }
 
-	    private async void Cancel_Clicked(object sender, EventArgs e)
+        //correct stepper values when back button clicked
+        protected override void OnDisappearing()
+        {
+            Data.ExperienceTotal = oldXP;
+            Data.Attribute.Attack = oldAttack;
+            Data.Attribute.Defense = oldDefense;
+            Data.Attribute.Speed = oldSpeed;
+            Data.Attribute.MaxHealth = oldMaxHealth;
+            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
+
+            base.OnDisappearing();
+        }
+
+        private async void Cancel_Clicked(object sender, EventArgs e)
         {
             Data.ExperienceTotal = oldXP;
             Data.Attribute.Attack = oldAttack;
@@ -67,6 +77,19 @@ namespace Crawl.Views
             Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
 
             await Navigation.PopAsync();
+        }
+
+        //correct stepper values when back button clicked
+        protected override void OnDisappearing()
+        {
+            Data.ExperienceTotal = oldXP;
+            Data.Attribute.Attack = oldAttack;
+            Data.Attribute.Defense = oldDefense;
+            Data.Attribute.Speed = oldSpeed;
+            Data.Attribute.MaxHealth = oldMaxHealth;
+            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
+
+            base.OnDisappearing();
         }
 
         //Steppers
