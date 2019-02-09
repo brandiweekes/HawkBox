@@ -57,14 +57,14 @@ namespace Crawl.Views
         //correct stepper values when back button clicked
         protected override void OnDisappearing()
         {
+            base.OnDisappearing();
+
             Data.ExperienceTotal = oldXP;
             Data.Attribute.Attack = oldAttack;
             Data.Attribute.Defense = oldDefense;
             Data.Attribute.Speed = oldSpeed;
             Data.Attribute.MaxHealth = oldMaxHealth;
             Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
-
-            base.OnDisappearing();
         }
 
         private async void Cancel_Clicked(object sender, EventArgs e)
