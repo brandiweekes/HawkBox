@@ -65,6 +65,11 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
 
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{DynamicResource Primary}"/>
+                <Setter Property="TextColor" Value="{DynamicResource DarkBackgroundColor}" />
+            </Style>
+
 
         </ResourceDictionary>
     </Application.Resources>
