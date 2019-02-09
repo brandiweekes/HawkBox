@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Crawl.Views.CharacterNewPage"
-		     Title="Add New Item">
+		     Title="Add New Character">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Create" Clicked="Save_Clicked"/>
@@ -13,19 +13,19 @@
         <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
             <Label Text="Alien Create Page" FontSize="Small" />
 
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="StartAndExpand">
                 <Label Text="Name:" />
-                <Entry Text="{Binding Data.Name}" />
+                <Entry Text="{Binding Data.Name}"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="StartAndExpand">
                 <Label Text="Description:" />
-                <Entry Text="{Binding Data.Description}" />
+                <Entry Text="{Binding Data.Description}"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" >
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="StartAndExpand">
                 <Label Text="Image:" />
-                <Entry Text="{Binding Data.ImageURI}" />
+                <Entry Text="{Binding Data.ImageURI}"/>
             </StackLayout>
 
         </StackLayout>
