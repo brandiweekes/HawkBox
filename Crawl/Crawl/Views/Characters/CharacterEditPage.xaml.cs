@@ -79,19 +79,6 @@ namespace Crawl.Views
             await Navigation.PopAsync();
         }
 
-        //correct stepper values when back button clicked
-        protected override void OnDisappearing()
-        {
-            Data.ExperienceTotal = oldXP;
-            Data.Attribute.Attack = oldAttack;
-            Data.Attribute.Defense = oldDefense;
-            Data.Attribute.Speed = oldSpeed;
-            Data.Attribute.MaxHealth = oldMaxHealth;
-            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
-
-            base.OnDisappearing();
-        }
-
         //Steppers
         void OnAttackChanged(object sender, ValueChangedEventArgs e)
         {
