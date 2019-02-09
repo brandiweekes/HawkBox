@@ -67,42 +67,42 @@ namespace Crawl.Services
         {
             // Load Characters
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "3 Eyed", "Predicts future attacks with extra eye.", "http://gdurl.com/RxRK",
+                "3 Eyed", "Predicts future attacks with extra eye.", HawkboxResources.Aliens_Char_1,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "Sea Alien", "Small and quick to attack.", "http://gdurl.com/dgT5",
+                "Sea Alien", "Small and quick to attack.", HawkboxResources.Aliens_Char_2,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "Happy Alien", "Smiling can be dangerous!!", "http://gdurl.com/NvcO",
+                "Happy Alien", "Smiling can be dangerous!!", HawkboxResources.Aliens_Char_3,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "8 Arms", "Multiple arms makes it hard to attack.", "http://gdurl.com/fxM0",
+                "8 Arms", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_4,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "Grass Hopper", "Multiple arms makes it hard to attack.", "http://gdurl.com/c2iZ",
+                "Grass Hopper", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_5,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "Pumpkin Ghost", "Ariel attacks are deadly!!!", "http://gdurl.com/HSHv",
+                "Pumpkin Ghost", "Ariel attacks are deadly!!!", HawkboxResources.Aliens_Char_6,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "Mixed Horns", "Simple creature with most defense.", "http://gdurl.com/IGNK",
+                "Mixed Horns", "Simple creature with most defense.", HawkboxResources.Aliens_Char_7,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "Guitar Ghost", "Attacks with sound of red guitar.", "http://gdurl.com/O6wJ",
+                "Guitar Ghost", "Attacks with sound of red guitar.", HawkboxResources.Aliens_Char_8,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
