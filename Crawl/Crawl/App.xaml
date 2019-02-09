@@ -66,8 +66,9 @@
             </Style>
 
             <Style TargetType="Entry">
-                <Setter Property="BackgroundColor" Value="{DynamicResource Primary}"/>
-                <Setter Property="TextColor" Value="{DynamicResource DarkBackgroundColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource LightBackgroundColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource YellowTextColor}" />
+                <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
 
 
