@@ -44,7 +44,7 @@ namespace Crawl.Services
         {
             ItemsViewModel.Instance.SetDataStore(_dataStoreEnum);
             CharactersViewModel.Instance.SetDataStore(_dataStoreEnum);
-            // Implement Monster
+            MonstersViewModel.Instance.SetDataStore(_dataStoreEnum);
             // Implement Score
         }
 
@@ -52,6 +52,7 @@ namespace Crawl.Services
         {
             ItemsViewModel.Instance.SetNeedsRefresh(true);
             CharactersViewModel.Instance.SetNeedsRefresh(true);
+            MonstersViewModel.Instance.SetNeedsRefresh(true);
         }
 
         // Force all modes to load data...
@@ -59,7 +60,7 @@ namespace Crawl.Services
         {
             ItemsViewModel.Instance.ForceDataRefresh();
             CharactersViewModel.Instance.ForceDataRefresh();
-            // Implement Monster
+            MonstersViewModel.Instance.ForceDataRefresh();
             // Implement Score
         }
     }
