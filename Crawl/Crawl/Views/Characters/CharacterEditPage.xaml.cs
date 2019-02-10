@@ -13,11 +13,15 @@ namespace Crawl.Views
 	    // ReSharper disable once NotAccessedField.Local
 	    private CharacterDetailViewModel _viewModel;
 
+        //old stepper values in case of back or cancel button selected
         private int oldAttack;
         private int oldDefense;
         private int oldSpeed;
         private int oldMaxHealth;
         private int oldXP;
+
+        //revert title on back or cancel button select
+        private string oldTitle;
 
         public Character Data { get; set; }
 
@@ -25,23 +29,37 @@ namespace Crawl.Views
         {
             // Save off the item
             Data = viewModel.Data;
-            viewModel.Title = "Edit" + viewModel.Title;
 
+            //set title
+            oldTitle = viewModel.Title;
+            viewModel.Title = "Edit " + viewModel.Title;
+
+            //set old attribute values          
             oldXP = Data.ExperienceTotal;
             oldAttack = Data.Attribute.Attack;
             oldDefense = Data.Attribute.Defense;
             oldSpeed = Data.Attribute.Speed;
             oldMaxHealth = Data.Attribute.MaxHealth;
-
+            
             InitializeComponent();
             
-
             // Set the data binding for the page
             BindingContext = _viewModel = viewModel;
         }
 
 	    public async void Save_Clicked(object sender, EventArgs e)
         {
+            //set attribute values
+            Data.Attribute.Attack = Int32.Parse(AttackLabel.Text);
+            Data.Attribute.Defense = Int32.Parse(DefenseLabel.Text);
+            Data.Attribute.Speed = Int32.Parse(SpeedLabel.Text);
+            Data.Attribute.MaxHealth = Int32.Parse(MaxHealthLabel.Text);
+            Data.ExperienceTotal = Int32.Parse(XPLabel.Text);
+
+            //set attribute string
+            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
+
+            //send message
             MessagingCenter.Send(this, "EditCharacter", Data);
 
             // removing the old ItemDetails page, 2 up counting this page
@@ -53,64 +71,58 @@ namespace Crawl.Views
             // Last, remove this page
             Navigation.RemovePage(this);
         }
-
-        //correct stepper values when back button clicked
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-
-            Data.ExperienceTotal = oldXP;
-            Data.Attribute.Attack = oldAttack;
-            Data.Attribute.Defense = oldDefense;
-            Data.Attribute.Speed = oldSpeed;
-            Data.Attribute.MaxHealth = oldMaxHealth;
-            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
-        }
-
+       
+        //cancel button event handler
         private async void Cancel_Clicked(object sender, EventArgs e)
         {
+            //reset attribute values           
             Data.ExperienceTotal = oldXP;
             Data.Attribute.Attack = oldAttack;
             Data.Attribute.Defense = oldDefense;
             Data.Attribute.Speed = oldSpeed;
             Data.Attribute.MaxHealth = oldMaxHealth;
-            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
+            
+            //reset title
+            _viewModel.Title = oldTitle;
 
+            //pop page
             await Navigation.PopAsync();
         }
 
-        //Steppers
+        //Stepper handlers
+
+        //Attack stepper
         void OnAttackChanged(object sender, ValueChangedEventArgs e)
         {
-            Data.Attribute.Attack = (int)e.NewValue;
+            //set attack label
             AttackLabel.Text = String.Format("{0}", Data.Attribute.Attack);
-            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
         }
 
+        //defense stepper
         void OnDefenseChanged(object sender, ValueChangedEventArgs e)
         {
-            Data.Attribute.Defense = (int)e.NewValue;
+            //update defense label
             DefenseLabel.Text = String.Format("{0}", Data.Attribute.Defense);
-            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
         }
 
+        //speed stepper
         void OnSpeedChanged(object sender, ValueChangedEventArgs e)
         {
-            Data.Attribute.Speed = (int)e.NewValue;
+            //update speed label
             SpeedLabel.Text = String.Format("{0}", Data.Attribute.Speed);
-            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
         }
 
+        //maximum health stepper
         void OnMaxHealthChanged(object sender, ValueChangedEventArgs e)
         {
-            Data.Attribute.MaxHealth = (int)e.NewValue;
+            //update max health label
             MaxHealthLabel.Text = String.Format("{0}", Data.Attribute.MaxHealth);
-            Data.AttributeString = AttributeBase.GetAttributeString(Data.Attribute);
         }
 
+        //experience points stepper
         void OnXPChanged(object sender, ValueChangedEventArgs e)
         {
-            Data.ExperienceTotal = (int)e.NewValue;
+            //update XP label
             XPLabel.Text = String.Format("{0}", Data.ExperienceTotal);
         }
     }

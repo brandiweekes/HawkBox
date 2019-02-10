@@ -16,6 +16,7 @@ namespace Crawl.Views
         {
             InitializeComponent();
 
+            //character with default values
             Data = new Character
             {
                 Name = "Character Name",
@@ -36,17 +37,23 @@ namespace Crawl.Views
                 LeftFinger = "leftFinger"
             };
 
+            //set BindingContext
             BindingContext = this;
         }
 
+        //create new character event handler
         public async void Save_Clicked(object sender, EventArgs e)
         {
+            //send message
             MessagingCenter.Send(this, "AddCharacter", Data);
+            //pop page
             await Navigation.PopAsync();
         }
 
+        //cancel button event handler
         private async void Cancel_Clicked(object sender, EventArgs e)
         {
+            //pop page
             await Navigation.PopAsync();
         }
     }
