@@ -27,7 +27,7 @@ namespace Crawl.Services
 
         private List<Item> _itemDataset = new List<Item>();
         private List<BaseCharacter> _characterDataset = new List<BaseCharacter>();
-        private List<Monster> _monsterDataset = new List<Monster>();
+        private List<BaseMonster> _monsterDataset = new List<BaseMonster>();
         private List<Score> _scoreDataset = new List<Score>();
 
         private MockDataStore()
@@ -91,6 +91,37 @@ namespace Crawl.Services
 
 
             // Implement Monsters
+
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent A", "desc", HawkboxResources.Monsters_Female_Agent_A,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent B", "desc", HawkboxResources.Monsters_Female_Agent_B,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent C", "desc", HawkboxResources.Monsters_Female_Agent_C,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent D", "desc", HawkboxResources.Monsters_Female_Agent_D,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent E", "desc", HawkboxResources.Monsters_Female_Agent_E,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent F", "desc", HawkboxResources.Monsters_Male_Agent_A,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent G", "desc", HawkboxResources.Monsters_Male_Agent_B,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent H", "desc", HawkboxResources.Monsters_Male_Agent_C,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent I", "desc", HawkboxResources.Monsters_Male_Agent_D,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+            _monsterDataset.Add(new BaseMonster(new Monster("Agent J", "desc", HawkboxResources.Monsters_Male_Agent_E,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             // Implement Scores
         }
@@ -160,38 +191,40 @@ namespace Crawl.Services
         #endregion Item
 
         #region Character
-        // Character
+        // Add new character to dataset.
         public async Task<bool> AddAsync_Character(Character data)
         {
             _characterDataset.Add(new BaseCharacter(data));
 
             return await Task.FromResult(true);
         }
-
+        // Update character data in dataset.
         public async Task<bool> UpdateAsync_Character(Character data)
         {
+            // Check if given character exists in dataset
             var myData = _characterDataset.FirstOrDefault(arg => arg.Id == data.Id);
             if (myData == null)
                 return await Task.FromResult(false);
-
+            // Update character
             myData.Update(data);
 
             return await Task.FromResult(true);
         }
-
+        // Delete a character from dataset.
         public async Task<bool> DeleteAsync_Character(Character data)
         {
+            // Check if given character exists in dataset
             var myData = _characterDataset.FirstOrDefault(arg => arg.Id == data.Id);
             _characterDataset.Remove(myData);
 
             return await Task.FromResult(true);
         }
-
+        // Get character data from dataset based in given Id.
         public async Task<Character> GetAsync_Character(string id)
         {
             return await Task.FromResult(ConvertToCharacter(_characterDataset.FirstOrDefault(s => s.Id == id)));
         }
-
+        // Get all characters from dataset.
         public async Task<IEnumerable<Character>> GetAllAsync_Character(bool forceRefresh = false)
         {
             var list = new List<Character>();
@@ -201,7 +234,9 @@ namespace Crawl.Services
             }
             return await Task.FromResult(list);
         }
-
+        // Convert BaseCharacter to Character.
+        // we store Character data as BaseCharacter.cs in dataset
+        // we use Character data as Character.cs in system for displaying data in UI.
         private static Character ConvertToCharacter(BaseCharacter data)
         {
             return new Character(data);
@@ -210,35 +245,52 @@ namespace Crawl.Services
         #endregion Character
 
         #region Monster
-        //Monster
+        // Add new Monster to dataset
         public async Task<bool> AddAsync_Monster(Monster data)
         {
-            // Implement
-            return false;
+            _monsterDataset.Add(new BaseMonster(data));
+            return await Task.FromResult(true);
         }
-
+        // Update existing monster in dataset
         public async Task<bool> UpdateAsync_Monster(Monster data)
         {
-            // Implement
-            return false;
+            // Check if given monster exists in dataset
+            var myData = _monsterDataset.FirstOrDefault(args => args.Id == data.Id);
+            if (myData == null)
+                return await Task.FromResult(false);
+            myData.Update(data);
+            return await Task.FromResult(true);
         }
-
+        // Delete Monster in dataset
         public async Task<bool> DeleteAsync_Monster(Monster data)
         {
-            // Implement
-            return false;
-        }
+            // Check if given monster exists in dataset
+            var myData = _monsterDataset.FirstOrDefault(arg => arg.Id == data.Id);
+            _monsterDataset.Remove(myData);
 
+            return await Task.FromResult(true);
+        }
+        // Get Monster from dataset based on given Id
         public async Task<Monster> GetAsync_Monster(string id)
         {
-            // Implement
-            return null;
+            return await Task.FromResult(ConvertToMonster(_monsterDataset.FirstOrDefault(s => s.Id == id)));
         }
-
+        // Get all Monsters from dataset
         public async Task<IEnumerable<Monster>> GetAllAsync_Monster(bool forceRefresh = false)
         {
-            // Implement
-            return null;
+            var list = new List<Monster>();
+            foreach (var baseMonster in _monsterDataset)
+            {
+                list.Add(ConvertToMonster(baseMonster));
+            }
+            return await Task.FromResult(list);
+        }
+        // Convert BaseMonster to Monster.
+        // we store Monster data as BaseMonster.cs in dataset
+        // we use Monster data as Monster.cs in system for displaying data in UI.
+        private static Monster ConvertToMonster(BaseMonster data)
+        {
+            return new Monster(data);
         }
 
         #endregion Monster
