@@ -167,10 +167,44 @@ namespace Crawl.Models
             this.UniqueItem = itemId;
         }
 
+        // Update Image for Monster
+        public void UpdateMonsterImageURL(string imageUrl)
+        {
+            this.ImageURI = imageUrl;
+        }
+
+        // Update Attributes for Monster
+        public void UpdateMonsterAttributes(AttributeBase attributeBase)
+        {
+            this.Attribute = attributeBase;
+            this.AttributeString = AttributeBase.GetAttributeString(this.Attribute);
+        }
+
         // Upgrades a monster to a set level
         public void ScaleLevel(int level)
         {
+            // Level must be between 1-20
+            if (level < 1 || level > 20)
+                return;
+
+            // Dont update if it's same level
+            if (level == this.Level)
+                return;
+
+            this.Level = level;
+
+        }
+
+        // Take Damage
+        // If the damage recived, is > health, then death occurs
+        // Return the number of experience received for this attack 
+        // monsters give experience to characters.  Characters don't accept expereince from monsters
+        public void TakeDamage(int damage)
+        {
             // Implement
+            return;
+
+            // Implement   CauseDeath();
         }
 
         // Calculate How much experience to return
@@ -273,17 +307,5 @@ namespace Crawl.Models
         }
 
         #endregion Items
-
-        // Take Damage
-        // If the damage recived, is > health, then death occurs
-        // Return the number of experience received for this attack 
-        // monsters give experience to characters.  Characters don't accept expereince from monsters
-        public void TakeDamage(int damage)
-        {
-            // Implement
-            return;
-
-            // Implement   CauseDeath();
-        }
     }
 }
