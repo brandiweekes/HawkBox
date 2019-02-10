@@ -2,14 +2,36 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.MonstersPage"
-              Title="{Binding Title}"
-             x:Name="BrowseItemsPage">
+              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-
+        <ToolbarItem Text="Add" Clicked="AddMonster"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-
+        <StackLayout Padding="5, 0, 5, 0">
+            <Label Text="Agents List Page"/>
+            <ListView x:Name="MonstersListView"
+                          ItemsSource="{Binding Dataset}"
+                          VerticalOptions="FillAndExpand"
+                          HasUnevenRows="true"
+                          RefreshCommand="{Binding LoadMonstersCommand}"
+                          IsPullToRefreshEnabled="true"
+                          IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                          CachingStrategy="RecycleElement"
+                          ItemSelected="OnMonsterSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="10">
+                                <Image Source="{Binding ImageURI}" WidthRequest="50" HeightRequest="50"></Image>
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                    <Label Text="{Binding Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
