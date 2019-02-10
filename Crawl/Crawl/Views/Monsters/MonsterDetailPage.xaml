@@ -2,14 +2,84 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.MonsterDetailPage"
-             Title="{Binding Title}">
-
+             Title="{Binding Data.Name}">
 
     <ContentPage.ToolbarItems>
-
+        <ToolbarItem Text="Edit" Clicked="EditMonster"></ToolbarItem>
+        <ToolbarItem Text="Delete" Clicked="DeleteMonster"></ToolbarItem>
+        <ToolbarItem Text="Cancel" Clicked="CancelMonster"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <StackLayout Spacing="20" Padding="15">
+    <ScrollView Padding="0, 20, 0, 0">
+        <StackLayout Padding="5, 0, 5, 0">
+            <Label Text="Agent Details Page" FontSize="Small" VerticalOptions="Start"/>
+            <Image Source="{Binding Data.ImageURI}" WidthRequest="300" HeightRequest="300" HorizontalOptions="CenterAndExpand"></Image>
+            <Grid Padding="0, 10, 0, 0">
+                <Label Grid.Row="0" Grid.ColumnSpan="3" 
+                       Text="{Binding Data.Description, StringFormat='Description : {0}'}" LineBreakMode="WordWrap"></Label>
 
-    </StackLayout>
+                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="CenterAndExpand">
+                    <Label Text="Level" FontSize="Medium"></Label>
+                    <Label Text="{Binding Data.Level}"
+                           HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="CenterAndExpand">
+                    <Label Text="XP" FontSize="Medium"></Label>
+                    <Label Text="{Binding Data.ExperienceTotal}"
+                           HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="2" Grid.ColumnSpan="3">
+                    <Label Text="Attributes" FontSize="Medium" 
+                           BackgroundColor="{DynamicResource Primary}"
+                           TextColor="{DynamicResource DarkBackgroundColor}"
+                           FontAttributes="Bold"
+                           HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="CenterAndExpand">
+                    <Label Text="HP Current" FontSize="Medium"/>
+                    <Label Text="{Binding Data.Attribute.CurrentHealth}" 
+                           HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+                <StackLayout Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="CenterAndExpand">
+                    <Label Text="HP Max" FontSize="Medium"/>
+                    <Label Text="{Binding Data.Attribute.MaxHealth}" 
+                           HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="4" Grid.Column="0" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="CenterAndExpand">
+                    <Label Text="ATK" FontSize="Medium"/>
+                    <Label Text="{Binding Data.Attribute.Attack}" 
+                           HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+                <StackLayout Grid.Row="4" Grid.Column="1" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="CenterAndExpand">
+                    <Label Text="DEF" FontSize="Medium"/>
+                    <Label Text="{Binding Data.Attribute.Defense}" 
+                           HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="4" Grid.Column="2" 
+                             HorizontalOptions="CenterAndExpand" 
+                             VerticalOptions="CenterAndExpand">
+                    <Label Text="SPD" FontSize="Medium"/>
+                    <Label Text="{Binding Data.Attribute.Speed}" 
+                           HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
