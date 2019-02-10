@@ -28,31 +28,122 @@ namespace Crawl.Models
             // // Implement ScaleLevel(Level);
         }
 
+        public Monster(string name, string description, string imageUri,
+            int level, int xpTotal, bool alive,
+            int speed, int attack, int defense, int maxHealth, int currentHealth,
+            string head, string feet, string necklace, string primaryHand, string offhand, string rightFinger, string leftFinger)
+        {
+            Name = name;
+            Description = description;
+            ImageURI = imageUri;
+
+            Level = level;
+            ExperienceTotal = xpTotal;
+            Alive = alive;
+
+            // TODO: Not sure of formula. Needed some work here
+            ExperienceRemaining = ExperienceTotal - CalculateExperienceEarned(Damage);
+
+            Attribute = new AttributeBase(speed, attack, defense, maxHealth, currentHealth);
+            AttributeString = AttributeBase.GetAttributeString(this.Attribute);
+
+            Head = head;
+            Feet = feet;
+            Necklace = necklace;
+            PrimaryHand = primaryHand;
+            OffHand = offhand;
+            RightFinger = rightFinger;
+            LeftFinger = leftFinger;
+
+        }
+
         // Passed in from creating via the Database, so use the guid passed in...
         public Monster(BaseMonster newData)
         {
-            // Implement
+            // Base information
+            Name = newData.Name;
+            Description = newData.Description;
+            Level = newData.Level;
+            ExperienceTotal = newData.ExperienceTotal;
+            ImageURI = newData.ImageURI;
+            Alive = newData.Alive;
+            Damage = newData.Damage;
+            UniqueItem = newData.UniqueItem;
+
+            // TODO: Not sure of formula. Needed some work here
+            ExperienceRemaining = ExperienceTotal - CalculateExperienceEarned(Damage);
+
+            // Database information
+            Guid = newData.Guid;
+            Id = newData.Id;
+
+            // Populate the Attributes
+            AttributeString = newData.AttributeString;
+
+            Attribute = new AttributeBase(newData.AttributeString);
+
+            // Set the strings for the items
+            Head = newData.Head;
+            Feet = newData.Feet;
+            Necklace = newData.Necklace;
+            RightFinger = newData.RightFinger;
+            LeftFinger = newData.LeftFinger;
+            Feet = newData.Feet;
 
         }
 
         // For making a new one for lists etc..
         public Monster(Monster newData)
         {
-            // Implement
+            // Base information
+            Name = newData.Name;
+            Description = newData.Description;
+            Level = newData.Level;
+            ExperienceTotal = newData.ExperienceTotal;
+            ImageURI = newData.ImageURI;
+            Alive = newData.Alive;
+            Damage = newData.Damage;
+            UniqueItem = newData.UniqueItem;
+            ExperienceRemaining = newData.ExperienceRemaining;
 
-        }
+            // Populate the Attributes
+            AttributeString = newData.AttributeString;
+            Attribute = new AttributeBase(newData.AttributeString);
 
-        // Upgrades a monster to a set level
-        public void ScaleLevel(int level)
-        {
-            // Implement
+            // Set the strings for the items
+            Head = newData.Head;
+            Feet = newData.Feet;
+            Necklace = newData.Necklace;
+            RightFinger = newData.RightFinger;
+            LeftFinger = newData.LeftFinger;
+            Feet = newData.Feet;
         }
 
         // Update the values passed in
-        public new void Update(Monster newData)
+        public void Update(Monster newData)
         {
-            // Implement
+            // Base information
+            this.Name = newData.Name;
+            this.Description = newData.Description;
+            this.Level = newData.Level;
+            this.ExperienceTotal = newData.ExperienceTotal;
+            this.ImageURI = newData.ImageURI;
+            this.Alive = newData.Alive;
+            this.Damage = newData.Damage;
+            this.UniqueItem = newData.UniqueItem;
+            this.ExperienceRemaining = newData.ExperienceRemaining;
 
+            // Populate the Attributes
+            this.AttributeString = newData.AttributeString;
+            this.Attribute = new AttributeBase(newData.AttributeString);
+
+            // Set the strings for the items
+            this.Head = newData.Head;
+            this.Feet = newData.Feet;
+            this.Necklace = newData.Necklace;
+            this.RightFinger = newData.RightFinger;
+            this.LeftFinger = newData.LeftFinger;
+            this.Feet = newData.Feet;
             return;
         }
 
@@ -68,6 +159,18 @@ namespace Crawl.Models
             myReturn += " , Unique Item : " + UniqueOutput;
 
             return myReturn;
+        }
+
+        // Add or Replace Unique Item to Monster
+        public void AddOrReplaceUniqueItem(string itemId)
+        {
+            this.UniqueItem = itemId;
+        }
+
+        // Upgrades a monster to a set level
+        public void ScaleLevel(int level)
+        {
+            // Implement
         }
 
         // Calculate How much experience to return

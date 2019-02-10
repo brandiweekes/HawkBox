@@ -35,6 +35,7 @@ namespace Crawl.Models
         public static readonly string Defense_Icon = "http://gdurl.com/pdLB";
         public static readonly string Speed_Icon = "http://gdurl.com/z7FG";
         public static readonly string Health_Icon = "http://gdurl.com/bao7";
-
+        public static readonly string Checked_Checkbox_Icon = "http://gdurl.com/DccW";
+        public static readonly string Unchecked_Checkbox_Icon = "http://gdurl.com/CvzF";
     }
 }
