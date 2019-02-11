@@ -27,17 +27,17 @@ namespace Crawl.Views
             BindingContext = _viewModel = viewModel;
         }
 
-	    private async void Delete_Clicked(object sender, EventArgs e)
+        private async void DeleteConfirmButton_Command(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "DeleteData", Data);
+            MessagingCenter.Send(this, "DeleteMonster", Data);
 
-            // Remove Item Details Page manualy
+            // Remove Monster Details Page manualy
             Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
 
             await Navigation.PopAsync();
         }
 
-	    private async void Cancel_Clicked(object sender, EventArgs e)
+        private async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
