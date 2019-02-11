@@ -95,35 +95,35 @@ namespace Crawl.Views
         void OnAttackChanged(object sender, ValueChangedEventArgs e)
         {
             //set attack label
-            AttackLabel.Text = String.Format("{0}", Data.Attribute.Attack);
+            AttackLabel.Text = String.Format("{0}", (int)e.NewValue);
         }
 
         //defense stepper
         void OnDefenseChanged(object sender, ValueChangedEventArgs e)
         {
             //update defense label
-            DefenseLabel.Text = String.Format("{0}", Data.Attribute.Defense);
+            DefenseLabel.Text = String.Format("{0}", (int)e.NewValue);
         }
 
         //speed stepper
         void OnSpeedChanged(object sender, ValueChangedEventArgs e)
         {
             //update speed label
-            SpeedLabel.Text = String.Format("{0}", Data.Attribute.Speed);
+            SpeedLabel.Text = String.Format("{0}", (int)e.NewValue);
         }
 
         //maximum health stepper
         void OnMaxHealthChanged(object sender, ValueChangedEventArgs e)
         {
             //update max health label
-            MaxHealthLabel.Text = String.Format("{0}", Data.Attribute.MaxHealth);
+            MaxHealthLabel.Text = String.Format("{0}", (int)e.NewValue);
         }
 
         //experience points stepper
         void OnXPChanged(object sender, ValueChangedEventArgs e)
         {
             //update XP label
-            XPLabel.Text = String.Format("{0}", Data.ExperienceTotal);
+            XPLabel.Text = String.Format("{0}", (int)e.NewValue);
         }
     }
 }
