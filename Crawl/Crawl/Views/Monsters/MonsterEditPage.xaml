@@ -2,16 +2,122 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.MonsterEditPage"		     
+             NavigationPage.HasBackButton="False"
              Title="{Binding Title}">
     
     <ContentPage.ToolbarItems>
-
+        <ToolbarItem Text="Save" Clicked="Save_Clicked"/>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15">
+                <Label Text="Agent Edit Page" FontSize="Small" />
 
-        </StackLayout>
+                <StackLayout>
+                    <Label Text="Name:" />
+                    <Entry Text="{Binding Data.Name}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Description:" />
+                    <Entry Text="{Binding Data.Description}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Image:" />
+                    <Entry Text="{Binding Data.ImageURI}"/>
+                </StackLayout>
+
+                <Grid Padding="0,10,0,0">
+                    <StackLayout Grid.Row="0" Grid.Column="0" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Level" FontSize="Medium"></Label>
+                        <Label x:Name="LevelLabel"
+                               Text="{Binding Data.Level}"></Label>
+                        <Stepper Maximum="21" 
+                                     Minimum="1" 
+                                     Increment="1" 
+                                     HorizontalOptions="Center" 
+                                     ValueChanged="OnLevelChanged" 
+                                     Value="{Binding Data.Level}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="0" Grid.Column="1" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="XP" FontSize="Medium"></Label>
+                        <Label x:Name="XPLabel"
+                               Text="{Binding Data.ExperienceTotal}"></Label>
+                        <Stepper Maximum="1000000" 
+                                     Minimum="0" 
+                                     Increment="1" 
+                                     HorizontalOptions="Center" 
+                                     ValueChanged="OnXPChanged" 
+                                     Value="{Binding Data.ExperienceTotal}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.Column="0" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Attack" FontSize="Medium"></Label>
+                        <Label x:Name="AttackLabel"
+                               Text="{Binding Data.Attribute.Attack}"></Label>
+                        <Stepper Maximum="20" 
+                                     Minimum="1" 
+                                     Increment="1" 
+                                     HorizontalOptions="Center" 
+                                     ValueChanged="OnAttackChanged" 
+                                     Value="{Binding Data.Attribute.Attack}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.Column="1" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Defense" FontSize="Medium"></Label>
+                        <Label x:Name="DefenseLabel"
+                               Text="{Binding Data.Attribute.Defense}"></Label>
+                        <Stepper Maximum="20" 
+                                     Minimum="1" 
+                                     Increment="1" 
+                                     HorizontalOptions="Center" 
+                                     ValueChanged="OnDefenseChanged" 
+                                     Value="{Binding Data.Attribute.Defense}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="2" Grid.Column="0" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Speed" FontSize="Medium"></Label>
+                        <Label x:Name="SpeedLabel"
+                               Text="{Binding Data.Attribute.Speed}"></Label>
+                        <Stepper Maximum="20" 
+                                     Minimum="1" 
+                                     Increment="1" 
+                                     HorizontalOptions="Center" 
+                                     ValueChanged="OnSpeedChanged" 
+                                     Value="{Binding Data.Attribute.Speed}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="2" Grid.Column="1" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Max Health" FontSize="Medium"></Label>
+                        <Label x:Name="MaxHealthLabel"
+                               Text="{Binding Data.Attribute.MaxHealth}"></Label>
+                        <Stepper Maximum="200" 
+                                     Minimum="{Binding Data.Attribute.CurrentHealth}" 
+                                     Increment="1" 
+                                     HorizontalOptions="Center" 
+                                     ValueChanged="OnMaxHealthChanged" 
+                                     Value="{Binding Data.Attribute.MaxHealth}" />
+                    </StackLayout>
+                </Grid>
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
     
 </ContentPage>
