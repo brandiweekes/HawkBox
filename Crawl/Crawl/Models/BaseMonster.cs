@@ -76,7 +76,8 @@ namespace Crawl.Models
             UniqueItem = newData.UniqueItem;
 
             // Calculate Experience Remaining based on Lookup...
-            ExperienceTotal = LevelTable.Instance.LevelDetailsList[Level].Experience;
+            //added part in parentheses so we can have more flexibility in assigning xp to monsters
+            ExperienceTotal = LevelTable.Instance.LevelDetailsList[Level].Experience + (newData.ExperienceTotal - LevelTable.Instance.LevelDetailsList[Level].Experience);
 
             Damage = newData.Damage;
         }
