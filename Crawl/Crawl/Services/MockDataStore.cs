@@ -198,6 +198,7 @@ namespace Crawl.Services
 
             return await Task.FromResult(true);
         }
+
         // Update character data in dataset.
         public async Task<bool> UpdateAsync_Character(Character data)
         {
@@ -210,6 +211,7 @@ namespace Crawl.Services
 
             return await Task.FromResult(true);
         }
+
         // Delete a character from dataset.
         public async Task<bool> DeleteAsync_Character(Character data)
         {
@@ -219,11 +221,13 @@ namespace Crawl.Services
 
             return await Task.FromResult(true);
         }
+
         // Get character data from dataset based in given Id.
         public async Task<Character> GetAsync_Character(string id)
         {
             return await Task.FromResult(ConvertToCharacter(_characterDataset.FirstOrDefault(s => s.Id == id)));
         }
+
         // Get all characters from dataset.
         public async Task<IEnumerable<Character>> GetAllAsync_Character(bool forceRefresh = false)
         {
@@ -234,6 +238,7 @@ namespace Crawl.Services
             }
             return await Task.FromResult(list);
         }
+
         // Convert BaseCharacter to Character.
         // we store Character data as BaseCharacter.cs in dataset
         // we use Character data as Character.cs in system for displaying data in UI.
@@ -251,6 +256,7 @@ namespace Crawl.Services
             _monsterDataset.Add(new BaseMonster(data));
             return await Task.FromResult(true);
         }
+
         // Update existing monster in dataset
         public async Task<bool> UpdateAsync_Monster(Monster data)
         {
@@ -261,6 +267,7 @@ namespace Crawl.Services
             myData.Update(data);
             return await Task.FromResult(true);
         }
+
         // Delete Monster in dataset
         public async Task<bool> DeleteAsync_Monster(Monster data)
         {
@@ -270,11 +277,13 @@ namespace Crawl.Services
 
             return await Task.FromResult(true);
         }
+
         // Get Monster from dataset based on given Id
         public async Task<Monster> GetAsync_Monster(string id)
         {
             return await Task.FromResult(ConvertToMonster(_monsterDataset.FirstOrDefault(s => s.Id == id)));
         }
+
         // Get all Monsters from dataset
         public async Task<IEnumerable<Monster>> GetAllAsync_Monster(bool forceRefresh = false)
         {
@@ -285,6 +294,7 @@ namespace Crawl.Services
             }
             return await Task.FromResult(list);
         }
+
         // Convert BaseMonster to Monster.
         // we store Monster data as BaseMonster.cs in dataset
         // we use Monster data as Monster.cs in system for displaying data in UI.

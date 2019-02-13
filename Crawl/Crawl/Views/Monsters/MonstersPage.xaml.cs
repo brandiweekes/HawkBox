@@ -21,11 +21,23 @@ namespace Crawl.Views
             _viewModel.Title = "Agents Page";
         }
 
+        /// <summary>
+        /// toolbar item
+        /// user selects this and navigates to New Monster Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddMonster(object sender, EventArgs e)
         {
             Navigation.PushAsync(new MonsterNewPage());
         }
 
+        /// <summary>
+        /// command for selecting a monster and navigating 
+        /// to that monster's detail page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private async void OnMonsterSelected(object sender, SelectedItemChangedEventArgs args)
         {
             if (!(args.SelectedItem is Monster monster))
@@ -37,17 +49,23 @@ namespace Crawl.Views
             MonstersListView.SelectedItem = null;
         }
 
+        /// <summary>
+        /// sets the index page with appropriate toolbar and monsters 
+        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
             BindingContext = null;
 
+            //reset toolbar for index page
             if (ToolbarItems.Count > 0)
                 ToolbarItems.Clear();
 
+            //sets global binding
             InitializeComponent();
 
+            // load or reload monsters on page
             if (_viewModel.Dataset.Count == 0 || _viewModel.NeedsRefresh())
                 _viewModel.LoadMonstersCommand.Execute(null);
 

@@ -125,6 +125,12 @@ namespace Crawl.ViewModels
             return await DataStore.AddAsync_Monster(data);
         }
 
+        /// <summary>
+        /// check if monster exists in DataStore
+        /// if true, delete the monster
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(Monster data)
         {
             var myData = Dataset.FirstOrDefault(s => s.Id == data.Id);
