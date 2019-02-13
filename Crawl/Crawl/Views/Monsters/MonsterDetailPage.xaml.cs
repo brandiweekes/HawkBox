@@ -27,7 +27,7 @@ namespace Crawl.Views
             var data = new Monster
             {
                 Name = "Agent Name",
-                Description = "This is an item description.",
+                Description = "This is an agent description.",
                 Level = 1
             };
 

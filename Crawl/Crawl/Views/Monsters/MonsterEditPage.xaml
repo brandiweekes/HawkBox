@@ -12,7 +12,7 @@
 
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="20" Padding="15">
+            <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
                 <Label Text="Agent Edit Page" FontSize="Small" />
 
                 <StackLayout>
