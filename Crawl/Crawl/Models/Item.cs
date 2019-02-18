@@ -48,13 +48,13 @@ namespace Crawl.Models
             ImageURI = ItemsController.DefaultImageURI;
 
             Range = 0;
-            Value = 0;
-            Damage = 0;
+            Value = 1;
+            Damage = 1;
 
             Location = ItemLocationEnum.Unknown;
             Attribute = AttributeEnum.Unknown;
 
-            ImageURI = null;
+            //ImageURI = null;
         }
 
         // Helper to combine the attributes into a single line, to make it easier to display the item as a string

@@ -17,8 +17,8 @@ namespace Crawl.Views
             InitializeComponent();
 
             //default monster
-            Data = new Monster
-            {
+            Data = new Monster();
+            /*{
                 Name = "Monster name",
                 Description = "This is a Monster description.",
                 ImageURI = HawkboxResources.Monsters_Male_Agent_A,
@@ -35,7 +35,7 @@ namespace Crawl.Views
                 OffHand = "offhand",
                 RightFinger = "rightFinger",
                 LeftFinger = "leftFinger"
-        };
+        };*/
             //set binding context
             BindingContext = this;
         }

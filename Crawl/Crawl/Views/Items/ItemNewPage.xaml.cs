@@ -17,16 +17,9 @@ namespace Crawl.Views
         {
             InitializeComponent();
 
-            Data = new Item
-            {
-                Name = "Item name",
-                Description = "This is an item description.",
-                Id = Guid.NewGuid().ToString(),
-                Range=0,
-                Value=1,
-                ImageURI = ItemsController.DefaultImageURI
-        };
-
+            //default item
+            Data = new Item();
+        
             BindingContext = this;
             //Need to make the SelectedItem a string, so it can select the correct item.
             LocationPicker.SelectedItem = Data.Location.ToString();
@@ -37,38 +30,25 @@ namespace Crawl.Views
         // Send the add message to so it gets added...
         private async void Save_Clicked(object sender, EventArgs e)
         {
+            //set value
+            Data.Value = Int32.Parse(ValueLabel.Text);
+
             // If the image in teh data box is empty, use the default one..
             if (string.IsNullOrEmpty(Data.ImageURI))
             {
                 Data.ImageURI = ItemsController.DefaultImageURI;
             }
-
+            //send message
             MessagingCenter.Send(this, "AddData", Data);
+            //pop page
             await Navigation.PopAsync();
         }
 
         // Cancel and go back a page in the navigation stack
         private async void Cancel_Clicked(object sender, EventArgs e)
         {
+            //pop page
             await Navigation.PopAsync();
-        }
-
-        // The stepper function for Range
-        void Range_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            RangeValue.Text = String.Format("{0}", e.NewValue);
-        }
-
-        // The stepper function for Value
-        void Value_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            ValueValue.Text = String.Format("{0}", e.NewValue);
-        }
-
-        // The stepper function for Damage
-        void Damage_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            DamageValue.Text = String.Format("{0}", e.NewValue);
         }
 
     }

@@ -17,26 +17,8 @@ namespace Crawl.Views
             InitializeComponent();
 
             //character with default values
-            Data = new Character
-            {
-                Name = "Character Name",
-                Description = "This is a Character description.",
-                ImageURI = "http://gdurl.com/RxRK",
-                Level =1,
-                Id = Guid.NewGuid().ToString(),
-
-                Attribute = new AttributeBase(1, 1, 1, 10 ,10),
-                AttributeString = AttributeBase.GetAttributeString(new AttributeBase(1,1,1,10,10)),
-
-                Head = "head",
-                Feet = "feet",
-                Necklace = "necklace",
-                PrimaryHand = "primaryHand",
-                OffHand = "offhand",
-                RightFinger = "rightFinger",
-                LeftFinger = "leftFinger"
-            };
-
+            Data = new Character();
+        
             //set BindingContext
             BindingContext = this;
         }

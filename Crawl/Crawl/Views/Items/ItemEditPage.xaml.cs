@@ -13,6 +13,10 @@ namespace Crawl.Views
 	    // ReSharper disable once NotAccessedField.Local
 	    private ItemDetailViewModel _viewModel;
 
+        //in case cancel button hit
+        private string oldTitle;
+        private ItemLocationEnum oldLocation;
+        private AttributeEnum oldAttribute;
         // The data returned from the edit.
         public Item Data { get; set; }
 
@@ -22,7 +26,11 @@ namespace Crawl.Views
         {
             // Save off the item
             Data = viewModel.Data;
-
+            //save title, location, attribute
+            oldLocation = Data.Location;
+            oldAttribute = Data.Attribute;
+            oldTitle = viewModel.Title;
+            //set title
             viewModel.Title = "Edit " + viewModel.Title;
 
             InitializeComponent();
@@ -39,12 +47,16 @@ namespace Crawl.Views
         // Save on the Tool bar
         private async void Save_Clicked(object sender, EventArgs e)
         {
+            //set value 
+            Data.Value = Int32.Parse(ValueLabel.Text);
+
             // If the image in teh data box is empty, use the default one..
             if (string.IsNullOrEmpty(Data.ImageURI))
             {
                 Data.ImageURI = ItemsController.DefaultImageURI;
             }
 
+            //send message
             MessagingCenter.Send(this, "EditData", Data);
 
             // removing the old ItemDetails page, 2 up counting this page
@@ -60,25 +72,15 @@ namespace Crawl.Views
         // Cancel and go back a page in the navigation stack
         private async void Cancel_Clicked(object sender, EventArgs e)
         {
+            //reset until I figure out another way
+            Data.Attribute = oldAttribute;
+            Data.Location = oldLocation;
+
+            //reset title
+            _viewModel.Title = oldTitle;
+            //pop page
             await Navigation.PopAsync();
         }
-
-        // The stepper function for Range
-        void Range_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            RangeValue.Text = String.Format("{0}", e.NewValue);
-        }
-
-        // The stepper function for Value
-        void Value_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            ValueValue.Text = String.Format("{0}", e.NewValue);
-        }
-
-        // The stepper function for Damage
-        void Damage_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            DamageValue.Text = String.Format("{0}", e.NewValue);
-        }
+    
     }
 }

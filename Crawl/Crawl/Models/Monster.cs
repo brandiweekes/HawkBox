@@ -18,11 +18,22 @@ namespace Crawl.Models
         // Make sure Attribute is instantiated in the constructor
         public Monster()
         {
-            Name = "Monster";
-            Attribute = new AttributeBase();
-
-            Alive = true;
+            Name = "Monster name";
+            Description = "This is a Monster description.";
+            ImageURI = HawkboxResources.Monsters_Male_Agent_A;
+            //Id = Guid.NewGuid().ToString();
             Level = 1;
+            ExperienceTotal = 100;
+            Alive = true;
+            Attribute = new AttributeBase(1, 1, 1, 10, 10);
+            AttributeString = AttributeBase.GetAttributeString(new AttributeBase(1, 1, 1, 10, 10));
+            Head = "head";
+            Feet = "feet";
+            Necklace = "necklace";
+            PrimaryHand = "primaryHand";
+            OffHand = "offhand";
+            RightFinger = "rightFinger";
+            LeftFinger = "leftFinger";
 
             // Scale up to the level
             // // Implement ScaleLevel(Level);
