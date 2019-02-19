@@ -167,6 +167,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\item.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checkbox_checked_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checkbox_unchecked_icon.png" />
+  </ItemGroup>
   <Import Project="..\Crawl\Crawl.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

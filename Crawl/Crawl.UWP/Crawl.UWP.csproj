@@ -105,6 +105,8 @@
     <None Include="Crawl.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="checkbox_checked_icon.png" />
+    <Content Include="checkbox_unchecked_icon.png" />
     <Content Include="d20.png" />
     <Content Include="item.png" />
     <Content Include="Properties\Default.rd.xml" />

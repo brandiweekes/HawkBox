@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Crawl.Views.Battle.PickCharactersPage">
+    <StackLayout Padding="5, 20, 5, 0">
+        <StackLayout Padding="0, 0, 0, 5" Spacing="15">
+            <Label Text="Pick Characters" HorizontalOptions="Center" FontSize="Medium" FontAttributes="Bold"></Label>
+            <Label Text="Select at least 1 or upto 6" HorizontalOptions="Center" FontSize="Small"></Label>
+        </StackLayout>
+        <ListView x:Name="CharactersListView"
+                      ItemsSource="{Binding DataSet, Mode=TwoWay}"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="true"
+                      RefreshCommand="{Binding LoadCommand}"
+                      ItemTapped="OnCharacterTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Image Source="{Binding Image}" HeightRequest="20" WidthRequest="20"></Image>
+                            <Image Source="{Binding Data.ImageURI}" WidthRequest="50" HeightRequest="50" Margin="10, 0, 0, 0"></Image>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Data.Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                <Label Text="{Binding Data.Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
+                                <Label Text="{Binding Data.Age, StringFormat='Age : {0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="PickCharacters_NextButton" Text="Next" Clicked="NextClicked" IsEnabled="False"></Button>
+    </StackLayout>
+</ContentPage>
