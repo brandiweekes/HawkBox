@@ -187,8 +187,8 @@ namespace Crawl.Services
         public async Task<bool> InsertUpdateAsync_Item(Item data)
         {
             // Implement
-            var oldData = App.Database.GetAsync<Item>(data.Id).Result;
-            if (oldData == null)
+            var _count = App.Database.Table<Item>().Where(i => i.Id == data.Id).CountAsync().Result;
+            if(_count == 0)
             {
                 return await AddAsync_Item(data);
             }
