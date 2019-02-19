@@ -50,6 +50,7 @@ namespace Crawl.Services
         {
             App.Database.DropTableAsync<BaseCharacter>().Wait();
             App.Database.DropTableAsync<BaseMonster>().Wait();
+            App.Database.DropTableAsync<Item>().Wait();
         }
 
         // Create the Database Tables
@@ -57,6 +58,7 @@ namespace Crawl.Services
         {
             App.Database.CreateTableAsync<BaseCharacter>().Wait();
             App.Database.CreateTableAsync<BaseMonster>().Wait();
+            App.Database.CreateTableAsync<Item>().Wait();
         }
 
         // Tells the View Models to update themselves.
@@ -64,6 +66,7 @@ namespace Crawl.Services
         {
             CharactersViewModel.Instance.SetNeedsRefresh(true);
             MonstersViewModel.Instance.SetNeedsRefresh(true);
+            ItemsViewModel.Instance.SetNeedsRefresh(true);
         }
 
         private void InitializeSeedData()
@@ -151,6 +154,16 @@ namespace Crawl.Services
                 1, 10, true, 10, 10, 10, 10, 10,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
+            // Load Items
+            App.Database.InsertAsync(new Item("Gold Sword", "Sword made of Gold, really expensive looking",
+                "http://www.clker.com/cliparts/e/L/A/m/I/c/sword-md.png", 0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Defense));
+
+            App.Database.InsertAsync(new Item("Strong Shield", "Enough to hide behind",
+                "http://www.clipartbest.com/cliparts/4T9/LaR/4T9LaReTE.png", 0, 10, 0, ItemLocationEnum.OffHand, AttributeEnum.Attack));
+
+            App.Database.InsertAsync(new Item("Bunny Hat", "Pink hat with fluffy ears",
+                "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png", 0, 10, -1, ItemLocationEnum.Head, AttributeEnum.Speed));
+
         }
 
         #region Item
@@ -174,41 +187,55 @@ namespace Crawl.Services
         public async Task<bool> InsertUpdateAsync_Item(Item data)
         {
             // Implement
+            var oldData = App.Database.GetAsync<Item>(data.Id).Result;
+            if (oldData == null)
+            {
+                return await AddAsync_Item(data);
+            }
+            else
+            {
+                return await UpdateAsync_Item(data);
+            }
 
-            return false;
         }
 
+        // Add new Item into database
         public async Task<bool> AddAsync_Item(Item data)
         {
-            // Implement
-
-            return false;
+            var result = await App.Database.InsertAsync(data);
+            if (result == 1)
+                return await Task.FromResult(true);
+            return await Task.FromResult(false);
         }
 
+        // Update Item details
         public async Task<bool> UpdateAsync_Item(Item data)
         {
-            // Implement
-
-            return false;
+            var result = await App.Database.UpdateAsync(data);
+            if (result == 1)
+                return await Task.FromResult(true);
+            return await Task.FromResult(false);
         }
 
+        // Delete Item from database based on given Id
         public async Task<bool> DeleteAsync_Item(Item data)
         {
-            // Implement
-
-            return false;
+            var result = await App.Database.DeleteAsync(data);
+            if (result == 1)
+                return await Task.FromResult(true);
+            return await Task.FromResult(false);
         }
 
+        // Load an Item based on given Id from database
         public async Task<Item> GetAsync_Item(string id)
         {
-            // Implement
-            return null;
+            return await Task.FromResult(App.Database.GetAsync<Item>(id).Result);
         }
 
+        // Load all Items from database
         public async Task<IEnumerable<Item>> GetAllAsync_Item(bool forceRefresh = false)
         {
-            // Implement
-            return null;
+            return await Task.FromResult(App.Database.Table<Item>().ToListAsync().Result);
         }
         #endregion Item
 
