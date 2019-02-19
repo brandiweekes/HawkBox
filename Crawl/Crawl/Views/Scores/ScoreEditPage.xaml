@@ -1,14 +1,118 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Crawl.Views.ScoreEditPage"		     
+             x:Class="Crawl.Views.ScoreEditPage"	
+             NavigationPage.HasBackButton="False"
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Clicked="Save_Clicked"/>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
+                <Label Text="Score Edit Page" FontSize="Small" />
 
+                <StackLayout>
+                    <Label Text="Name:" />
+                    <Entry Text="{Binding Data.Name}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Description:" />
+                    <Entry Text="{Binding Data.Description}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="AutoBattle" />
+                    <Picker x:Name="AutoBattlePicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>true</x:String>
+                                <x:String>false</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+
+                <Grid Padding="0,10,0,0">
+                    <StackLayout Grid.Row="0" Grid.Column="0" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Score Total:" FontSize="Medium"></Label>
+                        <Label x:Name="ScoreLabel"
+                               Text="{Binding Source={x:Reference ScoreStepper}, Path=Value}"></Label>
+                        <Stepper x:Name="ScoreStepper"
+                                 Maximum="60000" 
+                                 Minimum="0" 
+                                 Increment="1" 
+                                 HorizontalOptions="Center" 
+                                 Value="{Binding Data.ScoreTotal, Mode=OneTime}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="0" Grid.Column="1" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Total XP Gained:" FontSize="Medium"></Label>
+                        <Label x:Name="XPLabel"
+                               Text="{Binding Source={x:Reference XPStepper}, Path=Value}"></Label>
+                        <Stepper x:Name="XPStepper"
+                                 Maximum="1000000" 
+                                 Minimum="0" 
+                                 Increment="1" 
+                                 HorizontalOptions="Center" 
+                                 Value="{Binding Data.ExperienceGainedTotal, Mode=OneTime}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.Column="0" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Turns:" FontSize="Medium"></Label>
+                        <Label x:Name="TurnLabel"
+                               Text="{Binding Source={x:Reference TurnStepper}, Path=Value}"></Label>
+                        <Stepper x:Name="TurnStepper"
+                                 Maximum="1000" 
+                                 Minimum="0" 
+                                 Increment="1" 
+                                 HorizontalOptions="Center" 
+                                 Value="{Binding Data.TurnCount, Mode=OneTime}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.Column="1" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Rounds:" FontSize="Medium"></Label>
+                        <Label x:Name="RoundLabel"
+                               Text="{Binding Source={x:Reference RoundStepper}, Path=Value}"></Label>
+                        <Stepper x:Name="RoundStepper"
+                                 Maximum="1000" 
+                                 Minimum="0" 
+                                 Increment="1" 
+                                 HorizontalOptions="Center" 
+                                 Value="{Binding Data.RoundCount, Mode=OneTime}" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="2" Grid.Column="0" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     VerticalOptions="CenterAndExpand">
+                        <Label Text="Monsters Slain:" FontSize="Medium"></Label>
+                        <Label x:Name="MonsterLabel"
+                               Text="{Binding Source={x:Reference MonsterStepper}, Path=Value}"></Label>
+                        <Stepper x:Name="MonsterStepper"
+                                 Maximum="1000" 
+                                 Minimum="0" 
+                                 Increment="1" 
+                                 HorizontalOptions="Center" 
+                                 Value="{Binding Data.MonsterSlainNumber, Mode=OneTime}" />
+                    </StackLayout>
+
+                    
+                </Grid>
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 
 </ContentPage>

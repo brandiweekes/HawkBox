@@ -2,13 +2,42 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Crawl.Views.ScoreNewPage"
+             NavigationPage.HasBackButton="False"
 		     Title="Add New Item">
     
     <ContentPage.ToolbarItems>
-
+        <ToolbarItem Text="Create" Clicked="Create_Clicked"/>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
+                <Label Text="Score Create Page" FontSize="Small" />
+
+                <StackLayout>
+                    <Label Text="Name:" />
+                    <Entry Text="{Binding Data.Name}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Description:" />
+                    <Entry Text="{Binding Data.Description}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="AutoBattle" />
+                    <Picker x:Name="AutoBattlePicker">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>true</x:String>
+                                <x:String>false</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+                
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

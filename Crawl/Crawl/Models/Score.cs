@@ -59,6 +59,16 @@ namespace Crawl.Models
         public Score()
         {
             // Implement
+            Name = "Score Name";
+            Description = "Score Desc";
+
+            ScoreTotal = 0;
+            TurnCount = 0;
+            RoundCount = 0;
+            MonsterSlainNumber = 0;
+            ExperienceGainedTotal = 0;
+            AutoBattle = true;
+
             GameDate = DateTime.Now;
             CharacterAtDeathList = new List<Character>();
             MonstersKilledList = new List<Monster>();

@@ -15,25 +15,29 @@ namespace Crawl.Views
         public ScoreNewPage()
         {
             InitializeComponent();
-
-            Data = new Score
-            {
-                Name = "Score name",
-                ScoreTotal = 0,
-                Id = Guid.NewGuid().ToString()
-            };
-
+            //new default score
+            Data = new Score();
+            //default autobattle to true
+            AutoBattlePicker.SelectedItem = "true";
+            //set binding context
             BindingContext = this;
         }
 
-        private async void Save_Clicked(object sender, EventArgs e)
+        //create score event handler
+        private async void Create_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "AddData", Data);
+            //set autobattle with value from picker
+            Data.AutoBattle = Boolean.Parse(AutoBattlePicker.SelectedItem.ToString());
+            //send message
+            MessagingCenter.Send(this, "AddScore", Data);
+            //pop page
             await Navigation.PopAsync();
         }
 
+        //cancel event handler
         private async void Cancel_Clicked(object sender, EventArgs e)
         {
+            //pop page
             await Navigation.PopAsync();
         }
     }
