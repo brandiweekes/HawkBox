@@ -112,15 +112,14 @@ namespace Crawl.Views
             var answer = await DisplayAlert("Get", "Sure you want to Get Items from the Server?", "Yes", "No");
             if (answer)
             {
-                // Call to the Item Service and have it Get the Items
-                
+                // Call to the Item Service and have it Get the Items. Update them to datastore.
+                ItemsController.Instance.GetItemsFromServer(10);
             }
+            await DisplayAlert("Refresh completed", null, "Ok", "Cancel");
         }
 
         private async void GetItemsPost_Command(object sender, EventArgs e)
         {
-            //ItemsController.Instance.GetItemsFromGame(int number, int level, AttributeEnum attribute, ItemLocationEnum location, bool random, bool updateDataBase)
-
             var number = 10;    // 10 items
             var level = 6;  // Max Value of 6
             var attribute = AttributeEnum.Unknown;  // Any Attribute
@@ -128,25 +127,9 @@ namespace Crawl.Views
             var random = true;  // Random between 1 and Level
             var updateDataBase = true;  // Add them to the DB
 
-            // GetItemsFromGame(1,10,Speed,Feet,false,true) will return shoes value 10 of speed.
+            await ItemsController.Instance.GetItemsFromGame(number, level, attribute, location, random, updateDataBase);
 
-            var myDataList = new List<Item>();
-
-            var myOutput = "No Results";
-
-            if (myDataList != null && myDataList.Count > 0)
-            {
-                // Reset the output
-                myOutput = "";
-
-                foreach (var item in myDataList)
-                {
-                    // Add them line by one, use \n to force new line for output display.
-                    myOutput += item.FormatOutput() + "\n";
-                }
-            }
-
-            var answer = await DisplayAlert("Returned List", myOutput, "Yes", "No");
+            await DisplayAlert("Refresh completed", null, "Ok", "Cancel");
         }
 
     }
