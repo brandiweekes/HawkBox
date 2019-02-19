@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SQLite;
+using System;
+using System.Collections.Generic;
 
 namespace Crawl.Models
 {
@@ -30,22 +33,36 @@ namespace Crawl.Models
 
         // A list of all the characters at the time of death and their stats.  
         // Only use Get only, set will be done by the Add feature.
-        public string CharacterAtDeathList { get; set; }
+        private string CharacterAtDeathString { get; set; }
+
+        // List used to display in UI as ListView. Ignored as Column in DB.
+        [Ignore]
+        public List<Character> CharacterAtDeathList { get; set; }
 
         // All of the monsters killed and their stats. 
         // Only use Get only, set will be done by the Add feature.
-        public string MonstersKilledList { get; set; }
+        private string MonstersKilledString { get; set; }
+
+        // List used to display in UI as ListView. Ignored as Column in DB.
+        [Ignore]
+        public List<Monster> MonstersKilledList { get; set; }
 
         // All of the items dropped and their stats. 
         // Only use Get only, set will be done by the Add feature.
-        public string ItemsDroppedList { get; set; }
+        private string ItemsDroppedString { get; set; }
+
+        // List used to display in UI as ListView. Ignored as Column in DB.
+        [Ignore]
+        public List<Item> ItemsDroppedList { get; set; }
 
         // Instantiate new Score
         public Score()
         {
             // Implement
             GameDate = DateTime.Now;
-
+            CharacterAtDeathList = new List<Character>();
+            MonstersKilledList = new List<Monster>();
+            ItemsDroppedList = new List<Item>();
         }
 
         public Score(string name, string desc, string imageUri, bool autoBattle)
@@ -55,28 +72,35 @@ namespace Crawl.Models
             ImageURI = imageUri;
             AutoBattle = autoBattle;
             GameDate = DateTime.Now;
+            CharacterAtDeathList = new List<Character>();
+            MonstersKilledList = new List<Monster>();
+            ItemsDroppedList = new List<Item>();
         }
 
         // Update the score based on the passed in values.
         public void Update(Score newData)
         {
-            this.AutoBattle = newData.AutoBattle;
-            this.MonsterSlainNumber = newData.MonsterSlainNumber;
-            this.ExperienceGainedTotal = newData.ExperienceGainedTotal;
-            this.GameDate = newData.GameDate;
+            AutoBattle = newData.AutoBattle;
+            MonsterSlainNumber = newData.MonsterSlainNumber;
+            ExperienceGainedTotal = newData.ExperienceGainedTotal;
+            GameDate = newData.GameDate;
 
-            this.CharacterAtDeathList = newData.CharacterAtDeathList;
-            this.ItemsDroppedList = newData.ItemsDroppedList;
-            this.MonstersKilledList = newData.MonstersKilledList;
+            CharacterAtDeathString = newData.CharacterAtDeathString;
+            ItemsDroppedString = newData.ItemsDroppedString;
+            MonstersKilledString = newData.MonstersKilledString;
+
+            CharacterAtDeathList = newData.CharacterAtDeathList;
+            ItemsDroppedList = newData.ItemsDroppedList;
+            MonstersKilledList = newData.MonstersKilledList;
             
-            this.RoundCount = newData.RoundCount;
-            this.ScoreTotal = newData.ScoreTotal;
-            this.TurnCount = newData.TurnCount;
+            RoundCount = newData.RoundCount;
+            ScoreTotal = newData.ScoreTotal;
+            TurnCount = newData.TurnCount;
 
             // From Entity class
-            this.Name = newData.Name;
-            this.Description = newData.Description;
-            this.ImageURI = newData.ImageURI;
+            Name = newData.Name;
+            Description = newData.Description;
+            ImageURI = newData.ImageURI;
 
         }
 
@@ -85,14 +109,16 @@ namespace Crawl.Models
         // Adding a character to the score output as a text string
         public bool AddCharacterToList( Character data)
         {
-            CharacterAtDeathList += data.FormatOutput();
+            CharacterAtDeathList.Add(data);
+            CharacterAtDeathString = JsonConvert.SerializeObject(CharacterAtDeathList);
             return true;
         }
 
         // All a monster to the list of monsters and their stats
         public bool AddMonsterToList( Monster data)
         {
-            MonstersKilledList += data.FormatOutput();
+            MonstersKilledList.Add(data);
+            MonstersKilledString = JsonConvert.SerializeObject(MonstersKilledList);
             return true;
            
         }
@@ -100,7 +126,8 @@ namespace Crawl.Models
         // All an item to the list of items for score and their stats
         public bool AddItemToList( Item data)
         {
-            ItemsDroppedList += data.FormatOutput();
+            ItemsDroppedList.Add(data);
+            ItemsDroppedString = JsonConvert.SerializeObject(ItemsDroppedList);
             return true;
 
         }

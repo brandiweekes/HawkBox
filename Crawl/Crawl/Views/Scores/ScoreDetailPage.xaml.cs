@@ -19,6 +19,22 @@ namespace Crawl.Views
             InitializeComponent();
 
             BindingContext = _viewModel = viewModel;
+
+            if(viewModel.Data.CharacterAtDeathList.Count > 0)
+            {
+                CharacterAtDeathListView.IsVisible = true;
+                CharacterAtDeathLabel.IsVisible = false;
+            }
+            if (viewModel.Data.MonstersKilledList.Count > 0)
+            {
+                MonstersKilledListView.IsVisible = true;
+                MonstersKilledLabel.IsVisible = false;
+            }
+            if (viewModel.Data.ItemsDroppedList.Count > 0)
+            {
+                ItemsDroppedListView.IsVisible = true;
+                ItemsDroppedLabel.IsVisible = false;
+            }
         }
 
         public ScoreDetailPage()
@@ -28,7 +44,9 @@ namespace Crawl.Views
             var data = new Score
             {
                 Name = "Score name",
-                ScoreTotal = 0
+                Description = "Score Description",
+                ScoreTotal = 0,
+                GameDate = DateTime.Now
             };
 
             _viewModel = new ScoreDetailViewModel(data);
@@ -36,17 +54,17 @@ namespace Crawl.Views
         }
 
 
-        private async void Edit_Clicked(object sender, EventArgs e)
+        private async void EditScore(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ScoreEditPage(_viewModel));
         }
 
-        private async void Delete_Clicked(object sender, EventArgs e)
+        private async void DeleteScore(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ScoreDeletePage(_viewModel));
         }
 
-        private async void Cancel_Clicked(object sender, EventArgs e)
+        private async void CancelScore(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
