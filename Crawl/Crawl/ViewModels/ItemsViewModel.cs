@@ -45,7 +45,7 @@ namespace Crawl.ViewModels
             LoadDataCommand = new Command(async () => await ExecuteLoadDataCommand());
 
             #region Messages
-            MessagingCenter.Subscribe<ItemDeletePage, Item>(this, "DeleteData", async (obj, data) =>
+            MessagingCenter.Subscribe<ItemDeletePage, Item>(this, "DeleteItem", async (obj, data) =>
             {
                 await DeleteAsync(data);
             });

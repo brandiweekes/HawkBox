@@ -6,7 +6,6 @@
 
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" Clicked="Delete_Clicked" />
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
     </ContentPage.ToolbarItems>
 
@@ -32,6 +31,7 @@
                 HorizontalOptions="Start">
                 <Label Text="Name : " 
                    FontSize="Medium" 
+                   FontAttributes="Bold"
                    HorizontalOptions="Start"/>
                 <Label Text="{Binding Data.Name}" 
                     FontSize="Medium" 
@@ -50,58 +50,23 @@
             </StackLayout>
 
             <StackLayout
-                Orientation="Horizontal"
-                HorizontalOptions="Start">
-                <Label Text="Range : " 
-                   FontSize="Medium" 
-                   HorizontalOptions="Start"/>
-                <Label Text="{Binding Data.Range}" 
-                    FontSize="Medium" 
-                    HorizontalOptions="Center"/>
+                Orientation="Vertical"
+                HorizontalOptions="CenterAndExpand">
+                <Label Text="{Binding Data.Name, StringFormat='Are you sure you want to delete {0}?'}"
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource DarkBackgroundColor}"
+                       BackgroundColor="{DynamicResource Primary}"/>
             </StackLayout>
 
             <StackLayout
-                Orientation="Horizontal"
-                HorizontalOptions="Start">
-                <Label Text="Damage : " 
-                   FontSize="Medium" 
-                   HorizontalOptions="Start"/>
-                <Label Text="{Binding Data.Damage}" 
-                    FontSize="Medium" 
-                    HorizontalOptions="Center"/>
-            </StackLayout>
-            
-            <StackLayout
-                Orientation="Horizontal"
-                HorizontalOptions="Start">
-                <Label Text="Value : " 
-                   FontSize="Medium" 
-                   HorizontalOptions="Start"/>
-                <Label Text="{Binding Data.Value}" 
-                    FontSize="Medium" 
-                    HorizontalOptions="Center"/>
-            </StackLayout>
+                Orientation="Vertical"
+                HorizontalOptions="CenterAndExpand">
 
-            <StackLayout
-                Orientation="Horizontal"
-                HorizontalOptions="Start">
-                <Label Text="Location : " 
-                   FontSize="Medium" 
-                   HorizontalOptions="Start"/>
-                <Label Text="{Binding Data.Location}" 
-                    FontSize="Medium" 
-                    HorizontalOptions="Center"/>
-            </StackLayout>
-
-            <StackLayout 
-                Orientation="Horizontal" 
-                HorizontalOptions="Start">
-                <Label Text="Attribute : " 
-                   FontSize="Medium" 
-                   HorizontalOptions="Start"/>
-                <Label Text="{Binding Data.Attribute}" 
-                   FontSize="Medium" 
-                   HorizontalOptions="Center"/>
+                <Button Text="Confirm Delete"
+                        VerticalOptions="CenterAndExpand" 
+                        HorizontalOptions="CenterAndExpand" 
+                        Clicked="DeleteConfirmButton_Command"/>
             </StackLayout>
         </StackLayout>
     </ScrollView>
