@@ -20,7 +20,9 @@
     <ContentPage.Content>
 
         <ScrollView>
-            <StackLayout Spacing="20" Padding="15">
+            <StackLayout Spacing="20" 
+                         Padding="15"
+                         VerticalOptions="Start">
 
                 <Label Text="Item Create Page" FontSize="Small" />
 

@@ -16,7 +16,8 @@
             x:Name="DetailsRoot"
             Orientation="Vertical"
             Spacing="20"
-            Padding="15">
+            Padding="15"
+            VerticalOptions="Start">
 
             <Label Text="Items Detail Page" FontSize="Medium" />
 
