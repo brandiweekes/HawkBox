@@ -21,7 +21,12 @@
                        TextColor="{DynamicResource LightBackgroundColor}"
                        VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand"/>
-            </StackLayout>
+
+            <Button Text="AutoBattle"
+                    Clicked="OnAutoBattleClicked"/>
+            <Button Text="Battle"
+                    Clicked="OnBattleClicked"/>
+        </StackLayout>
         
     </ContentPage.Content>
 </ContentPage>

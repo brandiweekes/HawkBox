@@ -16,5 +16,15 @@ namespace Crawl.Views
 		{
 			InitializeComponent ();
 		}
-	}
+
+        async void OnAutoBattleClicked(object sender, EventArgs args)
+        {
+            await Navigation.PushAsync(new Battle.AutoBattlePage());
+        }
+
+        async void OnBattleClicked(object sender, EventArgs args)
+        {
+            await Navigation.PushAsync(new Battle.BattlePage());
+        }
+    }
 }
