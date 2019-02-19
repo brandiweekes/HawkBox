@@ -30,7 +30,7 @@ namespace Crawl.ViewModels
         }
 
         public ObservableCollection<Score> Dataset { get; set; }
-        public Command LoadDataCommand { get; set; }
+        public Command LoadScoresCommand { get; set; }
 
         private bool _needsRefresh;
 
@@ -38,44 +38,42 @@ namespace Crawl.ViewModels
         {
             Title = "Score List";
             Dataset = new ObservableCollection<Score>();
-            LoadDataCommand = new Command(async () => await ExecuteLoadDataCommand());
+            LoadScoresCommand = new Command(async () => await ExecuteLoadDataCommand());
 
             // Implement 
+            #region Messages
+            MessagingCenter.Subscribe<ScoreDeletePage, Score>(this, "DeleteScore", async (obj, data) =>
+            {
+                await DeleteAsync(data);
+            });
+
+            MessagingCenter.Subscribe<ScoreNewPage, Score>(this, "AddScore", async (obj, data) =>
+            {
+                var newScore = data as Score;
+                await AddAsync(newScore);
+            });
+
+            MessagingCenter.Subscribe<ScoreEditPage, Score>(this, "EditScore", async (obj, data) =>
+            {
+                var newScore = data as Score;
+                await UpdateAsync(newScore);
+            });
+
+            #endregion Messages
         }
 
-        // Call to database operation for delete
-        public async Task<bool> DeleteAsync(Score data)
-        {
-            // Implement 
-            return false;
-        }
-
-        // Call to database operation for add
-        public async Task<bool> AddAsync(Score data)
-        {
-            // Implement 
-            return false;
-        }
-
-        // Call to database operation for update
-        public async Task<bool> UpdateAsync(Score data)
-        {
-            // Implement 
-            return false;
-        }
-
-        // Call to database to ensure most recent
-        public async Task<Score> GetAsync(string id)
-        {
-            // Implement 
-            return null;
-        }
+        #region Refresh
 
         // Return True if a refresh is needed
         // It sets the refresh flag to false
         public bool NeedsRefresh()
         {
-            // Implement 
+            if(_needsRefresh)
+            {
+                _needsRefresh = false;
+                return true;
+            }
+
             return false;
 
         }
@@ -88,14 +86,79 @@ namespace Crawl.ViewModels
 
         private async Task ExecuteLoadDataCommand()
         {
-            // Implement 
-            return;
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                Dataset.Clear();
+                var scores = await DataStore.GetAllAsync_Score(true);
+                foreach (var score in scores)
+                {
+                    Dataset.Add(score);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+                SetNeedsRefresh(false);
+            }
 
         }
 
+        /**
+         * Force Data Refresh
+         *  -- Used  when DataSore is toggled between Mock and SQL. Check <see cref="Services.MasterDataStore"/>
+         */
         public void ForceDataRefresh()
         {
-            // Implement 
+            LoadScoresCommand.Execute(null);
         }
+
+        #endregion Refresh
+
+        #region Data Operations
+
+        // Call to database operation for delete
+        public async Task<bool> DeleteAsync(Score data)
+        {
+            var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
+            Dataset.Remove(myData);
+            var myReturn = await DataStore.DeleteAsync_Score(data);
+            return myReturn;
+        }
+
+        // Call to database operation for add
+        public async Task<bool> AddAsync(Score data)
+        {
+            Dataset.Add(data);
+            return await DataStore.AddAsync_Score(data);
+        }
+
+        // Call to database operation for update
+        public async Task<bool> UpdateAsync(Score data)
+        {
+            var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
+            if (myData == null)
+                return await Task.FromResult(false);
+
+            myData.Update(data);
+            SetNeedsRefresh(true);
+            return await DataStore.UpdateAsync_Score(data);
+        }
+
+        // Call to database to ensure most recent
+        public async Task<Score> GetAsync(string id)
+        {
+            return await DataStore.GetAsync_Score(id);
+        }
+
+        #endregion Data Operations
     }
 }

@@ -51,6 +51,7 @@ namespace Crawl.Services
             App.Database.DropTableAsync<BaseCharacter>().Wait();
             App.Database.DropTableAsync<BaseMonster>().Wait();
             App.Database.DropTableAsync<Item>().Wait();
+            App.Database.DropTableAsync<Score>().Wait();
         }
 
         // Create the Database Tables
@@ -59,6 +60,7 @@ namespace Crawl.Services
             App.Database.CreateTableAsync<BaseCharacter>().Wait();
             App.Database.CreateTableAsync<BaseMonster>().Wait();
             App.Database.CreateTableAsync<Item>().Wait();
+            App.Database.CreateTableAsync<Score>().Wait();
         }
 
         // Tells the View Models to update themselves.
@@ -67,6 +69,7 @@ namespace Crawl.Services
             CharactersViewModel.Instance.SetNeedsRefresh(true);
             MonstersViewModel.Instance.SetNeedsRefresh(true);
             ItemsViewModel.Instance.SetNeedsRefresh(true);
+            ScoresViewModel.Instance.SetNeedsRefresh(true);
         }
 
         private void InitializeSeedData()
@@ -163,6 +166,12 @@ namespace Crawl.Services
 
             App.Database.InsertAsync(new Item("Bunny Hat", "Pink hat with fluffy ears",
                 "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png", 0, 10, -1, ItemLocationEnum.Head, AttributeEnum.Speed));
+
+            // Load Scores
+            App.Database.InsertAsync(new Score("Score Name 1", "Description", "Image", false));
+            App.Database.InsertAsync(new Score("Score Name 2", "Description", "Image", false));
+            App.Database.InsertAsync(new Score("Score Name 3", "Description", "Image", false));
+            App.Database.InsertAsync(new Score("Score Name 4", "Description", "Image", false));
 
         }
 
@@ -348,35 +357,43 @@ namespace Crawl.Services
         #endregion Monster
 
         #region Score
-        // Score
+        // Add new Score to database
         public async Task<bool> AddAsync_Score(Score data)
         {
-            // Implement
-            return false;
+            var result = await App.Database.InsertAsync(data);
+            if (result == 1)
+                return await Task.FromResult(true);
+            return await Task.FromResult(false);
         }
 
+        // Update score details in database
         public async Task<bool> UpdateAsync_Score(Score data)
         {
-            // Implement
-            return false;
+            var result = await App.Database.UpdateAsync(data);
+            if (result == 1)
+                return await Task.FromResult(true);
+            return await Task.FromResult(false);
         }
 
+        // Delete Score details in database
         public async Task<bool> DeleteAsync_Score(Score data)
         {
-            // Implement
-            return false;
+            var result = await App.Database.DeleteAsync(data);
+            if (result == 1)
+                return await Task.FromResult(true);
+            return await Task.FromResult(false);
         }
 
+        // Fetch score from database based in given Id
         public async Task<Score> GetAsync_Score(string id)
         {
-            // Implement
-            return null;
+            return await Task.FromResult(App.Database.GetAsync<Score>(id).Result);
         }
 
+        // Fetch all scores from database
         public async Task<IEnumerable<Score>> GetAllAsync_Score(bool forceRefresh = false)
         {
-            // Implement
-            return null;
+            return await Task.FromResult(App.Database.Table<Score>().ToListAsync().Result);
 
         }
 

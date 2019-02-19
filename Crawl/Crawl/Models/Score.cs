@@ -44,16 +44,40 @@ namespace Crawl.Models
         public Score()
         {
             // Implement
+            GameDate = DateTime.Now;
 
+        }
+
+        public Score(string name, string desc, string imageUri, bool autoBattle)
+        {
+            Name = name;
+            Description = desc;
+            ImageURI = imageUri;
+            AutoBattle = autoBattle;
+            GameDate = DateTime.Now;
         }
 
         // Update the score based on the passed in values.
         public void Update(Score newData)
         {
-            // Implement
+            this.AutoBattle = newData.AutoBattle;
+            this.MonsterSlainNumber = newData.MonsterSlainNumber;
+            this.ExperienceGainedTotal = newData.ExperienceGainedTotal;
+            this.GameDate = newData.GameDate;
 
-                return;
+            this.CharacterAtDeathList = newData.CharacterAtDeathList;
+            this.ItemsDroppedList = newData.ItemsDroppedList;
+            this.MonstersKilledList = newData.MonstersKilledList;
             
+            this.RoundCount = newData.RoundCount;
+            this.ScoreTotal = newData.ScoreTotal;
+            this.TurnCount = newData.TurnCount;
+
+            // From Entity class
+            this.Name = newData.Name;
+            this.Description = newData.Description;
+            this.ImageURI = newData.ImageURI;
+
         }
 
         #region ScoreItems
@@ -61,23 +85,23 @@ namespace Crawl.Models
         // Adding a character to the score output as a text string
         public bool AddCharacterToList( Character data)
         {
-            // Implement
-            return false;
+            CharacterAtDeathList += data.FormatOutput();
+            return true;
         }
 
         // All a monster to the list of monsters and their stats
         public bool AddMonsterToList( Monster data)
         {
-            // Implement
-            return false;
+            MonstersKilledList += data.FormatOutput();
+            return true;
            
         }
 
         // All an item to the list of items for score and their stats
         public bool AddItemToList( Item data)
         {
-            // Implement
-            return false;
+            ItemsDroppedList += data.FormatOutput();
+            return true;
 
         }
         #endregion ScoreItems
