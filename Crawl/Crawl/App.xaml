@@ -57,9 +57,31 @@
 
             <Style TargetType="Stepper">
                 <Setter Property="BackgroundColor" Value="{DynamicResource LightBackgroundColor}"/>
+                <Setter Property="Minimum" Value="1"/>
+                <Setter Property="Increment" Value="1"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
 
-            <Style TargetType="Button">
+            <Style TargetType="Stepper"
+                x:Key="Stepper5"
+                BasedOn="{StaticResource Xamarin.Forms.Stepper}">
+                <Setter Property="Maximum" Value="5"/>
+            </Style>
+
+            <Style TargetType="Stepper"
+                x:Key="Stepper10"
+                BasedOn="{StaticResource Xamarin.Forms.Stepper}">
+                <Setter Property="Maximum" Value="10"/>
+            </Style>
+
+            <Style TargetType="Stepper"
+                x:Key="Stepper20"
+                BasedOn="{StaticResource Xamarin.Forms.Stepper}">
+                <Setter Property="Maximum" Value="20"/>
+            </Style>
+                   
+
+                <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{DynamicResource YellowTextColor}"/>
                 <Setter Property="TextColor" Value="{DynamicResource DarkBackgroundColor}"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
