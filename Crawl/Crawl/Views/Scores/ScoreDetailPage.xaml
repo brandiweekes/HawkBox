@@ -23,7 +23,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--Row 0-->
-                <StackLayout Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" Orientation="Horizontal" Spacing="15">
+                <StackLayout Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" Orientation="Vertical">
                     <Label Text="Description" FontSize="Medium" FontAttributes="Bold"></Label>
                     <Label Text="{Binding Data.Description}" LineBreakMode="WordWrap" HorizontalOptions="StartAndExpand"></Label>
                 </StackLayout>
