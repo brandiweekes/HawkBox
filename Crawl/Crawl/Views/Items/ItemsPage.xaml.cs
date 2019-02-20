@@ -17,6 +17,7 @@ namespace Crawl.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = ItemsViewModel.Instance;
+            _viewModel.Title = "Items Page";
         }
 
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

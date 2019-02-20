@@ -2,16 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.ItemsPage"
-              Title="{Binding Title}"
-             x:Name="BrowseItemsPage">
+              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-
+        <StackLayout Padding="5, 0, 5, 0">
             <Label Text="Items List Page" FontSize="Small" />
-
             <ListView x:Name="ItemsListView" 
                 ItemsSource="{Binding Dataset}"
                 VerticalOptions="FillAndExpand"
@@ -24,40 +21,12 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-
-                            <StackLayout Padding="10"
-                                         Orientation="Horizontal"
-                                         VerticalOptions="Start"
-                                         HorizontalOptions="Start">
-
-                                <Image Source="{Binding ImageURI}"
-                                       WidthRequest="50"
-                                       HeightRequest="50" 
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-
-
+                            <StackLayout Padding="10" Orientation="Horizontal">
+                                <Image Source="{Binding ImageURI}" WidthRequest="50" HeightRequest="50" />
                                 <StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" 
-                                           LineBreakMode="NoWrap" 
-                                           Style="{DynamicResource ListItemTextStyle}" 
-                                           FontSize="16" />
-                                        <Label Text="{Binding Attribute}" 
-                                           LineBreakMode="NoWrap" 
-                                           Style="{DynamicResource ListItemTextStyle}" 
-                                           FontSize="16" />
-                                        <Label Text="{Binding Value}" 
-                                           LineBreakMode="NoWrap" 
-                                           Style="{DynamicResource ListItemTextStyle}" 
-                                           FontSize="16" />
-                                    </StackLayout>
-                                    <Label Text="{Binding Description}" 
-                                       LineBreakMode="NoWrap"
-                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="13" />
+                                    <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                    <Label Text="{Binding Description}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
                                 </StackLayout>
-                                
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
