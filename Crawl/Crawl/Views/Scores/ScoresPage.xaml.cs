@@ -20,11 +20,13 @@ namespace Crawl.Views
             _viewModel.Title = "Scores Page";
         }
 
+        // Add new score event. navigates to Add new Score Page
         private void AddScore(object sender, EventArgs e)
         {
             Navigation.PushAsync(new ScoreNewPage());
         }
 
+        // On Score select event. navigates to score details page.
         private async void OnScoreSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (!(e.SelectedItem is Score score))
@@ -45,14 +47,18 @@ namespace Crawl.Views
 
             //reset toolbar for index page
             if (ToolbarItems.Count > 0)
+            {
                 ToolbarItems.Clear();
+            }
 
             //sets global binding
             InitializeComponent();
 
             // load or reload monsters on page
             if (_viewModel.Dataset.Count == 0 || _viewModel.NeedsRefresh())
+            {
                 _viewModel.LoadScoresCommand.Execute(null);
+            }
 
             BindingContext = _viewModel;
         }

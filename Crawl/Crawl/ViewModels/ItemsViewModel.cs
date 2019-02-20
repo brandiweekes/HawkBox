@@ -83,6 +83,7 @@ namespace Crawl.ViewModels
             _needsRefresh = value;
         }
 
+        // Command function which is executed to refresh dataset from datastore.
         private async Task ExecuteLoadDataCommand()
         {
             if (IsBusy)
@@ -119,13 +120,13 @@ namespace Crawl.ViewModels
             finally
             {
                 IsBusy = false;
+                SetNeedsRefresh(false);
             }
         }
 
+        // called to force refresh dataset from datastore.
         public void ForceDataRefresh()
         {
-            // Reset
-            var canExecute = LoadDataCommand.CanExecute(null);
             LoadDataCommand.Execute(null);
         }
 
@@ -133,6 +134,7 @@ namespace Crawl.ViewModels
 
         #region DataOperations
 
+        // Add new item to dataset and datastore.
         public async Task<bool> AddAsync(Item data)
         {
             Dataset.Add(data);
@@ -140,6 +142,7 @@ namespace Crawl.ViewModels
             return myReturn;
         }
 
+        // delete item from dataset and datastore.
         public async Task<bool> DeleteAsync(Item data)
         {
             Dataset.Remove(data);
@@ -147,6 +150,7 @@ namespace Crawl.ViewModels
             return myReturn;
         }
 
+        // update existing item in dataset and datastore.
         public async Task<bool> UpdateAsync(Item data)
         {
             // Find the Item, then update it

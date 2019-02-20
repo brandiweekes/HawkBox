@@ -14,6 +14,7 @@ namespace Crawl.ViewModels
 {
     public class ScoresViewModel : BaseViewModel
     {
+        #region Singleton
         // Make this a singleton so it only exist one time because holds all the data records in memory
         private static ScoresViewModel _instance;
 
@@ -28,6 +29,8 @@ namespace Crawl.ViewModels
                 return _instance;
             }
         }
+
+        #endregion Singleton
 
         public ObservableCollection<Score> Dataset { get; set; }
         public Command LoadScoresCommand { get; set; }
@@ -78,12 +81,13 @@ namespace Crawl.ViewModels
 
         }
 
-        // Sets the need to refresh
+        // Sets the need to refresh. used to refresh data from datastore.
         public void SetNeedsRefresh(bool value)
         {
             _needsRefresh = value;
         }
 
+        // Command function which is executed to refresh dataset from data store.
         private async Task ExecuteLoadDataCommand()
         {
             if (IsBusy)

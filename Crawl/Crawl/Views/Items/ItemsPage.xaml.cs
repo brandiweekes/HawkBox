@@ -20,10 +20,10 @@ namespace Crawl.Views
             _viewModel.Title = "Items Page";
         }
 
+        // On Item select event. Naviagates to item details page.
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var data = args.SelectedItem as Item;
-            if (data == null)
+            if (!(args.SelectedItem is Item data))
                 return;
 
             await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(data)));
@@ -32,6 +32,7 @@ namespace Crawl.Views
             ItemsListView.SelectedItem = null;
         }
 
+        // Add new item event. navigates to new item page.
         private async void AddItem_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ItemNewPage());
@@ -50,11 +51,7 @@ namespace Crawl.Views
 
             InitializeComponent();
 
-            if (_viewModel.Dataset.Count == 0)
-            {
-                _viewModel.LoadDataCommand.Execute(null);
-            }
-            else if (_viewModel.NeedsRefresh())
+            if (_viewModel.Dataset.Count == 0 || _viewModel.NeedsRefresh())
             {
                 _viewModel.LoadDataCommand.Execute(null);
             }

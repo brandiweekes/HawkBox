@@ -10,6 +10,7 @@ using Xamarin.Forms;
 
 namespace Crawl.ViewModels
 {
+    // this class represent selected character in multi-select view
     public class MultiSelectData : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -106,6 +107,7 @@ namespace Crawl.ViewModels
             _needsRefresh = value;
         }
 
+        // Command function which is executed to refresh dataset from datastore.
         async Task ExecuteLoadCommand()
         {
             if (IsBusy)
@@ -133,6 +135,7 @@ namespace Crawl.ViewModels
             }
         }
 
+        // called to force refresh dataset from datastore.
         public void ForceDataRefresh()
         {
             LoadCommand.Execute(null);
