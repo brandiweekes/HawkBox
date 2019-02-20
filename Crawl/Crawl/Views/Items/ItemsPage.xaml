@@ -22,7 +22,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10" Orientation="Horizontal">
-                                <Image Source="{Binding ImageURI}" WidthRequest="50" HeightRequest="50" />
+                                <Image Source="{Binding ImageURI}" WidthRequest="50" HeightRequest="75" />
                                 <StackLayout>
                                     <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
                                     <Label Text="{Binding Description}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
