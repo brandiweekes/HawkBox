@@ -16,7 +16,7 @@ namespace Crawl.Views
 
         public CharacterDeletePage (CharacterDetailViewModel viewModel)
         {
-            // Save off the item
+            // Save off the character
             Data = viewModel.Data;
             viewModel.Title = "Delete " + viewModel.Data.Name;
 

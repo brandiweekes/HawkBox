@@ -90,7 +90,7 @@ namespace Crawl.Services
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
 
-            // Implement Monsters
+            // Load Monsters
 
             _monsterDataset.Add(new BaseMonster(new Monster("Agent L",
                 "Elle is the chief scientific officer and an assistant to Zed.",
@@ -143,7 +143,7 @@ namespace Crawl.Services
                 1, 10, true, 10, 10, 10, 10, 10,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
-            // Implement Scores
+            // Load Scores
             _scoreDataset.Add(new Score("Score Name 1", "Description", "Image", false));
             _scoreDataset.Add(new Score("Score Name 2", "Description", "Image", false));
             _scoreDataset.Add(new Score("Score Name 3", "Description", "Image", false));
@@ -174,6 +174,7 @@ namespace Crawl.Services
             return false;
         }
 
+        // Add new item to dataset.
         public async Task<bool> AddAsync_Item(Item data)
         {
             _itemDataset.Add(data);
@@ -181,6 +182,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
+        // Update item data in dataset.
         public async Task<bool> UpdateAsync_Item(Item data)
         {
             var myData = _itemDataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -194,6 +196,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
+        // Delete a item from dataset.
         public async Task<bool> DeleteAsync_Item(Item data)
         {
             var myData = _itemDataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -202,11 +205,13 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
+        // Get item data from dataset based in given Id.
         public async Task<Item> GetAsync_Item(string id)
         {
             return await Task.FromResult(_itemDataset.FirstOrDefault(s => s.Id == id));
         }
 
+        // Get all items from dataset.
         public async Task<IEnumerable<Item>> GetAllAsync_Item(bool forceRefresh = false)
         {
             return await Task.FromResult(_itemDataset);
@@ -330,13 +335,15 @@ namespace Crawl.Services
         #endregion Monster
 
         #region Score
-        // Score
+
+        // Add new score to dataset.
         public async Task<bool> AddAsync_Score(Score data)
         {
             _scoreDataset.Add(data);
             return await Task.FromResult(true);
         }
 
+        // Update a score from dataset.
         public async Task<bool> UpdateAsync_Score(Score data)
         {
             var myData = _scoreDataset.FirstOrDefault(args => args.Id == data.Id);
@@ -346,6 +353,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
+        // Delete a score from dataset.
         public async Task<bool> DeleteAsync_Score(Score data)
         {
             var myData = _scoreDataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -354,11 +362,13 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
+        // Get score data from dataset based in given Id.
         public async Task<Score> GetAsync_Score(string id)
         {
             return await Task.FromResult(_scoreDataset.FirstOrDefault(s => s.Id == id));
         }
 
+        // Get all scores from dataset.
         public async Task<IEnumerable<Score>> GetAllAsync_Score(bool forceRefresh = false)
         {
             return await Task.FromResult(_scoreDataset);

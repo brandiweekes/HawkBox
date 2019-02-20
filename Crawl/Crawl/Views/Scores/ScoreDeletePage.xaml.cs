@@ -17,7 +17,7 @@ namespace Crawl.Views
 
         public ScoreDeletePage (ScoreDetailViewModel viewModel)
         {
-            // Save off the item
+            // Save off the score
             Data = viewModel.Data;
             viewModel.Title = "Delete " + viewModel.Data.Name;
 
@@ -27,6 +27,13 @@ namespace Crawl.Views
             BindingContext = _viewModel = viewModel;
         }
 
+        /// <summary>
+        /// user cancels a delete, 
+        /// remove delete page from stack 
+        /// return to details page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 	    private async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
@@ -34,7 +41,7 @@ namespace Crawl.Views
 
         /// <summary>
         /// user clicks "Confirm Delete" button
-        /// calls Async call to remove score
+        /// calls Async call to remove Score
         /// remove delete page and detail page
         /// return to index page
         /// </summary>
