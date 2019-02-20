@@ -19,7 +19,7 @@ namespace Crawl.Views
         {
             // Save off the item
             Data = viewModel.Data;
-            viewModel.Title = "Delete " + viewModel.Title;
+            viewModel.Title = "Delete " + viewModel.Data.Name;
 
             InitializeComponent();
 

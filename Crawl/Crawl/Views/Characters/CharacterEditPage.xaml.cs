@@ -26,7 +26,7 @@ namespace Crawl.Views
             //set oldtitle in case cancel button selected
             oldTitle = viewModel.Title;
             //set page title
-            viewModel.Title = "Edit " + viewModel.Title;
+            viewModel.Title = "Edit " + viewModel.Data.Name;
     
             InitializeComponent();
             

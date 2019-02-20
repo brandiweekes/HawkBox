@@ -31,7 +31,7 @@ namespace Crawl.Views
             oldAttribute = Data.Attribute;
             oldTitle = viewModel.Title;
             //set title
-            viewModel.Title = "Edit " + viewModel.Title;
+            viewModel.Title = "Edit " + viewModel.Data.Name;
 
             InitializeComponent();
 

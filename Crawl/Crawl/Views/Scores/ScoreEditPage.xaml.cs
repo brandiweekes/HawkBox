@@ -24,7 +24,7 @@ namespace Crawl.Views
             //save oldtitle
             oldTitle = viewModel.Title;
             //set title
-            viewModel.Title = "Edit " + viewModel.Title;
+            viewModel.Title = "Edit " + viewModel.Data.Name;
 
             InitializeComponent();
             // Set the data binding for the page
