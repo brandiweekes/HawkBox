@@ -62,7 +62,10 @@
                             SelectedItem="{Binding Data.Attribute, Converter={StaticResource StringEnum}, Mode=TwoWay}" 
                             x:Name="AttributePicker"
                             VerticalOptions="Center"/>
-                    <StackLayout Orientation="Horizontal" Spacing="30">
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="Value" 
+                            FontSize="Medium" 
+                            HorizontalOptions="Start"></Label>
                         <Label x:Name="ValueLabel"
                                    Text="{Binding Source={x:Reference ValueStepper}, Path=Value}"></Label>
                          <Stepper x:Name="ValueStepper"
