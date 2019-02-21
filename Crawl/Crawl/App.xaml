@@ -50,9 +50,10 @@
                    x:Key="DebugSwitchLabel">
                 <Setter Property="HorizontalOptions" Value="StartAndExpand" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryDark}" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="Small" />
+                <Setter Property="WidthRequest" Value="500"/>
             </Style>
 
             <Style TargetType="Stepper">
@@ -79,9 +80,12 @@
                 BasedOn="{StaticResource Xamarin.Forms.Stepper}">
                 <Setter Property="Maximum" Value="20"/>
             </Style>
-                   
 
-                <Style TargetType="Button">
+            <Style TargetType="Switch">
+                <Setter Property="OnColor"  Value="{DynamicResource LightBackgroundColor}"/>
+            </Style>
+
+            <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{DynamicResource YellowTextColor}"/>
                 <Setter Property="TextColor" Value="{DynamicResource DarkBackgroundColor}"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
