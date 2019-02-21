@@ -70,6 +70,12 @@
             </Style>
 
             <Style TargetType="Stepper"
+                x:Key="Stepper8"
+                BasedOn="{StaticResource Xamarin.Forms.Stepper}">
+                <Setter Property="Maximum" Value="8"/>
+            </Style>
+
+            <Style TargetType="Stepper"
                 x:Key="Stepper10"
                 BasedOn="{StaticResource Xamarin.Forms.Stepper}">
                 <Setter Property="Maximum" Value="10"/>
@@ -79,6 +85,13 @@
                 x:Key="Stepper20"
                 BasedOn="{StaticResource Xamarin.Forms.Stepper}">
                 <Setter Property="Maximum" Value="20"/>
+            </Style>
+
+            <Style TargetType="Stepper"
+                x:Key="Stepper355k"
+                BasedOn="{StaticResource Xamarin.Forms.Stepper}">
+                <Setter Property="Maximum" Value="355000"/>
+                <Setter Property="Increment" Value="300"/>
             </Style>
 
             <Style TargetType="Switch">

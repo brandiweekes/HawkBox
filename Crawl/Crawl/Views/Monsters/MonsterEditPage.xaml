@@ -49,10 +49,7 @@
                         <Label x:Name="XPLabel"
                                Text="{Binding Source={x:Reference XPStepper}, Path=Value}"></Label>
                         <Stepper x:Name="XPStepper"
-                                 Maximum="1000000" 
-                                 Minimum="0" 
-                                 Increment="1" 
-                                 HorizontalOptions="Center" 
+                                 Style="{StaticResource Stepper355k}" 
                                  Value="{Binding Data.ExperienceTotal, Mode=OneTime}" />
                     </StackLayout>
 
@@ -63,7 +60,7 @@
                         <Label x:Name="AttackLabel"
                                Text="{Binding Source={x:Reference AttackStepper}, Path=Value}"></Label>
                         <Stepper x:Name="AttackStepper"
-                                 Style="{StaticResource Stepper20}" 
+                                 Style="{StaticResource Stepper8}" 
                                  Value="{Binding Data.Attribute.Attack, Mode=OneTime}" />
                     </StackLayout>
 
@@ -74,7 +71,7 @@
                         <Label x:Name="DefenseLabel"
                                Text="{Binding Source={x:Reference DefenseStepper}, Path=Value}"></Label>
                         <Stepper x:Name="DefenseStepper"
-                                 Style="{StaticResource Stepper20}" 
+                                 Style="{StaticResource Stepper10}" 
                                  Value="{Binding Data.Attribute.Defense, Mode=OneTime}" />
                     </StackLayout>
 
@@ -85,7 +82,7 @@
                         <Label x:Name="SpeedLabel"
                                Text="{Binding Source={x:Reference SpeedStepper}, Path=Value}"></Label>
                         <Stepper x:Name="SpeedStepper"
-                                 Style="{StaticResource Stepper20}"
+                                 Style="{StaticResource Stepper5}"
                                  Value="{Binding Data.Attribute.Speed, Mode=OneTime}" />
                     </StackLayout>
 
