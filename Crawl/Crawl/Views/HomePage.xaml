@@ -1,15 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Crawl.Models.HawkboxResources; assembly=Crawl.Models.HawkboxResources"
              x:Class="Crawl.Views.HomePage">
   <ContentPage.Content>
     <ScrollView>
       <AbsoluteLayout Padding="15">
+
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0, 0, 200, 200"
+               Source="http://gdurl.com/RxRK"/>
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1, .4, 200, 200"
+               Source="http://gdurl.com/NvcO" />
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".8, 0.05, 250, 250" 
+               Source="http://gdurl.com/dgT5" />
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0, .3, 300, 300"
+               Source="http://gdurl.com/fxM0"/>
         
         
-        <Label Text="MiBliens" FontSize="Large" FontAttributes="Bold"
-               AbsoluteLayout.LayoutFlags="All, XProportional" AbsoluteLayout.LayoutBounds="0.6, .65, .4, .1" />
-        <Label Text="Let the intergalactic battle begin!" FontSize="Medium" FontAttributes="Bold" TextColor="{DynamicResource LightBackgroundColor}"
+        
+        <Label Text="MiBliens" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"
+               AbsoluteLayout.LayoutFlags="All, XProportional" AbsoluteLayout.LayoutBounds="0.5, .65, .4, .1" />
+        <Label Text="Let the intergalactic battle begin!" FontSize="Medium" FontAttributes="Bold" TextColor="{DynamicResource LightBackgroundColor}" HorizontalOptions="Center"
                AbsoluteLayout.LayoutFlags="All, XProportional" AbsoluteLayout.LayoutBounds="0.5, .75, .8, .1" />
         <Button Text="AutoBattle" FontSize="Small" Clicked="OnAutoBattleClicked"
                 AbsoluteLayout.LayoutFlags="All, XProportional" AbsoluteLayout.LayoutBounds="0, 1, .3, .1" />
