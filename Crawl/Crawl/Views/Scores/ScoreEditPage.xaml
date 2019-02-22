@@ -45,10 +45,7 @@
                         <Label x:Name="ScoreLabel"
                                Text="{Binding Source={x:Reference ScoreStepper}, Path=Value}"></Label>
                         <Stepper x:Name="ScoreStepper"
-                                 Maximum="60000" 
-                                 Minimum="0" 
-                                 Increment="1" 
-                                 HorizontalOptions="Center" 
+                                 Style="{StaticResource Stepper355k}"
                                  Value="{Binding Data.ScoreTotal, Mode=OneTime}" />
                     </StackLayout>
 
@@ -59,10 +56,7 @@
                         <Label x:Name="XPLabel"
                                Text="{Binding Source={x:Reference XPStepper}, Path=Value}"></Label>
                         <Stepper x:Name="XPStepper"
-                                 Maximum="1000000" 
-                                 Minimum="0" 
-                                 Increment="1" 
-                                 HorizontalOptions="Center" 
+                                 Style="{StaticResource Stepper355k}"
                                  Value="{Binding Data.ExperienceGainedTotal, Mode=OneTime}" />
                     </StackLayout>
 
@@ -110,6 +104,8 @@
 
                     
                 </Grid>
+
+               
 
             </StackLayout>
         </ScrollView>

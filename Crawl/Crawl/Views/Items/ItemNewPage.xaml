@@ -69,10 +69,7 @@
                         <Label x:Name="ValueLabel"
                                    Text="{Binding Source={x:Reference ValueStepper}, Path=Value}"></Label>
                          <Stepper x:Name="ValueStepper"
-                                     Maximum="100" 
-                                     Minimum="1" 
-                                     Increment="1" 
-                                     HorizontalOptions="Center" 
+                                     Style="{StaticResource Stepper20}"
                                      Value="{Binding Data.Value, Mode=OneTime}" />
                     </StackLayout>
                 </StackLayout>
