@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crawl.GameEngine;
 
 namespace UnitTests
 {
@@ -20,6 +21,16 @@ namespace UnitTests
             var Expected = 10;
 
             Assert.AreEqual(Expected, Actual);
+        }
+
+        [Test]
+        public void TestFormatOutput()
+        {
+
+            var Actual = new AutoBattleEngine().FormatOutput();
+            var Expected = "";
+
+            Assert.AreNotEqual(Expected, Actual);
         }
     }
 }

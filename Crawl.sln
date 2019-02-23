@@ -16,6 +16,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Crawl\Crawl\Crawl.projitems*{22f3f09c-fa70-4071-a706-40f927603e36}*SharedItemsImports = 13
+		Crawl\Crawl\Crawl.projitems*{8edf4429-251a-416d-bb68-93f227191bcf}*SharedItemsImports = 4
 		Crawl\Crawl\Crawl.projitems*{b2c494ff-fdc5-4841-be66-6e0ea325c884}*SharedItemsImports = 4
 		Crawl\Crawl\Crawl.projitems*{d42796b6-847d-4419-8597-0e4bf5f20029}*SharedItemsImports = 4
 		Crawl\Crawl\Crawl.projitems*{f0db485e-d7ab-4b47-8f1d-6b055e809603}*SharedItemsImports = 4
