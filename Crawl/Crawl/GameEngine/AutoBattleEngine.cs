@@ -85,14 +85,36 @@ namespace Crawl.GameEngine
 
         public string FormatOutput()
         {
-            var myReturn = "";
-
-            myReturn = " " + "Round Count : " + BattleEngine.BattleScore.RoundCount.ToString();
+            var myReturn = "END OF BATTLE REPORT: \n";
 
             foreach (var data in BattleEngine.CharacterList)
             {
-                myReturn += " Character : " + data.Name;
+                myReturn += " CHARACTER : " + data.Name;
             }
+
+            myReturn += " " + "ROUND COUNT : " + BattleEngine.BattleScore.RoundCount.ToString();
+
+            myReturn += " " + "TURN COUNT : " + BattleEngine.BattleScore.TurnCount.ToString();
+
+            myReturn += " " + "SCORE TOTAL : " + BattleEngine.BattleScore.ScoreTotal.ToString();
+
+            myReturn += " EXPERIENCE GAINED : " + BattleEngine.BattleScore.ExperienceGainedTotal;
+
+            myReturn += " MONSTERS SLAIN COUNT : " + BattleEngine.BattleScore.MonsterSlainNumber;
+
+            myReturn += " MONSTERS DEATH LIST : ";
+            foreach (var data in BattleEngine.BattleScore.MonstersKilledList)
+            {
+                myReturn += BattleEngine.BattleScore.MonstersKilledList + ", ";
+            }
+
+            myReturn += " ITEMS DROPPED LIST : ";
+            foreach (var data in BattleEngine.BattleScore.MonstersKilledList)
+            {
+                myReturn += BattleEngine.BattleScore.MonstersKilledList + ", ";
+            }
+
+            Debug.WriteLine(myReturn);
 
             return myReturn;
         }
