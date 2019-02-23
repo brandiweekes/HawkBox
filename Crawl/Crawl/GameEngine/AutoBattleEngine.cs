@@ -11,7 +11,7 @@ namespace Crawl.GameEngine
 
         // Start here...
 
-        public void RunAutoBattle()
+        public async void RunAutoBattle()
         {
 
 
