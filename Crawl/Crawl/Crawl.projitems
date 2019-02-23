@@ -36,6 +36,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\ItemsController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GameEngine\AutoBattleEngine.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameEngine\BattleEngine.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameEngine\HelperEngine.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameEngine\RoundEngine.cs" />
