@@ -32,22 +32,41 @@ namespace Crawl.GameEngine
 
             BattleEngine.CharacterList = CharacterList;
 
+            BattleEngine.StartBattle(true);
+            Debug.WriteLine("Battle Starting...");
+
             // * Start a Round
             BattleEngine.StartRound();
+            Debug.WriteLine("Round Starting...");
+
+            RoundEnum result;
 
             do
             {
+                Debug.WriteLine("Performing next turn...");
+                result = BattleEngine.RoundNextTurn();
+                Debug.WriteLine("Turn over...");
+
                 // do the Round
                 // Turn loop happens inside the Round
-                //if (//round is over && characters)
-                //    //start new round
+                if (result == RoundEnum.NewRound)
+                {
+                    BattleEngine.NewRound();
+                    Debug.WriteLine("New round beginning...");
+                }
+
             }
-            while (false);//end condition);
+            while (result != RoundEnum.GameOver);//end condition);
 
             // Save Score
-            //var myScore = new Score(BattleEngine.BattleScore);
+            var myScore = GetFinalScoreObject();
+            Debug.WriteLine("Score retrieved, score total: " + myScore.ScoreTotal);
 
-            await ScoresViewModel.Instance.AddAsync(BattleEngine.BattleScore);
+            await ScoresViewModel.Instance.AddAsync(myScore);
+            Debug.WriteLine("Final score saved");
+
+            BattleEngine.EndBattle();
+            Debug.WriteLine("Battle ended.");
         }
 
         // Output Score
@@ -106,8 +125,6 @@ namespace Crawl.GameEngine
         public Score GetFinalScoreObject()
         {
             var myReturn = BattleEngine.BattleScore;
-
-            // Put a Real score Object here
 
             return myReturn;
         }

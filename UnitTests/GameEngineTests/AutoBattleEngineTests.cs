@@ -25,5 +25,42 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
         }
+
+        [Test]
+        public void GetFinalScoreObject_Default_Score_Should_Pass()
+        {
+            MockForms.Init();
+
+            //arrange
+            AutoBattleEngine auto = new AutoBattleEngine();
+
+            var Expected = 0;
+
+            //act
+            var score = auto.GetFinalScoreObject();
+            var Actual = score.ScoreTotal;
+
+            //assert
+            Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void GetFinalScoreObject_Score_Total_Equals_25_Should_Pass()
+        {
+            MockForms.Init();
+
+            //arrange
+            AutoBattleEngine auto = new AutoBattleEngine();
+            auto.BattleEngine.BattleScore.ScoreTotal = 25;
+
+            var Expected = 25;
+
+            //act
+            var score = auto.GetFinalScoreObject();
+            var Actual = score.ScoreTotal;
+
+            //assert
+            Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+        }
     }
 }
