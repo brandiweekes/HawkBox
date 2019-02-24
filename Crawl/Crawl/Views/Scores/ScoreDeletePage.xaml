@@ -9,7 +9,7 @@
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
     </ContentPage.ToolbarItems>
 
-    <ScrollView>
+    <ScrollView Padding="0, 20, 0, 0">
         <StackLayout>
             <Label Text="Score Delete Page" FontSize="Small" VerticalOptions="Start"/>
             <Grid Padding="5, 5, 5, 0">

@@ -12,7 +12,7 @@
 
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
+            <StackLayout Spacing="20" Padding="5, 20, 5, 0" VerticalOptions="Start">
                 <Label Text="Score Create Page" FontSize="Small" />
 
                 <StackLayout>

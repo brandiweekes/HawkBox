@@ -11,8 +11,9 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
+        <ScrollView Padding="0, 20, 0, 0">
+            <StackLayout Spacing="20" Padding="5, 0, 5, 0" VerticalOptions="Start">
+                <Label Text="Alien Edit Page" FontSize="Small" />
                 <StackLayout>
                     <Label Text="Name:" />
                     <Entry Text="{Binding Data.Name}" />

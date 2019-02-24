@@ -7,7 +7,7 @@
         <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Padding="5, 0, 5, 0">
+        <StackLayout Padding="5, 20, 5, 0">
             <Label Text="Items List Page" FontSize="Small" />
             <ListView x:Name="ItemsListView" 
                 ItemsSource="{Binding Dataset}"
@@ -21,8 +21,8 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" Orientation="Horizontal">
-                                <Image Source="{Binding ImageURI}" WidthRequest="50" HeightRequest="75" />
+                            <StackLayout Padding="0, 7.5, 0, 7.5" Orientation="Horizontal">
+                                <Image Source="{Binding ImageURI}" WidthRequest="75" HeightRequest="75" />
                                 <StackLayout>
                                     <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
                                     <Label Text="{Binding Description}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />

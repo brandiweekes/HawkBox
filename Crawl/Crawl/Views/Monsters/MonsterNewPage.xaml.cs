@@ -17,25 +17,11 @@ namespace Crawl.Views
             InitializeComponent();
 
             //default monster
-            Data = new Monster();
-            /*{
-                Name = "Monster name",
-                Description = "This is a Monster description.",
-                ImageURI = HawkboxResources.Monsters_Male_Agent_A,
-                Id = Guid.NewGuid().ToString(),
-                Level = 1,
-                ExperienceTotal = 100,
-                Alive = true,
-                Attribute = new AttributeBase(1, 1, 1, 10, 10),
-                AttributeString = AttributeBase.GetAttributeString(new AttributeBase(1,1,1,10,10)),
-                Head = "head",
-                Feet = "feet",
-                Necklace = "necklace",
-                PrimaryHand = "primaryHand",
-                OffHand = "offhand",
-                RightFinger = "rightFinger",
-                LeftFinger = "leftFinger"
-        };*/
+            Data = new Monster()
+            {
+                Name = "Agent name",
+                Description = "This is a Agent description."
+            };
             //set binding context
             BindingContext = this;
         }

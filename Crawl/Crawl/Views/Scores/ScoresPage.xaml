@@ -9,8 +9,8 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Padding="5, 0, 5, 0">
-            <Label Text="Scores List Page"/>
+        <StackLayout Padding="5, 20, 5, 0">
+            <Label Text="Scores List Page" FontSize="Small" />
             <ListView x:Name="ScoresListView"
                           ItemsSource="{Binding Dataset}"
                           VerticalOptions="FillAndExpand"
@@ -23,7 +23,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="10" Spacing="10">
+                            <StackLayout Orientation="Vertical" Padding="0, 7.5, 0, 7.5" Spacing="10">
                                 <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
                                 <Label Text="{Binding Description}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
                                 <Label Text="{Binding GameDate,StringFormat='{0:MMMM d, yyyy HH:mm}'}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />

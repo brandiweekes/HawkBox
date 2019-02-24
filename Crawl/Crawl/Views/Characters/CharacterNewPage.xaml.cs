@@ -17,8 +17,12 @@ namespace Crawl.Views
             InitializeComponent();
 
             //character with default values
-            Data = new Character();
-        
+            Data = new Character
+            {
+                Name = "Alien Name",
+                Description = "This is Alien Description"
+            };
+
             //set BindingContext
             BindingContext = this;
         }

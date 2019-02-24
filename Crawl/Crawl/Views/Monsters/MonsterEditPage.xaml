@@ -11,8 +11,8 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Spacing="20" Padding="15" VerticalOptions="Start">
+        <ScrollView Padding="0, 20, 0, 0">
+            <StackLayout Spacing="20" Padding="5, 0, 5, 0" VerticalOptions="Start">
                 <Label Text="Agent Edit Page" FontSize="Small" />
 
                 <StackLayout>

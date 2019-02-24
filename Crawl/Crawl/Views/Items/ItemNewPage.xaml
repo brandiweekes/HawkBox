@@ -21,7 +21,7 @@
 
         <ScrollView>
             <StackLayout Spacing="20" 
-                         Padding="15"
+                         Padding="5 ,20, 5, 0"
                          VerticalOptions="Start">
 
                 <Label Text="Item Create Page" FontSize="Small" />

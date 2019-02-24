@@ -18,8 +18,12 @@ namespace Crawl.Views
             InitializeComponent();
 
             //default item
-            Data = new Item();
-        
+            Data = new Item()
+            {
+                Name = "Item Name",
+                Description = "Item Description"
+            };
+
             BindingContext = this;
             //Need to make the SelectedItem a string, so it can select the correct item.
             LocationPicker.SelectedItem = Data.Location.ToString();

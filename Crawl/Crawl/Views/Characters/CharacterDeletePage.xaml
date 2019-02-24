@@ -9,12 +9,12 @@
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
     </ContentPage.ToolbarItems>
 
-    <ScrollView>
+    <ScrollView Padding="0, 20, 0, 0">
         <StackLayout 
             x:Name="DetailsRoot"
             Orientation="Vertical"
             Spacing="20" 
-            Padding="15" 
+            Padding="5, 0, 5, 0" 
             VerticalOptions="Start">
 
             <Label Text="Alien Delete Page" FontSize="Small" />
