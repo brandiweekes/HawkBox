@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
@@ -142,5 +143,18 @@ namespace Crawl.ViewModels
         }
 
         #endregion Refresh
+
+        #region Data Operations
+
+        /// <summary>
+        /// Fetch selected characters from dataset.
+        /// </summary>
+        /// <returns></returns>
+        public List<Character> GetSelectedCharacters()
+        {
+            return DataSet.Where(args => args.IsSelected == true).Select(args => args.Data).ToList();
+        }
+
+        #endregion Data Operations
     }
 }
