@@ -24,7 +24,7 @@
                          Padding="5, 0, 5, 0"
                          VerticalOptions="Start">
 
-                <Label Text="Item Create Page" FontSize="Small" />
+                <Label Text="Item Edit Page" FontSize="Small" />
 
                 <StackLayout>
                     <Label Text="Name:" />
