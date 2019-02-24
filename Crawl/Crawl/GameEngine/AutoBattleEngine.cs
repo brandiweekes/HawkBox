@@ -85,13 +85,10 @@ namespace Crawl.GameEngine
                 return null;
             }
 
-            var _charactersDataset = CharactersViewModel.Instance.Dataset;
+            var _instance = CharactersViewModel.Instance;
+            _instance.LoadCharactersCommand.Execute(null);
 
-            // if Dataset is not defined
-            if(_charactersDataset == null)
-            {
-                return null;
-            }
+            var _charactersDataset = _instance.Dataset;
             var _count = _charactersDataset.Count;
 
             // No. of characters selected cannot be greater than dataset count
@@ -99,6 +96,7 @@ namespace Crawl.GameEngine
             {
                 return null;
             }
+
             var myReturn = new List<Character>();
 
             // Iterate for given number of times and fetch characters from dataset randomly.
