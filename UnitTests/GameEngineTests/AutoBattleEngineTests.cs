@@ -118,5 +118,18 @@ namespace UnitTests.GameEngineTests
             //assert
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
         }
+
+        [Test]
+        public void BattleEngine_FormatOutput_Should_Pass()
+        {
+            // Arrange
+            AutoBattleEngine auto = new AutoBattleEngine();
+            
+            // Act
+            var Actual = auto.FormatOutput();
+            
+            // Assert
+            Assert.IsNotNull(Actual, TestContext.CurrentContext.Test.Name);
+        }
     }
 }
