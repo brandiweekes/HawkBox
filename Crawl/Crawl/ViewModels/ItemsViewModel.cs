@@ -179,6 +179,16 @@ namespace Crawl.ViewModels
         // That allows the feature to work for both SQL and the MOCk datastores...
         public async Task<bool> InsertUpdateAsync(Item data)
         {
+            var _count = Dataset.Where(i => i.Id == data.Id).Count<Item>();
+            if(_count == 0)
+            {
+                Dataset.Add(data);
+            }
+            else
+            {
+                var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
+                myData.Update(data);
+            }
             var myReturn = await DataStore.InsertUpdateAsync_Item(data);
             return myReturn;
         }
