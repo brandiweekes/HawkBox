@@ -27,14 +27,14 @@
                     Orientation="Vertical">
 
                     <Image 
-                        Source="d20.png" 
+                        Source="http://gdurl.com/NvcO" 
                         VerticalOptions="Center" 
                         HeightRequest="150"
                         HorizontalOptions="Fill"/>
 
                     <Label 
                         FontSize="Large"
-                        Text="Class Dungeon"
+                        Text="Class Dungeon: MiBliens"
                         VerticalOptions="Center" 
                         HorizontalOptions="CenterAndExpand" />
 
