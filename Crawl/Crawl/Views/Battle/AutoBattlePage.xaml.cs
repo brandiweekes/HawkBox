@@ -22,11 +22,10 @@ namespace Crawl.Views.Battle
         private async void AutoBattleButton_Command(object sender, EventArgs e)
         {
             // Can create a new battle engine...
-            var myBattleEngine = new BattleEngine();
+            var myAutoBattleEngine = new AutoBattleEngine();
 
-            var result = myBattleEngine.AutoBattle();
-
-            if (result == false)
+            myAutoBattleEngine.RunAutoBattle();
+            if (myAutoBattleEngine.GetListOfCharacter(6).Count != 6)
             {
                 var answer = await DisplayAlert("Error", "No Characters to battle with", "OK","Cancel");
                 if (answer)
@@ -36,7 +35,7 @@ namespace Crawl.Views.Battle
                 }
             }
 
-            if (myBattleEngine.BattleScore.RoundCount < 1)
+            if (myAutoBattleEngine.GetFinalScoreObject().RoundCount < 1)
             {
                 var answer = await DisplayAlert("Error", "No Rounds Fought", "OK", "Cancel");
                 if (answer)
@@ -46,14 +45,16 @@ namespace Crawl.Views.Battle
                 }
             }
 
-            var outputString = "Battle Over! Score " + myBattleEngine.BattleScore.ScoreTotal;
-            var action = await DisplayActionSheet(outputString, 
+            var display = await DisplayAlert("AutoBattle Details", myAutoBattleEngine.FormatOutput(), "OK", "Cancel");
+
+            //var outputString = "Battle Over! Score " + myBattleEngine.BattleScore.ScoreTotal;
+            var action = await DisplayActionSheet("Click View Score below to see your score details", 
                 "Cancel", 
                 null, 
                 "View Score");
             if (action == "View Score")
             {
-                await Navigation.PushAsync(new ScoreDetailPage(new ScoreDetailViewModel(myBattleEngine.BattleScore)));
+                await Navigation.PushAsync(new ScoreDetailPage(new ScoreDetailViewModel(myAutoBattleEngine.BattleEngine.BattleScore)));
             }
         }
     }

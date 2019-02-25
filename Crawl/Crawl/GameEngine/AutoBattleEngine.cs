@@ -67,6 +67,9 @@ namespace Crawl.GameEngine
 
             BattleEngine.EndBattle();
             Debug.WriteLine("Battle ended.");
+
+            var myOutput = FormatOutput();
+            Debug.WriteLine("End of AutoBattle RunAutoBattle()");
         }
 
         // Output Score
@@ -102,7 +105,7 @@ namespace Crawl.GameEngine
             // Iterate for given number of times and fetch characters from dataset randomly.
             for (var i = 0; i < number; i++)
             {
-                myReturn.Add(_charactersDataset[rnd.Next(1, _count + 1)]);
+                myReturn.Add(_charactersDataset[rnd.Next(0, _count)]);
             }
 
             return myReturn;
