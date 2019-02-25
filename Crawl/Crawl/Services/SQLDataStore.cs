@@ -101,7 +101,7 @@ namespace Crawl.Services
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             App.Database.InsertAsync(new BaseCharacter(new Character(
-                "Pumpkin Ghost", "Ariel attacks are deadly!!!", HawkboxResources.Aliens_Char_6,
+                "Pumpkin Ghost", "Aerial attacks are deadly!!!", HawkboxResources.Aliens_Char_6,
                 1, 10, true, 10, 10, 10, 20, 20,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
