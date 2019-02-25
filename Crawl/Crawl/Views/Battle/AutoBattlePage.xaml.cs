@@ -25,7 +25,7 @@ namespace Crawl.Views.Battle
             var myAutoBattleEngine = new AutoBattleEngine();
 
             myAutoBattleEngine.RunAutoBattle();
-            if (myAutoBattleEngine.GetListOfCharacter(6).Count != 6)
+            if (myAutoBattleEngine.BattleEngine.CharacterList.Count != 6)
             {
                 var answer = await DisplayAlert("Error", "No Characters to battle with", "OK","Cancel");
                 if (answer)
