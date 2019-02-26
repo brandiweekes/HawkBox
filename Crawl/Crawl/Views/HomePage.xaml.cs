@@ -15,11 +15,27 @@ namespace Crawl.Views
 		public HomePage ()
 		{
 			InitializeComponent ();
+
+
 		}
 
         async void OnAutoBattleClicked(object sender, EventArgs args)
         {
-            await Navigation.PushAsync(new Battle.AutoBattlePage());
+
+
+            AbsoluteLayout.SetLayoutBounds(Alien, new Rectangle(0, 0.1, .3, .3));
+
+            AbsoluteLayout.SetLayoutBounds(Alien, new Rectangle(0, 0.2, .3, .3));
+
+            AbsoluteLayout.SetLayoutBounds(Alien, new Rectangle(0, 0.3, .3, .3));
+
+            AbsoluteLayout.SetLayoutBounds(Alien, new Rectangle(0, 0.4, .3, .3));
+
+            AbsoluteLayout.SetLayoutBounds(Alien, new Rectangle(0, 0.5, .3, .3));
+
+
+            
+            //await Navigation.PushAsync(new Battle.AutoBattlePage());
         }
 
         async void OnBattleClicked(object sender, EventArgs args)
