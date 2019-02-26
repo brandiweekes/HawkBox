@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Crawl.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,9 +12,9 @@ namespace Crawl.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class HomePage : ContentPage
 	{
-		public HomePage ()
+		public HomePage()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 
 
 		}
@@ -35,7 +35,7 @@ namespace Crawl.Views
 
 
             
-            //await Navigation.PushAsync(new Battle.AutoBattlePage());
+            await Navigation.PushAsync(new Battle.AutoBattlePage());
         }
 
         async void OnBattleClicked(object sender, EventArgs args)
