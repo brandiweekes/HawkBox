@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.AboutPage"
              xmlns:vm="clr-namespace:Crawl.ViewModels;"
+             xmlns:local="clr-namespace:Crawl.Models"
              xmlns:documents="clr-namespace:Windows.UI.Xaml.Documents;assembly=Windows.Foundation.UniversalApiContract"
              Title="{Binding Title}">
 
@@ -28,7 +29,7 @@
                     Orientation="Vertical">
 
                     <Image 
-                        Source="http://gdurl.com/RxRK" 
+                        Source="{Static local:HawkboxResources.Aliens_Char_3}" 
                         VerticalOptions="Center" 
                         HeightRequest="150"
                         HorizontalOptions="Fill"/>
