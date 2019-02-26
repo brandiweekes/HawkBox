@@ -10,8 +10,9 @@
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
 
-    <ScrollView HorizontalOptions="Center">
+    <ScrollView HorizontalOptions="Center" Padding="0, 20, 0, 0">
         <StackLayout
+            Padding="5, 0, 5, 0"
         VerticalOptions="Center"
         HorizontalOptions="Center" 
         Orientation="Vertical">
@@ -27,7 +28,7 @@
                     Orientation="Vertical">
 
                     <Image 
-                        Source="http://gdurl.com/NvcO" 
+                        Source="http://gdurl.com/RxRK" 
                         VerticalOptions="Center" 
                         HeightRequest="150"
                         HorizontalOptions="Fill"/>
