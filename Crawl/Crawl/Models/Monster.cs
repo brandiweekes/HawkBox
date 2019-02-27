@@ -21,28 +21,20 @@ namespace Crawl.Models
             Name = "Monster name";
             Description = "This is a Monster description.";
             ImageURI = HawkboxResources.Monsters_Male_Agent_A;
-            //Id = Guid.NewGuid().ToString();
-            Level = 1;
-            ExperienceTotal = 100;
-            Alive = true;
-            Attribute = new AttributeBase(1, 1, 1, 10, 10);
-            AttributeString = AttributeBase.GetAttributeString(new AttributeBase(1, 1, 1, 10, 10));
-            Head = "head";
-            Feet = "feet";
-            Necklace = "necklace";
-            PrimaryHand = "primaryHand";
-            OffHand = "offhand";
-            RightFinger = "rightFinger";
-            LeftFinger = "leftFinger";
 
-            // Scale up to the level
-            // // Implement ScaleLevel(Level);
+            Level = 1;
+            ExperienceTotal = 0;
+            Alive = true;
+
+            Attribute = new AttributeBase(1, 1, 1, 10, 10);
+            AttributeString = AttributeBase.GetAttributeString(Attribute);
         }
 
         public Monster(string name, string description, string imageUri,
-            int level, int xpTotal, bool alive,
-            int speed, int attack, int defense, int maxHealth, int currentHealth,
-            string head, string feet, string necklace, string primaryHand, string offhand, string rightFinger, string leftFinger)
+            int level = 1, int xpTotal = 0, bool alive = true,
+            int speed = 0, int attack = 0, int defense = 0, int maxHealth = 10, int currentHealth = 10,
+            string head = null, string feet = null, string necklace = null, 
+            string primaryHand = null, string offhand = null, string rightFinger = null, string leftFinger = null)
         {
             Name = name;
             Description = description;
@@ -51,12 +43,13 @@ namespace Crawl.Models
             Level = level;
             ExperienceTotal = xpTotal;
             Alive = alive;
-
+            ExperienceRemaining = 0;
+            
             // TODO: Not sure of formula. Needed some work here
-            ExperienceRemaining = ExperienceTotal - CalculateExperienceEarned(Damage);
+            //ExperienceRemaining = ExperienceTotal - CalculateExperienceEarned(Damage);
 
             Attribute = new AttributeBase(speed, attack, defense, maxHealth, currentHealth);
-            AttributeString = AttributeBase.GetAttributeString(this.Attribute);
+            AttributeString = AttributeBase.GetAttributeString(Attribute);
 
             Head = head;
             Feet = feet;
@@ -65,7 +58,6 @@ namespace Crawl.Models
             OffHand = offhand;
             RightFinger = rightFinger;
             LeftFinger = leftFinger;
-
         }
 
         // Passed in from creating via the Database, so use the guid passed in...
@@ -106,6 +98,12 @@ namespace Crawl.Models
         // For making a new one for lists etc..
         public Monster(Monster newData)
         {
+            Update(newData);
+        }
+
+        // Update the values passed in
+        public void Update(Monster newData)
+        {
             // Base information
             Name = newData.Name;
             Description = newData.Description;
@@ -130,65 +128,52 @@ namespace Crawl.Models
             Feet = newData.Feet;
         }
 
-        // Update the values passed in
-        public void Update(Monster newData)
-        {
-            // Base information
-            this.Name = newData.Name;
-            this.Description = newData.Description;
-            this.Level = newData.Level;
-            this.ExperienceTotal = newData.ExperienceTotal;
-            this.ImageURI = newData.ImageURI;
-            this.Alive = newData.Alive;
-            this.Damage = newData.Damage;
-            this.UniqueItem = newData.UniqueItem;
-            this.ExperienceRemaining = newData.ExperienceRemaining;
-
-            // Populate the Attributes
-            this.AttributeString = newData.AttributeString;
-            this.Attribute = new AttributeBase(newData.AttributeString);
-
-            // Set the strings for the items
-            this.Head = newData.Head;
-            this.Feet = newData.Feet;
-            this.Necklace = newData.Necklace;
-            this.RightFinger = newData.RightFinger;
-            this.LeftFinger = newData.LeftFinger;
-            this.Feet = newData.Feet;
-            return;
-        }
-
         // Helper to combine the attributes into a single line, to make it easier to display the item as a string
         public string FormatOutput()
         {
-            var UniqueOutput = "Implement";
+            var myReturn = $"Name : {Name} \n" +
+                $"Description : {Description} \n" +
+                $"Image : {ImageURI} \n" +
+                $"Level : {Level} \t XP : {ExperienceTotal} \t Remaining XP : {ExperienceRemaining} \t Damage : {Damage} \n" +
+                $"*** Attributes ***\n" +
+                $"Attack : {Attribute.Attack}\t" +
+                $"Defense : {Attribute.Defense}\t" +
+                $"Speed : {Attribute.Speed}\t" +
+                $"Current Health : {Attribute.CurrentHealth}\t" +
+                $"Max. Health : {Attribute.MaxHealth}" +
+                $"*** Items at given location ***\n" +
+                $"Head : {(Head == null ? null : GetItem(Head).Name)}\t" +
+                $"Necklace : {(Necklace == null ? null : GetItem(Necklace).Name)}\t" +
+                $"Primary Hand : {(PrimaryHand == null ? null : GetItem(PrimaryHand).Name)}\t" +
+                $"Off Hand : {(OffHand == null ? null : GetItem(OffHand).Name)}\t" +
+                $"Right Finger : {(RightFinger == null ? null : GetItem(RightFinger).Name)}\t" +
+                $"Left Finger : {(LeftFinger == null ? null : GetItem(LeftFinger).Name)}\t" +
+                $"Feet : {(Feet == null ? null : GetItem(Feet).Name)}";
 
-            var myReturn = "Implement";
-
-            // Implement
-
-            myReturn += " , Unique Item : " + UniqueOutput;
-
+            if(UniqueItem != null)
+            {
+                myReturn += $"\nUnique Item : {GetItem(UniqueItem)}";
+            }
             return myReturn;
         }
 
         // Add or Replace Unique Item to Monster
         public void AddOrReplaceUniqueItem(string itemId)
         {
-            this.UniqueItem = itemId;
+            UniqueItem = itemId;
         }
 
         // Update Image for Monster
         public void UpdateMonsterImageURL(string imageUrl)
         {
-            this.ImageURI = imageUrl;
+            ImageURI = imageUrl;
         }
 
         // Update Attributes for Monster
         public void UpdateMonsterAttributes(AttributeBase attributeBase)
         {
-            this.Attribute = attributeBase;
-            this.AttributeString = AttributeBase.GetAttributeString(this.Attribute);
+            Attribute = attributeBase;
+            AttributeString = AttributeBase.GetAttributeString(Attribute);
         }
 
         // Upgrades a monster to a set level
@@ -199,10 +184,10 @@ namespace Crawl.Models
                 return;
 
             // Dont update if it's same level
-            if (level == this.Level)
+            if (level == Level)
                 return;
 
-            this.Level = level;
+            Level = level;
 
         }
 
@@ -315,6 +300,12 @@ namespace Crawl.Models
             // Implement
 
             return myReturn;
+        }
+
+        // Get the Item at a known string location (head, foot etc.)
+        public Item GetItem(string itemString)
+        {
+            return ItemsViewModel.Instance.GetItem(itemString);
         }
 
         #endregion Items

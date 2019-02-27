@@ -43,8 +43,8 @@ namespace Crawl.Models
         // Create a default item for the instantiation
         private void CreateDefaultItem()
         {
-            Name = "Unknown";
-            Description = "Unknown";
+            Name = "Item Name";
+            Description = "This is Item Description";
             ImageURI = ItemsController.DefaultImageURI;
 
             Range = 0;
@@ -53,21 +53,16 @@ namespace Crawl.Models
 
             Location = ItemLocationEnum.Unknown;
             Attribute = AttributeEnum.Unknown;
-
-            //ImageURI = null;
         }
 
         // Helper to combine the attributes into a single line, to make it easier to display the item as a string
         public string FormatOutput()
         {
-            var myReturn = Name + " , " +
-                            Description + " for " +
-                            Location.ToString() + " with " +
-                            Attribute.ToString() +
-                            "+" + Value + " , " +
-                            "Damage : " + Damage + " , " +
-                            "Range : " + Range;
-
+            var myReturn = $"Name : {Name} \n" +
+                $"Desciption : {Description} \n" +
+                $"Image : {ImageURI} \n" +
+                $"Attribute : {Attribute.ToString()} \t Location : {Location.ToString()} \n" +
+                $"Range : {Range} \t Damage : {Damage} \t Value : {Value}";
             return myReturn.Trim();
         }
 

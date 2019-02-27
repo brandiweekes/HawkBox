@@ -144,10 +144,10 @@ namespace Crawl.Services
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
 
             // Load Scores
-            _scoreDataset.Add(new Score("Score Name 1", "Description", "Image", false));
-            _scoreDataset.Add(new Score("Score Name 2", "Description", "Image", false));
-            _scoreDataset.Add(new Score("Score Name 3", "Description", "Image", false));
-            _scoreDataset.Add(new Score("Score Name 4", "Description", "Image", false));
+            _scoreDataset.Add(new Score("Score Name 1", "Description", false));
+            _scoreDataset.Add(new Score("Score Name 2", "Description", false));
+            _scoreDataset.Add(new Score("Score Name 3", "Description", false));
+            _scoreDataset.Add(new Score("Score Name 4", "Description", false));
         }
 
         #region Item

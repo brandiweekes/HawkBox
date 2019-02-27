@@ -168,10 +168,10 @@ namespace Crawl.Services
                 "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png", 0, 10, -1, ItemLocationEnum.Head, AttributeEnum.Speed));
 
             // Load Scores
-            App.Database.InsertAsync(new Score("Score Name 1", "Description", "Image", false));
-            App.Database.InsertAsync(new Score("Score Name 2", "Description", "Image", false));
-            App.Database.InsertAsync(new Score("Score Name 3", "Description", "Image", false));
-            App.Database.InsertAsync(new Score("Score Name 4", "Description", "Image", false));
+            App.Database.InsertAsync(new Score("Score Name 1", "Description", false));
+            App.Database.InsertAsync(new Score("Score Name 2", "Description", false));
+            App.Database.InsertAsync(new Score("Score Name 3", "Description", false));
+            App.Database.InsertAsync(new Score("Score Name 4", "Description", false));
 
         }
 

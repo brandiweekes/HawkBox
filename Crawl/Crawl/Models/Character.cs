@@ -11,33 +11,50 @@ namespace Crawl.Models
         // Add in the actual attribute class
         public AttributeBase Attribute { get; set; }
 
-        // Make sure Attribute is instantiated in the constructor
+        /// <summary>
+        /// Create new Charater with default values.
+        /// </summary>
         public Character()
         {
             Name = "Character Name";
             Description = "This is a Character description.";
-            ImageURI = "http://gdurl.com/RxRK";
+            ImageURI = HawkboxResources.Aliens_Char_1;
+
             Level = 1;
-            //Id = Guid.NewGuid().ToString();
+            ExperienceTotal = 0;
+            Alive = true;
 
             Attribute = new AttributeBase(1, 1, 1, 10, 10);
-            AttributeString = AttributeBase.GetAttributeString(new AttributeBase(1, 1, 1, 10, 10));
-
-            Head = "head";
-            Feet = "feet";
-            Necklace = "necklace";
-            PrimaryHand = "primaryHand";
-            OffHand = "offhand";
-            RightFinger = "rightFinger";
-            LeftFinger = "leftFinger";
-            Alive = true;
+            AttributeString = AttributeBase.GetAttributeString(Attribute);
         }
 
-        // Create new Character.
+        /// <summary>
+        /// Create new Character by passing Name, Description, ImageURL.
+        /// rest all parameters are optional.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="imageUri"></param>
+        /// <param name="level"></param>
+        /// <param name="xpTotal"></param>
+        /// <param name="alive"></param>
+        /// <param name="speed"></param>
+        /// <param name="attack"></param>
+        /// <param name="defense"></param>
+        /// <param name="maxHealth"></param>
+        /// <param name="currentHealth"></param>
+        /// <param name="head"></param>
+        /// <param name="feet"></param>
+        /// <param name="necklace"></param>
+        /// <param name="primaryHand"></param>
+        /// <param name="offhand"></param>
+        /// <param name="rightFinger"></param>
+        /// <param name="leftFinger"></param>
         public Character(string name, string description, string imageUri,
-            int level, int xpTotal, bool alive, 
-            int speed, int attack, int defense, int maxHealth, int currentHealth,
-            string head, string feet, string necklace, string primaryHand, string offhand, string rightFinger, string leftFinger)
+            int level = 1, int xpTotal = 0, bool alive = true, 
+            int speed = 1, int attack = 1, int defense = 1, int maxHealth = 10, int currentHealth = 10,
+            string head = null, string feet = null, string necklace = null, string primaryHand = null, 
+            string offhand = null, string rightFinger = null, string leftFinger = null)
         {
             Name = name;
             Description = description;
@@ -48,7 +65,7 @@ namespace Crawl.Models
             Alive = alive;
 
             Attribute = new AttributeBase(speed, attack, defense, maxHealth,currentHealth);
-            AttributeString = AttributeBase.GetAttributeString(this.Attribute);
+            AttributeString = AttributeBase.GetAttributeString(Attribute);
 
             Head = head;
             Feet = feet;
@@ -89,62 +106,70 @@ namespace Crawl.Models
             Feet = newData.Feet;
         }
 
-        // Create a new character, based on existing Character
+        /// <summary>
+        /// Create a new character, based on existing Character
+        /// </summary>
+        /// <param name="newData"></param>
         public Character(Character newData)
         {
-            Name = newData.Name;
-            Description = newData.Description;
-            ImageURI = newData.ImageURI;
-
-            Level = newData.Level;
-            ExperienceTotal = newData.ExperienceTotal;
-            Alive = newData.Alive;
-
-            AttributeString = newData.AttributeString;
-            Attribute = new AttributeBase(newData.AttributeString);
-
-            Head = newData.Head;
-            Feet = newData.Feet;
-            Necklace = newData.Necklace;
-            PrimaryHand = newData.PrimaryHand;
-            OffHand = newData.OffHand;
-            RightFinger = newData.RightFinger;
-            LeftFinger = newData.LeftFinger;
+            Update(newData);
         }
 
-        // Update the character information
-        // Updates the attribute string
+        /// <summary>
+        /// Update the character information based on newData provided.
+        /// </summary>
+        /// <param name="newData"></param>
         public void Update(Character newData)
         {
             if(newData == null)
                 return;
 
-            this.Name = newData.Name;
-            this.Description = newData.Description;
-            this.Level = newData.Level;
-            this.ExperienceTotal = newData.ExperienceTotal;
-            this.ImageURI = newData.ImageURI;
-            this.Alive = newData.Alive;
+            Name = newData.Name;
+            Description = newData.Description;
+            Level = newData.Level;
+            ExperienceTotal = newData.ExperienceTotal;
+            ImageURI = newData.ImageURI;
+            Alive = newData.Alive;
 
             // Populate the Attributes
-            this.AttributeString = newData.AttributeString;
-
-            this.Attribute = new AttributeBase(newData.AttributeString);
+            AttributeString = newData.AttributeString;
+            Attribute = new AttributeBase(newData.AttributeString);
 
             // Set the strings for the items
-            this.Head = newData.Head;
-            this.Feet = newData.Feet;
-            this.Necklace = newData.Necklace;
-            this.RightFinger = newData.RightFinger;
-            this.LeftFinger = newData.LeftFinger;
-            this.Feet = newData.Feet;
-            return;
+            Head = newData.Head;
+            Necklace = newData.Necklace;
+            PrimaryHand = newData.PrimaryHand;
+            OffHand = newData.OffHand;
+            RightFinger = newData.RightFinger;
+            LeftFinger = newData.LeftFinger;
+            Feet = newData.Feet;
         }
 
-        // Helper to combine the attributes into a single line, to make it easier to display the item as a string
+        /// <summary>
+        /// Helper to combine the attributes into a single line, to make it easier to display the item as a string.
+        /// </summary>
+        /// <returns></returns>
         public string FormatOutput()
         {
-            var myReturn = " Implement";
+            var _instance = ItemsViewModel.Instance;
+            var myReturn = $"Name : {Name} \n" +
+                $"Description : {Description} \n" +
+                $"Image : {ImageURI} \n" +
+                $"Level : {Level} \t XP : {ExperienceTotal} \n" +
+                $"*** Attributes ***\n" +
+                $"Attack : {Attribute.Attack}\t" +
+                $"Defense : {Attribute.Defense}\t" +
+                $"Speed : {Attribute.Speed}\t" +
+                $"Current Health : {Attribute.CurrentHealth}\t" +
+                $"Max. Health : {Attribute.MaxHealth}" +
+                $"*** Items at given location ***\n" +
+                $"Head : {(Head == null ? null : GetItem(Head).Name)}\t" +
+                $"Necklace : {(Necklace == null ? null : GetItem(Necklace).Name)}\t" +
+                $"Primary Hand : {(PrimaryHand == null ? null : GetItem(PrimaryHand).Name)}\t" +
+                $"Off Hand : {(OffHand == null ? null : GetItem(OffHand).Name)}\t" +
+                $"Right Finger : {(RightFinger == null ? null : GetItem(RightFinger).Name)}\t" +
+                $"Left Finger : {(LeftFinger == null ? null : GetItem(LeftFinger).Name)}\t" +
+                $"Feet : {(Feet == null ? null : GetItem(Feet).Name)}";
             return myReturn;
         }
 

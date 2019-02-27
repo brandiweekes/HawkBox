@@ -60,7 +60,7 @@ namespace Crawl.Models
         {
             // Implement
             Name = "Score Name";
-            Description = "Score Desc";
+            Description = "This is Score Description";
 
             ScoreTotal = 0;
             TurnCount = 0;
@@ -75,11 +75,17 @@ namespace Crawl.Models
             ItemsDroppedList = new List<Item>();
         }
 
-        public Score(string name, string desc, string imageUri, bool autoBattle)
+        public Score(string name, string desc, bool autoBattle)
         {
             Name = name;
             Description = desc;
-            ImageURI = imageUri;
+
+            ScoreTotal = 0;
+            TurnCount = 0;
+            RoundCount = 0;
+            MonsterSlainNumber = 0;
+            ExperienceGainedTotal = 0;
+
             AutoBattle = autoBattle;
             GameDate = DateTime.Now;
             CharacterAtDeathList = new List<Character>();
@@ -110,8 +116,55 @@ namespace Crawl.Models
             // From Entity class
             Name = newData.Name;
             Description = newData.Description;
-            ImageURI = newData.ImageURI;
+        }
 
+        /// <summary>
+        /// Format Score object to string to display.
+        /// </summary>
+        /// <returns></returns>
+        public string FormatOutput()
+        {
+            var myReturn = $"Game Date : {GameDate} \t Total Score : {ScoreTotal} \t Auto Battle : {AutoBattle}" +
+                $"No. of Rounds : {RoundCount} \t No. of Turns : {TurnCount} \t Dead Monsters : {MonsterSlainNumber} \t XP Gained : {ExperienceGainedTotal}" +
+                $"*** Died Aliens ***\n";
+            if(CharacterAtDeathList.Count == 0)
+            {
+                myReturn += $"No Data \n";
+            }
+            else
+            {
+                foreach(Character c in CharacterAtDeathList)
+                {
+                    myReturn += $"{c.FormatOutput()} \n";
+                }
+            }
+
+            myReturn += $"*** Died Agents ***\n";
+            if (MonstersKilledList.Count == 0)
+            {
+                myReturn += $"No Data \n";
+            }
+            else
+            {
+                foreach (Monster m in MonstersKilledList)
+                {
+                    myReturn += $"{m.FormatOutput()} \n";
+                }
+            }
+
+            myReturn += $"*** Items Dropped ***\n";
+            if (ItemsDroppedList.Count == 0)
+            {
+                myReturn += $"No Data \n";
+            }
+            else
+            {
+                foreach (Item i in ItemsDroppedList)
+                {
+                    myReturn += $"{i.FormatOutput()} \n";
+                }
+            }
+            return myReturn;
         }
 
         #region ScoreItems
