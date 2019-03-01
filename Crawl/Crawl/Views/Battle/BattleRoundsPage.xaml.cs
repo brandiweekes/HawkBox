@@ -7,19 +7,16 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+using Crawl.Models;
+
 namespace Crawl.Views.Battle
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class BattlePage : ContentPage
+	public partial class BattleRoundsPage : ContentPage
 	{
-		public BattlePage ()
+		public BattleRoundsPage ()
 		{
 			InitializeComponent ();
 		}
-
-        private async void ManualBattleButton_Command(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new BattleRoundsPage());
-        }
-    }
+	}
 }

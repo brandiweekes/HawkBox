@@ -4,9 +4,13 @@
              x:Class="Crawl.Views.Battle.BattlePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="how-to-play and/or story landing page for game"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Battle"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                Clicked="ManualBattleButton_Command"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

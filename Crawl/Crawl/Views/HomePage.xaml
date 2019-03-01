@@ -5,9 +5,12 @@
              xmlns:local="clr-namespace:Crawl.Models"
              Title="Home Page">
     <ContentPage.Content>
+      <StackLayout>
+        
       <AbsoluteLayout Padding="15" >
+        
 
-        <Image Aspect="AspectFit" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+        <Image Opacity=".8"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                Source="http://clipart-library.com/data_images/483324.jpg"/>
 
         <Image x:Name="Alien" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0.6, .3, .3"
@@ -24,5 +27,6 @@
                 AbsoluteLayout.LayoutFlags="All, PositionProportional" AbsoluteLayout.LayoutBounds="1, 1, .3, .1" />
       </AbsoluteLayout>
         
+      </StackLayout>
     </ContentPage.Content>
 </ContentPage>

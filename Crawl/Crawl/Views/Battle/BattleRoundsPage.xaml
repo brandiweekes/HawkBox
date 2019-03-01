@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Crawl.Views.Battle.BattleRoundsPage"
+             xmlns:local="clr-namespace:Crawl.Models">
+
+  <ContentPage.Content>
+    <StackLayout>
+      <RelativeLayout>
+        
+      </RelativeLayout>
+      <AbsoluteLayout>
+        <Image Opacity=".8"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            Source="http://clipart-library.com/data_images/483324.jpg"/>
+
+        <Image x:Name="Alien" AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0.6, .3, .3"
+               Source="{Static local:HawkboxResources.Aliens_Char_3}"/>
+        <Image AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="1, 0.6, .25, .25"
+               Source="{Static local:HawkboxResources.Monsters_Female_Agent_E}"/>
+        <Label Text="MiBliens" FontSize="Large" FontAttributes="Bold"
+               HorizontalOptions="Center"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5, 0.1, .4, .1" />
+        <Label Text="Let the intergalactic battle begin!" FontSize="Medium" FontAttributes="Bold" TextColor="{DynamicResource LightBackgroundColor}"
+               HorizontalOptions="Center"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5, .85, .8, .1" />
+        <!--<Button Text="AutoBattle" FontSize="Small" Clicked="OnAutoBattleClicked"
+                        AbsoluteLayout.LayoutFlags="All, PositionProportional" 
+                        AbsoluteLayout.LayoutBounds="0, 1, .3, .1" />
+                <Button Text="Battle" Clicked="OnBattleClicked"
+                        AbsoluteLayout.LayoutFlags="All, PositionProportional" 
+                        AbsoluteLayout.LayoutBounds="1, 1, .3, .1" />-->
+      </AbsoluteLayout>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>
