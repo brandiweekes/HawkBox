@@ -54,7 +54,7 @@ namespace Crawl.Views.Battle
                 "View Score");
             if (action == "View Score")
             {
-                await Navigation.PushAsync(new ScoreDetailPage(new ScoreDetailViewModel(myAutoBattleEngine.BattleEngine.BattleScore)));
+                await Navigation.PushAsync(new ScoreDetailPage(new ScoreDetailViewModel(myAutoBattleEngine.GetFinalScoreObject())));
             }
         }
     }
