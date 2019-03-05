@@ -1,5 +1,8 @@
-﻿using Crawl.ViewModels;
+﻿using Crawl.GameEngine;
+using Crawl.Models;
+using Crawl.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Xamarin.Forms;
@@ -12,12 +15,16 @@ namespace Crawl.Views.Battle
     {
         private PickCharactersViewModel _viewModel;
 
-        public PickCharactersPage()
+        private BattleEngine _battleEngine;
+
+        public PickCharactersPage(BattleEngine battleEngine)
         {
             InitializeComponent();
             BindingContext = _viewModel = PickCharactersViewModel.Instance;
             if (_viewModel.DataSet.Count == 0)
-                _viewModel.LoadCommand.Execute(null);
+                _viewModel.ForceDataRefresh();
+
+            _battleEngine = battleEngine;
         }
 
         private void OnCharacterTapped(object sender, ItemTappedEventArgs e)
@@ -33,9 +40,17 @@ namespace Crawl.Views.Battle
             ValidateSelectedData();
         }
 
-        private void NextClicked(object sender, EventArgs e)
+        private async void NextClicked(object sender, EventArgs e)
         {
-            Console.WriteLine(_viewModel);
+            var _list = _viewModel.GetSelectedCharacters();
+
+            // add selected characters to battle's characters list
+            _battleEngine.CharacterList.AddRange(_list);
+
+            // start battle - set autobattle flag to false
+            _battleEngine.StartBattle(false);
+
+            await Navigation.PushModalAsync(new PickMonstersPage(_battleEngine));
         }
 
         private void ValidateSelectedData()
@@ -45,6 +60,17 @@ namespace Crawl.Views.Battle
                 PickCharacters_NextButton.IsEnabled = true;
             else
                 PickCharacters_NextButton.IsEnabled = false;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // disable back button
+            if (NavigationPage.GetHasBackButton(this))
+            {
+                NavigationPage.SetHasBackButton(this, false);
+            }
         }
     }
 }
