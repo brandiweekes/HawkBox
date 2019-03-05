@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Crawl.GameEngine
 {
-    class AutoBattleEngine
+    public class AutoBattleEngine
     {
         /// <summary>
         /// Random should only be instantiated once
@@ -16,154 +16,125 @@ namespace Crawl.GameEngine
         /// </summary>
         private static Random rnd = new Random();
 
-        public BattleEngine BattleEngine = new BattleEngine();
+        public BattleEngine BattleEngine;
 
-        // Start here...
+        /// <summary>
+        /// initalize properties.
+        /// </summary>
+        public AutoBattleEngine()
+        {
+            BattleEngine = new BattleEngine();
+        }
 
-        public async void RunAutoBattle()
+        /// <summary>
+        /// Entry point to initialize auto battle.
+        /// </summary>
+        public void RunAutoBattle()
         {
 
-
-            // * Pick 6 Characters
-            var CharacterList = GetListOfCharacter(6);
-
-            // Initialize the Battle
-            BattleEngine = new BattleEngine();
-
-            BattleEngine.CharacterList = CharacterList;
-
             BattleEngine.StartBattle(true);
-            Debug.WriteLine("Battle Starting...");
 
-            // * Start a Round
-            BattleEngine.StartRound();
-            Debug.WriteLine("Round Starting...");
 
-            RoundEnum result;
+            //// * Pick 6 Characters
+            //var CharacterList = GetListOfCharacter(6);
 
-            do
-            {
-                Debug.WriteLine("Performing next turn...");
-                result = BattleEngine.RoundNextTurn();
-                Debug.WriteLine("Turn over...");
+            //// Initialize the Battle
+            //BattleEngine = new BattleEngine();
 
-                // do the Round
-                // Turn loop happens inside the Round
-                if (result == RoundEnum.NewRound)
-                {
-                    BattleEngine.NewRound();
-                    Debug.WriteLine("New round beginning...");
-                }
+            //BattleEngine.CharacterList = CharacterList;
 
-            }
-            while (result != RoundEnum.GameOver);//end condition);
+            //BattleEngine.StartBattle(true);
+            //Debug.WriteLine("Battle Starting...");
 
-            // Save Score
-            var myScore = GetFinalScoreObject();
-            Debug.WriteLine("Score retrieved, score total: " + myScore.ScoreTotal);
+            //// * Start a Round
+            //BattleEngine.StartRound();
+            //Debug.WriteLine("Round Starting...");
 
-            await ScoresViewModel.Instance.AddAsync(myScore);
-            Debug.WriteLine("Final score saved");
+            //RoundEnum result;
 
-            BattleEngine.EndBattle();
-            Debug.WriteLine("Battle ended.");
+            //do
+            //{
+            //    Debug.WriteLine("Performing next turn...");
+            //    result = BattleEngine.RoundNextTurn();
+            //    Debug.WriteLine("Turn over...");
 
-            var myOutput = FormatOutput();
-            Debug.WriteLine("End of AutoBattle RunAutoBattle()");
+            //    // do the Round
+            //    // Turn loop happens inside the Round
+            //    if (result == RoundEnum.NewRound)
+            //    {
+            //        BattleEngine.NewRound();
+            //        Debug.WriteLine("New round beginning...");
+            //    }
+
+            //}
+            //while (result != RoundEnum.GameOver);//end condition);
+
+            //// Save Score
+            //var myScore = GetFinalScoreObject();
+            //Debug.WriteLine("Score retrieved, score total: " + myScore.ScoreTotal);
+
+            //await ScoresViewModel.Instance.AddAsync(myScore);
+            //Debug.WriteLine("Final score saved");
+
+            //BattleEngine.EndBattle();
+            //Debug.WriteLine("Battle ended.");
+
+            //var myOutput = FormatOutput();
+            //Debug.WriteLine("End of AutoBattle RunAutoBattle()");
         }
 
         // Output Score
 
-        public AutoBattleEngine()
-        {
-
-        }
 
 
-        public List<Character> GetListOfCharacter(int number)
-        {
-            // Number of characters cannot be less than zero or equal to zero.
-            if(number <= 0)
-            {
-                return null;
-            }
 
-            var _instance = CharactersViewModel.Instance;
-            _instance.LoadCharactersCommand.Execute(null);
-
-            var _charactersDataset = _instance.Dataset;
-            var _count = _charactersDataset.Count;
-
-            // No. of characters selected cannot be greater than dataset count
-            if(number > _count)
-            {
-                return null;
-            }
-
-            var myReturn = new List<Character>();
-
-            // Iterate for given number of times and fetch characters from dataset randomly.
-            for (var i = 0; i < number; i++)
-            {
-                myReturn.Add(_charactersDataset[rnd.Next(0, _count)]);
-            }
-
-            return myReturn;
-        }
-
-        //public bool isRound()
+        //public List<Character> GetListOfCharacter(int number)
         //{
-        // implement in round engine
-        //    return true;
+        //    // Number of characters cannot be less than zero or equal to zero.
+        //    if (number <= 0)
+        //    {
+        //        return null;
+        //    }
+
+        //    var _instance = CharactersViewModel.Instance;
+        //    _instance.LoadCharactersCommand.Execute(null);
+
+        //    var _charactersDataset = _instance.Dataset;
+        //    var _count = _charactersDataset.Count;
+
+        //    // No. of characters selected cannot be greater than dataset count
+        //    if (number > _count)
+        //    {
+        //        return null;
+        //    }
+
+        //    var myReturn = new List<Character>();
+
+        //    // Iterate for given number of times and fetch characters from dataset randomly.
+        //    for (var i = 0; i < number; i++)
+        //    {
+        //        myReturn.Add(_charactersDataset[rnd.Next(0, _count)]);
+        //    }
+
+        //    return myReturn;
         //}
 
-        //public bool StartNewRound()
-        //{
-        //    // Implement Starting a New Round
-        //    return true;
-        //}
-
+        /// <summary>
+        /// Final score object.
+        /// </summary>
+        /// <returns></returns>
         public Score GetFinalScoreObject()
         {
-            var myReturn = BattleEngine.BattleScore;
-
-            return myReturn;
+            return BattleEngine.GetFinalScore();
         }
 
+        /// <summary>
+        /// Format score object to display.
+        /// </summary>
+        /// <returns></returns>
         public string FormatOutput()
         {
-            var myReturn = "END OF BATTLE REPORT: \n";
-
-            foreach (var data in BattleEngine.CharacterList)
-            {
-                myReturn += " CHARACTER : " + data.Name;
-            }
-
-            myReturn += " " + "ROUND COUNT : " + BattleEngine.BattleScore.RoundCount.ToString();
-
-            myReturn += " " + "TURN COUNT : " + BattleEngine.BattleScore.TurnCount.ToString();
-
-            myReturn += " " + "SCORE TOTAL : " + BattleEngine.BattleScore.ScoreTotal.ToString();
-
-            myReturn += " EXPERIENCE GAINED : " + BattleEngine.BattleScore.ExperienceGainedTotal;
-
-            myReturn += " MONSTERS SLAIN COUNT : " + BattleEngine.BattleScore.MonsterSlainNumber;
-
-            myReturn += " MONSTERS DEATH LIST : ";
-            foreach (var data in BattleEngine.BattleScore.MonstersKilledList)
-            {
-                myReturn += BattleEngine.BattleScore.MonstersKilledList + ", ";
-            }
-
-            myReturn += " ITEMS DROPPED LIST : ";
-            foreach (var data in BattleEngine.BattleScore.MonstersKilledList)
-            {
-                myReturn += BattleEngine.BattleScore.MonstersKilledList + ", ";
-            }
-
-            Debug.WriteLine(myReturn);
-
-            return myReturn;
+            return BattleEngine.FormatOutput();
         }
 
     }
