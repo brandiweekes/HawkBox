@@ -80,6 +80,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MonsterDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MonstersViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PickCharactersViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PickMonstersViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ScoreDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ScoresViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Battle\AutoBattlePage.xaml.cs">
