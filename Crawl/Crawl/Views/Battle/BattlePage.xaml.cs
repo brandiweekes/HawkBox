@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Crawl.GameEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,8 @@ namespace Crawl.Views.Battle
 
         private async void ManualBattleButton_Command(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BattleRoundsPage());
+            BattleEngine battleEngine = new BattleEngine();
+            await Navigation.PushModalAsync(new PickCharactersPage(battleEngine));
         }
     }
 }
