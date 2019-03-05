@@ -124,8 +124,9 @@ namespace Crawl.Models
         /// <returns></returns>
         public string FormatOutput()
         {
-            var myReturn = $"Game Date : {GameDate} \t Total Score : {ScoreTotal} \t Auto Battle : {AutoBattle}" +
-                $"No. of Rounds : {RoundCount} \t No. of Turns : {TurnCount} \t Dead Monsters : {MonsterSlainNumber} \t XP Gained : {ExperienceGainedTotal}" +
+            var myReturn = $"Game Date: {GameDate}\nTotal Score: {ScoreTotal}\nAuto Battle: {AutoBattle}\n" +
+                $"No. of Rounds: {RoundCount}\nNo. of Turns: {TurnCount}\n" +
+                $"Dead Monsters: {MonsterSlainNumber}\nXP Gained: {ExperienceGainedTotal}\n" +
                 $"*** Died Aliens ***\n";
             if(CharacterAtDeathList.Count == 0)
             {

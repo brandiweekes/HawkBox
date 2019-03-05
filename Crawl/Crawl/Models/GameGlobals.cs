@@ -5,6 +5,15 @@ namespace Crawl.Models
 {
     public static class GameGlobals
     {
+        // Max number of Players in a Party
+        public static int MaxNumberPartyPlayers = 6;
+
+        // Minimum character level during battle.
+        public static int MinCharacterLevelForBattle = 1;
+
+        // Maximum character level during battle.
+        public static int MaxCharacterLevelForBattle = 3;
+
         // Turn on to force Rolls to be non random
         public static bool ForceRollsToNotRandom = false;
 
