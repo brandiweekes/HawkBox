@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace Crawl.GameEngine
 {
-    class RoundEngine : TurnEngine
+    public class RoundEngine : TurnEngine
     {
         // Hold the list of players (monster, and character by guid), and order by speed
         public List<PlayerInfo> PlayerList;
@@ -151,7 +151,7 @@ namespace Crawl.GameEngine
             if(CharacterList.Count < 1)
             {
                 RoundStateEnum = RoundEnum.GameOver;
-                return RoundStateEnum
+                return RoundStateEnum;
             }
 
             if(MonsterList.Count < 1)

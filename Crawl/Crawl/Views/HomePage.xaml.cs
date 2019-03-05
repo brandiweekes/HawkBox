@@ -42,5 +42,10 @@ namespace Crawl.Views
         {
             await Navigation.PushAsync(new Battle.BattlePage());
         }
+        /*
+        async void LocationClick(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Battle.ItemLocationSelectPage());
+        }*/
     }
 }
