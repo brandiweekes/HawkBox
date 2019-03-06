@@ -42,12 +42,12 @@ namespace Crawl.Views.Battle
 
         public async void SaveButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ItemLocationSelectPage());
+            await Navigation.PushModalAsync(new ItemLocationSelectPage());
         }
 
         public async void CancelButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            await Navigation.PopModalAsync();
         }
 
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

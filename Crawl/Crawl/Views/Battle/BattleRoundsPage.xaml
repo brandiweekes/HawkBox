@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.Battle.BattleRoundsPage"
              xmlns:local="clr-namespace:Crawl.Models">
-
-  <ContentPage.Content>
+<!--
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Item Pages" Clicked="ItemPagesClicked" />
+    </ContentPage.ToolbarItems>
+  -->  
+    <ContentPage.Content>
     <StackLayout>
-      <RelativeLayout BackgroundColor="{DynamicResource Primary}" 
+            <Button Text="Item Pages" Clicked="ItemPagesClicked" />
+            <RelativeLayout BackgroundColor="{DynamicResource Primary}" 
                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=220}" 
                       HeightRequest="75" 
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" >

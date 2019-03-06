@@ -4,10 +4,11 @@
              x:Class="Crawl.Views.Battle.ItemLocationSelectPage"
              Title="Item Location Select"
              NavigationPage.HasBackButton="False">
+   <!--
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Next" Clicked="NextButtonClicked" />
     </ContentPage.ToolbarItems>
-
+-->
     <ScrollView>
         <StackLayout>
             <!--<CarouselView>
@@ -190,6 +191,8 @@
                         <Button ClassId="40" Text="None" Grid.Row="6" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
                         <!--"{Binding Character.Feet}"/>-->
                     </Grid>
+
+                    <Button Text="Next" Clicked="NextButtonClicked" />
 
                 </StackLayout>
             </ScrollView>

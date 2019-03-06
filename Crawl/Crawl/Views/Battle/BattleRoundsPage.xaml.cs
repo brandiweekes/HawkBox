@@ -18,5 +18,10 @@ namespace Crawl.Views.Battle
 		{
 			InitializeComponent ();
 		}
-	}
+
+        public async void ItemPagesClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new ItemLocationSelectPage());
+        }
+    }
 }

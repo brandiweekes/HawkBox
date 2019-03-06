@@ -4,11 +4,13 @@
              x:Class="Crawl.Views.Battle.ItemSelectPage"
              NavigationPage.HasBackButton="False"
              Title="Item Select Pages">
+    
+    <!--
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save" Clicked="SaveButtonClicked" />
         <ToolbarItem Text="Cancel" Clicked="CancelButtonClicked" />
     </ContentPage.ToolbarItems>
-
+    -->
 
     <ContentPage.Content>
         <ScrollView>
@@ -98,6 +100,8 @@
                 </ListView>
 
 
+                <Button Text="Save" Clicked="SaveButtonClicked" />
+                <Button Text="Cancel" Clicked="CancelButtonClicked" />
                 <!-- item info
                 <StackLayout>
                     <Label x:Name="ItemDescLabel" Text="{Binding }" />

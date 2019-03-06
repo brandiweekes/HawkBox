@@ -26,7 +26,7 @@ namespace Crawl.Views.Battle
 
         private async void NextButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BattleRoundsPage());
+            await Navigation.PushModalAsync(new BattleRoundsPage());
         }
 
         private async void LocationClicked(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace Crawl.Views.Battle
 
            // viewModel.pickedCharacter = character;
 
-            await Navigation.PushAsync(new ItemSelectPage(viewModel));
+            await Navigation.PushModalAsync(new ItemSelectPage(viewModel));
         }
         
         private async void OnCharacterSelected(object sender, SelectedItemChangedEventArgs args)
