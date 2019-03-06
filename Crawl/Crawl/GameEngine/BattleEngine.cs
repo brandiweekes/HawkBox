@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-
+using System.Linq;
 using Crawl.Models;
 using Crawl.ViewModels;
 
@@ -21,6 +21,14 @@ namespace Crawl.GameEngine
         {
             BattleEngineInit();
             _instance = CharactersViewModel.Instance;
+            AddCharactersToBattle();
+
+            var ItemList = ItemsViewModel.Instance.Dataset.ToList();
+            foreach (var item in ItemList)
+            {
+                ItemPool.Add(item);
+            }
+
         }
 
         // Sets the new state for the variables for Battle

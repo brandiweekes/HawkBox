@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Crawl.Views.Battle.ItemSelectPage">
+             x:Class="Crawl.Views.Battle.ItemSelectPage"
+             NavigationPage.HasBackButton="False"
+             Title="Item Select Pages">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save" Clicked="SaveButtonClicked" />
         <ToolbarItem Text="Cancel" Clicked="CancelButtonClicked" />
@@ -14,7 +16,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <!--<RowDefinition Height="*" />-->
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -22,7 +24,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <!-- Character photo & stats-->
-                    <Image Source="http://gdurl.com/RxRK" Grid.Row="0" Grid.Column="0" HeightRequest="50" WidthRequest="50" HorizontalOptions="Center"/>
+                    <Image x:Name="CharPic" Source="{Binding pickedCharacter.Data.ImageURI}" Grid.Row="0" Grid.Column="0" HeightRequest="50" WidthRequest="50" HorizontalOptions="Center"/>
 
                     <Grid Grid.Row="0" Grid.Column="1" HorizontalOptions="Start">
                         <Grid.RowDefinitions>
@@ -40,52 +42,67 @@
 
                         <StackLayout Grid.Row="0" Grid.Column="0">
                             <Label Text="Atk" FontSize="Medium"></Label>
-                            <Label Text="{Binding Character.attack}"></Label>
+                            <Label x:Name="AttackLabel" Text="{Binding pickedCharacter.Data.Attribute.Attack}"></Label>
                         </StackLayout>
 
                         <StackLayout Grid.Row="0" Grid.Column="1" >
                             <Label Text="Def" FontSize="Medium"></Label>
-                            <Label Text="{Binding Character.defense}"></Label>
+                            <Label x:Name="DefenseLabel" Text="{Binding pickedCharacter.Data.Attribute.Defense}"></Label>
                         </StackLayout>
 
                         <StackLayout Grid.Row="0" Grid.Column="2" >
                             <Label Text="Spd" FontSize="Medium"></Label>
-                            <Label Text="{Binding Character.speed}"></Label>
+                            <Label x:Name="SpeedLabel" Text="{Binding pickedCharacter.Data.Attribute.Speed}"></Label>
                         </StackLayout>
 
                         <StackLayout Grid.Row="0" Grid.Column="3" >
                             <Label Text="HP" FontSize="Medium"></Label>
-                            <Label Text="{Binding Character.hp}"></Label>
+                            <Label x:Name="HPLabel" Text="{Binding pickedCharacter.Data.Attribute.CurrentHealth}"></Label>
                         </StackLayout>
 
                         <StackLayout Grid.Row="0" Grid.Column="4" >
                             <Label Text="XP" FontSize="Medium"></Label>
-                            <Label Text="{Binding Character.xp}"></Label>
+                            <Label x:Name="XPLabel" Text="{Binding pickedCharacter.Data.ExperienceTotal}"></Label>
                         </StackLayout>
                     </Grid>
                 </Grid>
 
                 <!-- item photo -->
-                <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png" WidthRequest="200" HeightRequest="200"/>
-
-                <!-- item picker -->
-                <Picker x:Name="picker" Title="Item Select">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>None</x:String>
-                            <x:String>Item 1</x:String>
-                            <x:String>Item 2</x:String>
-                            <x:String>Item 3</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+                <Image x:Name="ItemPic" Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png" WidthRequest="200" HeightRequest="200"/>
 
                 <!-- item info -->
                 <StackLayout>
-                    <Label Text="Item description" />
-                    <Label Text="Attribute item affects" />
+                    <Label x:Name="ItemDescLabel" Text="{Binding }" />
+                    <Label x:Name="ItemAffectsLabel" Text="{Binding }" />
                 </StackLayout>
 
+                <!-- item picker 
+                <Picker x:Name="ItemSelectPicker" Title="Item Select" ItemsSource="{Binding AvailableItems}"/>-->
+
+                <ListView x:Name="AvailableItemListView"
+                          ItemsSource="{Binding AvailableItems}"
+                          VerticalOptions="FillAndExpand"
+                          HasUnevenRows="true"
+                          RefreshCommand="{Binding LoadItemsCommand}"
+                          IsPullToRefreshEnabled="true"
+                          IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                          CachingStrategy="RecycleElement"
+                          ItemSelected="OnItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding Name}" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+                <!-- item info
+                <StackLayout>
+                    <Label x:Name="ItemDescLabel" Text="{Binding }" />
+                    <Label x:Name="ItemAffectsLabel" Text="{Binding }" />
+                </StackLayout>-->
 
             </StackLayout>
         </ScrollView>

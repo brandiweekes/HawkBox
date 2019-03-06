@@ -2,13 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.Battle.ItemLocationSelectPage"
-             Title="Item Location Select">
+             Title="Item Location Select"
+             NavigationPage.HasBackButton="False">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Next" Clicked="NextButtonClicked" />
     </ContentPage.ToolbarItems>
 
-    <StackLayout>
-        <!--<CarouselView>
+    <ScrollView>
+        <StackLayout>
+            <!--<CarouselView>
             <CarouselView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -20,160 +22,177 @@
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>-->
+            <ListView x:Name="RemainingListView"
+                          ItemsSource="{Binding RemainingCharacters}"
+                          VerticalOptions="FillAndExpand"
+                          HasUnevenRows="true"
+                          RefreshCommand="{Binding LoadDataCommand}"
+                          IsPullToRefreshEnabled="true"
+                          IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                          CachingStrategy="RecycleElement"
+                          ItemSelected="OnCharacterSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Image Source="{Binding ImageURI}" WidthRequest="75" HeightRequest="75"></Image>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-        <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png" WidthRequest="75" HeightRequest="75"/>
-        <!--{Binding Character.ImageURI}-->
+            <!--<Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png" WidthRequest="75" HeightRequest="75"/>-->
+            <!--{Binding Character.ImageURI}-->
 
-        <Grid>
-            <StackLayout Grid.Row="0" Grid.Column="0" 
+            <Grid>
+                <StackLayout Grid.Row="0" Grid.Column="0" 
                                  HorizontalOptions="CenterAndExpand" 
                                  VerticalOptions="CenterAndExpand">
-                <Label Text="Atk" FontSize="Medium"></Label>
-                <Label Text="{Binding RemainingCharacters.Attribute.Attack}"></Label>
-            </StackLayout>
+                    <Label Text="Atk" FontSize="Medium"></Label>
+                    <Label x:Name="AttackLabel" Text="--"></Label>
+                </StackLayout>
 
-            <StackLayout Grid.Row="0" Grid.Column="1" 
+                <StackLayout Grid.Row="0" Grid.Column="1" 
                                  HorizontalOptions="CenterAndExpand" 
                                  VerticalOptions="CenterAndExpand">
-                <Label Text="Def" FontSize="Medium"></Label>
-                <Label Text="{Binding RemainingCharacters.Attribute.Defense}"></Label>
-            </StackLayout>
-            <StackLayout Grid.Row="0" Grid.Column="2" 
+                    <Label Text="Def" FontSize="Medium"></Label>
+                    <Label x:Name="DefenseLabel" Text="--"></Label>
+                </StackLayout>
+                <StackLayout Grid.Row="0" Grid.Column="2" 
                                  HorizontalOptions="CenterAndExpand" 
                                  VerticalOptions="CenterAndExpand">
-                <Label Text="Spd" FontSize="Medium"></Label>
-                <Label Text="{Binding RemainingCharacters.Attribute.Speed}"></Label>
-            </StackLayout>
-            <StackLayout Grid.Row="0" Grid.Column="3" 
+                    <Label Text="Spd" FontSize="Medium"></Label>
+                    <Label x:Name="SpeedLabel" Text="--"></Label>
+                </StackLayout>
+                <StackLayout Grid.Row="0" Grid.Column="3" 
                                  HorizontalOptions="CenterAndExpand" 
                                  VerticalOptions="CenterAndExpand">
-                <Label Text="HP" FontSize="Medium"></Label>
-                <Label Text="{Binding RemainingCharacters.Attribute.CurrentHealth}"></Label>
-            </StackLayout>
-            <StackLayout Grid.Row="0" Grid.Column="4" 
+                    <Label Text="HP" FontSize="Medium"></Label>
+                    <Label x:Name="HPLabel" Text="--"></Label>
+                </StackLayout>
+                <StackLayout Grid.Row="0" Grid.Column="4" 
                                  HorizontalOptions="CenterAndExpand" 
                                  VerticalOptions="CenterAndExpand">
-                <Label Text="XP" FontSize="Medium"></Label>
-                <Label Text="{Binding RemainingCharacters.ExperienceTotal}"></Label>
-            </StackLayout>
-        </Grid>
+                    <Label Text="XP" FontSize="Medium"></Label>
+                    <Label x:Name="XPLabel" Text="--"></Label>
+                </StackLayout>
+            </Grid>
 
-        <ScrollView>
-            <StackLayout>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+            <ScrollView>
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
 
-                    <StackLayout Grid.Row="0" Grid.Column="0" 
+                        <StackLayout Grid.Row="0" Grid.Column="0" 
                                      HorizontalOptions="Start" 
                                      VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal">
-                        <StackLayout>
-                            <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
+                            <StackLayout>
+                                <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
                                    WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="Head" />
+                                <Label Text="Head" />
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
 
-                    <Button Text="None" Grid.Row="0" Grid.Column="1" HorizontalOptions="End" Clicked="LocationClicked"/>
-                    <!--"{Binding Character.Head}"-->
+                        <Button ClassId="10" Text="None" Grid.Row="0" Grid.Column="1" HorizontalOptions="End" Clicked="LocationClicked"/>
+                        <!--"{Binding Character.Head}"-->
 
-                    <StackLayout Grid.Row="1" Grid.Column="0" 
+                        <StackLayout Grid.Row="1" Grid.Column="0" 
                                      HorizontalOptions="Start" 
                                      VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal">
-                        <StackLayout>
-                            <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
+                            <StackLayout>
+                                <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
                                    WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="Necklace" />
+                                <Label Text="Necklace" />
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
 
-                    <Button Text="None" Grid.Row="1" Grid.Column="1" HorizontalOptions="End" Clicked="LocationClicked"/>
-                    <!--"{Binding Character.Necklace}"/>-->
+                        <Button ClassId="12" Text="None" Grid.Row="1" Grid.Column="1" HorizontalOptions="End" Clicked="LocationClicked"/>
+                        <!--"{Binding Character.Necklace}"/>-->
 
 
-                    <StackLayout Grid.Row="2" Grid.Column="0" 
+                        <StackLayout Grid.Row="2" Grid.Column="0" 
                                      HorizontalOptions="Start" 
                                      VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal">
-                        <StackLayout>
-                            <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
+                            <StackLayout>
+                                <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
                                    WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="OffHand" />
+                                <Label Text="OffHand" />
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
 
-                    <Button Text="None" Grid.Row="2" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
-                    <!--"{Binding Character.OffHand}"/>-->
+                        <Button ClassId="22" Text="None" Grid.Row="2" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
+                        <!--"{Binding Character.OffHand}"/>-->
 
-                    <StackLayout Grid.Row="3" Grid.Column="0" 
+                        <StackLayout Grid.Row="3" Grid.Column="0" 
                                      HorizontalOptions="Start" 
                                      VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal">
-                        <StackLayout>
-                            <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
+                            <StackLayout>
+                                <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
                                    WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="PrimaryHand" />
+                                <Label Text="PrimaryHand" />
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
 
-                    <Button Text="None" Grid.Row="3" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
-                    <!--"{Binding Character.PrimaryHand}"/>-->
+                        <Button ClassId="20" Text="None" Grid.Row="3" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
+                        <!--"{Binding Character.PrimaryHand}"/>-->
 
-                    <StackLayout Grid.Row="4" Grid.Column="0" 
+                        <StackLayout Grid.Row="4" Grid.Column="0" 
                                      HorizontalOptions="Start" 
                                      VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal">
-                        <StackLayout>
-                            <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
+                            <StackLayout>
+                                <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
                                    WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="LeftFinger" />
+                                <Label Text="LeftFinger" />
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
 
-                    <Button Text="None" Grid.Row="4" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
-                    <!--"{Binding Character.LeftFinger}"/>-->
+                        <Button ClassId="32" Text="None" Grid.Row="4" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
+                        <!--"{Binding Character.LeftFinger}"/>-->
 
-                    <StackLayout Grid.Row="5" Grid.Column="0" 
+                        <StackLayout Grid.Row="5" Grid.Column="0" 
                                      HorizontalOptions="Start" 
                                      VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal">
-                        <StackLayout>
-                            <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
+                            <StackLayout>
+                                <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png"
                                    WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="RightFinger" />
+                                <Label Text="RightFinger" />
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
 
-                    <Button Text="None" Grid.Row="5" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
-                    <!--"{Binding Character.RightFinger}"/>-->
+                        <Button ClassId="31" Text="None" Grid.Row="5" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
+                        <!--"{Binding Character.RightFinger}"/>-->
 
-                    <StackLayout Grid.Row="6" Grid.Column="0" 
+                        <StackLayout Grid.Row="6" Grid.Column="0" 
                                      HorizontalOptions="Start" 
                                      VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal">
-                        <StackLayout>
-                            <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png" 
+                            <StackLayout>
+                                <Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png" 
                                    WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="Feet" />
+                                <Label Text="Feet" />
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
 
-                    <Button Text="None" Grid.Row="6" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
-                    <!--"{Binding Character.Feet}"/>-->
-                </Grid>
+                        <Button ClassId="40" Text="None" Grid.Row="6" Grid.Column="1" HorizontalOptions="EndAndExpand" Clicked="LocationClicked"/>
+                        <!--"{Binding Character.Feet}"/>-->
+                    </Grid>
 
-            </StackLayout>
-        </ScrollView>
-
-    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
