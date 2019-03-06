@@ -21,8 +21,10 @@ namespace Crawl.GameEngine
         {
             BattleEngineInit();
             _instance = CharactersViewModel.Instance;
+            _instance.ForceDataRefresh();
             AddCharactersToBattle();
 
+            ItemsViewModel.Instance.ForceDataRefresh();
             var ItemList = ItemsViewModel.Instance.Dataset.ToList();
             foreach (var item in ItemList)
             {
