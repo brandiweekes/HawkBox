@@ -3,6 +3,8 @@ using SQLite;
 using Crawl.Controllers;
 using Crawl.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
+using Crawl.GameEngine;
 
 namespace Crawl.Models
 {
@@ -30,11 +32,9 @@ namespace Crawl.Models
             ImageURI = HawkboxResources.Monsters_Male_Agent_A;
 
             Level = 1;
-            ExperienceTotal = 0;
             Alive = true;
 
-            Attribute = new AttributeBase(1, 1, 1, 10, 10);
-            AttributeString = AttributeBase.GetAttributeString(Attribute);
+            ScaleLevel(Level);
         }
 
         public Monster(string name, string description, string imageUri,
@@ -50,10 +50,8 @@ namespace Crawl.Models
             Level = level;
             ExperienceTotal = xpTotal;
             Alive = alive;
-            ExperienceRemaining = 0;
-            
-            // TODO: Not sure of formula. Needed some work here
-            //ExperienceRemaining = ExperienceTotal - CalculateExperienceEarned(Damage);
+            ExperienceRemaining = ExperienceTotal;
+            Damage = GetLevelBasedDamage() + LevelTable.Instance.LevelDetailsList[Level].Attack;
 
             Attribute = new AttributeBase(speed, attack, defense, maxHealth, currentHealth);
             AttributeString = AttributeBase.GetAttributeString(Attribute);
@@ -71,6 +69,8 @@ namespace Crawl.Models
         public Monster(Monster newData)
         {
             Update(newData);
+
+            ScaleLevel(Level);
         }
 
         // Update the values passed in
@@ -129,12 +129,6 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Add or Replace Unique Item to Monster
-        public void AddOrReplaceUniqueItem(string itemId)
-        {
-            UniqueItem = itemId;
-        }
-
         // Update Image for Monster
         public void UpdateMonsterImageURL(string imageUrl)
         {
@@ -149,18 +143,45 @@ namespace Crawl.Models
         }
 
         // Upgrades a monster to a set level
-        public void ScaleLevel(int level)
+        public bool ScaleLevel(int level)
         {
-            // Level must be between 1-20
-            if (level < 1 || level > 20)
-                return;
+            // minimum level is 0
+            if (level < 1)
+            {
+                return false;
+            }
 
-            // Dont update if it's same level
-            if (level == Level)
-                return;
+            // Dont update if given level is less than current level
+            if (level < Level)
+            {
+                return false;
+            }
+
+            // given level shold not exceed max level.
+            if(level > LevelTable.MaxLevel)
+            {
+                return false;
+            }
 
             Level = level;
 
+            // Set Attributes
+            Attribute.Attack = LevelTable.Instance.LevelDetailsList[level].Attack;
+            Attribute.Defense = LevelTable.Instance.LevelDetailsList[level].Defense;
+            Attribute.Speed = LevelTable.Instance.LevelDetailsList[level].Speed;
+            // Roll dice
+            Attribute.MaxHealth = HelperEngine.RollDice(Level, HealthDice);
+            Attribute.CurrentHealth = Attribute.MaxHealth;
+            AttributeString = AttributeBase.GetAttributeString(Attribute);
+
+            // Set XP
+            ExperienceTotal = LevelTable.Instance.LevelDetailsList[level + 1].Experience;
+            ExperienceRemaining = ExperienceTotal;
+
+            // Set Damage
+            Damage = GetLevelBasedDamage() + LevelTable.Instance.LevelDetailsList[Level].Attack;
+
+            return true;
         }
 
         // Take Damage
@@ -169,10 +190,20 @@ namespace Crawl.Models
         // monsters give experience to characters.  Characters don't accept expereince from monsters
         public void TakeDamage(int damage)
         {
-            // Implement
-            return;
+            if (damage <= 0)
+            {
+                return;
+            }
 
-            // Implement   CauseDeath();
+            CalculateExperienceEarned(damage);
+
+            Attribute.CurrentHealth = Attribute.CurrentHealth - damage;
+            if (Attribute.CurrentHealth <= 0)
+            {
+                Attribute.CurrentHealth = 0;
+                // Death...
+                CauseDeath();
+            }
         }
 
         // Calculate How much experience to return
@@ -180,8 +211,30 @@ namespace Crawl.Models
         // Needs to be called before applying damage
         public int CalculateExperienceEarned(int damage)
         {
-            // Implement
-            return 0;
+            if (damage < 1)
+            {
+                return 0;
+            }
+
+            int remainingHealth = Math.Max(Attribute.CurrentHealth - damage, 0); // Go to 0 is OK...
+            double rawPercent = (double)remainingHealth / (double)Attribute.CurrentHealth;
+            double deltaPercent = 1 - rawPercent;
+            var pointsAllocate = (int)Math.Floor(ExperienceRemaining * deltaPercent);
+
+            // Catch rounding of low values, and force to 1.
+            if (pointsAllocate < 1)
+            {
+                pointsAllocate = 1;
+            }
+
+            // Take away the points from remaining experience
+            ExperienceRemaining -= pointsAllocate;
+            if (ExperienceRemaining < 0)
+            {
+                pointsAllocate = 0;
+            }
+
+            return pointsAllocate;
 
         }
 
@@ -253,12 +306,17 @@ namespace Crawl.Models
         #endregion GetAttributes
 
         #region Items
+
+        // Add or Replace Unique Item to Monster
+        public void AddOrReplaceUniqueItem(string itemId)
+        {
+            UniqueItem = itemId;
+        }
+
         // Gets the unique item (if any) from this monster when it dies...
         public Item GetUniqueItem()
         {
-            var myReturn = ItemsViewModel.Instance.GetItem(UniqueItem);
-
-            return myReturn;
+            return GetItem(UniqueItem);
         }
 
         // Drop all the items the monster has
@@ -266,12 +324,82 @@ namespace Crawl.Models
         {
             var myReturn = new List<Item>();
 
-            // Drop all Items
+            // Drop unique Item
             Item myItem;
+            if(!string.IsNullOrWhiteSpace(UniqueItem))
+            {
+                myItem = GetItem(UniqueItem);
+                if (myItem != null)
+                {
+                    myReturn.Add(new Item(myItem));
+                }
+            }
 
-            // Implement
+            // Drop Item from each location
+            foreach (string loc in ItemLocationList.GetListCharacter)
+            {
+                Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
+                Item _item = RemoveItem(locEnum);
+                myReturn.Add(_item);
+            }
 
             return myReturn;
+        }
+
+        // Remove Item from a set location
+        // Does this by adding a new item of Null to the location
+        // This will return the previous item, and put null in its place
+        // Returns the item that was at the location
+        // Nulls out the location
+        public Item RemoveItem(ItemLocationEnum itemLocation)
+        {
+            return AddItem(itemLocation, null);
+        }
+
+        // Add Item
+        // Looks up the Item
+        // Puts the Item ID as a string in the location slot
+        // If item is null, then puts null in the slot
+        // Returns the item that was in the location
+        public Item AddItem(ItemLocationEnum itemLocation, string itemId)
+        {
+            Item item = null;
+            var _prevItem = "";
+            if (itemId != null)
+                item = GetItem(itemId);
+
+            switch (itemLocation)
+            {
+                case ItemLocationEnum.Head:
+                    _prevItem = Head;
+                    Head = item?.Id;
+                    break;
+                case ItemLocationEnum.Necklass:
+                    _prevItem = Necklace;
+                    Necklace = item?.Id;
+                    break;
+                case ItemLocationEnum.PrimaryHand:
+                    _prevItem = PrimaryHand;
+                    PrimaryHand = item?.Id;
+                    break;
+                case ItemLocationEnum.OffHand:
+                    _prevItem = OffHand;
+                    OffHand = item?.Id;
+                    break;
+                case ItemLocationEnum.RightFinger:
+                    _prevItem = RightFinger;
+                    RightFinger = item?.Id;
+                    break;
+                case ItemLocationEnum.LeftFinger:
+                    _prevItem = LeftFinger;
+                    LeftFinger = item?.Id;
+                    break;
+                case ItemLocationEnum.Feet:
+                    _prevItem = Feet;
+                    Feet = item?.Id;
+                    break;
+            }
+            return GetItem(_prevItem);
         }
 
         // Get the Item at a known string location (head, foot etc.)
