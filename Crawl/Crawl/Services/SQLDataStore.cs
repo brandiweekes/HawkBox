@@ -48,7 +48,7 @@ namespace Crawl.Services
         // Delete the Database Tables by dropping them
         private void DeleteTables()
         {
-            App.Database.DropTableAsync<BaseCharacter>().Wait();
+            App.Database.DropTableAsync<Character>().Wait();
             App.Database.DropTableAsync<BaseMonster>().Wait();
             App.Database.DropTableAsync<Item>().Wait();
             App.Database.DropTableAsync<Score>().Wait();
@@ -57,7 +57,7 @@ namespace Crawl.Services
         // Create the Database Tables
         private void CreateTables()
         {
-            App.Database.CreateTableAsync<BaseCharacter>().Wait();
+            App.Database.CreateTableAsync<Character>().Wait();
             App.Database.CreateTableAsync<BaseMonster>().Wait();
             App.Database.CreateTableAsync<Item>().Wait();
             App.Database.CreateTableAsync<Score>().Wait();
@@ -75,45 +75,45 @@ namespace Crawl.Services
         private void InitializeSeedData()
         {
             // Load Characters
-            App.Database.InsertAsync(new BaseCharacter(new Character(
+            App.Database.InsertAsync(new Character(
                 "3 Eyed", "Predicts future attacks with extra eye.", HawkboxResources.Aliens_Char_1,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            App.Database.InsertAsync(new BaseCharacter(new Character(
+            App.Database.InsertAsync(new Character(
                 "Sea Alien", "Small and quick to attack.", HawkboxResources.Aliens_Char_2,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            App.Database.InsertAsync(new BaseCharacter(new Character(
+            App.Database.InsertAsync(new Character(
                 "Happy Alien", "Smiling can be dangerous!!", HawkboxResources.Aliens_Char_3,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            App.Database.InsertAsync(new BaseCharacter(new Character(
+            App.Database.InsertAsync(new Character(
                 "8 Arms", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_4,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            App.Database.InsertAsync(new BaseCharacter(new Character(
+            App.Database.InsertAsync(new Character(
                 "Grass Hopper", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_5,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            App.Database.InsertAsync(new BaseCharacter(new Character(
+            App.Database.InsertAsync(new Character(
                 "Pumpkin Ghost", "Aerial attacks are deadly!!!", HawkboxResources.Aliens_Char_6,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            App.Database.InsertAsync(new BaseCharacter(new Character(
+            App.Database.InsertAsync(new Character(
                 "Mixed Horns", "Simple creature with most defense.", HawkboxResources.Aliens_Char_7,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            App.Database.InsertAsync(new BaseCharacter(new Character(
+            App.Database.InsertAsync(new Character(
                 "Guitar Ghost", "Attacks with sound of red guitar.", HawkboxResources.Aliens_Char_8,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             // Load Monsters
             App.Database.InsertAsync(new BaseMonster(new Monster(
@@ -250,57 +250,69 @@ namespace Crawl.Services
 
         #region Character
 
-        // Convert to BaseCharacter and then add it
+        /// <summary>
+        /// Add Character in DB
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> AddAsync_Character(Character data)
         {
-            var result = await App.Database.InsertAsync(new BaseCharacter(data));
+            var result = await App.Database.InsertAsync(data);
             if (result == 1)
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
         }
 
-        // Convert to BaseCharacter and then update it
+        /// <summary>
+        /// Update Character in DB
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateAsync_Character(Character data)
         {
-            var result = await App.Database.UpdateAsync(new BaseCharacter(data));
+            var result = await App.Database.UpdateAsync(data);
             if (result == 1)
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
         }
 
-        // Pass in the character and convert to Character to then delete it
+        /// <summary>
+        /// Delete Character in DB
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync_Character(Character data)
         {
-            var result = await App.Database.DeleteAsync(new BaseCharacter(data));
+            var result = await App.Database.DeleteAsync(data);
             if (result == 1)
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
         }
 
-        // Get the Character Base, and Load it back as Character
+        /// <summary>
+        /// Get Character from DB based on given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Character> GetAsync_Character(string id)
         {
-            return await Task.FromResult(ConvertToCharacter(App.Database.GetAsync<BaseCharacter>(id).Result));
+            return await Task.FromResult(App.Database.GetAsync<Character>(id).Result);
         }
 
-        // Load each character as the base character, 
-        // Then then convert the list to characters to push up to the view model
+        /// <summary>
+        /// Get all Characters from DB
+        /// </summary>
+        /// <param name="forceRefresh"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Character>> GetAllAsync_Character(bool forceRefresh = false)
         {
-            var baseCharactersList = App.Database.Table<BaseCharacter>().ToListAsync().Result;
+            var charactersList = App.Database.Table<Character>().ToListAsync().Result;
             var list = new List<Character>();
-            foreach (var baseCharacter in baseCharactersList)
+            foreach (var character in charactersList)
             {
-                list.Add(ConvertToCharacter(baseCharacter));
+                list.Add(character);
             }
             return await Task.FromResult(list);
-        }
-        // Convert BaseCharacter to Character.
-        // we store Character data as BaseCharacter.cs in dataset
-        // we use Character data as Character.cs in system for displaying data in UI.
-        private static Character ConvertToCharacter(BaseCharacter data)
-        {
-            return new Character(data);
         }
 
         #endregion Character

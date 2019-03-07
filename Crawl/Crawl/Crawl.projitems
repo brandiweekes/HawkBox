@@ -43,7 +43,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)GameEngine\TurnEngine.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Attribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseEntity.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\BaseCharacter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Character.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HawkboxResources.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HomeMenuItem.cs" />

@@ -26,7 +26,7 @@ namespace Crawl.Services
         }
 
         private List<Item> _itemDataset = new List<Item>();
-        private List<BaseCharacter> _characterDataset = new List<BaseCharacter>();
+        private List<Character> _characterDataset = new List<Character>();
         private List<BaseMonster> _monsterDataset = new List<BaseMonster>();
         private List<Score> _scoreDataset = new List<Score>();
 
@@ -49,45 +49,45 @@ namespace Crawl.Services
                 "http://www.clker.com/cliparts/N/D/U/r/g/M/radar-md.png", 0, 10, -1, ItemLocationEnum.Necklass, AttributeEnum.Defense, true));
 
             // Load Characters
-            _characterDataset.Add(new BaseCharacter(new Character(
+            _characterDataset.Add(new Character(
                 "3 Eyed", "Predicts future attacks with extra eye.", HawkboxResources.Aliens_Char_1,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            _characterDataset.Add(new BaseCharacter(new Character(
+            _characterDataset.Add(new Character(
                 "Sea Alien", "Small and quick to attack.", HawkboxResources.Aliens_Char_2,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            _characterDataset.Add(new BaseCharacter(new Character(
+            _characterDataset.Add(new Character(
                 "Happy Alien", "Smiling can be dangerous!!", HawkboxResources.Aliens_Char_3,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            _characterDataset.Add(new BaseCharacter(new Character(
+            _characterDataset.Add(new Character(
                 "8 Arms", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_4,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            _characterDataset.Add(new BaseCharacter(new Character(
+            _characterDataset.Add(new Character(
                 "Grass Hopper", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_5,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            _characterDataset.Add(new BaseCharacter(new Character(
+            _characterDataset.Add(new Character(
                 "Pumpkin Ghost", "Aerial attacks are deadly!!!", HawkboxResources.Aliens_Char_6,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            _characterDataset.Add(new BaseCharacter(new Character(
+            _characterDataset.Add(new Character(
                 "Mixed Horns", "Simple creature with most defense.", HawkboxResources.Aliens_Char_7,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
-            _characterDataset.Add(new BaseCharacter(new Character(
+            _characterDataset.Add(new Character(
                 "Guitar Ghost", "Attacks with sound of red guitar.", HawkboxResources.Aliens_Char_8,
                 1, 10, true, 10, 10, 10, 20, 20,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
 
             // Load Monsters
@@ -223,7 +223,7 @@ namespace Crawl.Services
         // Add new character to dataset.
         public async Task<bool> AddAsync_Character(Character data)
         {
-            _characterDataset.Add(new BaseCharacter(data));
+            _characterDataset.Add(data);
 
             return await Task.FromResult(true);
         }
@@ -254,26 +254,18 @@ namespace Crawl.Services
         // Get character data from dataset based in given Id.
         public async Task<Character> GetAsync_Character(string id)
         {
-            return await Task.FromResult(ConvertToCharacter(_characterDataset.FirstOrDefault(s => s.Id == id)));
+            return await Task.FromResult(_characterDataset.FirstOrDefault(s => s.Id == id));
         }
 
         // Get all characters from dataset.
         public async Task<IEnumerable<Character>> GetAllAsync_Character(bool forceRefresh = false)
         {
             var list = new List<Character>();
-            foreach (var baseCharacter in _characterDataset)
+            foreach (var character in _characterDataset)
             {
-                list.Add(ConvertToCharacter(baseCharacter));
+                list.Add(character);
             }
             return await Task.FromResult(list);
-        }
-
-        // Convert BaseCharacter to Character.
-        // we store Character data as BaseCharacter.cs in dataset
-        // we use Character data as Character.cs in system for displaying data in UI.
-        private static Character ConvertToCharacter(BaseCharacter data)
-        {
-            return new Character(data);
         }
 
         #endregion Character

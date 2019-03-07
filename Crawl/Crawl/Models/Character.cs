@@ -1,14 +1,16 @@
 ﻿using Crawl.GameEngine;
 using Crawl.ViewModels;
+using SQLite;
 using System;
 using System.Collections.Generic;
 
 namespace Crawl.Models
 {
     // The Character is the higher level concept.  This is the Character with all attributes defined.
-    public class Character : BaseCharacter
+    public class Character : BasePlayer<Character>
     {
         // Add in the actual attribute class
+        [Ignore]
         public AttributeBase Attribute { get; set; }
 
         /// <summary>
@@ -74,36 +76,6 @@ namespace Crawl.Models
             OffHand = offhand;
             RightFinger = rightFinger;
             LeftFinger = leftFinger;
-        }
-
-        // Create a new character, based on a passed in BaseCharacter
-        // Used for converting from database format to character
-        public Character(BaseCharacter newData)
-        {
-            // Base information
-            Name = newData.Name;
-            Description = newData.Description;
-            Level = newData.Level;
-            ExperienceTotal = newData.ExperienceTotal;
-            ImageURI = newData.ImageURI;
-            Alive = newData.Alive;
-
-            // Database information
-            Guid = newData.Guid;
-            Id = newData.Id;
-
-            // Populate the Attributes
-            AttributeString = newData.AttributeString;
-
-            Attribute = new AttributeBase(newData.AttributeString);
-
-            // Set the strings for the items
-            Head = newData.Head;
-            Feet = newData.Feet;
-            Necklace = newData.Necklace;
-            RightFinger = newData.RightFinger;
-            LeftFinger = newData.LeftFinger;
-            Feet = newData.Feet;
         }
 
         /// <summary>
