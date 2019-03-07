@@ -159,13 +159,13 @@ namespace Crawl.Services
 
             // Load Items
             App.Database.InsertAsync(new Item("Gold Sword", "Sword made of Gold, really expensive looking",
-                "http://www.clker.com/cliparts/e/L/A/m/I/c/sword-md.png", 0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Defense));
+                "http://www.clker.com/cliparts/e/L/A/m/I/c/sword-md.png", 0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Defense, true));
 
             App.Database.InsertAsync(new Item("Strong Shield", "Enough to hide behind",
-                "http://www.clipartbest.com/cliparts/4T9/LaR/4T9LaReTE.png", 0, 10, 0, ItemLocationEnum.OffHand, AttributeEnum.Attack));
+                "http://www.clipartbest.com/cliparts/4T9/LaR/4T9LaReTE.png", 0, 10, 0, ItemLocationEnum.OffHand, AttributeEnum.Attack, true));
 
             App.Database.InsertAsync(new Item("Bunny Hat", "Pink hat with fluffy ears",
-                "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png", 0, 10, -1, ItemLocationEnum.Head, AttributeEnum.Speed));
+                "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png", 0, 10, -1, ItemLocationEnum.Head, AttributeEnum.Speed, true));
 
             // Load Scores
             App.Database.InsertAsync(new Score("Score Name 1", "Description", false));

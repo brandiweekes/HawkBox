@@ -40,13 +40,13 @@ namespace Crawl.Services
 
             // Load Items
             _itemDataset.Add(new Item("Anti-Gravity Shoes", "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
-                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618", 0, 10, 10, ItemLocationEnum.Feet, AttributeEnum.Speed));
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618", 0, 10, 10, ItemLocationEnum.Feet, AttributeEnum.Speed, true));
 
             _itemDataset.Add(new Item("Icer", "A small freeze pistol having no barrel but has a slit where a bolt of green electricity-like energy shoots out that can freeze, or ice, enemies.",
-                "http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png", 0, 10, 0, ItemLocationEnum.PrimaryHand, AttributeEnum.Attack));
+                "http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png", 0, 10, 0, ItemLocationEnum.PrimaryHand, AttributeEnum.Attack, true));
 
             _itemDataset.Add(new Item("Spectral Trail Scanner", "Used to scan people and distinguish a human from an alien via X-ray and heat signatures. It can also list down that organism's components, ailments, and species.",
-                "http://www.clker.com/cliparts/N/D/U/r/g/M/radar-md.png", 0, 10, -1, ItemLocationEnum.Necklass, AttributeEnum.Defense));
+                "http://www.clker.com/cliparts/N/D/U/r/g/M/radar-md.png", 0, 10, -1, ItemLocationEnum.Necklass, AttributeEnum.Defense, true));
 
             // Load Characters
             _characterDataset.Add(new BaseCharacter(new Character(

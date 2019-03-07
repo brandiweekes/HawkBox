@@ -29,6 +29,9 @@ namespace Crawl.Models
         // The Value item modifies.  So a ring of Health +3, has a Value of 3
         public int Value { get; set; }
 
+        // Flag use to determine it item is unique or not...
+        public bool IsUnique { get; set; } = false;
+
         // Inheritated properties
         // Id comes from BaseEntity class
         // Name comes from the Entity class... 
@@ -58,11 +61,11 @@ namespace Crawl.Models
         // Helper to combine the attributes into a single line, to make it easier to display the item as a string
         public string FormatOutput()
         {
-            var myReturn = $"Name : {Name} \n" +
-                $"Desciption : {Description} \n" +
-                $"Image : {ImageURI} \n" +
-                $"Attribute : {Attribute.ToString()} \t Location : {Location.ToString()} \n" +
-                $"Range : {Range} \t Damage : {Damage} \t Value : {Value}";
+            var myReturn = $"Name: {Name} \n" +
+                $"Desciption: {Description} \n" +
+                $"Image: {ImageURI} \n" +
+                $"Attribute: {Attribute.ToString()}\tLocation: {Location.ToString()}\n" +
+                $"Range: {Range}\t Damage: {Damage}\tValue: {Value}\tUnique: {IsUnique}";
             return myReturn.Trim();
         }
 
@@ -72,7 +75,9 @@ namespace Crawl.Models
         }
 
         // Constructor for Item called if needed to create a new item with set values.
-        public Item(string name, string description, string imageuri, int range, int value, int damage, ItemLocationEnum location, AttributeEnum attribute)
+        public Item(string name, string description, string imageuri, 
+            int range, int value, int damage, 
+            ItemLocationEnum location, AttributeEnum attribute, bool isUnique)
         {
             // Create default, and then override...
             CreateDefaultItem();
@@ -87,6 +92,8 @@ namespace Crawl.Models
 
             Location = location;
             Attribute = attribute;
+
+            IsUnique = isUnique;
         }
 
         // Update for Item, that will update the fields one by one.
@@ -108,6 +115,7 @@ namespace Crawl.Models
             ImageURI = newData.ImageURI;
             Range = newData.Range;
             Damage = newData.Damage;
+            IsUnique = newData.IsUnique;
         }
 
         // Will update the Item to be stronger...
@@ -126,6 +134,17 @@ namespace Crawl.Models
             }
 
             Value = newValue;
+        }
+
+        /// <summary>
+        /// used to make item unique on fly.
+        /// </summary>
+        public void MakeItemUnique()
+        {
+            if (!IsUnique)
+            {
+                IsUnique = true;
+            }
         }
     }
 }
