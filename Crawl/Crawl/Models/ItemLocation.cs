@@ -60,10 +60,11 @@ namespace Crawl.Models
         {
             get
             {
-                var myList = Enum.GetNames(typeof(ItemLocationEnum)).ToList();
-                var myReturn = myList; // Implement
-
-                return myReturn;
+                var _list = Enum.GetValues(typeof(ItemLocationEnum)).Cast<ItemLocationEnum>()
+                    .Where(e => e != ItemLocationEnum.Finger && e != ItemLocationEnum.Unknown)
+                    .Select(v => v.ToString())
+                    .ToList();
+                return _list;
             }
         }
 
