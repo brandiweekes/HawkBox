@@ -54,7 +54,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\AttributeBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\GameGlobals.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\LevelTable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\BaseMonster.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Round.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Turn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />

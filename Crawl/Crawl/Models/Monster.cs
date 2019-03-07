@@ -7,13 +7,20 @@ using System.Collections.Generic;
 namespace Crawl.Models
 {
     // The Monster is the higher level concept.  This is the Character with all attirbutes defined.
-    public class Monster : BaseMonster
+    public class Monster : BasePlayer<Monster>
     {
         // Remaining Experience Points to give
         public int ExperienceRemaining { get; set; }
 
+        [Ignore]
         // Add in the actual attribute class
         public AttributeBase Attribute { get; set; }
+
+        // Unique Item for Monster
+        public string UniqueItem { get; set; }
+
+        // Damage the Monster can do.
+        public int Damage { get; set; }
 
         // Make sure Attribute is instantiated in the constructor
         public Monster()
@@ -58,41 +65,6 @@ namespace Crawl.Models
             OffHand = offhand;
             RightFinger = rightFinger;
             LeftFinger = leftFinger;
-        }
-
-        // Passed in from creating via the Database, so use the guid passed in...
-        public Monster(BaseMonster newData)
-        {
-            // Base information
-            Name = newData.Name;
-            Description = newData.Description;
-            Level = newData.Level;
-            ExperienceTotal = newData.ExperienceTotal;
-            ImageURI = newData.ImageURI;
-            Alive = newData.Alive;
-            Damage = newData.Damage;
-            UniqueItem = newData.UniqueItem;
-
-            // TODO: Not sure of formula. Needed some work here
-            ExperienceRemaining = ExperienceTotal - CalculateExperienceEarned(Damage);
-
-            // Database information
-            Guid = newData.Guid;
-            Id = newData.Id;
-
-            // Populate the Attributes
-            AttributeString = newData.AttributeString;
-
-            Attribute = new AttributeBase(newData.AttributeString);
-
-            // Set the strings for the items
-            Head = newData.Head;
-            Feet = newData.Feet;
-            Necklace = newData.Necklace;
-            RightFinger = newData.RightFinger;
-            LeftFinger = newData.LeftFinger;
-            Feet = newData.Feet;
-
         }
 
         // For making a new one for lists etc..

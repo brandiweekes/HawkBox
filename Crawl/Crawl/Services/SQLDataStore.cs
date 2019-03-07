@@ -49,7 +49,7 @@ namespace Crawl.Services
         private void DeleteTables()
         {
             App.Database.DropTableAsync<Character>().Wait();
-            App.Database.DropTableAsync<BaseMonster>().Wait();
+            App.Database.DropTableAsync<Monster>().Wait();
             App.Database.DropTableAsync<Item>().Wait();
             App.Database.DropTableAsync<Score>().Wait();
         }
@@ -58,7 +58,7 @@ namespace Crawl.Services
         private void CreateTables()
         {
             App.Database.CreateTableAsync<Character>().Wait();
-            App.Database.CreateTableAsync<BaseMonster>().Wait();
+            App.Database.CreateTableAsync<Monster>().Wait();
             App.Database.CreateTableAsync<Item>().Wait();
             App.Database.CreateTableAsync<Score>().Wait();
         }
@@ -116,46 +116,46 @@ namespace Crawl.Services
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             // Load Monsters
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+            App.Database.InsertAsync(new Monster(
                 "Agent A", "desc", HawkboxResources.Monsters_Female_Agent_A,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent B", "desc", HawkboxResources.Monsters_Female_Agent_B,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent C", "desc", HawkboxResources.Monsters_Female_Agent_C,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent D", "desc", HawkboxResources.Monsters_Female_Agent_D,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent E", "desc", HawkboxResources.Monsters_Female_Agent_E,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent F", "desc", HawkboxResources.Monsters_Male_Agent_A,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent G", "desc", HawkboxResources.Monsters_Male_Agent_B,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent H", "desc", HawkboxResources.Monsters_Male_Agent_C,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent I", "desc", HawkboxResources.Monsters_Male_Agent_D,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
-            App.Database.InsertAsync(new BaseMonster(new Monster(
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+            App.Database.InsertAsync(new Monster(
                 "Agent J", "desc", HawkboxResources.Monsters_Male_Agent_E,
                 1, 10, true, 10, 10, 10, 10, 10,
-                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger")));
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             // Load Items
             App.Database.InsertAsync(new Item("Gold Sword", "Sword made of Gold, really expensive looking",
@@ -321,7 +321,7 @@ namespace Crawl.Services
         // Add new monster to database
         public async Task<bool> AddAsync_Monster(Monster data)
         {
-            var result = await App.Database.InsertAsync(new BaseMonster(data));
+            var result = await App.Database.InsertAsync(data);
             if (result == 1)
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
@@ -329,7 +329,7 @@ namespace Crawl.Services
         // Update monster in database.
         public async Task<bool> UpdateAsync_Monster(Monster data)
         {
-            var result = await App.Database.UpdateAsync(new BaseMonster(data));
+            var result = await App.Database.UpdateAsync(data);
             if (result == 1)
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
@@ -337,7 +337,7 @@ namespace Crawl.Services
         // Delete monster from database.
         public async Task<bool> DeleteAsync_Monster(Monster data)
         {
-            var result = await App.Database.DeleteAsync(new BaseMonster(data));
+            var result = await App.Database.DeleteAsync(data);
             if (result == 1)
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
@@ -345,25 +345,18 @@ namespace Crawl.Services
         // Get monster from database based on given Id.
         public async Task<Monster> GetAsync_Monster(string id)
         {
-            return await Task.FromResult(ConvertToMonster(App.Database.GetAsync<BaseMonster>(id).Result));
+            return await Task.FromResult(App.Database.GetAsync<Monster>(id).Result);
         }
         // Get all monsters from database.
         public async Task<IEnumerable<Monster>> GetAllAsync_Monster(bool forceRefresh = false)
         {
-            var baseMonstersList = App.Database.Table<BaseMonster>().ToListAsync().Result;
+            var monstersList = App.Database.Table<Monster>().ToListAsync().Result;
             var list = new List<Monster>();
-            foreach (var baseMonster in baseMonstersList)
+            foreach (var monster in monstersList)
             {
-                list.Add(ConvertToMonster(baseMonster));
+                list.Add(monster);
             }
             return await Task.FromResult(list);
-        }
-        // Convert BaseMonster to Monster.
-        // we store Monster data as BaseMonster.cs in dataset
-        // we use Monster data as Monster.cs in system for displaying data in UI.
-        private static Monster ConvertToMonster(BaseMonster data)
-        {
-            return new Monster(data);
         }
 
         #endregion Monster
