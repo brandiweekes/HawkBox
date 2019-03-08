@@ -23,11 +23,9 @@ namespace Crawl.Models
             ImageURI = HawkboxResources.Aliens_Char_1;
 
             Level = 1;
-            ExperienceTotal = 0;
             Alive = true;
 
-            Attribute = new AttributeBase(1, 1, 1, 10, 10);
-            AttributeString = AttributeBase.GetAttributeString(Attribute);
+            ScaleLevel(Level);
         }
 
         /// <summary>
@@ -85,6 +83,8 @@ namespace Crawl.Models
         public Character(Character newData)
         {
             Update(newData);
+
+            ScaleLevel(Level);
         }
 
         /// <summary>
@@ -148,29 +148,123 @@ namespace Crawl.Models
         #region Basics
 
         // Upgrades to a set level
-        public void ScaleLevel(int level)
+        public bool ScaleLevel(int level)
         {
-            // Implement
+            if(level < 1)
+            {
+                return false;
+            }
+
+            if(level < Level)
+            {
+                return false;
+            }
+
+            if(level > LevelTable.MaxLevel)
+            {
+                return false;
+            }
+
+            Level = level;
+
+            // Set Attributes
+            Attribute.Attack = LevelTable.Instance.LevelDetailsList[Level].Attack;
+            Attribute.Defense = LevelTable.Instance.LevelDetailsList[Level].Defense;
+            Attribute.Speed = LevelTable.Instance.LevelDetailsList[Level].Speed;
+            // Roll dice
+            Attribute.MaxHealth = HelperEngine.RollDice(Level, HealthDice);
+            Attribute.CurrentHealth = Attribute.MaxHealth;
+            AttributeString = AttributeBase.GetAttributeString(Attribute);
+
+            return true;
         }
 
-        // Level Up
+        // Level Up based on XP
         public bool LevelUp()
         {
-            // Implement
+
+            // Walk the Level Table descending order
+            // Stop when experience is >= experience in the table
+            for (var i = LevelTable.Instance.LevelDetailsList.Count - 1; i > 0; i--)
+            {
+                // Check the Level
+                // If the Level is > Experience for the Index, increment the Level.
+                if (LevelTable.Instance.LevelDetailsList[i].Experience <= ExperienceTotal)
+                {
+                    var NewLevel = LevelTable.Instance.LevelDetailsList[i].Level;
+
+                    // When leveling up, the current health is adjusted up by an offset of the MaxHealth, rather than full restore
+                    var OldCurrentHealth = Attribute.CurrentHealth;
+                    var OldMaxHealth = Attribute.MaxHealth;
+
+                    // Set new Health
+                    var NewHealthAddition = HelperEngine.RollDice(NewLevel - Level, HealthDice);
+
+                    // Increment the Max health
+                    Attribute.MaxHealth += NewHealthAddition;
+
+                    // Calculate new current health
+                    // old max was 10, current health 8, new max is 15 so (15-(10-8)) = current health
+                    Attribute.CurrentHealth = (Attribute.MaxHealth - (OldMaxHealth - OldCurrentHealth));
+
+                    // Refresh the Attriburte String
+                    AttributeString = AttributeBase.GetAttributeString(Attribute);
+
+                    // Set the new level
+                    Level = NewLevel;
+
+                    // Done, exit
+                    return true;
+                }
+            }
+
             return false;
         }
 
         // Level up to a number, say Level 3
         public int LevelUpToValue(int value)
         {
-            // Implement
+            if(value < 1)
+            {
+                return Level;
+            }
+
+            if (value <= Level)
+            {
+                return Level;
+            }
+
+            if (value > LevelTable.MaxLevel)
+            {
+                value = LevelTable.MaxLevel;
+            }
+
+            AddExperience(LevelTable.Instance.LevelDetailsList[value].Experience + 1);
+
             return Level;
         }
 
         // Add experience
         public bool AddExperience(int newExperience)
         {
-            // Implement
+            if(newExperience < 0)
+            {
+                return false;
+            }
+
+            // If Level is Max level, then no need to add experience
+            if(Level >= LevelTable.MaxLevel)
+            {
+                return false;
+            }
+
+            ExperienceTotal += newExperience;
+
+            // If experience is higher than the experience at the next level, then level up.
+            if (ExperienceTotal >= LevelTable.Instance.LevelDetailsList[Level + 1].Experience)
+            {
+                return LevelUp();
+            }
             return false;
         }
 
@@ -180,7 +274,17 @@ namespace Crawl.Models
         // monsters give experience to characters.  Characters don't accept experience from monsters
         public void TakeDamage(int damage)
         {
-            // Implement
+            if (damage < 1)
+            {
+                return;
+            }
+
+            Attribute.CurrentHealth -= damage;
+            if (GetHealthCurrent() <= 0)
+            {
+                // Death...
+                CauseDeath();
+            }
         }
 
         #endregion Basics
@@ -194,11 +298,8 @@ namespace Crawl.Models
             // Base Attack
             var myReturn = Attribute.Attack;
 
-            // Implement
-
-            // Attack Bonus from Level
-
             // Get Attack bonus from Items
+            myReturn += GetItemBonus(AttributeEnum.Attack);
 
             return myReturn;
         }
@@ -209,11 +310,8 @@ namespace Crawl.Models
             // Base value
             var myReturn = Attribute.Speed;
 
-            // Implement
-
-            // Get Bonus from Level
-
             // Get bonus from Items
+            myReturn += GetItemBonus(AttributeEnum.Speed);
 
             return myReturn;
         }
@@ -224,11 +322,8 @@ namespace Crawl.Models
             // Base value
             var myReturn = Attribute.Defense;
 
-            // Implement
-
-            // Get Bonus from Level
-
             // Get bonus from Items
+            myReturn += GetItemBonus(AttributeEnum.Defense);
 
             return myReturn;
         }
@@ -239,10 +334,9 @@ namespace Crawl.Models
             // Base value
             var myReturn = Attribute.MaxHealth;
 
-            // Implement
-
             // Get bonus from Items
-            
+            myReturn += GetItemBonus(AttributeEnum.MaxHealth);
+
             return myReturn;
         }
 
@@ -252,9 +346,8 @@ namespace Crawl.Models
             // Base value
             var myReturn = Attribute.CurrentHealth;
 
-            // Implement
-
             // Get bonus from Items
+            myReturn += GetItemBonus(AttributeEnum.CurrentHealth);
 
             return myReturn;
         }
@@ -265,9 +358,13 @@ namespace Crawl.Models
         {
             var myReturn = 0;
 
-            // Implement
+            var myItem = ItemsViewModel.Instance.GetItem(PrimaryHand);
+            if (myItem != null)
+            {
+                // Damage is base damage plus dice of the weapon.  So sword of Damage 10 is d10
+                myReturn += myItem.Damage;
+            }
 
-            
             return myReturn;
         }
 
@@ -276,10 +373,13 @@ namespace Crawl.Models
         public int GetDamageRollValue()
         {
             var myReturn = GetLevelBasedDamage();
+            var _damage = GetDamageDice();
+            if(_damage != 0)
+            {
+                // Damage is base damage plus dice of the weapon.  So sword of Damage 10 is d10
+                myReturn += HelperEngine.RollDice(1, _damage);
+            }
 
-            // Implement
-
-            
             return myReturn;
         }
 
@@ -292,10 +392,16 @@ namespace Crawl.Models
         {
             var myReturn = new List<Item>();
 
-            // Implement
+            // Get Item Locations for Characters
+            var _locationList = ItemLocationList.GetListCharacter;
 
-            // Drop all Items
-            
+            foreach (string loc in _locationList)
+            {
+                Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
+                Item _item = RemoveItem(locEnum);
+                myReturn.Add(_item);
+            }
+
             return myReturn;
         }
 
@@ -308,7 +414,6 @@ namespace Crawl.Models
         {
             var myReturn = AddItem(itemlocation, null);
 
-            // Save Changes
             return myReturn;
         }
 
@@ -321,23 +426,81 @@ namespace Crawl.Models
         // Get the Item at a known string location (head, foot etc.)
         public Item GetItemByLocation(ItemLocationEnum itemLocation)
         {
-            // Implement
-
-            return null;
+            var _itemId = "";
+            switch (itemLocation)
+            {
+                case ItemLocationEnum.Head:
+                    _itemId = this.Head;
+                    break;
+                case ItemLocationEnum.Necklass:
+                    _itemId = this.Necklace;
+                    break;
+                case ItemLocationEnum.PrimaryHand:
+                    _itemId = this.PrimaryHand;
+                    break;
+                case ItemLocationEnum.OffHand:
+                    _itemId = this.OffHand;
+                    break;
+                case ItemLocationEnum.RightFinger:
+                    _itemId = this.RightFinger;
+                    break;
+                case ItemLocationEnum.LeftFinger:
+                    _itemId = this.LeftFinger;
+                    break;
+                case ItemLocationEnum.Feet:
+                    _itemId = this.Feet;
+                    break;
+                default:
+                    _itemId = null;
+                    break;
+            }
+            return GetItem(_itemId);
         }
 
         // Add Item
         // Looks up the Item
-        // Puts the Item ID as a string in the location slot
+        // Puts the Item Id as a string in the location slot
         // If item is null, then puts null in the slot
         // Returns the item that was in the location
-        public Item AddItem(ItemLocationEnum itemlocation, string itemID)
+        public Item AddItem(ItemLocationEnum itemLocation, string itemId)
         {
-            Item myReturn = new Item();
+            Item item = null;
+            var _prevItem = "";
+            if (itemId != null)
+                item = GetItem(itemId);
 
-            // Implement
-
-            return myReturn;
+            switch (itemLocation)
+            {
+                case ItemLocationEnum.Head:
+                    _prevItem = Head;
+                    Head = item?.Id;
+                    break;
+                case ItemLocationEnum.Necklass:
+                    _prevItem = Necklace;
+                    Necklace = item?.Id;
+                    break;
+                case ItemLocationEnum.PrimaryHand:
+                    _prevItem = PrimaryHand;
+                    PrimaryHand = item?.Id;
+                    break;
+                case ItemLocationEnum.OffHand:
+                    _prevItem = OffHand;
+                    OffHand = item?.Id;
+                    break;
+                case ItemLocationEnum.RightFinger:
+                    _prevItem = RightFinger;
+                    RightFinger = item?.Id;
+                    break;
+                case ItemLocationEnum.LeftFinger:
+                    _prevItem = LeftFinger;
+                    LeftFinger = item?.Id;
+                    break;
+                case ItemLocationEnum.Feet:
+                    _prevItem = Feet;
+                    Feet = item?.Id;
+                    break;
+            }
+            return GetItem(_prevItem);
         }
 
         // Walk all the Items on the Character.
@@ -346,9 +509,13 @@ namespace Crawl.Models
         public int GetItemBonus(AttributeEnum attributeEnum)
         {
             var myReturn = 0;
-            Item myItem;
-            // Implement
-
+            foreach (string loc in ItemLocationList.GetListCharacter)
+            {
+                Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
+                Item item = GetItemByLocation(locEnum);
+                if (item.Attribute.Equals(attributeEnum))
+                    myReturn += item.Value;
+            }
             return myReturn;
         }
 
