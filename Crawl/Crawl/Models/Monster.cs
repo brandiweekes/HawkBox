@@ -34,6 +34,8 @@ namespace Crawl.Models
             Level = 1;
             Alive = true;
 
+            Attribute = new AttributeBase();
+
             ScaleLevel(Level);
         }
 
