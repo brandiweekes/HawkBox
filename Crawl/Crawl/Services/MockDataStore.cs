@@ -154,23 +154,20 @@ namespace Crawl.Services
         // Item
         public async Task<bool> InsertUpdateAsync_Item(Item data)
         {
-
-            // Check to see if the item exist
-            var oldData = await GetAsync_Item(data.Id);
-            if (oldData == null)
+            var _count = _itemDataset.Where(i => i.Id == data.Id).Count();
+            if(_count == 0)
             {
+                // Add data to store
                 _itemDataset.Add(data);
                 return true;
             }
-
-            // Compare it, if different update in the DB
-            var UpdateResult = await UpdateAsync_Item(data);
-            if (UpdateResult)
+            else
             {
-                await AddAsync_Item(data);
+                // update
+                var _item = await GetAsync_Item(data.Id);
+                _item.Update(data);
                 return true;
             }
-
             return false;
         }
 
