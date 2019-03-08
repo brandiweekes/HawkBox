@@ -38,6 +38,9 @@ namespace Crawl.Models
         // Description comes from the Entity class
         // ImageURI comes from the Entity class
 
+        /// <summary>
+        /// Default Item contructor
+        /// </summary>
         public Item()
         {
             CreateDefaultItem();
@@ -58,25 +61,29 @@ namespace Crawl.Models
             Attribute = AttributeEnum.Unknown;
         }
 
-        // Helper to combine the attributes into a single line, to make it easier to display the item as a string
-        public string FormatOutput()
-        {
-            var myReturn = $"Name: {Name} \n" +
-                $"Desciption: {Description} \n" +
-                $"Image: {ImageURI} \n" +
-                $"Attribute: {Attribute.ToString()}\tLocation: {Location.ToString()}\n" +
-                $"Range: {Range}\t Damage: {Damage}\tValue: {Value}\tUnique: {IsUnique}";
-            return myReturn.Trim();
-        }
-
+        /// <summary>
+        /// Create new Item from Existing Item
+        /// </summary>
+        /// <param name="data"></param>
         public Item(Item data)
         {
             Update(data);
         }
 
-        // Constructor for Item called if needed to create a new item with set values.
-        public Item(string name, string description, string imageuri, 
-            int range, int value, int damage, 
+        /// <summary>
+        /// Create Item with set values.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="imageuri"></param>
+        /// <param name="range"></param>
+        /// <param name="value"></param>
+        /// <param name="damage"></param>
+        /// <param name="location"></param>
+        /// <param name="attribute"></param>
+        /// <param name="isUnique"></param>
+        public Item(string name, string description, string imageuri,
+            int range, int value, int damage,
             ItemLocationEnum location, AttributeEnum attribute, bool isUnique)
         {
             // Create default, and then override...
@@ -96,7 +103,10 @@ namespace Crawl.Models
             IsUnique = isUnique;
         }
 
-        // Update for Item, that will update the fields one by one.
+        /// <summary>
+        /// Update for Item, that will update the fields one by one.
+        /// </summary>
+        /// <param name="newData"></param>
         public void Update(Item newData)
         {
             if (newData == null)
@@ -123,6 +133,11 @@ namespace Crawl.Models
         {
             var newValue = 1;
 
+            if (level < 1)
+            {
+                return;
+            }
+
             if (GameGlobals.ForceRollsToNotRandom)
             {
                 newValue = level;
@@ -145,6 +160,17 @@ namespace Crawl.Models
             {
                 IsUnique = true;
             }
+        }
+
+        // Helper to combine the attributes into a single line, to make it easier to display the item as a string
+        public string FormatOutput()
+        {
+            var myReturn = $"Name: {Name} \n" +
+                $"Desciption: {Description} \n" +
+                $"Image: {ImageURI} \n" +
+                $"Attribute: {Attribute.ToString()}\tLocation: {Location.ToString()}\n" +
+                $"Range: {Range}\t Damage: {Damage}\tValue: {Value}\tUnique: {IsUnique}";
+            return myReturn.Trim();
         }
     }
 }
