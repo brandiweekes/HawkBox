@@ -37,14 +37,35 @@ namespace Crawl.Models
         // then it returns the formatted string for the Item, and Value.
         private string FormatOutputSlot(string slot)
         {
-            var myReturn = "Implement";
+            var myReturn = slot + ": ";
+            var _value = GetType().GetProperty(slot).GetValue(this);
+            if (_value == null)
+            {
+                myReturn += "None";
+                return myReturn;
+            }
 
+            var myData = ItemsViewModel.Instance.GetItem(_value.ToString());
+            if (myData == null)
+            {
+                myReturn += "None";
+            }
+            else
+            {
+                myReturn += myData.Value.ToString();
+            }
             return myReturn;
         }
 
         public string ItemSlotsFormatOutput()
         {
-            var myReturn = "Implement";
+            var myReturn = $"{FormatOutputSlot("Head")} :: " +
+                $"{FormatOutputSlot("Necklass")} :: " +
+                $"{FormatOutputSlot("PrimaryHand")} :: " +
+                $"{FormatOutputSlot("OffHand")} :: " +
+                $"{FormatOutputSlot("RightFinger")} :: " +
+                $"{FormatOutputSlot("LeftFinger")} :: " +
+                $"{FormatOutputSlot("Feet")}";
 
             return myReturn.Trim();
         }
