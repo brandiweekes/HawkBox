@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameEngineTests\AutoBattleEngineTests.cs" />
+    <Compile Include="GameEngineTests\TurnEngineTests.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
