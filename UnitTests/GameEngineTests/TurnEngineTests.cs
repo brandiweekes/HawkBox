@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crawl.GameEngine;
+using Crawl.Models;
 
 namespace UnitTests.GameEngineTests
 {
@@ -11,10 +13,18 @@ namespace UnitTests.GameEngineTests
     public class TurnEngineTests
     {
         [Test]
-        public void TestMethod()
+        public void TurnEngine_Character_AttackChoice_Monster_List_Null_Should_Return_Null()
         {
-            // TODO: Add your test code here
-            Assert.Pass("Your first passing test");
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testTurnEngine.MonsterList = null;
+
+            // Act
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+
+            // Assert
+            Assert.IsNull(returnMonster, "Expected Monster choice: null");
         }
     }
 }

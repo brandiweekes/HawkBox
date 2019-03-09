@@ -84,7 +84,8 @@ namespace Crawl.GameEngine
         // Decide which to attack
         public Monster AttackChoice(Character data)
         {
-            return null;
+            
+            return new Monster();
         }
 
         // Decide which to attack
