@@ -89,6 +89,11 @@ namespace Crawl.GameEngine
                 return null;
             }
 
+            if(this.MonsterList.Count < 1)
+            {
+                return null;
+            }
+
             return new Monster();
         }
 
