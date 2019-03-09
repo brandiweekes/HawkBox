@@ -94,7 +94,11 @@ namespace Crawl.GameEngine
                 return null;
             }
 
-            return new Monster();
+            
+            var orderMonsterHealth = this.MonsterList.OrderByDescending(m => m.Attribute.CurrentHealth);
+            var lowestHealthMonsterReturn = orderMonsterHealth.Last();
+
+            return lowestHealthMonsterReturn;
         }
 
         // Decide which to attack
