@@ -26,5 +26,20 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.IsNull(returnMonster, "Expected Monster choice: null");
         }
+
+        [Test]
+        public void TurnEngine_Character_AttackChoice_Monster_List_Empty_Should_Return_Null()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testTurnEngine.MonsterList = new List<Monster>();
+
+            // Act
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+
+            // Assert
+            Assert.IsNull(returnMonster, "Expected Monster choice: null");
+        }
     }
 }
