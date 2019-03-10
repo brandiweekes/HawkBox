@@ -515,8 +515,14 @@ namespace Crawl.Models
             {
                 Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
                 Item item = GetItemByLocation(locEnum);
-                if (item.Attribute.Equals(attributeEnum))
-                    myReturn += item.Value;
+                if(item != null)
+                {
+                    if (item.Attribute.Equals(attributeEnum))
+                    {
+                        myReturn += item.Value;
+                    }                       
+                }
+                
             }
             return myReturn;
         }

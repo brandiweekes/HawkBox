@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Crawl.GameEngine;
 using Crawl.Models;
+using Xamarin.Forms.Mocks;
 
 namespace UnitTests.GameEngineTests
 {
@@ -32,6 +33,8 @@ namespace UnitTests.GameEngineTests
         [Test]
         public void TurnEngine_Character_TakeTurn_Attack_Happens_Should_Return_True()
         {
+            MockForms.Init();
+
             // Arrange
             var testTurnEngine = new TurnEngine();
             var testCharacter = new Character();

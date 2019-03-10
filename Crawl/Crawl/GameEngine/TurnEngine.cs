@@ -59,6 +59,10 @@ namespace Crawl.GameEngine
                 return false;
             }
 
+            var AttackScore = Attacker.Level + Attacker.GetAttack();
+            var DefendScore = Target.Level + Target.GetDefense();
+            this.TurnAsAttack(Attacker, AttackScore, Target, DefendScore);
+
             return true;
         }
 
