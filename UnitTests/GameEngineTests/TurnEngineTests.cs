@@ -30,6 +30,48 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
+        public void TurnEngine_Character_TakeTurn_Attack_Happens_Should_Return_True()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+            //var testTarget = testTurnEngine.AttackChoice(testCharacter);
+            //var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            //var testDefendScore = testTarget.Level + testTarget.GetDefense();
+            
+
+            // Act
+            var returnResult = testTurnEngine.TakeTurn(testCharacter);
+
+
+            // Assert
+
+            Assert.IsTrue(returnResult, "Expected Target: monster, return true");
+        }
+
+        [Test]
         public void TurnEngine_Character_AttackChoice_Monster_List_Null_Should_Return_Null()
         {
             // Arrange
