@@ -49,18 +49,26 @@ namespace UnitTests.GameEngineTests
             var testTurnEngine = new TurnEngine();
             var testCharacter = new Character();
             testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
             var lowHealthMonster = new Monster("Low Health", 
                                                 "monster low health", 
                                                 "", 1, 1, true, 
-                                                1, 1, 1, 10, 1, 
+                                                1, 1, 1, 10, 2, 
                                                 null, null, null, null, 
                                                 null, null, null);
+
             var highHealthMonster = new Monster("High Health",
                                                 "monster high health",
                                                 "", 1, 1, true,
                                                 1, 1, 1, 10, 10,
                                                 null, null, null, null,
                                                 null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
             testTurnEngine.MonsterList.Add(lowHealthMonster);
             testTurnEngine.MonsterList.Add(highHealthMonster);
 
@@ -69,6 +77,43 @@ namespace UnitTests.GameEngineTests
 
             // Assert
             Assert.AreSame(lowHealthMonster, returnMonster, "Expected Monster choice: Low Health");
+        }
+
+        [Test]
+        public void TurnEngine_Character_AttackChoice_Monster_List_All_Alive_is_False_Should_Return_Null()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health 1",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster dead health 2",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster dead high health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+
+            // Act
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+
+            // Assert
+            Assert.IsNull(returnMonster, "Expected Monster choice: null");
         }
     }
 }

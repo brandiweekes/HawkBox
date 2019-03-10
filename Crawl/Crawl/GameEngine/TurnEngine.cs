@@ -81,24 +81,56 @@ namespace Crawl.GameEngine
             return HitStatus;
         }
 
-        // Decide which to attack
+        /// <summary>
+        /// Character will attack the monster with the lowest health
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>monster with lowest health</returns>
         public Monster AttackChoice(Character data)
         {
-            if(this.MonsterList == null)
+            int current = 0;
+
+            // check if MonsterList is null; return null
+            if (this.MonsterList == null)
             {
                 return null;
             }
 
+            // check if MonsterList instantiated but no monster in it; return null
             if(this.MonsterList.Count < 1)
             {
                 return null;
             }
 
+            // MonsterList has monsters in it, 
+            // order the list by living monsters lowest health
+            var orderMonsterHealth = this.MonsterList
+                .OrderBy(m => m.Attribute.CurrentHealth)
+                .ThenByDescending(a => a.Alive);
             
-            var orderMonsterHealth = this.MonsterList.OrderByDescending(m => m.Attribute.CurrentHealth);
-            var lowestHealthMonsterReturn = orderMonsterHealth.Last();
+            // check if first monster is alive 
+            if(orderMonsterHealth.First().Alive != true)
+            {
+                // first monster is dead, 
+                // so cycle through list until find first Alive monster
+                while (current < orderMonsterHealth.Count() && 
+                  orderMonsterHealth.ElementAt(current).Alive == false)
+                {
+                    current++;
+                }
+            }
 
-            return lowestHealthMonsterReturn;
+            // found a living monster with lowest health
+            if(current < orderMonsterHealth.Count())
+            {
+                // current is index of living monster with lowest health
+                var lowestHealthMonster = orderMonsterHealth.ElementAt(current);
+                // return the monster with the lowest health to attack
+                return lowestHealthMonster;
+            }
+
+            // all monsters are dead, return null
+            return null;
         }
 
         // Decide which to attack
