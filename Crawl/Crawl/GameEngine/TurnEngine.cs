@@ -52,6 +52,13 @@ namespace Crawl.GameEngine
         // Character Attacks...
         public bool TakeTurn(Character Attacker)
         {
+            var Target = this.AttackChoice(Attacker);
+
+            if(Target == null)
+            {
+                return false;
+            }
+
             return true;
         }
 
