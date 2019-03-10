@@ -13,6 +13,23 @@ namespace UnitTests.GameEngineTests
     public class TurnEngineTests
     {
         [Test]
+        public void TurnEngine_Character_TakeTurn_Monster_Target_Null_Should_Return_False()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testTurnEngine.MonsterList = null;
+
+            // Act
+            var returnResult = testTurnEngine.TakeTurn(testCharacter);
+
+
+            // Assert
+            
+            Assert.IsFalse(returnResult, "Expected Target: null, return false");
+        }
+
+        [Test]
         public void TurnEngine_Character_AttackChoice_Monster_List_Null_Should_Return_Null()
         {
             // Arrange
