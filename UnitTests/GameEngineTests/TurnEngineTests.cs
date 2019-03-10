@@ -24,9 +24,7 @@ namespace UnitTests.GameEngineTests
             // Act
             var returnResult = testTurnEngine.TakeTurn(testCharacter);
 
-
-            // Assert
-            
+            // Assert          
             Assert.IsFalse(returnResult, "Expected Target: null, return false");
         }
 
@@ -59,18 +57,12 @@ namespace UnitTests.GameEngineTests
                                                 null, null, null);
             testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
             testTurnEngine.MonsterList.Add(lowHealthMonster);
-            testTurnEngine.MonsterList.Add(highHealthMonster);
-            //var testTarget = testTurnEngine.AttackChoice(testCharacter);
-            //var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
-            //var testDefendScore = testTarget.Level + testTarget.GetDefense();
-            
+            testTurnEngine.MonsterList.Add(highHealthMonster);          
 
             // Act
             var returnResult = testTurnEngine.TakeTurn(testCharacter);
 
-
             // Assert
-
             Assert.IsTrue(returnResult, "Expected Target: monster, return true");
         }
 
