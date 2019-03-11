@@ -130,6 +130,11 @@ namespace Crawl.GameEngine
                 return true;
             }
             
+            if(HitStatus == HitStatusEnum.Hit)
+            {
+                var damage = Attacker.GetDamageRollValue();
+                this.DamageAmount = damage;
+            }
 
             // Death
             // Drop Items

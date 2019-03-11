@@ -633,7 +633,7 @@ namespace UnitTests.GameEngineTests
             var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
             var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
             GameGlobals.ForceRollsToNotRandom = true;
-            GameGlobals.ForceToHitValue = 1;
+            GameGlobals.ForceToHitValue = 19;
 
 
             // Act
