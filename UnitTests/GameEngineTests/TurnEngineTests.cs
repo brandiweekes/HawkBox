@@ -255,5 +255,48 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.AreSame(returnMonster.Name, testTurnEngine.TargetName, "Expected Target Defender Name: monster low health");
         }
+
+        [Test]
+        public void TurnEngine_Character_TurnAsAttack_Increment_TurnCount_Should_Pass()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter.Name = "Test Name";
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            var testDefendScore = returnMonster.Level + returnMonster.GetAttack();
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testCharacter, testAttackScore, returnMonster, testDefendScore);
+
+            // Assert
+            Assert.AreSame(testTurnEngine.BattleScore.TurnCount, 1, "Expected TurnCount: 1");
+        }
     }
 }
