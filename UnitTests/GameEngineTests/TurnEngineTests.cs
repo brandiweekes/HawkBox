@@ -814,5 +814,65 @@ namespace UnitTests.GameEngineTests
             Assert.Greater(testMonsterListCount, testTurnEngine.MonsterList.Count(), "Expected MonsterList Count: 1 less");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
+
+        [Test]
+        public void TurnEngine_TurnAsAttack_Monster_Dies_Should_Drop_Items_List_Should_Have_Items()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter.Attribute.Attack = 5;
+            var testAttackDamage = testCharacter.GetDamageRollValue();
+            testCharacter.Name = "Test Name";
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 300, true,
+                                                1, 1, 10, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            var testFeetItem = new Item("Anti-Gravity Shoes",
+                "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
+                 0, 10, 10, ItemLocationEnum.Feet, AttributeEnum.Speed, true);
+            lowHealthMonster.AddItem(ItemLocationEnum.Feet, testFeetItem.Id);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+            //var testMonsterListCount = testTurnEngine.MonsterList.Count();
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 19;
+
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testCharacter, testAttackScore, returnMonster, testDefendScore);
+            var checkIfContains = testTurnEngine.ItemPool.Contains(testFeetItem);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+
+            // Assert
+            Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testFeetItem: true");
+            //Assert.Greater(testMonsterListCount, testTurnEngine.MonsterList.Count(), "Expected MonsterList Count: 1 less");
+            Assert.IsTrue(returnBool, "Expected return bool: true");
+        }
     }
 }
