@@ -113,11 +113,12 @@ namespace Crawl.GameEngine
             this.TargetName = Target.Name;
 
             this.BattleScore.TurnCount++;
-            
-            // Roll To Hit
 
+            // Roll To Hit
+            var HitStatus = this.RollToHitTarget(AttackScore, DefenseScore);
 
             // Decide Hit or Miss
+
             // Decide Damage
             // Death
             // Drop Items
