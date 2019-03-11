@@ -123,6 +123,7 @@ namespace Crawl.GameEngine
                 this.DamageAmount = 0;
             }
             
+
             
             // Death
             // Drop Items
