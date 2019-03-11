@@ -127,8 +127,18 @@ namespace Crawl.GameEngine
 
         public HitStatusEnum RollToHitTarget(int AttackScore, int DefenseScore)
         {
+            var d20 = HelperEngine.RollDice(1, 20);
 
-            HitStatus = HitStatusEnum.Unknown;
+            if(GameGlobals.ForceRollsToNotRandom)
+            {
+                d20 = GameGlobals.ForceToHitValue;
+            }
+
+            if(d20 > 2 && d20 < 20)
+            {
+                this.HitStatus = HitStatusEnum.Hit;
+            }
+            
 
             return HitStatus;
         }
