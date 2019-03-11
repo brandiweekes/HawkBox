@@ -109,7 +109,8 @@ namespace Crawl.GameEngine
         // Character attacks Monster
         public bool TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
         {
-            this.AttackerName = Attacker.Name; 
+            this.AttackerName = Attacker.Name;
+            this.TargetName = Target.Name; 
             // Roll To Hit
             // Decide Hit or Miss
             // Decide Damage
