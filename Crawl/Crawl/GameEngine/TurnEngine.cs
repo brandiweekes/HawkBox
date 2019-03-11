@@ -134,6 +134,7 @@ namespace Crawl.GameEngine
             {
                 var damage = Attacker.GetDamageRollValue();
                 this.DamageAmount = damage;
+                Target.TakeDamage(this.DamageAmount);
             }
 
             // Death
