@@ -142,6 +142,22 @@ namespace Crawl.ViewModels
             return myReturn;
         }
 
+        /// <summary>
+        /// This method is for the game engine to call to add an item to the item list
+        /// It is not async, so it can be called from the game engine on it's thread
+        /// It sets the needs refresh flag
+        /// Items added to the list this way, are not saved to the DB, they are temporary during the game.
+        /// Refactor for the future would be to create a separate item list for the game to add to, and work with.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool AddItem_Sync(Item data)
+        {
+            Dataset.Add(data);
+            SetNeedsRefresh(true);
+            return true;
+        }
+
         // delete item from dataset and datastore.
         public async Task<bool> DeleteAsync(Item data)
         {

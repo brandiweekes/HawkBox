@@ -151,6 +151,8 @@ namespace Crawl.GameEngine
             if(Target.Alive == false)
             {
                 this.MonsterList.Remove(Target);
+
+
             }
             // Drop Items
             
@@ -256,7 +258,43 @@ namespace Crawl.GameEngine
         {
             var myList = new List<Item>();
 
+            if (!GameGlobals.AllowMonsterDropItems)
+            {
                 return myList;
+            }
+
+            var myItemsViewModel = ItemsViewModel.Instance;
+
+            if (myItemsViewModel.Dataset.Count > 0)
+            {
+                // Random is enabled so build up a list of items dropped...
+                var ItemCount = HelperEngine.RollDice(1, 4);
+                for (var i = 0; i < ItemCount; i++)
+                {
+                    var rnd = HelperEngine.RollDice(1, myItemsViewModel.Dataset.Count);
+                    var itemBase = myItemsViewModel.Dataset[rnd - 1];
+                    var item = new Item(itemBase);
+                    item.ScaleLevel(round);
+
+                    // Make sure the item is added to the global list...
+                    var myItem = ItemsViewModel.Instance.CheckIfItemExists(item);
+                    if (myItem == null)
+                    {
+                        // Item does not exist, so add it to the datstore
+                        ItemsViewModel.Instance.AddItem_Sync(item);
+                    }
+                    else
+                    {
+                        // Swap them becaues it already exists, no need to create a new one...
+                        item = myItem;
+                    }
+
+                    // Add the item to the local list...
+                    myList.Add(item);
+                }
+            }
+
+            return myList;
         }
 
         public string DetermineCriticalMissProblem(Character attacker)
