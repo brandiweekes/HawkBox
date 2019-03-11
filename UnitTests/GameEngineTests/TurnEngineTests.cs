@@ -759,5 +759,60 @@ namespace UnitTests.GameEngineTests
             Assert.AreEqual(testExperienceGained, testCharacter.ExperienceTotal, "Expected XP from Monster");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
+
+        [Test]
+        public void TurnEngine_TurnAsAttack_Monster_Dies_Should_Remove_From_List_Should_Pass()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter.Attribute.Attack = 5;
+            var testAttackDamage = testCharacter.GetDamageRollValue();
+            testCharacter.Name = "Test Name";
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 300, true,
+                                                1, 1, 10, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+            var testMonsterListCount = testTurnEngine.MonsterList.Count();
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 19;
+            
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testCharacter, testAttackScore, returnMonster, testDefendScore);
+            var checkIfContains = testTurnEngine.MonsterList.Contains(returnMonster);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+
+            // Assert
+            Assert.IsFalse(checkIfContains, "Expected MonsterList to contain returnMonster: false");
+            Assert.Greater(testMonsterListCount, testTurnEngine.MonsterList.Count(), "Expected MonsterList Count: 1 less");
+            Assert.IsTrue(returnBool, "Expected return bool: true");
+        }
     }
 }
