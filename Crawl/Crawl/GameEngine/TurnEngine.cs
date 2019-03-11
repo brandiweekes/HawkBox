@@ -102,13 +102,20 @@ namespace Crawl.GameEngine
         // Monster Attacks Character
         public bool TurnAsAttack(Monster Attacker, int AttackScore, Character Target, int DefenseScore)
         {
+            
             return true;
         }
 
         // Character attacks Monster
         public bool TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
         {
-
+            
+            // Roll To Hit
+            // Decide Hit or Miss
+            // Decide Damage
+            // Death
+            // Drop Items
+            // Turn Over
             return true;
         }
 
