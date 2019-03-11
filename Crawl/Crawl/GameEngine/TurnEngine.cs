@@ -144,9 +144,16 @@ namespace Crawl.GameEngine
                 this.HitStatus = HitStatusEnum.CriticalHit;
             }
 
-            if(d20 > 2 && d20 < 20)
+            if(d20 > 1 && d20 < 20)
             {
-                this.HitStatus = HitStatusEnum.Hit;
+                if(d20 + AttackScore < DefenseScore)
+                {
+                    this.HitStatus = HitStatusEnum.Miss;
+                }
+                else
+                {
+                    this.HitStatus = HitStatusEnum.Hit;
+                }               
             }
             
 
