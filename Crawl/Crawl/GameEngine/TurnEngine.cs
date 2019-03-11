@@ -123,7 +123,10 @@ namespace Crawl.GameEngine
                 this.DamageAmount = 0;
             }
             
-
+            if(HitStatus == HitStatusEnum.CriticalMiss)
+            {
+                this.DamageAmount = 0;
+            }
             
             // Death
             // Drop Items
