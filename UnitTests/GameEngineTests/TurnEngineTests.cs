@@ -781,7 +781,7 @@ namespace UnitTests.GameEngineTests
             var lowHealthMonster = new Monster("Low Health",
                                                 "monster low health",
                                                 "", 1, 300, true,
-                                                1, 1, 10, 10, 2,
+                                                1, 1, 10, 10, 1,
                                                 null, null, null, null,
                                                 null, null, null);
 

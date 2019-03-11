@@ -148,6 +148,10 @@ namespace Crawl.GameEngine
 
 
             // Death
+            if(Target.Alive == false)
+            {
+                this.MonsterList.Remove(Target);
+            }
             // Drop Items
             
             // Turn Over
