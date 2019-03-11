@@ -48,18 +48,33 @@ namespace Crawl.GameEngine
 
         public int GetAverageCharacterLevel()
         {
+            if(CharacterList.Count < 1)
+            {
+                return 0;
+            }
+
             var data = CharacterList.Average(m => m.Level);
             return (int)Math.Floor(data);
         }
 
         public int GetMinCharacterLevel()
         {
+            if (CharacterList.Count < 1)
+            {
+                return 0;
+            }
+
             var data = CharacterList.Min(m => m.Level);
             return data;
         }
 
         public int GetMaxCharacterLevel()
         {
+            if (CharacterList.Count < 1)
+            {
+                return 0;
+            }
+
             var data = CharacterList.Max(m => m.Level);
             return data;
         }
