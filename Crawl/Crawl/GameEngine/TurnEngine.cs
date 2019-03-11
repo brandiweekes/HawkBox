@@ -152,12 +152,16 @@ namespace Crawl.GameEngine
             {
                 this.MonsterList.Remove(Target);
 
+                // Drop Items
                 var droppedItemsList = Target.DropAllItems();
-
-                this.ItemPool.AddRange(droppedItemsList);
+                if(droppedItemsList.Count > 0)
+                {
+                    this.ItemPool.AddRange(droppedItemsList);
+                }
+                
 
             }
-            // Drop Items
+            
             
             // Turn Over
             return true;

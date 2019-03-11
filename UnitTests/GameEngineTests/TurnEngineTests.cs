@@ -817,7 +817,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Monster_Dies_Should_Drop_Items_List_Should_Have_Items()
+        public void TurnEngine_TurnAsAttack_Monster_Dies_Should_Drop_Items_ItemPool_Should_Have_Items()
         {
             MockForms.Init();
 

@@ -331,16 +331,21 @@ namespace Crawl.Models
                 myItem = GetItem(UniqueItem);
                 if (myItem != null)
                 {
-                    myReturn.Add(new Item(myItem));
+                    myReturn.Add(myItem);
                 }
             }
 
             // Drop Item from each location
             foreach (string loc in ItemLocationList.GetListCharacter)
             {
+                
                 Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
                 Item _item = RemoveItem(locEnum);
-                myReturn.Add(_item);
+                if(_item != null)
+                {
+                    myReturn.Add(_item);
+                }
+                
             }
 
             return myReturn;
