@@ -49,22 +49,49 @@ namespace Crawl.GameEngine
         // Drop Items
         // Turn Over
 
-        // Character Attacks...
+        /// <summary>
+        /// Character will attack a monster
+        /// a target monster is selected, called by AttackChoice
+        /// AttackScore and DefendScore are set
+        /// Character, Target, both scores sent to TurnAsAttack
+        /// </summary>
+        /// <param name="Attacker">current attacking player</param>
+        /// <returns>
+        /// false if no attack happens this turn, 
+        /// else true
+        /// </returns>
         public bool TakeTurn(Character Attacker)
         {
+            // call to get a monster to attack
             var Target = this.AttackChoice(Attacker);
 
+            // if target is null, return false
+            // turn is over, no attack happens
             if(Target == null)
             {
+                // all monsters dead or list null
+                // no attack happened this turn
                 return false;
             }
 
+            // set the attacking score of Character
             var AttackScore = Attacker.Level + Attacker.GetAttack();
+            // set the defending score of Monster Target
             var DefendScore = Target.Level + Target.GetDefense();
-            this.TurnAsAttack(Attacker, AttackScore, Target, DefendScore);
+            // call for this turn's attack (character vs monster)
+            var attackStatus = this.TurnAsAttack(Attacker, 
+                AttackScore, Target, DefendScore);
+            
+            // check if something happened preventing an attack
+            if(!attackStatus)
+            {
+                // attack failed in TurnAsAttack
+                return false;
+            }
 
+            // attack happened this turn, return true 
             return true;
-        }
+        } 
 
         // Monster Attacks...
         public bool TakeTurn(Monster Attacker)
@@ -81,6 +108,7 @@ namespace Crawl.GameEngine
         // Character attacks Monster
         public bool TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
         {
+
             return true;
         }
 
