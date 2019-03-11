@@ -158,10 +158,7 @@ namespace Crawl.GameEngine
                 {
                     this.ItemPool.AddRange(droppedItemsList);
                 }
-                
-
             }
-            
             
             // Turn Over
             return true;
