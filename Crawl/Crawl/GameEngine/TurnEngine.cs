@@ -137,7 +137,13 @@ namespace Crawl.GameEngine
                 Target.TakeDamage(this.DamageAmount);
 
                 var XPtoCharacter = Target.CalculateExperienceEarned(this.DamageAmount);
-                Attacker.AddExperience(XPtoCharacter );
+                var LevelUp = Attacker.AddExperience(XPtoCharacter);
+
+                if (LevelUp)
+                {
+                    this.LevelUpMessage = Attacker.Name + " is now Level " + Attacker.Level + " With Health Max of " + Attacker.GetHealthMax();
+                    Debug.WriteLine(LevelUpMessage);
+                }
             }
 
             // Death
