@@ -112,7 +112,7 @@ namespace Crawl.GameEngine
             this.AttackerName = Attacker.Name;
             this.TargetName = Target.Name;
 
-
+            this.BattleScore.TurnCount++;
             // Roll To Hit
             // Decide Hit or Miss
             // Decide Damage

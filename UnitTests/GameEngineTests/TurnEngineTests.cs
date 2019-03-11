@@ -296,7 +296,7 @@ namespace UnitTests.GameEngineTests
             var returnBool = testTurnEngine.TurnAsAttack(testCharacter, testAttackScore, returnMonster, testDefendScore);
 
             // Assert
-            Assert.AreSame(testTurnEngine.BattleScore.TurnCount, 1, "Expected TurnCount: 1");
+            Assert.AreEqual(testTurnEngine.BattleScore.TurnCount, 1, "Expected TurnCount: 1");
         }
     }
 }
