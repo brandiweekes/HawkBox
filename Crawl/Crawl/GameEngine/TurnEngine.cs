@@ -118,10 +118,12 @@ namespace Crawl.GameEngine
             var HitStatus = this.RollToHitTarget(AttackScore, DefenseScore);
 
             // Decide Hit or Miss
-
+            
             // Decide Damage
+            
             // Death
             // Drop Items
+            
             // Turn Over
             return true;
         }
