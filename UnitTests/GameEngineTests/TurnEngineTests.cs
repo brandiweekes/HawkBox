@@ -345,7 +345,7 @@ namespace UnitTests.GameEngineTests
             GameGlobals.ToggleRandomState();
 
             // Assert
-            Assert.AreEqual(returnHitStatus, HitStatusEnum.Hit, "Expected HitStatus: 4, CriticalMiss");
+            Assert.AreEqual(returnHitStatus, HitStatusEnum.CriticalMiss, "Expected HitStatus: 4, CriticalMiss");
         }
 
         [Test]

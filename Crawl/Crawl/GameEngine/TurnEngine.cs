@@ -134,6 +134,11 @@ namespace Crawl.GameEngine
                 d20 = GameGlobals.ForceToHitValue;
             }
 
+            if(d20 == 1)
+            {
+                this.HitStatus = HitStatusEnum.CriticalMiss;
+            }
+
             if(d20 > 2 && d20 < 20)
             {
                 this.HitStatus = HitStatusEnum.Hit;
