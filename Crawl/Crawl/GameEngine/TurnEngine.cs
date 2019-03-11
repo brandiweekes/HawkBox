@@ -135,6 +135,9 @@ namespace Crawl.GameEngine
                 var damage = Attacker.GetDamageRollValue();
                 this.DamageAmount = damage;
                 Target.TakeDamage(this.DamageAmount);
+
+                var XPtoCharacter = Target.CalculateExperienceEarned(this.DamageAmount);
+                Attacker.AddExperience(XPtoCharacter );
             }
 
             // Death

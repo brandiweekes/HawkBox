@@ -197,8 +197,6 @@ namespace Crawl.Models
                 return;
             }
 
-            CalculateExperienceEarned(damage);
-
             Attribute.CurrentHealth = Attribute.CurrentHealth - damage;
             if (Attribute.CurrentHealth <= 0)
             {
@@ -218,7 +216,7 @@ namespace Crawl.Models
                 return 0;
             }
 
-            int remainingHealth = Math.Max(Attribute.CurrentHealth - damage, 0); // Go to 0 is OK...
+            int remainingHealth = Math.Max(Attribute.CurrentHealth, 0); // Go to 0 is OK...
             double rawPercent = (double)remainingHealth / (double)Attribute.CurrentHealth;
             double deltaPercent = 1 - rawPercent;
             var pointsAllocate = (int)Math.Floor(ExperienceRemaining * deltaPercent);

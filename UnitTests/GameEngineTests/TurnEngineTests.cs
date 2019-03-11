@@ -707,7 +707,7 @@ namespace UnitTests.GameEngineTests
             // Arrange
             var testTurnEngine = new TurnEngine();
             var testCharacter = new Character();
-            testCharacter.Attribute.Attack = 1;
+            testCharacter.Attribute.Attack = 5;
             var testAttackDamage = testCharacter.GetDamageRollValue();
             testCharacter.Name = "Test Name";
             testTurnEngine.MonsterList = new List<Monster>();
@@ -719,8 +719,8 @@ namespace UnitTests.GameEngineTests
                                                 null, null, null);
             var lowHealthMonster = new Monster("Low Health",
                                                 "monster low health",
-                                                "", 1, 1, true,
-                                                1, 1, 10, 10, 2,
+                                                "", 1, 300, true,
+                                                1, 1, 10, 10, 5,
                                                 null, null, null, null,
                                                 null, null, null);
 
@@ -738,10 +738,16 @@ namespace UnitTests.GameEngineTests
             var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
             GameGlobals.ForceRollsToNotRandom = true;
             GameGlobals.ForceToHitValue = 19;
-            var testMonster = returnMonster;
+            var testMonster = new Monster(returnMonster);
+            testMonster.Name = "Test Monster";
+            testMonster.Attribute.CurrentHealth = 5;
+            testMonster.Attribute.MaxHealth = 10;
             testMonster.TakeDamage(testAttackDamage);
+            var testXPchar = new Character(testCharacter);
+            testXPchar.Name = "Test XP Character";
+            testXPchar.Description = "Test XP";
             var testXPtoChar = testMonster.CalculateExperienceEarned(testAttackDamage);
-            var testExperienceGained = testCharacter.ExperienceTotal + testXPtoChar;
+            var testExperienceGained = testXPchar.ExperienceTotal + testXPtoChar;
 
             // Act
             var returnBool = testTurnEngine.TurnAsAttack(testCharacter, testAttackScore, returnMonster, testDefendScore);
