@@ -152,6 +152,9 @@ namespace Crawl.GameEngine
             {
                 this.MonsterList.Remove(Target);
 
+                var droppedItemsList = Target.DropAllItems();
+
+                this.ItemPool.AddRange(droppedItemsList);
 
             }
             // Drop Items

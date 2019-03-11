@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Crawl.GameEngine;
 using Crawl.Models;
 using Xamarin.Forms.Mocks;
+using Crawl.ViewModels;
 
 namespace UnitTests.GameEngineTests
 {
@@ -847,14 +848,15 @@ namespace UnitTests.GameEngineTests
                                                 null, null, null, null,
                                                 null, null, null);
             testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            var testItemPoolCount = testTurnEngine.ItemPool.Count();
             var testFeetItem = new Item("Anti-Gravity Shoes",
                 "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
                 "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
                  0, 10, 10, ItemLocationEnum.Feet, AttributeEnum.Speed, true);
-            lowHealthMonster.AddItem(ItemLocationEnum.Feet, testFeetItem.Id);
+            ItemsViewModel.Instance.AddAsync(testFeetItem).GetAwaiter().GetResult();
+            lowHealthMonster.Feet = testFeetItem.Guid;
             testTurnEngine.MonsterList.Add(lowHealthMonster);
             testTurnEngine.MonsterList.Add(highHealthMonster);
-            //var testMonsterListCount = testTurnEngine.MonsterList.Count();
             var returnMonster = testTurnEngine.AttackChoice(testCharacter);
             var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
             var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
@@ -871,7 +873,7 @@ namespace UnitTests.GameEngineTests
 
             // Assert
             Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testFeetItem: true");
-            //Assert.Greater(testMonsterListCount, testTurnEngine.MonsterList.Count(), "Expected MonsterList Count: 1 less");
+            Assert.Less(testItemPoolCount, testTurnEngine.ItemPool.Count(), "Expected MonsterList Count: 1 less");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
     }
