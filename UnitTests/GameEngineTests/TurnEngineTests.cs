@@ -69,6 +69,7 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
+        #region Tests: AttackChoice(Character Attacker)
         [Test]
         public void TurnEngine_Character_AttackChoice_Monster_List_Null_Should_Return_Null()
         {
@@ -172,7 +173,9 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.IsNull(returnMonster, "Expected Monster choice: null");
         }
+        #endregion
 
+        #region Tests: AttackChoice(Monster Attacker)
         [Test]
         public void TurnEngine_Monster_AttackChoice_CharacterList_Null_Should_Return_Null()
         {
@@ -276,6 +279,7 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.IsNull(chosenCharacter, "Expected Character choice: null");
         }
+        #endregion
 
         #region Tests: TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
         [Test]
@@ -406,207 +410,6 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.AreEqual(testTurnEngine.BattleScore.TurnCount, 1, "Expected TurnCount: 1");
         }
-        #endregion
-
-
-        #region Tests: RollToHitTarget(int AttackScore, int DefenseScore)
-        [Test]
-        public void TurnEngine_RollToHitTarget_Force_CriticalMiss_Should_Set_HitStatus_CriticalMiss()
-        {
-            MockForms.Init();
-
-            // Arrange
-            var testTurnEngine = new TurnEngine();
-            var testCharacter = new Character();
-            testCharacter.Name = "Test Name";
-            testTurnEngine.MonsterList = new List<Monster>();
-            var lowHealthDeadMonster = new Monster("Low Health Dead",
-                                                "monster dead low health",
-                                                "", 1, 1, false,
-                                                1, 1, 1, 10, 1,
-                                                null, null, null, null,
-                                                null, null, null);
-            var lowHealthMonster = new Monster("Low Health",
-                                                "monster low health",
-                                                "", 1, 1, true,
-                                                1, 1, 1, 10, 2,
-                                                null, null, null, null,
-                                                null, null, null);
-
-            var highHealthMonster = new Monster("High Health",
-                                                "monster high health",
-                                                "", 1, 1, true,
-                                                1, 1, 1, 10, 10,
-                                                null, null, null, null,
-                                                null, null, null);
-            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
-            testTurnEngine.MonsterList.Add(lowHealthMonster);
-            testTurnEngine.MonsterList.Add(highHealthMonster);
-            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
-            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
-            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
-            GameGlobals.ForceRollsToNotRandom = true;
-            GameGlobals.ForceToHitValue = 1;
-
-
-            // Act
-            var returnHitStatus = testTurnEngine.RollToHitTarget(testAttackScore, testDefendScore);
-
-            // Reset
-            GameGlobals.ToggleRandomState();
-
-            // Assert
-            Assert.AreEqual(returnHitStatus, HitStatusEnum.CriticalMiss, "Expected HitStatus: 4, CriticalMiss");
-        }
-
-        [Test]
-        public void TurnEngine_RollToHitTarget_Force_CriticalHit_Should_Set_HitStatus_CriticalHit()
-        {
-            MockForms.Init();
-
-            // Arrange
-            var testTurnEngine = new TurnEngine();
-            var testCharacter = new Character();
-            testCharacter.Name = "Test Name";
-            testTurnEngine.MonsterList = new List<Monster>();
-            var lowHealthDeadMonster = new Monster("Low Health Dead",
-                                                "monster dead low health",
-                                                "", 1, 1, false,
-                                                1, 1, 1, 10, 1,
-                                                null, null, null, null,
-                                                null, null, null);
-            var lowHealthMonster = new Monster("Low Health",
-                                                "monster low health",
-                                                "", 1, 1, true,
-                                                1, 1, 1, 10, 2,
-                                                null, null, null, null,
-                                                null, null, null);
-
-            var highHealthMonster = new Monster("High Health",
-                                                "monster high health",
-                                                "", 1, 1, true,
-                                                1, 1, 1, 10, 10,
-                                                null, null, null, null,
-                                                null, null, null);
-            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
-            testTurnEngine.MonsterList.Add(lowHealthMonster);
-            testTurnEngine.MonsterList.Add(highHealthMonster);
-            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
-            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
-            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
-            GameGlobals.ForceRollsToNotRandom = true;
-            GameGlobals.ForceToHitValue = 20;
-
-
-            // Act
-            var returnHitStatus = testTurnEngine.RollToHitTarget(testAttackScore, testDefendScore);
-
-            // Reset
-            GameGlobals.ToggleRandomState();
-
-            // Assert
-            Assert.AreEqual(returnHitStatus, HitStatusEnum.CriticalHit, "Expected HitStatus: 2, CriticalHit");
-        }
-
-        [Test]
-        public void TurnEngine_RollToHitTarget_Force_Miss_Should_Set_HitStatus_Miss()
-        {
-            MockForms.Init();
-
-            // Arrange
-            var testTurnEngine = new TurnEngine();
-            var testCharacter = new Character();
-            testCharacter.Name = "Test Name";
-            testTurnEngine.MonsterList = new List<Monster>();
-            var lowHealthDeadMonster = new Monster("Low Health Dead",
-                                                "monster dead low health",
-                                                "", 1, 1, false,
-                                                1, 1, 1, 10, 1,
-                                                null, null, null, null,
-                                                null, null, null);
-            var lowHealthMonster = new Monster("Low Health",
-                                                "monster low health",
-                                                "", 1, 1, true,
-                                                1, 1, 10, 10, 2,
-                                                null, null, null, null,
-                                                null, null, null);
-
-            var highHealthMonster = new Monster("High Health",
-                                                "monster high health",
-                                                "", 1, 1, true,
-                                                1, 1, 1, 10, 10,
-                                                null, null, null, null,
-                                                null, null, null);
-            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
-            testTurnEngine.MonsterList.Add(lowHealthMonster);
-            testTurnEngine.MonsterList.Add(highHealthMonster);
-            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
-            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
-            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
-            GameGlobals.ForceRollsToNotRandom = true;
-            GameGlobals.ForceToHitValue = 2;
-
-
-            // Act
-            var returnHitStatus = testTurnEngine.RollToHitTarget(testAttackScore, testDefendScore);
-
-            // Reset
-            GameGlobals.ToggleRandomState();
-
-            // Assert
-            Assert.AreEqual(HitStatusEnum.Miss, returnHitStatus, "Expected HitStatus: 3, Miss");
-        }
-
-        [Test]
-        public void TurnEngine_RollToHitTarget_Force_Hit_Should_Set_HitStatus_Hit()
-        {
-            MockForms.Init();
-
-            // Arrange
-            var testTurnEngine = new TurnEngine();
-            var testCharacter = new Character();
-            testCharacter.Name = "Test Name";
-            testTurnEngine.MonsterList = new List<Monster>();
-            var lowHealthDeadMonster = new Monster("Low Health Dead",
-                                                "monster dead low health",
-                                                "", 1, 1, false,
-                                                1, 1, 1, 10, 1,
-                                                null, null, null, null,
-                                                null, null, null);
-            var lowHealthMonster = new Monster("Low Health",
-                                                "monster low health",
-                                                "", 1, 1, true,
-                                                1, 1, 1, 10, 2,
-                                                null, null, null, null,
-                                                null, null, null);
-
-            var highHealthMonster = new Monster("High Health",
-                                                "monster high health",
-                                                "", 1, 1, true,
-                                                1, 1, 1, 10, 10,
-                                                null, null, null, null,
-                                                null, null, null);
-            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
-            testTurnEngine.MonsterList.Add(lowHealthMonster);
-            testTurnEngine.MonsterList.Add(highHealthMonster);
-            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
-            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
-            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
-            GameGlobals.ForceRollsToNotRandom = true;
-            GameGlobals.ForceToHitValue = 19;
-
-
-            // Act
-            var returnHitStatus = testTurnEngine.RollToHitTarget(testAttackScore, testDefendScore);
-
-            // Reset
-            GameGlobals.ToggleRandomState();
-
-            // Assert
-            Assert.AreEqual(returnHitStatus, HitStatusEnum.Hit, "Expected HitStatus: 1, Hit");
-        }
-        #endregion
-
 
         [Test]
         public void TurnEngine_TurnAsAttack_Force_Miss_Should_Set_DamageAmount_Equal_Zero()
@@ -965,7 +768,7 @@ namespace UnitTests.GameEngineTests
             var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
             GameGlobals.ForceRollsToNotRandom = true;
             GameGlobals.ForceToHitValue = 19;
-            
+
 
             // Act
             var returnBool = testTurnEngine.TurnAsAttack(testCharacter, testAttackScore, returnMonster, testDefendScore);
@@ -1040,5 +843,207 @@ namespace UnitTests.GameEngineTests
             Assert.Less(testItemPoolCount, testTurnEngine.ItemPool.Count(), "Expected MonsterList Count: 1 less");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
+        #endregion
+
+        #region Tests: RollToHitTarget(int AttackScore, int DefenseScore)
+        [Test]
+        public void TurnEngine_RollToHitTarget_Force_CriticalMiss_Should_Set_HitStatus_CriticalMiss()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter.Name = "Test Name";
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 1;
+
+
+            // Act
+            var returnHitStatus = testTurnEngine.RollToHitTarget(testAttackScore, testDefendScore);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+
+            // Assert
+            Assert.AreEqual(returnHitStatus, HitStatusEnum.CriticalMiss, "Expected HitStatus: 4, CriticalMiss");
+        }
+
+        [Test]
+        public void TurnEngine_RollToHitTarget_Force_CriticalHit_Should_Set_HitStatus_CriticalHit()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter.Name = "Test Name";
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 20;
+
+
+            // Act
+            var returnHitStatus = testTurnEngine.RollToHitTarget(testAttackScore, testDefendScore);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+
+            // Assert
+            Assert.AreEqual(returnHitStatus, HitStatusEnum.CriticalHit, "Expected HitStatus: 2, CriticalHit");
+        }
+
+        [Test]
+        public void TurnEngine_RollToHitTarget_Force_Miss_Should_Set_HitStatus_Miss()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter.Name = "Test Name";
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 1, true,
+                                                1, 1, 10, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 2;
+
+
+            // Act
+            var returnHitStatus = testTurnEngine.RollToHitTarget(testAttackScore, testDefendScore);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+
+            // Assert
+            Assert.AreEqual(HitStatusEnum.Miss, returnHitStatus, "Expected HitStatus: 3, Miss");
+        }
+
+        [Test]
+        public void TurnEngine_RollToHitTarget_Force_Hit_Should_Set_HitStatus_Hit()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter.Name = "Test Name";
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 19;
+
+
+            // Act
+            var returnHitStatus = testTurnEngine.RollToHitTarget(testAttackScore, testDefendScore);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+
+            // Assert
+            Assert.AreEqual(returnHitStatus, HitStatusEnum.Hit, "Expected HitStatus: 1, Hit");
+        }
+        #endregion
+
+
+        
     }
 }
