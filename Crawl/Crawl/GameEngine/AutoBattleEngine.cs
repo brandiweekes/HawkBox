@@ -16,7 +16,11 @@ namespace Crawl.GameEngine
         /// </summary>
         private static Random rnd = new Random();
 
+        // BattleEngine object. used in initialize battle.
         public BattleEngine BattleEngine;
+
+        // character viewmodel. used to fetch characters from datastore.
+        private CharactersViewModel _instance;
 
         /// <summary>
         /// initalize properties.
@@ -24,100 +28,139 @@ namespace Crawl.GameEngine
         public AutoBattleEngine()
         {
             BattleEngine = new BattleEngine();
+            _instance = CharactersViewModel.Instance;
+            
         }
 
         /// <summary>
-        /// Entry point to initialize auto battle.
+        /// Entry point to run auto battle.
         /// </summary>
         public void RunAutoBattle()
         {
+            // Pick Characters based on maximum party number.
+            var CharacterList = GetListOfCharacter(GameGlobals.MaxNumberPartyPlayers);
 
+            if(CharacterList == null)
+            {
+                Debug.WriteLine($"No Characters. Battle didn't happen. returning....");
+                return;
+            }
+
+            Debug.WriteLine("Adding characters to Battle.");
+            // Assign characters to Battle.
+            BattleEngine.CharacterList = CharacterList;
+
+            // Start Battle - AutoBattle mode enabled
             BattleEngine.StartBattle(true);
+            Debug.WriteLine("Starting Battle.");
 
+            // Start a Round
+            BattleEngine.StartRound();
+            Debug.WriteLine("Round Starting...");
 
-            //// * Pick 6 Characters
-            //var CharacterList = GetListOfCharacter(6);
+            RoundEnum result;
 
-            //// Initialize the Battle
-            //BattleEngine = new BattleEngine();
+            do
+            {
+                Debug.WriteLine("Performing next turn...");
+                result = BattleEngine.RoundNextTurn();
+                Debug.WriteLine("Turn over...");
 
-            //BattleEngine.CharacterList = CharacterList;
+                // do the Round
+                // Turn loop happens inside the Round
+                if (result == RoundEnum.NewRound)
+                {
+                    BattleEngine.NewRound();
+                    Debug.WriteLine("New round beginning...");
+                }
 
-            //BattleEngine.StartBattle(true);
-            //Debug.WriteLine("Battle Starting...");
+            }
+            while (result != RoundEnum.GameOver);//end condition);
 
-            //// * Start a Round
-            //BattleEngine.StartRound();
-            //Debug.WriteLine("Round Starting...");
+            // Save Score
+            var myScore = GetFinalScoreObject();
+            Debug.WriteLine("Score retrieved, score total: " + myScore.ScoreTotal);
 
-            //RoundEnum result;
+            ScoresViewModel.Instance.AddAsync(myScore).GetAwaiter().GetResult();
+            Debug.WriteLine("Final score saved");
 
-            //do
-            //{
-            //    Debug.WriteLine("Performing next turn...");
-            //    result = BattleEngine.RoundNextTurn();
-            //    Debug.WriteLine("Turn over...");
+            BattleEngine.EndBattle();
+            Debug.WriteLine("Battle ended.");
 
-            //    // do the Round
-            //    // Turn loop happens inside the Round
-            //    if (result == RoundEnum.NewRound)
-            //    {
-            //        BattleEngine.NewRound();
-            //        Debug.WriteLine("New round beginning...");
-            //    }
-
-            //}
-            //while (result != RoundEnum.GameOver);//end condition);
-
-            //// Save Score
-            //var myScore = GetFinalScoreObject();
-            //Debug.WriteLine("Score retrieved, score total: " + myScore.ScoreTotal);
-
-            //await ScoresViewModel.Instance.AddAsync(myScore);
-            //Debug.WriteLine("Final score saved");
-
-            //BattleEngine.EndBattle();
-            //Debug.WriteLine("Battle ended.");
-
-            //var myOutput = FormatOutput();
-            //Debug.WriteLine("End of AutoBattle RunAutoBattle()");
+            var myOutput = FormatOutput();
+            Debug.WriteLine("End of AutoBattle RunAutoBattle()");
         }
 
-        // Output Score
+        /// <summary>
+        /// Get characters from datastore.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public List<Character> GetListOfCharacter(int number)
+        {
+            // Number of characters cannot be less than zero or equal to zero.
+            if (number <= 0)
+            {
+                Debug.WriteLine($"Party members is less than or equal to zero. returned null.");
+                return null;
+            }
 
+            _instance.LoadCharactersCommand.Execute(null);
 
+            var _charactersDataset = _instance.Dataset;
+            var _count = _charactersDataset.Count;
 
+            // Check if the Character list is empty
+            if (_count < 1)
+            {
+                Debug.WriteLine($"No characters in datastore. returned null.");
+                return null;
+            }
 
-        //public List<Character> GetListOfCharacter(int number)
-        //{
-        //    // Number of characters cannot be less than zero or equal to zero.
-        //    if (number <= 0)
-        //    {
-        //        return null;
-        //    }
+            // No. of characters selected cannot be greater than dataset count
+            if (number > _count)
+            {
+                Debug.WriteLine($"Party members count is greater than characters in datastore. returned null.");
+                return null;
+            }
 
-        //    var _instance = CharactersViewModel.Instance;
-        //    _instance.LoadCharactersCommand.Execute(null);
+            var myReturn = new List<Character>();
 
-        //    var _charactersDataset = _instance.Dataset;
-        //    var _count = _charactersDataset.Count;
+            // add Characters up to that strength...
+            var ScaleLevelMax = GameGlobals.MaxCharacterLevelForBattle;
+            var ScaleLevelMin = GameGlobals.MinCharacterLevelForBattle;
 
-        //    // No. of characters selected cannot be greater than dataset count
-        //    if (number > _count)
-        //    {
-        //        return null;
-        //    }
+            Debug.WriteLine($"Getting Characters with level between {ScaleLevelMin} and {ScaleLevelMax}");
 
-        //    var myReturn = new List<Character>();
+            // Get Characters and scale them.
+            do
+            {
+                var Data = GetRandomCharacter(ScaleLevelMin, ScaleLevelMax);
+                myReturn.Add(Data);
+            } while (myReturn.Count < number);
 
-        //    // Iterate for given number of times and fetch characters from dataset randomly.
-        //    for (var i = 0; i < number; i++)
-        //    {
-        //        myReturn.Add(_charactersDataset[rnd.Next(0, _count)]);
-        //    }
+            Debug.WriteLine($"Characters randomly choosen from datastore.");
+            return myReturn;
+        }
 
-        //    return myReturn;
-        //}
+        /// <summary>
+        /// get character between given levels and assign random items at each location.
+        /// </summary>
+        /// <param name="ScaleLevelMin"></param>
+        /// <param name="ScaleLevelMax"></param>
+        /// <returns></returns>
+        public Character GetRandomCharacter(int ScaleLevelMin, int ScaleLevelMax)
+        {
+            // roll dice to pick characters from datastore.
+            var rnd = HelperEngine.RollDice(0, _instance.Dataset.Count);
+            var myData = _instance.Dataset[rnd];
+
+            // roll dice to selecte random level between given min. level and max. level.
+            var rndScale = HelperEngine.RollDice(ScaleLevelMin, ScaleLevelMax);
+            myData.ScaleLevel(rndScale);
+
+            return myData;
+        }
 
         /// <summary>
         /// Final score object.

@@ -49,6 +49,14 @@ namespace Crawl.Models
             ForceRollsToNotRandom = !ForceRollsToNotRandom;
         }
 
+        /// <summary>
+        /// Maximum players is initialized to defalt value.
+        /// </summary>
+        public static void ResetMaxNumberPartyPlayers()
+        {
+            MaxNumberPartyPlayers = 6;
+        }
+
 
         // Debug Settings
         public static bool EnableCriticalMissProblems = true;
