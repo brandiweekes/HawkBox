@@ -106,9 +106,21 @@ namespace Crawl.GameEngine
             return true;
         }
 
-        // Character attacks Monster
+        /// <summary>
+        /// Character attacks Monster
+        /// determines hit status (hit, miss, crits)
+        /// deals damage to monster as appropriate
+        /// determines XP earned for character
+        /// checks for level up
+        /// if monster dies, items dropped and added to ItemPool
+        /// </summary>
+        /// <param name="Attacker">character</param>
+        /// <param name="AttackScore">character strength</param>
+        /// <param name="Target">monster</param>
+        /// <param name="DefenseScore">monster defense</param>
+        /// <returns></returns>
         public bool TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
-        {
+        { //TODO battle messages
             // set name variables for messages
             this.AttackerName = Attacker.Name;
             this.TargetName = Target.Name;
@@ -229,7 +241,8 @@ namespace Crawl.GameEngine
         }
 
         /// <summary>
-        /// Character will attack the monster with the lowest health
+        /// Selects the monster with the lowest health
+        /// for character to attack
         /// </summary>
         /// <param name="data"></param>
         /// <returns>monster with lowest health</returns>
