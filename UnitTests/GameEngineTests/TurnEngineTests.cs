@@ -239,6 +239,44 @@ namespace UnitTests.GameEngineTests
             Assert.AreSame(highSpeedCharacter, chosenCharacter, "Expected Character choice: High Speed");
         }
 
+        [Test]
+        public void TurnEngine_Monster_AttackChoice_CharacterList_All_Alive_is_False_Should_Return_Null()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+
+            testTurnEngine.CharacterList = new List<Character>();
+
+            var lowSpeedCharacter = new Character();
+            lowSpeedCharacter.Alive = false;
+            lowSpeedCharacter.Name = "Low Speed Character";
+            lowSpeedCharacter.Description = "Low Speed Character";
+            lowSpeedCharacter.Attribute.Speed = 1;
+
+            var highSpeedCharacter = new Character();
+            highSpeedCharacter.Alive = false;
+            highSpeedCharacter.Name = "High Speed Character";
+            highSpeedCharacter.Description = "High Speed Character should be chosen";
+            highSpeedCharacter.Attribute.Speed = 10;
+
+            var highSpeedDeadCharacter = new Character();
+            highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Name = "Dead High Speed Character";
+            highSpeedDeadCharacter.Description = "Dead High Speed Character";
+            highSpeedDeadCharacter.Attribute.Speed = 10;
+
+            testTurnEngine.CharacterList.Add(lowSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);
+
+            // Act
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+
+            // Assert
+            Assert.IsNull(chosenCharacter, "Expected Character choice: null");
+        }
+
         #region Tests: TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
         [Test]
         public void TurnEngine_Character_TurnAsAttack_Set_Attacker_Name_Should_Pass()
