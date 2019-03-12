@@ -14,6 +14,7 @@ namespace UnitTests.GameEngineTests
     [TestFixture]
     public class TurnEngineTests
     {
+        #region Tests: TakeTurn(Character Attacker)
         [Test]
         public void TurnEngine_Character_TakeTurn_Monster_Target_Null_Should_Return_False()
         {
@@ -66,6 +67,7 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.IsTrue(returnResult, "Expected Target: monster, return true");
         }
+        #endregion
 
         [Test]
         public void TurnEngine_Character_AttackChoice_Monster_List_Null_Should_Return_Null()
@@ -199,6 +201,30 @@ namespace UnitTests.GameEngineTests
 
             // Assert
             Assert.IsNull(chosenCharacter, "Expected Character choice: null");
+        }
+
+        [Test]
+        public void TurnEngine_Monster_AttackChoice_CharacterList_Should_Return_Highest_Speed()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testTurnEngine.CharacterList = new List<Character>();
+            var lowSpeedCharacter = new Character();
+            var highSpeedCharacter = new Character();
+            var highSpeedDeadCharacter = new Character();
+            highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Attribute.Speed = 10;
+            highSpeedCharacter.Attribute.Speed = 10;
+            testTurnEngine.CharacterList.Add(lowSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);
+
+            // Act
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+
+            // Assert
+            Assert.AreSame(highSpeedCharacter, chosenCharacter, "Expected Character choice: High Speed");
         }
 
         #region Tests: TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
