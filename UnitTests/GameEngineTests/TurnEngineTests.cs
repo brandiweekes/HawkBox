@@ -209,13 +209,25 @@ namespace UnitTests.GameEngineTests
             // Arrange
             var testTurnEngine = new TurnEngine();
             var testMonster = new Monster();
+
             testTurnEngine.CharacterList = new List<Character>();
+
             var lowSpeedCharacter = new Character();
+            lowSpeedCharacter.Name = "Low Speed Character";
+            lowSpeedCharacter.Description = "Low Speed Character";
+            lowSpeedCharacter.Attribute.Speed = 1;
+
             var highSpeedCharacter = new Character();
+            highSpeedCharacter.Name = "High Speed Character";
+            highSpeedCharacter.Description = "High Speed Character should be chosen";
+            highSpeedCharacter.Attribute.Speed = 10;
+
             var highSpeedDeadCharacter = new Character();
             highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Name = "Dead High Speed Character";
+            highSpeedDeadCharacter.Description = "Dead High Speed Character";
             highSpeedDeadCharacter.Attribute.Speed = 10;
-            highSpeedCharacter.Attribute.Speed = 10;
+          
             testTurnEngine.CharacterList.Add(lowSpeedCharacter);
             testTurnEngine.CharacterList.Add(highSpeedCharacter);
             testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);

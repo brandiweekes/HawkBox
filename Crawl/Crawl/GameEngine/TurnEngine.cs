@@ -310,6 +310,8 @@ namespace Crawl.GameEngine
         // Decide which to attack
         public Character AttackChoice(Monster data)
         {
+            int current = 0;
+
             if (this.CharacterList == null)
             {
                 return null;
@@ -318,6 +320,33 @@ namespace Crawl.GameEngine
             if (this.CharacterList.Count() < 1)
             {
                 return null;
+            }
+
+            // CharacterList has characters in it, 
+            // order list by living characters highest to lowest speed
+            var orderCharacterSpeed = this.CharacterList
+                .OrderByDescending(s => s.Attribute.Speed)
+                .ThenByDescending(a => a.Alive);
+
+            // check if first character is alive 
+            if (orderCharacterSpeed.First().Alive != true)
+            {
+                // first character is dead, 
+                // so cycle through list until find first Alive character
+                while (current < orderCharacterSpeed.Count() &&
+                  orderCharacterSpeed.ElementAt(current).Alive == false)
+                {
+                    current++;
+                }
+            }
+
+            // found a living character with highest speed
+            if (current < orderCharacterSpeed.Count())
+            {
+                // current is index of living character with highest speed
+                var highestSpeedCharacter = orderCharacterSpeed.ElementAt(current);
+                // return the character with the highest speed to attack
+                return highestSpeedCharacter;
             }
 
             return null;
