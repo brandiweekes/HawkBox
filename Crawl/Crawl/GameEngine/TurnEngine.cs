@@ -130,10 +130,18 @@ namespace Crawl.GameEngine
                 return true;
             }
             
-            if(HitStatus == HitStatusEnum.Hit)
+            if(HitStatus == HitStatusEnum.Hit || HitStatus == HitStatusEnum.CriticalHit)
             {
                 var damage = Attacker.GetDamageRollValue();
                 this.DamageAmount = damage;
+
+                if(GameGlobals.EnableCriticalHitDamage)
+                {
+                    if(HitStatus == HitStatusEnum.CriticalHit)
+                    {
+                        this.DamageAmount += damage;
+                    }
+                }
                 Target.TakeDamage(this.DamageAmount);
 
                 var XPtoCharacter = Target.CalculateExperienceEarned(this.DamageAmount);
