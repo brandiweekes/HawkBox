@@ -172,6 +172,37 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
+        public void TurnEngine_Monster_AttackChoice_CharacterList_Null_Should_Return_Null()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testTurnEngine.CharacterList = null;
+
+            // Act
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+
+            // Assert
+            Assert.IsNull(chosenCharacter, "Expected Character choice: null");
+        }
+
+        [Test]
+        public void TurnEngine_Monster_AttackChoice_CharacterList_Empty_Should_Return_Null()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testTurnEngine.CharacterList = new List<Character>();
+
+            // Act
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+
+            // Assert
+            Assert.IsNull(chosenCharacter, "Expected Character choice: null");
+        }
+
+        #region Tests: TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
+        [Test]
         public void TurnEngine_Character_TurnAsAttack_Set_Attacker_Name_Should_Pass()
         {
             MockForms.Init();
@@ -299,7 +330,10 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.AreEqual(testTurnEngine.BattleScore.TurnCount, 1, "Expected TurnCount: 1");
         }
+        #endregion
 
+
+        #region Tests: RollToHitTarget(int AttackScore, int DefenseScore)
         [Test]
         public void TurnEngine_RollToHitTarget_Force_CriticalMiss_Should_Set_HitStatus_CriticalMiss()
         {
@@ -495,6 +529,8 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.AreEqual(returnHitStatus, HitStatusEnum.Hit, "Expected HitStatus: 1, Hit");
         }
+        #endregion
+
 
         [Test]
         public void TurnEngine_TurnAsAttack_Force_Miss_Should_Set_DamageAmount_Equal_Zero()
