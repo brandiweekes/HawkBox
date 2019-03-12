@@ -310,7 +310,16 @@ namespace Crawl.GameEngine
         // Decide which to attack
         public Character AttackChoice(Monster data)
         {
-            
+            if (this.CharacterList == null)
+            {
+                return null;
+            }
+
+            if (this.CharacterList.Count() < 1)
+            {
+                return null;
+            }
+
             return null;
         }
 
