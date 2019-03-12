@@ -109,44 +109,61 @@ namespace Crawl.GameEngine
         // Character attacks Monster
         public bool TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
         {
+            // set name variables for messages
             this.AttackerName = Attacker.Name;
             this.TargetName = Target.Name;
 
+            // increment turn count
             this.BattleScore.TurnCount++;
 
-            // Roll To Hit
+            // Roll To Hit: determine hit or miss
             var HitStatus = this.RollToHitTarget(AttackScore, DefenseScore);
 
             // Decide Hit or Miss then Determine Damage
-            if(HitStatus == HitStatusEnum.Miss)
+
+            // On miss, no damage dealt
+            if (HitStatus == HitStatusEnum.Miss)
             {
                 this.DamageAmount = 0;
                 return true;
             }
             
+            // On CriticalMiss, no damage dealt
             if(HitStatus == HitStatusEnum.CriticalMiss)
             {
                 this.DamageAmount = 0;
+
+                //TODO CriticalMissProblem
                 return true;
             }
             
+            // On Hit or CriticalHit, damage dealt or double damage dealt
             if(HitStatus == HitStatusEnum.Hit || HitStatus == HitStatusEnum.CriticalHit)
             {
+                // calculate the damage amount
                 var damage = Attacker.GetDamageRollValue();
+                // set variable for messages
                 this.DamageAmount = damage;
 
+                // check for criticalHit status, apply double damage
                 if(GameGlobals.EnableCriticalHitDamage)
                 {
+                    // CriticalHit deals double damage
                     if(HitStatus == HitStatusEnum.CriticalHit)
                     {
                         this.DamageAmount += damage;
                     }
                 }
+                // deals damage to Monster
                 Target.TakeDamage(this.DamageAmount);
 
+                // Calculate how much experience the character 
+                // is awarded from hit on monster
                 var XPtoCharacter = Target.CalculateExperienceEarned(this.DamageAmount);
+                // Determine if XP gain causes character level up
                 var LevelUp = Attacker.AddExperience(XPtoCharacter);
 
+                // set variables for messages
                 if (LevelUp)
                 {
                     this.LevelUpMessage = Attacker.Name + " is now Level " + Attacker.Level + " With Health Max of " + Attacker.GetHealthMax();
@@ -155,15 +172,19 @@ namespace Crawl.GameEngine
             }
 
 
-            // Death
+            // Check for Death and handle items dropped to ItemPool
             if(Target.Alive == false)
             {
+                // remove monster from list of available monsters
                 this.MonsterList.Remove(Target);
 
-                // Drop Items
+                // Drop Items from monster killed
                 var droppedItemsList = Target.DropAllItems();
-                if(droppedItemsList.Count > 0)
+                // monster dropped at least 1 item
+                if (droppedItemsList.Count > 0)
                 {
+                    // add all items dropped to the item pool 
+                    // for end of round
                     this.ItemPool.AddRange(droppedItemsList);
                 }
             }
