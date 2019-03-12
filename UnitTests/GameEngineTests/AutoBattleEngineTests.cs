@@ -3,6 +3,8 @@ using Crawl.GameEngine;
 using Xamarin.Forms.Mocks;
 using Crawl.ViewModels;
 using Crawl.Models;
+using System.Linq;
+using System.Diagnostics;
 
 namespace UnitTests.GameEngineTests
 {
@@ -78,6 +80,35 @@ namespace UnitTests.GameEngineTests
 
             // Act
             var Actual = auto.GetListOfCharacter(Number);
+
+            // Assert
+            Assert.Null(Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void GetListOfCharacter_No_Characters_In_Datastore_Should_Fail()
+        {
+            // Initialize Mock
+            MockForms.Init();
+
+            // Arrange
+            AutoBattleEngine auto = new AutoBattleEngine();
+            var _instance = CharactersViewModel.Instance;
+            _instance.LoadCharactersCommand.Execute(null);
+            var myData = _instance.Dataset.ToList();
+            foreach(Character c in myData)
+            {
+                _instance.DeleteAsync(c).GetAwaiter();
+            }
+            
+            // Act
+            var Actual = auto.GetListOfCharacter(2);
+
+            // Reset
+            foreach (Character c in myData)
+            {
+                _instance.AddAsync(c).GetAwaiter();
+            }
 
             // Assert
             Assert.Null(Actual, TestContext.CurrentContext.Test.Name);

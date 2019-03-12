@@ -28,23 +28,24 @@ namespace Crawl.GameEngine
         {
             BattleScore = new Score();
             CharacterList = new List<Character>();
-            ItemPool = new List<Item>();
         }
 
         /// <summary>
         /// Initializes the Battle to begin. 
         /// </summary>
         /// <param name="isAutoBattle"></param>
-        public void StartBattle(bool isAutoBattle)
+        public bool StartBattle(bool isAutoBattle)
         {
             if(isBattleRunning)
             {
-                return;
+                return false;
             }
 
             Debug.WriteLine("Battle Starting...");
             isBattleRunning = true;
             BattleScore.AutoBattle = isAutoBattle;
+
+            return true;
         }
 
         /// <summary>
@@ -68,7 +69,6 @@ namespace Crawl.GameEngine
             BattleScore = new Score();
             CharacterList.Clear();
             MonsterList.Clear();
-            ItemPool.Clear();
         }
 
         /// <summary>
