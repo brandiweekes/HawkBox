@@ -118,7 +118,7 @@ namespace Crawl.GameEngine
         /// <param name="AttackScore">character strength</param>
         /// <param name="Target">monster</param>
         /// <param name="DefenseScore">monster defense</param>
-        /// <returns></returns>
+        /// <returns>true if attack happens</returns>
         public bool TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
         { //TODO battle messages
             // set name variables for messages
@@ -205,38 +205,52 @@ namespace Crawl.GameEngine
             return true;
         }
 
+        /// <summary>
+        /// Determines if the attacker successfully lands hit
+        /// </summary>
+        /// <param name="AttackScore">value of attack</param>
+        /// <param name="DefenseScore">value of defense</param>
+        /// <returns>hit,miss,critical</returns>
         public HitStatusEnum RollToHitTarget(int AttackScore, int DefenseScore)
         {
+            // set dice random seed for attack roll dice
             var d20 = HelperEngine.RollDice(1, 20);
 
+            // used for testing to set value of dice roll
             if(GameGlobals.ForceRollsToNotRandom)
             {
                 d20 = GameGlobals.ForceToHitValue;
             }
 
+            // critical miss, sets HitStatus
             if(d20 == 1)
             {
                 this.HitStatus = HitStatusEnum.CriticalMiss;
             }
 
-            if(d20 == 20)
+            // critical hit, sets HitStatus
+            if (d20 == 20)
             {
                 this.HitStatus = HitStatusEnum.CriticalHit;
             }
 
+            // miss or hit, sets HitStatus
             if(d20 > 1 && d20 < 20)
             {
+                // determine if hit or miss
                 if(d20 + AttackScore < DefenseScore)
                 {
+                    // the attack won't break through the defense shield
                     this.HitStatus = HitStatusEnum.Miss;
                 }
                 else
                 {
+                    // the attack will deal damage
                     this.HitStatus = HitStatusEnum.Hit;
                 }               
             }
             
-
+            // Hit or Miss or CriticalHit or CriticalMiss
             return HitStatus;
         }
 
