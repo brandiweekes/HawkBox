@@ -416,7 +416,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Force_Miss_Should_Set_DamageAmount_Equal_Zero()
+        public void TurnEngine_Character_TurnAsAttack_Force_Miss_Should_Set_DamageAmount_Equal_Zero()
         {
             MockForms.Init();
 
@@ -466,7 +466,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Force_CriticalMiss_Should_Set_DamageAmount_Equal_Zero()
+        public void TurnEngine_Character_TurnAsAttack_Force_CriticalMiss_Should_Set_DamageAmount_Equal_Zero()
         {
             MockForms.Init();
 
@@ -516,7 +516,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Force_Hit_Should_Set_DamageAmount_Should_Pass()
+        public void TurnEngine_Character_TurnAsAttack_Force_Hit_Should_Set_DamageAmount_Should_Pass()
         {
             MockForms.Init();
 
@@ -568,7 +568,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Force_Hit_Should_Deal_DamageAmount_To_Monster_Should_Pass()
+        public void TurnEngine_Character_TurnAsAttack_Force_Hit_Should_Deal_DamageAmount_To_Monster_Should_Pass()
         {
             MockForms.Init();
 
@@ -620,7 +620,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Force_CriticalHit_Should_Deal_DamageAmount_To_Monster_Should_Pass()
+        public void TurnEngine_Character_TurnAsAttack_Force_CriticalHit_Should_Deal_DamageAmount_To_Monster_Should_Pass()
         {
             MockForms.Init();
 
@@ -672,7 +672,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Force_Hit_DamageAmount_Should_Give_Experience_To_Character_Should_Pass()
+        public void TurnEngine_Character_TurnAsAttack_Force_Hit_DamageAmount_Should_Give_Experience_To_Character_Should_Pass()
         {
             MockForms.Init();
 
@@ -733,7 +733,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Monster_Dies_Should_Remove_From_List_Should_Pass()
+        public void TurnEngine_Character_TurnAsAttack_Monster_Dies_Should_Remove_From_List_Should_Pass()
         {
             MockForms.Init();
 
@@ -788,7 +788,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_TurnAsAttack_Monster_Dies_Should_Drop_Items_ItemPool_Should_Have_Items()
+        public void TurnEngine_Character_TurnAsAttack_Monster_Dies_Should_Drop_Items_ItemPool_Should_Have_Items()
         {
             MockForms.Init();
 
@@ -848,6 +848,93 @@ namespace UnitTests.GameEngineTests
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
         #endregion
+
+
+        [Test]
+        public void TurnEngine_Monster_TurnAsAttack_Set_Attacker_Name_Should_Pass()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testMonster.Name = "Test Monster";
+            testTurnEngine.CharacterList = new List<Character>();
+
+            var lowSpeedCharacter = new Character();
+            lowSpeedCharacter.Name = "Low Speed Character";
+            lowSpeedCharacter.Description = "Low Speed Character";
+            lowSpeedCharacter.Attribute.Speed = 1;
+
+            var highSpeedCharacter = new Character();
+            highSpeedCharacter.Name = "High Speed Character";
+            highSpeedCharacter.Description = "High Speed Character should be chosen";
+            highSpeedCharacter.Attribute.Speed = 10;
+
+            var highSpeedDeadCharacter = new Character();
+            highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Name = "Dead High Speed Character";
+            highSpeedDeadCharacter.Description = "Dead High Speed Character";
+            highSpeedDeadCharacter.Attribute.Speed = 10;
+
+            testTurnEngine.CharacterList.Add(lowSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);
+
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+            var testAttackScore = testMonster.Level + testMonster.GetAttack();
+            var testDefendScore = chosenCharacter.Level + chosenCharacter.GetDefense();
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testMonster, testAttackScore, chosenCharacter, testDefendScore);
+
+            // Assert
+            Assert.AreSame(testMonster.Name, testTurnEngine.AttackerName, "Expected Attacker Name: Test Monster");
+        }
+
+        [Test]
+        public void TurnEngine_Monster_TurnAsAttack_Set_Defender_Name_Should_Pass()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testMonster.Name = "Test Monster";
+            testTurnEngine.CharacterList = new List<Character>();
+
+            var lowSpeedCharacter = new Character();
+            lowSpeedCharacter.Name = "Low Speed Character";
+            lowSpeedCharacter.Description = "Low Speed Character";
+            lowSpeedCharacter.Attribute.Speed = 1;
+
+            var highSpeedCharacter = new Character();
+            highSpeedCharacter.Name = "High Speed Character";
+            highSpeedCharacter.Description = "High Speed Character should be chosen";
+            highSpeedCharacter.Attribute.Speed = 10;
+
+            var highSpeedDeadCharacter = new Character();
+            highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Name = "Dead High Speed Character";
+            highSpeedDeadCharacter.Description = "Dead High Speed Character";
+            highSpeedDeadCharacter.Attribute.Speed = 10;
+
+            testTurnEngine.CharacterList.Add(lowSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);
+
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+            var testAttackScore = testMonster.Level + testMonster.GetAttack();
+            var testDefendScore = chosenCharacter.Level + chosenCharacter.GetDefense();
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testMonster, testAttackScore, chosenCharacter, testDefendScore);
+
+            // Assert
+            Assert.AreSame(chosenCharacter.Name, testTurnEngine.TargetName, "Expected Defender Name: High Speed Character");
+        }
+
+
 
         //d20 rolled to determine if hit, miss, critical hit, critical miss
         #region Tests: RollToHitTarget(int AttackScore, int DefenseScore)
