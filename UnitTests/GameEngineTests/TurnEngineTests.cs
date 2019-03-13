@@ -606,7 +606,7 @@ namespace UnitTests.GameEngineTests
             var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
             GameGlobals.ForceRollsToNotRandom = true;
             GameGlobals.ForceToHitValue = 19;
-            var testDamageDealt = returnMonster.GetHealthCurrent() - testAttackDamage;
+            var testMonsterHealthAfterDamageDealt = returnMonster.GetHealthCurrent() - testAttackDamage;
 
             // Act
             var returnBool = testTurnEngine.TurnAsAttack(testCharacter, testAttackScore, returnMonster, testDefendScore);
@@ -615,7 +615,7 @@ namespace UnitTests.GameEngineTests
             GameGlobals.ToggleRandomState();
 
             // Assert
-            Assert.AreEqual(testDamageDealt, returnMonster.GetHealthCurrent(), "Expected Health after Damage");
+            Assert.AreEqual(testMonsterHealthAfterDamageDealt, returnMonster.GetHealthCurrent(), "Expected Health after Damage");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
 
@@ -934,7 +934,47 @@ namespace UnitTests.GameEngineTests
             Assert.AreSame(chosenCharacter.Name, testTurnEngine.TargetName, "Expected Defender Name: High Speed Character");
         }
 
+        [Test]
+        public void TurnEngine_Monster_TurnAsAttack_Increment_TurnCount_Should_Pass()
+        {
+            MockForms.Init();
 
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testMonster.Name = "Test Monster";
+            testTurnEngine.CharacterList = new List<Character>();
+
+            var lowSpeedCharacter = new Character();
+            lowSpeedCharacter.Name = "Low Speed Character";
+            lowSpeedCharacter.Description = "Low Speed Character";
+            lowSpeedCharacter.Attribute.Speed = 1;
+
+            var highSpeedCharacter = new Character();
+            highSpeedCharacter.Name = "High Speed Character";
+            highSpeedCharacter.Description = "High Speed Character should be chosen";
+            highSpeedCharacter.Attribute.Speed = 10;
+
+            var highSpeedDeadCharacter = new Character();
+            highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Name = "Dead High Speed Character";
+            highSpeedDeadCharacter.Description = "Dead High Speed Character";
+            highSpeedDeadCharacter.Attribute.Speed = 10;
+
+            testTurnEngine.CharacterList.Add(lowSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);
+
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+            var testAttackScore = testMonster.Level + testMonster.GetAttack();
+            var testDefendScore = chosenCharacter.Level + chosenCharacter.GetDefense();
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testMonster, testAttackScore, chosenCharacter, testDefendScore);
+
+            // Assert
+            Assert.AreEqual(testTurnEngine.BattleScore.TurnCount, 1, "Expected TurnCount: 1");
+        }
 
         //d20 rolled to determine if hit, miss, critical hit, critical miss
         #region Tests: RollToHitTarget(int AttackScore, int DefenseScore)

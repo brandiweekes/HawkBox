@@ -103,7 +103,10 @@ namespace Crawl.GameEngine
         // Monster Attacks Character
         public bool TurnAsAttack(Monster Attacker, int AttackScore, Character Target, int DefenseScore)
         {
-            
+            // set name variables for messages
+            this.AttackerName = Attacker.Name;
+            this.TargetName = Target.Name;
+
             return true;
         }
 
