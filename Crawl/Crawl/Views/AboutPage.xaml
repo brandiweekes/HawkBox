@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Crawl.Views.AboutPage"
-             xmlns:vm="clr-namespace:Crawl.ViewModels;"
+             xmlns:vm="clr-namespace:Crawl.ViewModels"
              xmlns:local="clr-namespace:Crawl.Models"
              xmlns:documents="clr-namespace:Windows.UI.Xaml.Documents;assembly=Windows.Foundation.UniversalApiContract"
              Title="{Binding Title}">
@@ -62,7 +62,6 @@
                 </StackLayout>
 
                 <StackLayout
-                    Margin="0,50,0,0"
                     VerticalOptions="StartAndExpand"
                     HorizontalOptions="CenterAndExpand" 
                     Orientation="Vertical">
@@ -131,6 +130,13 @@
                                     FontAttributes="Bold"
                                     HorizontalTextAlignment="Start"
                                     HorizontalOptions="Start"/>
+                                
+                                <Entry x:Name="ServerItemValue"
+                                     Text="1" 
+                                     MaxLength="3"
+                                     HorizontalTextAlignment="Start"
+                                     HorizontalOptions="Start"
+                                       BackgroundColor="{DynamicResource Primary}"/>
 
                                 <Button  
                                     Text="Get" 
@@ -149,9 +155,8 @@
                     </StackLayout>
 
 
-
+<!-- Debug Settings -->
                     <StackLayout 
-                    Margin="0,50,0,0"
                         HorizontalOptions="CenterAndExpand"
                         VerticalOptions="Start"
                         Orientation="Vertical">
@@ -216,24 +221,44 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <!--// Example of a Grid Layout-->
-                    <Grid
-                    RowSpacing="1"
-                    ColumnSpacing="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Text="Data Version" Grid.Row="0" Grid.Column="0" />
-                        <Label Text="1" Grid.Row="0" Grid.Column="1" />
-                        <Label Text="Code Version" Grid.Row="1" Grid.Column="0" />
-                        <Label Text="2" Grid.Row="1" Grid.Column="1" />
-                    </Grid>
+                    <!-- Force Random Settings -->
 
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Orientation="Vertical">
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
+                            <Label FontSize="Small" Text="Force Random Number" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                            <Switch x:Name="EnableForceRandomSettings" HorizontalOptions="EndAndExpand" 
+                                    Toggled="EnableFoceRandomSettings_OnToggled" IsToggled="False"/>
+                        </StackLayout>
+                        <StackLayout x:Name="ForceRandomSettingsFrame" IsVisible="False"
+                            HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Label Text="Force Random Number Value" HorizontalTextAlignment="Start"
+                                    HorizontalOptions="Start" />
+                                <Label x:Name="ForceRandomValue" Text="1" HorizontalTextAlignment="Start" HorizontalOptions="Start"></Label>
+                                <Stepper
+                                  Value="1"
+                                  Minimum="1"
+                                  Maximum="20"
+                                  Increment="1"
+                                  ValueChanged="ForcedRandomValue_OnStepperValueChanged"
+                                  HorizontalOptions="EndAndExpand"
+                                  VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Label Text="Force Random To Hit" HorizontalTextAlignment="Start"
+                                    HorizontalOptions="Start"/>
+                                <Label x:Name="ForceRandomValueToHit" Text="1" HorizontalTextAlignment="Start" HorizontalOptions="Start"></Label>
+                                <Stepper
+                                  Value="1"
+                                  Minimum="1"
+                                  Maximum="20"
+                                  Increment="1"
+                                  ValueChanged="ForceRandomValueToHit_OnStepperValueChanged"
+                                  HorizontalOptions="End"
+                                  VerticalOptions="Center"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

@@ -35,7 +35,7 @@ namespace Crawl.Controllers
         /// Get items from web server. input must be either 1, 2, 3 or 100. default is 100.
         /// </summary>
         /// <param name="parameter"></param>
-        public async void GetItemsFromServer(int parameter = 100)
+        public async Task<List<Item>> GetItemsFromServer(int parameter = 100)
         {
             // parameter is the item group to request.  1, 2, 3, 100
 
@@ -57,7 +57,7 @@ namespace Crawl.Controllers
             if (myList == null)
             {
                 // Error, no results
-                return;
+                return new List<Item>();
             }
 
             // Then update the database
@@ -71,6 +71,8 @@ namespace Crawl.Controllers
 
             // When foreach is done, call to the items view model to set needs refresh to true, so it can refetch the list...
             ItemsViewModel.Instance.SetNeedsRefresh(true);
+
+            return await Task.FromResult(myList);
         }
 
         /// <summary>
@@ -142,7 +144,7 @@ namespace Crawl.Controllers
                 ItemsViewModel.Instance.SetNeedsRefresh(true);
             }
 
-            return myList;
+            return await Task.FromResult(myList);
         }
 
 

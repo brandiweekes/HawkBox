@@ -50,12 +50,48 @@ namespace Crawl.Models
         }
 
         /// <summary>
-        ///  Flip the Random State (false to true etc...)
+        /// Flip the Random State (false to true etc...)
         /// Call this after setting, to restore...
         /// </summary>
         public static void ToggleRandomState()
         {
             ForceRollsToNotRandom = !ForceRollsToNotRandom;
+        }
+
+        /// <summary>
+        /// Turn Random State Off
+        /// </summary>
+        public static void DisableRandomValues()
+        {
+            ForceRollsToNotRandom = false;
+        }
+
+        /// <summary>
+        /// Turn Random State On
+        /// </summary>
+        public static void EnableRandomValues()
+        {
+            ForceRollsToNotRandom = true;
+        }
+
+        /// <summary>
+        /// Turn On random force flag and set force random value.
+        /// </summary>
+        /// <param name="value"></param>
+        public static void SetForcedRandomNumbersValue(int value)
+        {
+            EnableRandomValues();
+            ForcedRandomValue = value;
+        }
+
+        /// <summary>
+        /// Turn on Random Force flag and set for to hit value.
+        /// </summary>
+        /// <param name="value"></param>
+        public static void SetForceToHitValue(int hit)
+        {
+            EnableRandomValues();
+            ForceToHitValue = hit;
         }
 
         /// <summary>
