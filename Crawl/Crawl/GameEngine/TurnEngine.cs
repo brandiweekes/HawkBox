@@ -122,6 +122,15 @@ namespace Crawl.GameEngine
                 return true;
             }
 
+            // On CriticalMiss, no damage dealt
+            if (HitStatus == HitStatusEnum.CriticalMiss)
+            {
+                this.DamageAmount = 0;
+
+                //TODO CriticalMissProblem
+                return true;
+            }
+
             return true;
         }
 
