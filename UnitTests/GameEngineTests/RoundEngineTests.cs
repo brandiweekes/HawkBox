@@ -9,25 +9,14 @@ using Xamarin.Forms.Mocks;
 using Crawl.Models;
 using Crawl.ViewModels;
 using Crawl.GameEngine;
-
+using Crawl.Services;
 
 namespace UnitTests.GameEngineTests
 {
     [TestFixture]
     public class RoundEngineTests
     {
-
-        //steps:
-
-        //arrange 
-
-        //act 
-
-        //reset
-
-        //assert
-
-
+        #region Constructor
         [Test]
         public void RoundEngine_Constructor_Should_Pass()
         {
@@ -73,7 +62,9 @@ namespace UnitTests.GameEngineTests
             //assert
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
         }
+        #endregion Constructor
 
+        #region StartRound
         [Test]
         public void Round_Engine_Start_Round_BattleScore_Round_Count_Should_Equal_One()
         {
@@ -90,7 +81,9 @@ namespace UnitTests.GameEngineTests
             //assert
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
         }
+        #endregion StartRound
 
+        #region NewRound
         [Test] 
         public void Round_Engine_New_Round_Should_Increment_Round_Count()
         {
@@ -158,7 +151,9 @@ namespace UnitTests.GameEngineTests
             //assert
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
         }
+        #endregion NewRound
 
+        #region ScaleMethods
         [Test]
         public void Round_Engine_Get_Average_Character_Level_Should_Pass()
         {
@@ -290,7 +285,9 @@ namespace UnitTests.GameEngineTests
             //assert
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
         }
+        #endregion ScaleMethods
 
+        #region RoundNextTurn
         [Test]
         public void Round_Engine_Round_Next_Turn_No_Characters_Should_Return_Game_Over()
         {
@@ -350,7 +347,9 @@ namespace UnitTests.GameEngineTests
             //assert
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
         }
+        #endregion RoundNextTurn
 
+        #region GetNextPlayerInList
         [Test]
         public void Round_Engine_Get_Next_Player_In_List_Player_Current_Null_Player_List_Null_Should_Return_Null()
         {
@@ -476,7 +475,9 @@ namespace UnitTests.GameEngineTests
             //assert
             Assert.AreEqual(null, Actual, TestContext.CurrentContext.Test.Name);
         }
+        #endregion GetNextPlayerInList
 
+        #region OrderPlayerListByTurnOrder
         [Test]
         public void Round_Engine_Order_Player_List_By_Turn_Order_Order_By_Speed_Should_Pass()
         {
@@ -533,5 +534,288 @@ namespace UnitTests.GameEngineTests
             Assert.AreEqual(ex6, actual6, TestContext.CurrentContext.Test.Name);
 
         }
+        #endregion OrderPlayerListByTurnOrder
+
+        #region GetNextPlayerTurn
+        [Test]
+        public void Round_Engine_Get_Next_Player_Turn_Should_Return_Current_Player()
+        {
+            MockForms.Init();
+
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.PlayerCurrent = null;
+            Character char1 = new Character();
+            char1.Attribute.Speed = 4;
+            Character char2 = new Character();
+            char2.Attribute.Speed = 6;
+            Character char3 = new Character();
+            char3.Attribute.Speed = 2;
+            Monster mon1 = new Monster();
+            mon1.Attribute.Speed = 3;
+            Monster mon2 = new Monster();
+            mon2.Attribute.Speed = 1;
+            Monster mon3 = new Monster();
+            mon3.Attribute.Speed = 5;
+
+            roundEngine.CharacterList.Add(char1);
+            roundEngine.CharacterList.Add(char2);
+            roundEngine.CharacterList.Add(char3);
+            roundEngine.MonsterList.Add(mon1);
+            roundEngine.MonsterList.Add(mon2);
+            roundEngine.MonsterList.Add(mon3);
+
+            var Expected = char2.Guid;
+            //act
+            var Actual = roundEngine.GetNextPlayerTurn().Guid;
+
+            //assert
+            Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+        }
+        #endregion GetNextPlayerTurn
+
+        #region GetItemFromPoolIfBetter
+        [Test]
+        public void Round_Engine_Get_Item_From_Pool_If_Better_Item_Pool_Empty_Should_Return()
+        {
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+
+            Character char1 = new Character();
+            char1.Head = null;
+            //act
+            roundEngine.GetItemFromPoolIfBetter(char1, ItemLocationEnum.Head);
+            var Actual = char1.Head;
+            //reset
+
+            //assert
+            Assert.AreEqual(null, Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void Round_Engine_Get_Item_From_Pool_If_Better_Item_Pool_Has_No_Items_In_Location_Should_Return()
+        {
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+
+            Item it1 = new Item();
+            it1.Location = ItemLocationEnum.Feet;
+            Item it2 = new Item();
+            it2.Location = ItemLocationEnum.Necklass;
+
+            roundEngine.ItemPool.Add(it1);
+            roundEngine.ItemPool.Add(it2);
+
+            Character char1 = new Character();
+            char1.Head = null;
+            //act
+            roundEngine.GetItemFromPoolIfBetter(char1, ItemLocationEnum.Head);
+            var Actual = char1.Head;
+            //reset
+
+            //assert
+            Assert.AreEqual(null, Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void Round_Engine_Get_Item_From_Pool_If_Item_Pool_Has_No_Better_Item_Should_Do_Nothing()
+        {
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+
+            Character char1 = new Character();
+
+            Item it = new Item();
+            it.Location = ItemLocationEnum.Feet;
+            it.Value = 12;
+
+            ItemsViewModel ivm = ItemsViewModel.Instance;
+            MockDataStore.Instance.AddAsync_Item(it).GetAwaiter();
+            ivm.ForceDataRefresh();
+            char1.AddItem(ItemLocationEnum.Feet, it.Id);
+
+            List<Item> ivmList = ivm.Dataset.ToList();
+
+            foreach (var item in ivmList)
+            {
+                roundEngine.ItemPool.Add(item);
+            }
+            roundEngine.ItemPool.Remove(it);
+
+            var Expected = it.Guid;
+            //act
+            roundEngine.GetItemFromPoolIfBetter(char1, ItemLocationEnum.Feet);
+            var Actual = char1.GetItemByLocation(ItemLocationEnum.Feet).Guid;
+            //reset
+            MockDataStore.Instance.DeleteAsync_Item(it).GetAwaiter();
+            //assert
+            Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void Round_Engine_Get_Item_From_Pool_If_Current_Location_Has_Better_Item_Should_Add_Item()
+        {
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+
+            Character char1 = new Character();
+
+            Item it = new Item();
+            it.Location = ItemLocationEnum.Feet;
+            it.Value = 8;
+
+            ItemsViewModel ivm = ItemsViewModel.Instance;
+            MockDataStore.Instance.AddAsync_Item(it).GetAwaiter();
+            ivm.ForceDataRefresh();
+            char1.AddItem(ItemLocationEnum.Feet, it.Id);
+
+            List<Item> ivmList = ivm.Dataset.ToList();
+
+            foreach (var item in ivmList)
+            {
+                roundEngine.ItemPool.Add(item);
+            }
+            roundEngine.ItemPool.Remove(it);
+
+            var Expected = roundEngine.ItemPool[0].Guid;
+            //act
+            roundEngine.GetItemFromPoolIfBetter(char1, ItemLocationEnum.Feet);
+            var Actual = char1.GetItemByLocation(ItemLocationEnum.Feet).Guid;
+            //reset
+            MockDataStore.Instance.DeleteAsync_Item(it).GetAwaiter();
+            //assert
+            Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        #endregion GetItemFromPoolIfBetter
+
+        #region PickupItemsFromPool
+        [Test]
+        public void Round_Engine_Pickup_Items_From_Pool_Item_Pool_Empty_Should_Return()
+        {
+            MockForms.Init();
+
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+
+            Character ch1 = new Character();
+            ch1.Head = null;
+            //act 
+            roundEngine.PickupItemsFromPool(ch1);
+            var Actual = ch1.Head;
+            //reset 
+
+            //assert
+            Assert.AreEqual(null, Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void Round_Engine_Pickup_Items_From_Pool_Has_Items_Should_Add_Items()
+        {
+            MockForms.Init();
+
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+
+            ItemsViewModel ivm = ItemsViewModel.Instance;
+            ivm.ForceDataRefresh();
+
+            List<Item> itemlist = ivm.Dataset.ToList();
+            foreach (var item in itemlist)
+            {
+                roundEngine.ItemPool.Add(item);
+            }
+
+            Character ch1 = new Character();
+
+            var ex1 = roundEngine.ItemPool[0].Guid;
+            var ex2 = roundEngine.ItemPool[1].Guid;
+            var ex3 = roundEngine.ItemPool[2].Guid;
+
+            //act 
+            roundEngine.PickupItemsFromPool(ch1);
+            var actual1 = ch1.GetItemByLocation(ItemLocationEnum.Feet).Guid;
+            var actual2 = ch1.GetItemByLocation(ItemLocationEnum.PrimaryHand).Guid;
+            var actual3 = ch1.GetItemByLocation(ItemLocationEnum.Necklass).Guid;
+
+            //reset 
+
+            //assert
+            Assert.AreEqual(ex1, actual1, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex2, actual2, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex3, actual3, TestContext.CurrentContext.Test.Name);
+
+        }
+        #endregion PickupItemsFromPool
+
+        #region EndRound
+        [Test]
+        public void Round_Engine_End_Round_One_Character_Should_Add_Items()
+        {
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+
+            ItemsViewModel ivm = ItemsViewModel.Instance;
+            ivm.ForceDataRefresh();
+
+            List<Item> itemlist = ivm.Dataset.ToList();
+            foreach (var item in itemlist)
+            {
+                roundEngine.ItemPool.Add(item);
+            }
+
+            roundEngine.CharacterList.Clear();
+            Character ch1 = new Character();
+            roundEngine.CharacterList.Add(ch1);
+
+            var ex1 = roundEngine.ItemPool[0].Guid;
+            var ex2 = roundEngine.ItemPool[1].Guid;
+            var ex3 = roundEngine.ItemPool[2].Guid;
+
+            //act
+            roundEngine.EndRound();
+            var actual1 = ch1.GetItemByLocation(ItemLocationEnum.Feet).Guid;
+            var actual2 = ch1.GetItemByLocation(ItemLocationEnum.PrimaryHand).Guid;
+            var actual3 = ch1.GetItemByLocation(ItemLocationEnum.Necklass).Guid;
+            //reset
+
+            //assert
+            Assert.AreEqual(ex1, actual1, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex2, actual2, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex3, actual3, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void Round_Engine_End_Round_Should_Clear_Lists()
+        {
+            //assert
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+            roundEngine.ItemPool.Add(new Item());
+            roundEngine.ItemPool.Add(new Item());
+            roundEngine.MonsterList.Clear();
+            roundEngine.MonsterList.Add(new Monster());
+            roundEngine.MonsterList.Add(new Monster());
+
+            var ex1 = 0;
+            var ex2 = 0;
+
+            //act
+            roundEngine.EndRound();
+            var ac1 = roundEngine.ItemPool.Count();
+            var ac2 = roundEngine.MonsterList.Count();
+
+            //assert
+            Assert.AreEqual(ex1, ac1, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex2, ac2, TestContext.CurrentContext.Test.Name);
+        }
+        #endregion EndRound
     }
 }
