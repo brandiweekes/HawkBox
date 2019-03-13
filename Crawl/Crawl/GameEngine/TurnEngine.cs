@@ -153,7 +153,15 @@ namespace Crawl.GameEngine
                 Target.TakeDamage(this.DamageAmount);
             }
 
-                return true;
+            // Check for Death and handle items dropped to ItemPool
+            if (Target.Alive == false)
+            {
+                // remove monster from list of available monsters
+                this.CharacterList.Remove(Target);
+            }
+
+            // Turn Over
+            return true;
         }
 
         /// <summary>
