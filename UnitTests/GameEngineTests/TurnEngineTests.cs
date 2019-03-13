@@ -849,7 +849,8 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
-
+        //Monster vs Character: monster hits, deals damage, item pool
+        #region Tests: TurnAsAttack(Monster Attacker, int AttackScore, Character Target, int DefenseScore)
         [Test]
         public void TurnEngine_Monster_TurnAsAttack_Set_Attacker_Name_Should_Pass()
         {
@@ -1373,6 +1374,7 @@ namespace UnitTests.GameEngineTests
             Assert.Less(testItemPoolCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
+        #endregion
 
         //d20 rolled to determine if hit, miss, critical hit, critical miss
         #region Tests: RollToHitTarget(int AttackScore, int DefenseScore)
