@@ -12,6 +12,10 @@ namespace Crawl.Models
 
     // When characters or monsters die, they drop items into the Items Pool for the Battle
 
+    /// <summary>
+    /// Item class which holds details of each item. 
+    /// Characters uses Items to attack monsters and monsters may drop Items when they are killed.
+    /// </summary>
     public class Item : Entity<Item>
     {
         // Range of the item, swords are 1, hats/rings are 0, bows are >1
@@ -46,7 +50,9 @@ namespace Crawl.Models
             CreateDefaultItem();
         }
 
-        // Create a default item for the instantiation
+        /// <summary>
+        /// Create a default item for the instantiation
+        /// </summary>
         private void CreateDefaultItem()
         {
             Name = "Item Name";
@@ -128,16 +134,22 @@ namespace Crawl.Models
             IsUnique = newData.IsUnique;
         }
 
-        // Will update the Item to be stronger...
+        /// <summary>
+        /// Will update the Item to be stronger...
+        /// </summary>
+        /// <param name="level"></param>
         public void ScaleLevel(int level)
         {
             var newValue = 1;
 
+            // given level cannot be zero or negative number
             if (level < 1)
             {
                 return;
             }
 
+            // if no random mode is turned On, then set value to be level value. 
+            // else roll dice and get randome value.
             if (GameGlobals.ForceRollsToNotRandom)
             {
                 newValue = level;
@@ -162,7 +174,10 @@ namespace Crawl.Models
             }
         }
 
-        // Helper to combine the attributes into a single line, to make it easier to display the item as a string
+        /// <summary>
+        /// Helper to combine the attributes into a single line, to make it easier to display the item as a string
+        /// </summary>
+        /// <returns></returns>
         public string FormatOutput()
         {
             var myReturn = $"Name: {Name} \n" +

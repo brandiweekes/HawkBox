@@ -2,6 +2,9 @@
 
 namespace Crawl.Models
 {
+    /// <summary>
+    /// global level table where minimum attack, defense, speed and XP for each level is stored.
+    /// </summary>
     class LevelTable
     {
         #region Singleton
@@ -28,18 +31,26 @@ namespace Crawl.Models
         // List of all the levels
         public List<LevelDetails> LevelDetailsList { get; set; }
 
-        // Data for the Levels
+        /// <summary>
+        /// Data for the Levels. 
+        /// </summary>
         public LevelTable()
         {
             ClearAndLoadDatTable();
         }
+
+        /// <summary>
+        /// Initialize Level table with data.
+        /// </summary>
         public void ClearAndLoadDatTable()
         { 
             LevelDetailsList = new List<LevelDetails>();
             LoadLevelData();
         }
 
-        // Level data set, 0 - 21
+        /// <summary>
+        /// Load level data. Level data set, 0 - 21
+        /// </summary>
         public void LoadLevelData()
         {
             // Init the level list, going to index into it like an array, so making 0 be a null value.  That way Level can be Array Index.
@@ -72,7 +83,9 @@ namespace Crawl.Models
         }
     }
 
-    // Level details for each level
+    /// <summary>
+    /// Wrapper class to store attributes for each level.
+    /// </summary>
     class LevelDetails
     {
         public int Level;
@@ -81,7 +94,14 @@ namespace Crawl.Models
         public int Defense;
         public int Speed;
 
-        // Create a new level based on values passed in
+        /// <summary>
+        /// Create a new level based on values passed in
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="experience"></param>
+        /// <param name="attack"></param>
+        /// <param name="defense"></param>
+        /// <param name="speed"></param>
         public LevelDetails(int level, int experience, int attack, int defense, int speed)
         {
             Level = level;
