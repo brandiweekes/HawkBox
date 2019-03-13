@@ -107,6 +107,11 @@ namespace Crawl.GameEngine
             this.AttackerName = Attacker.Name;
             this.TargetName = Target.Name;
 
+            // increment turn count
+            this.BattleScore.TurnCount++;
+
+
+
             return true;
         }
 
