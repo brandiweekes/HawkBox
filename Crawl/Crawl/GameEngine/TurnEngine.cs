@@ -307,6 +307,13 @@ namespace Crawl.GameEngine
                 // remove monster from list of available monsters
                 this.MonsterList.Remove(Target);
 
+                // Add one to the monsters killed count...
+                BattleScore.MonsterSlainNumber++;
+
+                // Add the monster to the killed list
+                this.BattleScore.AddMonsterToList(Target);
+                //BattleScore.MonstersKilledList += Target.FormatOutput() + "\n";
+
                 // Drop Items from monster killed
                 var droppedItemsList = Target.DropAllItems();
                 // monster dropped at least 1 item
