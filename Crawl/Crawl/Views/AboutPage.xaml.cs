@@ -39,6 +39,7 @@ namespace Crawl.Views
             // Set debug settings
             EnableCriticalMissProblems.IsToggled = GameGlobals.EnableCriticalMissProblems;
             EnableCriticalHitDamage.IsToggled = GameGlobals.EnableCriticalHitDamage;
+            PercentToStealItem.Text = string.Format("{0}", GameGlobals.PercentageChanceToStealItems);
 
         }
 
@@ -238,5 +239,47 @@ namespace Crawl.Views
 
         #endregion Web-Server calls
 
+
+        /// <summary>
+        /// Enable Monsters to steal items they dropped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableMonsterStealSettings_OnToggled(object sender, ToggledEventArgs e)
+        {
+            if (e.Value)
+            {
+                EnableMonstersStealFrame.IsVisible = true;
+                GameGlobals.EnableMonstersToStealItems = true;
+            }
+            else
+            {
+                EnableMonstersStealFrame.IsVisible = false;
+                GameGlobals.EnableMonstersToStealItems = false;
+            }
+        }
+
+        /// <summary>
+        /// Set % chance to steal items.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetPercentToStealItem_Clicked(object sender, EventArgs e)
+        {
+            var _chance = Convert.ToInt16(PercentToStealItem.Text);
+
+            // Minimum chance
+            if (_chance <= 0)
+            {
+                _chance = 0;
+            }
+
+            // Maximum chance
+            if (_chance > 100)
+            {
+                _chance = 100;
+            }
+            GameGlobals.SetPercentageChanceToStealItems(_chance);
+        }
     }
 }

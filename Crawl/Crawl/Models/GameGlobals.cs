@@ -106,5 +106,23 @@ namespace Crawl.Models
         // Debug Settings
         public static bool EnableCriticalMissProblems = true;
         public static bool EnableCriticalHitDamage = true;
+
+        #region Monsters steal Items
+        // flag to enable/disable monster steal items
+        public static bool EnableMonstersToStealItems = false;
+        // default % of chance
+        public static int PercentageChanceToStealItems = 5;
+
+        /// <summary>
+        /// set % of chance that monster can steal items.
+        /// </summary>
+        /// <param name="chance"></param>
+        public static void SetPercentageChanceToStealItems(int chance)
+        {
+            EnableMonstersToStealItems = true;
+            PercentageChanceToStealItems = chance;
+        }
+
+        #endregion Monsters steal Items
     }
 }

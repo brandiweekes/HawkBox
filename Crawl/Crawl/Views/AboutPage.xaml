@@ -223,7 +223,7 @@
 
                     <!-- Force Random Settings -->
 
-                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Orientation="Vertical">
+                    <StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
                             <Label FontSize="Small" Text="Force Random Number" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
                             <Switch x:Name="EnableForceRandomSettings" HorizontalOptions="EndAndExpand" 
@@ -234,20 +234,20 @@
                             <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                                 <Label Text="Force Random Number Value" HorizontalTextAlignment="Start"
                                     HorizontalOptions="Start" />
-                                <Label x:Name="ForceRandomValue" Text="1" HorizontalTextAlignment="Start" HorizontalOptions="Start"></Label>
+                                <Label x:Name="ForceRandomValue" Text="1" HorizontalTextAlignment="Start" HorizontalOptions="EndAndExpand"></Label>
                                 <Stepper
                                   Value="1"
                                   Minimum="1"
                                   Maximum="20"
                                   Increment="1"
                                   ValueChanged="ForcedRandomValue_OnStepperValueChanged"
-                                  HorizontalOptions="EndAndExpand"
+                                  HorizontalOptions="End"
                                   VerticalOptions="Center"/>
                             </StackLayout>
                             <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                                 <Label Text="Force Random To Hit" HorizontalTextAlignment="Start"
                                     HorizontalOptions="Start"/>
-                                <Label x:Name="ForceRandomValueToHit" Text="1" HorizontalTextAlignment="Start" HorizontalOptions="Start"></Label>
+                                <Label x:Name="ForceRandomValueToHit" Text="1" HorizontalTextAlignment="Start" HorizontalOptions="EndAndExpand"></Label>
                                 <Stepper
                                   Value="1"
                                   Minimum="1"
@@ -257,6 +257,20 @@
                                   HorizontalOptions="End"
                                   VerticalOptions="Center"/>
                             </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                
+                    <!-- Steal Items dropped by monster -->
+                    <StackLayout>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
+                            <Label FontSize="Small" Text="Monster Steal Item's Dropped" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                            <Switch x:Name="EnableMonsterSteal" HorizontalOptions="EndAndExpand" 
+                                    Toggled="EnableMonsterStealSettings_OnToggled" IsToggled="False"/>
+                        </StackLayout>
+                        <StackLayout x:Name="EnableMonstersStealFrame" IsVisible="False" Orientation="Horizontal" Spacing="10">
+                            <Label Text="% Chance to steal"></Label>
+                            <Entry x:Name="PercentToStealItem" MaxLength="3"></Entry>
+                            <Button Text="Set" Clicked="SetPercentToStealItem_Clicked"></Button>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
