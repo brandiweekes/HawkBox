@@ -110,7 +110,17 @@ namespace Crawl.GameEngine
             // increment turn count
             this.BattleScore.TurnCount++;
 
+            // Roll To Hit: determine hit or miss
+            var HitStatus = this.RollToHitTarget(AttackScore, DefenseScore);
 
+            // Decide Hit or Miss then Determine Damage
+
+            // On miss, no damage dealt
+            if (HitStatus == HitStatusEnum.Miss)
+            {
+                this.DamageAmount = 0;
+                return true;
+            }
 
             return true;
         }

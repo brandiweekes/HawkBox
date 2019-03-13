@@ -976,6 +976,61 @@ namespace UnitTests.GameEngineTests
             Assert.AreEqual(testTurnEngine.BattleScore.TurnCount, 1, "Expected TurnCount: 1");
         }
 
+        [Test]
+        public void TurnEngine_Monster_TurnAsAttack_Force_Miss_Should_Set_DamageAmount_Equal_Zero()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testMonster.Name = "Test Monster";
+            testTurnEngine.CharacterList = new List<Character>();
+
+            var lowSpeedCharacter = new Character();
+            lowSpeedCharacter.Name = "Low Speed Character";
+            lowSpeedCharacter.Description = "Low Speed Character";
+            lowSpeedCharacter.Attribute.Speed = 1;
+
+            var highSpeedCharacter = new Character();
+            highSpeedCharacter.Name = "High Speed Character";
+            highSpeedCharacter.Description = "High Speed Character should be chosen";
+            highSpeedCharacter.Attribute.Speed = 10;
+            highSpeedCharacter.Attribute.Defense = 10;
+            highSpeedCharacter.Attribute.MaxHealth = 10;
+            highSpeedCharacter.Attribute.CurrentHealth = 2;
+
+            var highSpeedDeadCharacter = new Character();
+            highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Name = "Dead High Speed Character";
+            highSpeedDeadCharacter.Description = "Dead High Speed Character";
+            highSpeedDeadCharacter.Attribute.Speed = 10;
+
+            testTurnEngine.CharacterList.Add(lowSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);
+
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+            var testAttackScore = testMonster.Level + testMonster.GetAttack();
+            var testDefendScore = chosenCharacter.Level + chosenCharacter.GetDefense();
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 2;
+
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testMonster, testAttackScore, chosenCharacter, testDefendScore);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+
+            // Assert
+            Assert.Zero(testTurnEngine.DamageAmount, "Expected DamageAmount from Miss: 0");
+            Assert.IsTrue(returnBool, "Expected return bool: true");
+        }
+
+
+
+
         //d20 rolled to determine if hit, miss, critical hit, critical miss
         #region Tests: RollToHitTarget(int AttackScore, int DefenseScore)
         [Test]
