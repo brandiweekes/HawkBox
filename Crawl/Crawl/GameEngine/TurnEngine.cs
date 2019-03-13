@@ -78,6 +78,7 @@ namespace Crawl.GameEngine
             var AttackScore = Attacker.Level + Attacker.GetAttack();
             // set the defending score of Monster Target
             var DefendScore = Target.Level + Target.GetDefense();
+            
             // call for this turn's attack (character vs monster)
             var attackStatus = this.TurnAsAttack(Attacker, 
                 AttackScore, Target, DefendScore);
@@ -258,10 +259,11 @@ namespace Crawl.GameEngine
         /// Selects the monster with the lowest health
         /// for character to attack
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">attacker info</param>
         /// <returns>monster with lowest health</returns>
         public Monster AttackChoice(Character data)
         {
+            // variable to cycle through sorted list to find alive, if needed
             int current = 0;
 
             // check if MonsterList is null; return null
@@ -307,16 +309,24 @@ namespace Crawl.GameEngine
             return null;
         }
 
-        // Decide which to attack
+        /// <summary>
+        /// Selects the character with the highest speed
+        /// for monster to attack
+        /// </summary>
+        /// <param name="data">attacker info</param>
+        /// <returns>character with highest speed</returns>
         public Character AttackChoice(Monster data)
         {
+            // variable to cycle through sorted list to find alive, if needed
             int current = 0;
 
+            // check if CharacterList is null; return null
             if (this.CharacterList == null)
             {
                 return null;
             }
 
+            // check if CharacterList instantiated but no monster in it; return null
             if (this.CharacterList.Count() < 1)
             {
                 return null;
@@ -349,6 +359,7 @@ namespace Crawl.GameEngine
                 return highestSpeedCharacter;
             }
 
+            // all characters are dead, return null
             return null;
         }
 

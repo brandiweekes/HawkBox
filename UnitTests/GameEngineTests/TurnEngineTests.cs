@@ -14,6 +14,7 @@ namespace UnitTests.GameEngineTests
     [TestFixture]
     public class TurnEngineTests
     {
+        //Character vs Monster: character turn happens
         #region Tests: TakeTurn(Character Attacker)
         [Test]
         public void TurnEngine_Character_TakeTurn_Monster_Target_Null_Should_Return_False()
@@ -69,6 +70,7 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
+        //Character vs Monster: character chooses attack against lowest health monster
         #region Tests: AttackChoice(Character Attacker)
         [Test]
         public void TurnEngine_Character_AttackChoice_Monster_List_Null_Should_Return_Null()
@@ -175,6 +177,7 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
+        //Monster vs Character: monster chooses attack against highest speed character
         #region Tests: AttackChoice(Monster Attacker)
         [Test]
         public void TurnEngine_Monster_AttackChoice_CharacterList_Null_Should_Return_Null()
@@ -281,6 +284,7 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
+        //Character vs Monster: character hits, deals damage, gains XP, levels up, item pool 
         #region Tests: TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
         [Test]
         public void TurnEngine_Character_TurnAsAttack_Set_Attacker_Name_Should_Pass()
@@ -845,6 +849,7 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
+        //d20 rolled to determine if hit, miss, critical hit, critical miss
         #region Tests: RollToHitTarget(int AttackScore, int DefenseScore)
         [Test]
         public void TurnEngine_RollToHitTarget_Force_CriticalMiss_Should_Set_HitStatus_CriticalMiss()
@@ -1042,8 +1047,6 @@ namespace UnitTests.GameEngineTests
             Assert.AreEqual(returnHitStatus, HitStatusEnum.Hit, "Expected HitStatus: 1, Hit");
         }
         #endregion
-
-
         
     }
 }
