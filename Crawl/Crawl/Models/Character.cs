@@ -6,11 +6,13 @@ using System.Collections.Generic;
 
 namespace Crawl.Models
 {
-    // The Character is the higher level concept.  This is the Character with all attributes defined.
+    /// <summary>
+    /// The Character is the higher level concept.  This is the Character with all attributes defined.
+    /// </summary>
     public class Character : BasePlayer<Character>
     {
-        // Add in the actual attribute class
         [Ignore]
+        // Attributes need for character. like attack, speed, Max. health. its hidden from SQLite mapping.
         public AttributeBase Attribute { get; set; }
 
         /// <summary>
@@ -149,24 +151,32 @@ namespace Crawl.Models
 
         #region Basics
 
-        // Upgrades to a set level
+        /// <summary>
+        /// Upgrades to a set level. Attributes of characters are modified acccording to new level.
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public bool ScaleLevel(int level)
         {
+            // given level cannot be less than one.
             if(level < 1)
             {
                 return false;
             }
 
+            // given level cannot be less than current level.
             if(level < Level)
             {
                 return false;
             }
 
+            // given level cannot be greater than max level defined in LevelTable.
             if(level > LevelTable.MaxLevel)
             {
                 return false;
             }
 
+            // set level
             Level = level;
 
             // Set Attributes
@@ -181,7 +191,10 @@ namespace Crawl.Models
             return true;
         }
 
-        // Level Up based on XP
+        /// <summary>
+        /// Level Up based on XP.
+        /// </summary>
+        /// <returns></returns>
         public bool LevelUp()
         {
 
@@ -223,30 +236,42 @@ namespace Crawl.Models
             return false;
         }
 
-        // Level up to a number, say Level 3
+        /// <summary>
+        /// Level up to a number, say Level 3
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public int LevelUpToValue(int value)
         {
+            // given level cannot be less than one.
             if(value < 1)
             {
                 return Level;
             }
 
+            // given level cannot to less than equal to current level
             if (value <= Level)
             {
                 return Level;
             }
 
+            // given level cannot exceed MaxLevel defined in LevelTable. so assign MaxLevel its it exceeds.
             if (value > LevelTable.MaxLevel)
             {
                 value = LevelTable.MaxLevel;
             }
 
+            // Add XP based on new level
             AddExperience(LevelTable.Instance.LevelDetailsList[value].Experience + 1);
 
             return Level;
         }
 
-        // Add experience
+        /// <summary>
+        /// Add experience to character based on new XP. If, after added XP, characters can level up based on XP.
+        /// </summary>
+        /// <param name="newExperience"></param>
+        /// <returns></returns>
         public bool AddExperience(int newExperience)
         {
             if(newExperience < 0)
@@ -270,10 +295,13 @@ namespace Crawl.Models
             return false;
         }
 
-        // Take Damage
-        // If the damage received is > health, then death occurs
-        // Return the number of experience received for this attack 
-        // monsters give experience to characters.  Characters don't accept experience from monsters
+        /// <summary>
+        /// Take Damage
+        /// If the damage received is > health, then death occurs
+        /// Return the number of experience received for this attack 
+        /// monsters give experience to characters.  Characters don't accept experience from monsters
+        /// </summary>
+        /// <param name="damage"></param>        
         public void TakeDamage(int damage)
         {
             if (damage < 1)
@@ -292,9 +320,11 @@ namespace Crawl.Models
         #endregion Basics
 
         #region GetAttributes
-        // Get Attributes
 
-        // Get Attack
+        /// <summary>
+        /// Get total Attack that character has. inlude level attack and Item bonus attack.
+        /// </summary>
+        /// <returns></returns>
         public int GetAttack()
         {
             // Base Attack
@@ -306,7 +336,10 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get Speed
+        /// <summary>
+        /// Get total Speed that character has. inlude level spped and Item bonus speed.
+        /// </summary>
+        /// <returns></returns>
         public int GetSpeed()
         {
             // Base value
@@ -318,7 +351,10 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get Defense
+        /// <summary>
+        /// Get total Defense that character has. inlude level defense and Item bonus defense.
+        /// </summary>
+        /// <returns></returns>
         public int GetDefense()
         {
             // Base value
@@ -330,7 +366,10 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get Max Health
+        /// <summary>
+        /// Get total MaxHealth that character has. inlude level max health and Item bonus max health.
+        /// </summary>
+        /// <returns></returns>
         public int GetHealthMax()
         {
             // Base value
@@ -342,7 +381,10 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get Current Health
+        /// <summary>
+        /// Get total current health that character has. inlude level current health and Item bonus current health.
+        /// </summary>
+        /// <returns></returns>
         public int GetHealthCurrent()
         {
             // Base value
@@ -354,8 +396,11 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Returns the Dice for the item
-        // Sword 10, is Sword Dice 10
+        /// <summary>
+        /// Return damage based on item on PrimaryHand location.
+        /// if item have Damage of 10 then DamageDice would be d10.
+        /// </summary>
+        /// <returns></returns>
         public int GetDamageDice()
         {
             var myReturn = 0;
@@ -370,8 +415,11 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get the Level based damage
-        // Then add the damage for the primary hand item as a Dice Roll
+        /// <summary>
+        ///  Get the Level based damage
+        /// Then add the damage for the primary hand item as a Dice Roll
+        /// </summary>
+        /// <returns></returns>
         public int GetDamageRollValue()
         {
             var myReturn = GetLevelBasedDamage();
@@ -388,8 +436,12 @@ namespace Crawl.Models
         #endregion GetAttributes
 
         #region Items
-        // Drop All Items
-        // Return a list of items for the pool of items
+
+        /// <summary>
+        /// Drop All Items.Return a list of items for the pool of item.
+        /// Idea is to get items from all location and add null at all locations. 
+        /// </summary>
+        /// <returns></returns>
         public List<Item> DropAllItems()
         {
             var myReturn = new List<Item>();
@@ -407,11 +459,15 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Remove Item from a set location
-        // Does this by adding a new item of Null to the location
-        // This will return the previous item, and put null in its place
-        // Returns the item that was at the location
-        // Nulls out the location
+        /// <summary>
+        /// Remove Item from a set location.
+        /// Does this by adding a new item of Null to the location.
+        /// This will return the previous item, and put null in its place.
+        /// Returns the item that was at the location.
+        /// Nulls out the location.
+        /// </summary>
+        /// <param name="itemlocation"></param>
+        /// <returns></returns>
         public Item RemoveItem(ItemLocationEnum itemlocation)
         {
             var myReturn = AddItem(itemlocation, null);
@@ -419,13 +475,21 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get the Item at a known string location (head, foot etc.)
+        /// <summary>
+        /// Get the Item at a known string location (head, foot etc.)
+        /// </summary>
+        /// <param name="itemString"></param>
+        /// <returns></returns>
         public Item GetItem(string itemString)
         {
             return ItemsViewModel.Instance.GetItem(itemString);
         }
 
-        // Get the Item at a known string location (head, foot etc.)
+        /// <summary>
+        /// Get the Item at a known string location (head, foot etc.)
+        /// </summary>
+        /// <param name="itemLocation"></param>
+        /// <returns></returns>
         public Item GetItemByLocation(ItemLocationEnum itemLocation)
         {
             var _itemId = "";
@@ -459,11 +523,17 @@ namespace Crawl.Models
             return GetItem(_itemId);
         }
 
-        // Add Item
-        // Looks up the Item
-        // Puts the Item Id as a string in the location slot
-        // If item is null, then puts null in the slot
-        // Returns the item that was in the location
+        //
+        /// <summary>
+        /// Add Item.
+        /// Looks up the Item.
+        /// Puts the Item Id as a string in the location slot.
+        /// If item is null, then puts null in the slot.
+        /// Returns the item that was in the location.
+        /// </summary>
+        /// <param name="itemLocation"></param>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
         public Item AddItem(ItemLocationEnum itemLocation, string itemId)
         {
             Item item = null;
@@ -505,9 +575,13 @@ namespace Crawl.Models
             return GetItem(_prevItem);
         }
 
-        // Walk all the Items on the Character.
-        // Add together all Items that modify the Attribute Enum Passed in
-        // Return the sum
+        /// <summary>
+        /// Walk all the Items on the Character.
+        /// Add together all Items that modify the Attribute Enum Passed in
+        /// Return the sum
+        /// </summary>
+        /// <param name="attributeEnum"></param>
+        /// <returns></returns>
         public int GetItemBonus(AttributeEnum attributeEnum)
         {
             var myReturn = 0;

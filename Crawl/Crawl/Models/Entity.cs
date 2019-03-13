@@ -1,6 +1,9 @@
 ﻿namespace Crawl.Models
 {
-    // Items, Monsters, and Characters all share these items
+    /// <summary>
+    /// Items, Monsters, and Characters all share these items
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Entity<T> : BaseEntity<T>
     {
 

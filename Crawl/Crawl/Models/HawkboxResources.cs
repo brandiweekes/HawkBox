@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Crawl.Models
 {
+    /// <summary>
+    /// In memory storage for item, character, monster image url's.
+    /// </summary>
     public class HawkboxResources
     {
         // Aliens Images

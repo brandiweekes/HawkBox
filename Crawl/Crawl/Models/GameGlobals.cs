@@ -3,6 +3,9 @@
 
 namespace Crawl.Models
 {
+    /// <summary>
+    /// Set of global variables used in application. They are used to control game behavior.
+    /// </summary>
     public static class GameGlobals
     {
         // Max number of Players in a Party
@@ -33,8 +36,12 @@ namespace Crawl.Models
 
         // Allow Random Items when monsters die...
         public static bool AllowMonsterDropItems = true;
-        
-        // Turn Off Random Number Generation, and use the passed in values.
+
+        /// <summary>
+        /// Turn Off Random Number Generation, and use the passed in values.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="hit"></param>
         public static void SetForcedRandomNumbers(int value, int hit)
         {
             ForceRollsToNotRandom = true;
@@ -42,8 +49,10 @@ namespace Crawl.Models
             ForceToHitValue = hit;
         }
 
-        // Flip the Random State (false to true etc...)
-        // Call this after setting, to restore...
+        /// <summary>
+        ///  Flip the Random State (false to true etc...)
+        /// Call this after setting, to restore...
+        /// </summary>
         public static void ToggleRandomState()
         {
             ForceRollsToNotRandom = !ForceRollsToNotRandom;
