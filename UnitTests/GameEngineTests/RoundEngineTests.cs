@@ -793,6 +793,80 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
+        public void Round_Engine_End_Round_Two_Characters_Should_Add_Items()
+        {
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.ItemPool.Clear();
+
+            Item it1 = new Item();
+            it1.Location = ItemLocationEnum.Feet;
+            it1.Value = 7;
+
+            Item it2 = new Item();
+            it2.Location = ItemLocationEnum.PrimaryHand;
+            it2.Value = 7;
+
+            Item it3 = new Item();
+            it3.Location = ItemLocationEnum.Necklass;
+            it3.Value = 7;
+
+            ItemsViewModel ivm = ItemsViewModel.Instance;
+            MockDataStore.Instance.AddAsync_Item(it1).GetAwaiter();
+            MockDataStore.Instance.AddAsync_Item(it2).GetAwaiter();
+            MockDataStore.Instance.AddAsync_Item(it3).GetAwaiter();
+            ivm.ForceDataRefresh();
+
+
+            List<Item> itemlist = ivm.Dataset.ToList();
+            foreach (var item in itemlist)
+            {
+                roundEngine.ItemPool.Add(item);
+            }
+
+            roundEngine.CharacterList.Clear();
+            Character ch1 = new Character();
+            ch1.AddItem(ItemLocationEnum.Feet, it1.Id);
+            ch1.AddItem(ItemLocationEnum.PrimaryHand, it2.Id);
+            ch1.AddItem(ItemLocationEnum.Necklass, it3.Id);
+
+            roundEngine.ItemPool.Remove(it1);
+            roundEngine.ItemPool.Remove(it2);
+            roundEngine.ItemPool.Remove(it3);
+
+            Character ch2 = new Character();
+            roundEngine.CharacterList.Add(ch1);
+            roundEngine.CharacterList.Add(ch2);
+
+            var ex1 = roundEngine.ItemPool[0].Guid;
+            var ex2 = roundEngine.ItemPool[1].Guid;
+            var ex3 = roundEngine.ItemPool[2].Guid;
+            var ex4 = it1.Guid;
+            var ex5 = it2.Guid;
+            var ex6 = it3.Guid;
+            //act
+            roundEngine.EndRound();
+            var actual1 = ch1.GetItemByLocation(ItemLocationEnum.Feet).Guid;
+            var actual2 = ch1.GetItemByLocation(ItemLocationEnum.PrimaryHand).Guid;
+            var actual3 = ch1.GetItemByLocation(ItemLocationEnum.Necklass).Guid;
+            var actual4 = ch2.GetItemByLocation(ItemLocationEnum.Feet).Guid;
+            var actual5 = ch2.GetItemByLocation(ItemLocationEnum.PrimaryHand).Guid;
+            var actual6 = ch2.GetItemByLocation(ItemLocationEnum.Necklass).Guid;
+            //reset
+            MockDataStore.Instance.DeleteAsync_Item(it1).GetAwaiter();
+            MockDataStore.Instance.DeleteAsync_Item(it2).GetAwaiter();
+            MockDataStore.Instance.DeleteAsync_Item(it3).GetAwaiter();
+
+            //assert
+            Assert.AreEqual(ex1, actual1, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex2, actual2, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex3, actual3, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex4, actual4, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex5, actual5, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex6, actual6, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
         public void Round_Engine_End_Round_Should_Clear_Lists()
         {
             //assert

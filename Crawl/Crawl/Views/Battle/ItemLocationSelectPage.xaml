@@ -23,6 +23,8 @@
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>-->
+            
+            <!--
             <ListView x:Name="RemainingListView"
                           ItemsSource="{Binding RemainingCharacters}"
                           VerticalOptions="FillAndExpand"
@@ -40,7 +42,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
+-->
             <!--<Image Source="http://www.pngmart.com/files/4/Green-Light-PNG-Photos.png" WidthRequest="75" HeightRequest="75"/>-->
             <!--{Binding Character.ImageURI}-->
 
