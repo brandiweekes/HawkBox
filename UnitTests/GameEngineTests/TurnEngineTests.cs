@@ -70,6 +70,21 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
+        [Test]
+        public void TurnEngine_Monster_TakeTurn_Character_Target_Null_Should_Return_False()
+        {
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testTurnEngine.CharacterList = new List<Character>();
+
+            // Act
+            var returnResult = testTurnEngine.TakeTurn(testMonster);
+
+            // Assert          
+            Assert.IsFalse(returnResult, "Expected Target: null, return false");
+        }
+
         //Character vs Monster: character chooses attack against lowest health monster
         #region Tests: AttackChoice(Character Attacker)
         [Test]

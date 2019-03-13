@@ -97,10 +97,32 @@ namespace Crawl.GameEngine
         // Monster Attacks...
         public bool TakeTurn(Monster Attacker)
         {
+            // call to get a character to attack
+            var Target = this.AttackChoice(Attacker);
+
+            // if target is null, return false
+            // turn is over, no attack happens
+            if (Target == null)
+            {
+                // all characters dead or list null
+                // no attack happened this turn
+                return false;
+            }
+
             return true;
         }
 
-        // Monster Attacks Character
+        /// <summary>
+        /// Monster attacks Character
+        /// determines hit status (hit, miss, crits)
+        /// deals damage to character as appropriate
+        /// if character dies, items dropped and added to ItemPool
+        /// </summary>
+        /// <param name="Attacker">monster</param>
+        /// <param name="AttackScore">monster strength</param>
+        /// <param name="Target">character</param>
+        /// <param name="DefenseScore">character defense</param>
+        /// <returns>true if attack happens</returns>
         public bool TurnAsAttack(Monster Attacker, int AttackScore, Character Target, int DefenseScore)
         {
             // set name variables for messages
@@ -462,7 +484,7 @@ namespace Crawl.GameEngine
                     }
                     else
                     {
-                        // Swap them becaues it already exists, no need to create a new one...
+                        // Swap them because it already exists, no need to create a new one...
                         item = myItem;
                     }
 
