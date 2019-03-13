@@ -109,6 +109,23 @@ namespace Crawl.GameEngine
                 return false;
             }
 
+            // set the attacking score of Monster
+            var AttackScore = Attacker.Level + Attacker.GetAttack();
+            // set the defending score of Character Target
+            var DefendScore = Target.Level + Target.GetDefense();
+
+            // call for this turn's attack (monster vs character)
+            var attackStatus = this.TurnAsAttack(Attacker,
+                AttackScore, Target, DefendScore);
+
+            // check if something happened preventing an attack
+            if (!attackStatus)
+            {
+                // attack failed in TurnAsAttack
+                return false;
+            }
+
+            // attack happened this turn, return true 
             return true;
         }
 

@@ -70,6 +70,8 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
+        //Monster vs Character: monster turn happens
+        #region Tests: TakeTurn(Monster Attacker)
         [Test]
         public void TurnEngine_Monster_TakeTurn_Character_Target_Null_Should_Return_False()
         {
@@ -84,6 +86,50 @@ namespace UnitTests.GameEngineTests
             // Assert          
             Assert.IsFalse(returnResult, "Expected Target: null, return false");
         }
+
+        [Test]
+        public void TurnEngine_Monster_TakeTurn_Attack_Happens_Should_Return_True()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testMonster.Name = "Test Monster";
+            testMonster.Attribute.Attack = 1;
+            var testAttackDamage = testMonster.GetDamageRollValue();
+            testTurnEngine.CharacterList = new List<Character>();
+
+            var lowSpeedCharacter = new Character();
+            lowSpeedCharacter.Name = "Low Speed Character";
+            lowSpeedCharacter.Description = "Low Speed Character";
+            lowSpeedCharacter.Attribute.Speed = 1;
+
+            var highSpeedCharacter = new Character();
+            highSpeedCharacter.Name = "High Speed Character";
+            highSpeedCharacter.Description = "High Speed Character should be chosen";
+            highSpeedCharacter.Attribute.Speed = 10;
+            highSpeedCharacter.Attribute.Defense = 10;
+            highSpeedCharacter.Attribute.MaxHealth = 10;
+            highSpeedCharacter.Attribute.CurrentHealth = 4;
+
+            var highSpeedDeadCharacter = new Character();
+            highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Name = "Dead High Speed Character";
+            highSpeedDeadCharacter.Description = "Dead High Speed Character";
+            highSpeedDeadCharacter.Attribute.Speed = 10;
+
+            testTurnEngine.CharacterList.Add(lowSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);
+
+            // Act
+            var returnResult = testTurnEngine.TakeTurn(testMonster);
+
+            // Assert
+            Assert.IsTrue(returnResult, "Expected Target: character, return true");
+        }
+        #endregion
 
         //Character vs Monster: character chooses attack against lowest health monster
         #region Tests: AttackChoice(Character Attacker)
