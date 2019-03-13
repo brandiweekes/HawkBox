@@ -50,7 +50,7 @@ namespace Crawl.GameEngine
         // Turn Over
 
         /// <summary>
-        /// Character will attack a monster
+        /// Character will attack this turn
         /// a target monster is selected, called by AttackChoice
         /// AttackScore and DefendScore are set
         /// Character, Target, both scores sent to TurnAsAttack
@@ -92,9 +92,19 @@ namespace Crawl.GameEngine
 
             // attack happened this turn, return true 
             return true;
-        } 
+        }
 
-        // Monster Attacks...
+        /// <summary>
+        /// Monster will attack this turn
+        /// a target character is selected, called by AttackChoice
+        /// AttackScore and DefendScore are set
+        /// Monster, Target, both scores sent to TurnAsAttack
+        /// </summary>
+        /// <param name="Attacker">current attacking player</param>
+        /// <returns>
+        /// false if no attack happens this turn, 
+        /// else true
+        /// </returns>
         public bool TakeTurn(Monster Attacker)
         {
             // call to get a character to attack
