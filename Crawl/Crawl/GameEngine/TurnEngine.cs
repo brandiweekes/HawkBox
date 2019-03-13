@@ -131,7 +131,19 @@ namespace Crawl.GameEngine
                 return true;
             }
 
-            return true;
+            // On Hit or CriticalHit, damage dealt or double damage dealt
+            if (HitStatus == HitStatusEnum.Hit || HitStatus == HitStatusEnum.CriticalHit)
+            {
+                // calculate the damage amount
+                var damage = Attacker.GetDamageRollValue();
+                // set variable for messages
+                this.DamageAmount = damage;
+
+                // deals damage to Character
+                Target.TakeDamage(this.DamageAmount);
+            }
+
+                return true;
         }
 
         /// <summary>
