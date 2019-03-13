@@ -139,6 +139,16 @@ namespace Crawl.GameEngine
                 // set variable for messages
                 this.DamageAmount = damage;
 
+                // check for criticalHit status, apply double damage
+                if (GameGlobals.EnableCriticalHitDamage)
+                {
+                    // CriticalHit deals double damage
+                    if (HitStatus == HitStatusEnum.CriticalHit)
+                    {
+                        this.DamageAmount += damage;
+                    }
+                }
+
                 // deals damage to Character
                 Target.TakeDamage(this.DamageAmount);
             }
