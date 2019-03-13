@@ -844,7 +844,7 @@ namespace UnitTests.GameEngineTests
 
             // Assert
             Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testFeetItem: true");
-            Assert.Less(testItemPoolCount, testTurnEngine.ItemPool.Count(), "Expected MonsterList Count: 1 less");
+            Assert.Less(testItemPoolCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
         #endregion
@@ -1305,6 +1305,72 @@ namespace UnitTests.GameEngineTests
             // Assert
             Assert.IsFalse(checkIfContains, "Expected CharacterList to contain chosenCharacter: false");
             Assert.Greater(testCharacterListCount, testTurnEngine.CharacterList.Count(), "Expected CharacterList Count: 1 less");
+            Assert.IsTrue(returnBool, "Expected return bool: true");
+        }
+
+        [Test]
+        public void TurnEngine_Monster_TurnAsAttack_Character_Dies_Should_Drop_Items_ItemPool_Should_Have_Items()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var testTurnEngine = new TurnEngine();
+            var testMonster = new Monster();
+            testMonster.Name = "Test Monster";
+            testMonster.Attribute.Attack = 5;
+            var testAttackDamage = testMonster.GetDamageRollValue();
+            testTurnEngine.CharacterList = new List<Character>();
+
+            var lowSpeedCharacter = new Character();
+            lowSpeedCharacter.Name = "Low Speed Character";
+            lowSpeedCharacter.Description = "Low Speed Character";
+            lowSpeedCharacter.Attribute.Speed = 1;
+
+            var highSpeedCharacter = new Character();
+            highSpeedCharacter.Name = "High Speed Character";
+            highSpeedCharacter.Description = "High Speed Character should be chosen";
+            highSpeedCharacter.Attribute.Speed = 10;
+            highSpeedCharacter.Attribute.Defense = 10;
+            highSpeedCharacter.Attribute.MaxHealth = 10;
+            highSpeedCharacter.Attribute.CurrentHealth = 1;
+            highSpeedCharacter.ExperienceTotal = 300;
+
+            var highSpeedDeadCharacter = new Character();
+            highSpeedDeadCharacter.Alive = false;
+            highSpeedDeadCharacter.Name = "Dead High Speed Character";
+            highSpeedDeadCharacter.Description = "Dead High Speed Character";
+            highSpeedDeadCharacter.Attribute.Speed = 10;
+
+            testTurnEngine.CharacterList.Add(lowSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedCharacter);
+            testTurnEngine.CharacterList.Add(highSpeedDeadCharacter);
+
+            var chosenCharacter = testTurnEngine.AttackChoice(testMonster);
+            var testAttackScore = testMonster.Level + testMonster.GetAttack();
+            var testDefendScore = chosenCharacter.Level + chosenCharacter.GetDefense();
+            
+            var testItemPoolCount = testTurnEngine.ItemPool.Count();
+            var testFeetItem = new Item("Anti-Gravity Shoes",
+                "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
+                 0, 10, 10, ItemLocationEnum.Feet, AttributeEnum.Speed, true);
+            ItemsViewModel.Instance.AddAsync(testFeetItem).GetAwaiter().GetResult();
+            highSpeedCharacter.Feet = testFeetItem.Guid;
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 20;
+
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testMonster, testAttackScore, chosenCharacter, testDefendScore);
+            var checkIfContains = testTurnEngine.ItemPool.Contains(testFeetItem);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+
+            // Assert
+            Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testFeetItem: true");
+            Assert.Less(testItemPoolCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
 

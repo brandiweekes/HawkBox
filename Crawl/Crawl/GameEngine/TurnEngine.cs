@@ -158,6 +158,16 @@ namespace Crawl.GameEngine
             {
                 // remove monster from list of available monsters
                 this.CharacterList.Remove(Target);
+
+                // Drop Items from monster killed
+                var droppedItemsList = Target.DropAllItems();
+                // monster dropped at least 1 item
+                if (droppedItemsList.Count > 0)
+                {
+                    // add all items dropped to the item pool 
+                    // for end of round
+                    this.ItemPool.AddRange(droppedItemsList);
+                }
             }
 
             // Turn Over
