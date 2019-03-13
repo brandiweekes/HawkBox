@@ -4,6 +4,9 @@ using System;
 
 namespace Crawl.Models
 {
+    /// <summary>
+    /// Common Attributes of Characters or Monsters. 
+    /// </summary>
     public class AttributeBase
     {
         // The speed of the character, impacts movement, and initiative
@@ -21,21 +24,17 @@ namespace Crawl.Models
         // The highest value health can go
         public int MaxHealth { get; set; }
 
-        // Helper to combine the attributes into a single line, to make it easier to display the item as a string
-        public string FormatOutput()
-        {
-            var myReturn = $"Attack: {Attack} :: Defense: {Defense} :: Speed: {Speed} :: " +
-                $"Current Health: {CurrentHealth} :: Max. Health: {MaxHealth}";
-            return myReturn.Trim();
-        }
-
-        // Constructor sets defaults
+        /// <summary>
+        /// Default Constructor.
+        /// </summary>
         public AttributeBase()
         {
             SetDefaultValues();
         }
 
-        // Defaults are all value 1, and then adjusted by scaling up
+        /// <summary>
+        /// Defaults are all value 1, and then adjusted by scaling up
+        /// </summary>
         private void SetDefaultValues()
         {
             Speed = 1;
@@ -45,7 +44,10 @@ namespace Crawl.Models
             MaxHealth = 1;
         }
 
-        // Return AttributeBase based on a string as the constructor.
+        /// <summary>
+        /// Return AttributeBase based on a string as the constructor.
+        /// </summary>
+        /// <param name="data"></param>
         public AttributeBase(string data)
         {
             if (string.IsNullOrEmpty(data))
@@ -63,7 +65,14 @@ namespace Crawl.Models
             MaxHealth = myAttributes.MaxHealth;
         }
 
-        // create Attributes
+        /// <summary>
+        /// Create Attributes based on given parameters.
+        /// </summary>
+        /// <param name="speed"></param>
+        /// <param name="attack"></param>
+        /// <param name="defense"></param>
+        /// <param name="maxHealth"></param>
+        /// <param name="currentHealth"></param>
         public AttributeBase(int speed, int attack, int defense, int maxHealth, int currentHealth)
         {
             SetDefaultValues();
@@ -74,7 +83,11 @@ namespace Crawl.Models
             CurrentHealth = currentHealth;
         }
 
-        // Return a formatted string of the AttributeBase
+        /// <summary>
+        /// Return a formatted string of the AttributeBase
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static string GetAttributeString (AttributeBase data)
         {
             var myString = (JObject)JToken.FromObject(data);
@@ -82,7 +95,11 @@ namespace Crawl.Models
             return myString.ToString();
         }
 
-        // Given a string of attributes, convert them to actual attributes
+        /// <summary>
+        /// Given a string of attributes, convert them to actual attributes
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static AttributeBase GetAttributeFromString(string data)
         {
             AttributeBase myResult;
@@ -103,6 +120,17 @@ namespace Crawl.Models
                 // Failed, so fall through to the return of new.
                 return new AttributeBase();
             }
+        }
+
+        /// <summary>
+        /// Helper to combine the attributes into a single line, to make it easier to display the item as a string.
+        /// </summary>
+        /// <returns></returns>
+        public string FormatOutput()
+        {
+            var myReturn = $"Attack: {Attack} :: Defense: {Defense} :: Speed: {Speed} :: " +
+                $"Current Health: {CurrentHealth} :: Max. Health: {MaxHealth}";
+            return myReturn.Trim();
         }
     }
 }

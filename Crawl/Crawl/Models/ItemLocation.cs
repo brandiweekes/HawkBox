@@ -4,10 +4,11 @@ using System.Linq;
 
 namespace Crawl.Models
 {
-    // Enum to specify the different Inventory Locations.
-    // Each inventory location can hold just one item
-    // All other attributes have explicted values.
-
+    /// <summary>
+    /// Enum to specify the different Inventory Locations.
+    /// Each inventory location can hold just one item
+    /// All other attributes have explicted values.
+    /// </summary>
     public enum ItemLocationEnum
     {
         // Not specified
@@ -39,11 +40,15 @@ namespace Crawl.Models
 
     }
 
-    // Helper functions for the Item Locations
+    /// <summary>
+    ///  Helper functions for the ItemLocationEnum
+    /// </summary>
     public static class ItemLocationList
     {
-        // Gets the lsit of locations that an Item can have.
-        // Does not include the Left and Right Finger
+        /// <summary>
+        /// Gets the lsit of locations that an Item can have.
+        /// Does not include the Left and Right Finger
+        /// </summary>
         public static List<string> GetListItem
         {
             get
@@ -54,8 +59,10 @@ namespace Crawl.Models
             }
         }
 
-        // Gets the list of locations a character can use
-        // Removes Finger for example, and allows for left and right finger
+        /// <summary>
+        /// Gets the list of locations a character can use
+        /// Removes Finger for example, and allows for left and right finger
+        /// </summary>
         public static List<string> GetListCharacter
         {
             get
@@ -68,7 +75,11 @@ namespace Crawl.Models
             }
         }
 
-        // Given the String for an enum, return its value.  That allows for the enums to be numbered 2,4,6 rather than 1,2,3
+        /// <summary>
+        /// Given the String for an enum, return its value.  That allows for the enums to be numbered 2,4,6 rather than 1,2,3
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static ItemLocationEnum ConvertStringToEnum(string value)
         {
             return (ItemLocationEnum)Enum.Parse(typeof(ItemLocationEnum), value);

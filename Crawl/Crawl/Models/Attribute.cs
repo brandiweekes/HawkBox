@@ -4,10 +4,11 @@ using System.Linq;
 
 namespace Crawl.Models
 {
-    // Enum to specify the different attributes Allowed.
-    // Not specified is considered not initialize and returns unknown
-    // All other attributes have explicted values.
-
+    /// <summary>
+    /// Enum to specify the different attributes Allowed.
+    /// Not specified is considered not initialize and returns unknown
+    /// All other attributes have explicted values.
+    /// </summary>
     public enum AttributeEnum
     {
         // Not specified
@@ -29,35 +30,48 @@ namespace Crawl.Models
         MaxHealth = 18,
     }
 
-    // Helper functions for the AttribureList
+    /// <summary>
+    ///  Helper functions for the AttribureEnum
+    /// </summary>
     public static class AttributeList
     {
 
-        // Returns a list of strings of the enum for Attribute
-        // Removes the attributes that are not changable by Items such as Unknown, MaxHealth
+        /// <summary>
+        /// Returns a list of strings of the enum for Attribute
+        /// Removes the attributes that are not changable by Items such as Unknown, MaxHealth
+        /// </summary>
         public static List<string> GetListItem
         {
             get
             {
-                var myList = Enum.GetNames(typeof(AttributeEnum)).ToList();
-                var myReturn = myList;
-                return myReturn;
+                var _list = Enum.GetValues(typeof(AttributeEnum)).Cast<AttributeEnum>()
+                    .Where(e => e != AttributeEnum.MaxHealth && e != AttributeEnum.Unknown)
+                    .Select(v => v.ToString())
+                    .ToList();
+                return _list;
             }
         }
 
-        // Returns a list of strings of the enum for Attribute
-        // Removes the unknown
+        /// <summary>
+        /// Returns a list of strings of the enum for Attribute. Removes the unknown.
+        /// </summary>
         public static List<string> GetListCharacter
         {
             get
             {
-                var myList = Enum.GetNames(typeof(AttributeEnum)).ToList();
-                var myReturn = myList;
-                return myReturn;
+                var _list = Enum.GetValues(typeof(AttributeEnum)).Cast<AttributeEnum>()
+                    .Where(e => e != AttributeEnum.Unknown)
+                    .Select(v => v.ToString())
+                    .ToList();
+                return _list;
             }
         }
 
-        // Given the String for an enum, return its value.  That allows for the enums to be numbered 2,4,6 rather than 1,2,3
+        /// <summary>
+        /// Given the String for an enum, return its value.  That allows for the enums to be numbered 2,4,6 rather than 1,2,3.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static AttributeEnum ConvertStringToEnum(string value)
         {
             return (AttributeEnum)Enum.Parse(typeof(AttributeEnum), value);

@@ -2,13 +2,12 @@
 
 namespace Crawl.Models
 {
-    // Base Player is either a Monster or a Character.  It has the shared aspects of both...
-
+    /// <summary>
+    /// Base Player is either a Monster or a Character.  It has the shared aspects of both...
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BasePlayer<T> : BasePlayerItemSlots<T>
     {
-        // Where is the Item Slots, it is in the baseclass...
-
-
         // Level of the character, or difficulty level of the monster
         public int Level { get; set; }
 
@@ -24,15 +23,18 @@ namespace Crawl.Models
         // The Dice to use when leveling up, defualt is d10
         public int HealthDice { get; set; } = 10;
 
-        // Death
-        // Alive turns to False
+        /// <summary>
+        /// Causes death by setting Alive property to false;
+        /// </summary>
         public void CauseDeath()
         {
             Alive = false;
         }
 
-        // Get Level based Damage
-        // 1/4 of the Level of the Player is the base damage they do.
+        /// <summary>
+        /// Get Level based Damage. 1/4 of the Level of the Player is the base damage they do.
+        /// </summary>
+        /// <returns></returns>
         public int GetLevelBasedDamage()
         {
             return (int)Math.Ceiling(Level * .25);

@@ -30,6 +30,11 @@ namespace Crawl.Controllers
         public static string DefaultImageURI = "Item.png";
 
         #region ServerCalls
+
+        /// <summary>
+        /// Get items from web server. input must be either 1, 2, 3 or 100. default is 100.
+        /// </summary>
+        /// <param name="parameter"></param>
         public async void GetItemsFromServer(int parameter = 100)
         {
             // parameter is the item group to request.  1, 2, 3, 100
@@ -68,12 +73,21 @@ namespace Crawl.Controllers
             ItemsViewModel.Instance.SetNeedsRefresh(true);
         }
 
-        // Asks the server for items based on paramaters
-        // Number is the number of items to return
-        // Level is the Value max for the items
-        // Random is to have the value random between 1 and the Level
-        // Attribute is a filter to return only items for that attribute, else unknown is used for any
-        // Location is a filter to return only items for that location, else unknown is used for any
+        /// <summary>
+        /// Asks the server for items based on paramaters.
+        /// Number is the number of items to return
+        /// Level is the Value max for the items
+        /// Random is to have the value random between 1 and the Level
+        /// Attribute is a filter to return only items for that attribute, else unknown is used for any
+        /// Location is a filter to return only items for that location, else unknown is used for any
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="level"></param>
+        /// <param name="attribute"></param>
+        /// <param name="location"></param>
+        /// <param name="random"></param>
+        /// <param name="updateDataBase"></param>
+        /// <returns></returns>
         public async Task<List<Item>> GetItemsFromGame(int number, int level, AttributeEnum attribute, ItemLocationEnum location, bool random, bool updateDataBase)
         {
             // Needs to get items from the server
@@ -132,7 +146,11 @@ namespace Crawl.Controllers
         }
 
 
-        // The returned data will be a list of items.  Need to pull that list out
+        /// <summary>
+        ///  The returned data will be a list of items.  Need to pull that list out
+        /// </summary>
+        /// <param name="myJsonData"></param>
+        /// <returns></returns>
         private List<Item> ParseJson(string myJsonData)
         {
             var myData = new List<Item>();
@@ -165,6 +183,11 @@ namespace Crawl.Controllers
 
         }
 
+        /// <summary>
+        /// Convert json to Item object. Parse each key value data in json and assign it to Item properties.
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
         private Item ConvertFromJson(JObject json)
         {
             var myData = new Item();
