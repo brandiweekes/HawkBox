@@ -50,6 +50,16 @@ namespace Crawl.GameEngine
             EndRound();
             //add monsters to new round
             AddMonstersToRound();
+
+            int roll = HelperEngine.RollDice(1, 100);
+            if (roll < GameGlobals.TimeWarpChance)
+            {
+                GameGlobals.setTimeWarp(true);
+            }
+            else
+            {
+                GameGlobals.setTimeWarp(false);
+            }
             //create player list of monsters and characters
             MakePlayerList();
             //increment round count
@@ -201,6 +211,16 @@ namespace Crawl.GameEngine
                 //call for a new round
                 return RoundEnum.NewRound;
             }
+            else if (MonsterList.Count < 6)
+            {
+                // check for monstser multiply chance
+                // if true then add monsters
+                // else skip
+                if (HelperEngine.CanMonsterMultiply())
+                {
+                    AddMonstersToRound();
+                }
+            }
 
             //get player whose turn it is
             PlayerCurrent = GetNextPlayerTurn();
@@ -227,11 +247,30 @@ namespace Crawl.GameEngine
         public PlayerInfo GetNextPlayerTurn()
         {
             // Recalculate Order
-            OrderPlayerListByTurnOrder();
+            if (GameGlobals.TimeWarp)
+            {
+                ReverseOrderPlayerList();
+            }
+            else
+            {
+                OrderPlayerListByTurnOrder();
+            }
             //call getnextplayer in list
             var PlayerCurrent = GetNextPlayerInList();
             //return current player
             return PlayerCurrent;
+        }
+
+        //time warp player list
+        public void ReverseOrderPlayerList()
+        {
+            MakePlayerList();
+
+            PlayerList = PlayerList.OrderBy(a => a.Speed).ThenBy(a => a.Level).ThenBy(a => a.ExperiencePoints)
+                .ThenBy(a => a.PlayerType)
+                .ThenByDescending(a => a.Name)
+                .ThenByDescending(a => a.ListOrder)
+                .ToList();
         }
 
         //order player list according to game rules

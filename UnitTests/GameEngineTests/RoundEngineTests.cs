@@ -891,5 +891,103 @@ namespace UnitTests.GameEngineTests
             Assert.AreEqual(ex2, ac2, TestContext.CurrentContext.Test.Name);
         }
         #endregion EndRound
+
+        #region Time Warp
+        [Test]
+        public void Round_Engine_Reverse_Order_Player_List_Should_Pass()
+        {
+            MockForms.Init();
+
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            Character char1 = new Character();
+            char1.Attribute.Speed = 4;
+            Character char2 = new Character();
+            char2.Attribute.Speed = 6;
+            Character char3 = new Character();
+            char3.Attribute.Speed = 2;
+            Monster mon1 = new Monster();
+            mon1.Attribute.Speed = 3;
+            Monster mon2 = new Monster();
+            mon2.Attribute.Speed = 1;
+            Monster mon3 = new Monster();
+            mon3.Attribute.Speed = 5;
+
+            //roundEngine.PlayerList = new List<PlayerInfo>();
+            roundEngine.CharacterList.Add(char1);
+            roundEngine.CharacterList.Add(char2);
+            roundEngine.CharacterList.Add(char3);
+            roundEngine.MonsterList.Add(mon1);
+            roundEngine.MonsterList.Add(mon2);
+            roundEngine.MonsterList.Add(mon3);
+
+
+            var ex1 = 1;
+            var ex2 = 2;
+            var ex3 = 3;
+            var ex4 = 4;
+            var ex5 = 5;
+            var ex6 = 6;
+
+
+            //act
+            roundEngine.ReverseOrderPlayerList();
+            var actual1 = roundEngine.PlayerList[0].Speed;
+            var actual2 = roundEngine.PlayerList[1].Speed;
+            var actual3 = roundEngine.PlayerList[2].Speed;
+            var actual4 = roundEngine.PlayerList[3].Speed;
+            var actual5 = roundEngine.PlayerList[4].Speed;
+            var actual6 = roundEngine.PlayerList[5].Speed;
+
+            //reset
+            //assert
+            Assert.AreEqual(ex1, actual1, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex2, actual2, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex3, actual3, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex4, actual4, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex5, actual5, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(ex6, actual6, TestContext.CurrentContext.Test.Name);
+
+        }
+
+        [Test]
+        public void Round_Engine_Get_Next_Player_Turn_With_Time_Warp_Should_Return_Current_Player()
+        {
+            MockForms.Init();
+
+            //arrange
+            RoundEngine roundEngine = new RoundEngine();
+            roundEngine.PlayerCurrent = null;
+
+            GameGlobals.setTimeWarp(true);
+
+            Character char1 = new Character();
+            char1.Attribute.Speed = 4;
+            Character char2 = new Character();
+            char2.Attribute.Speed = 6;
+            Character char3 = new Character();
+            char3.Attribute.Speed = 2;
+            Monster mon1 = new Monster();
+            mon1.Attribute.Speed = 3;
+            Monster mon2 = new Monster();
+            mon2.Attribute.Speed = 1;
+            Monster mon3 = new Monster();
+            mon3.Attribute.Speed = 5;
+
+            roundEngine.CharacterList.Add(char1);
+            roundEngine.CharacterList.Add(char2);
+            roundEngine.CharacterList.Add(char3);
+            roundEngine.MonsterList.Add(mon1);
+            roundEngine.MonsterList.Add(mon2);
+            roundEngine.MonsterList.Add(mon3);
+
+            var Expected = mon2.Guid;
+            //act
+            var Actual = roundEngine.GetNextPlayerTurn().Guid;
+
+            //assert
+            Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+        }
+        #endregion Time Warp
     }
 }

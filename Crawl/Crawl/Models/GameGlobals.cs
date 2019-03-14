@@ -37,6 +37,21 @@ namespace Crawl.Models
         // Allow Random Items when monsters die...
         public static bool AllowMonsterDropItems = true;
 
+
+        public static bool TimeWarp = false;
+
+        public static int TimeWarpChance = 0;
+
+        public static void setTimeWarp(bool value)
+        {
+            TimeWarp = value;
+        }
+
+        public static void setTimeWarpChance(int value)
+        {
+            TimeWarpChance = value;
+        }
+
         /// <summary>
         /// Turn Off Random Number Generation, and use the passed in values.
         /// </summary>

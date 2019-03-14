@@ -392,5 +392,13 @@ namespace Crawl.Views
         }
 
         #endregion Miracle Max
+
+
+        #region Time Warp
+        private void SetTimeWarpPercent(object sender, EventArgs e)
+        {
+            GameGlobals.setTimeWarpChance(Convert.ToInt32(TimeWarpPercent.Text));
+        }
+        #endregion Time Warp
     }
 }

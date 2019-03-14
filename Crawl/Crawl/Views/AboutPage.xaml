@@ -288,6 +288,13 @@
                         </StackLayout>
                     </StackLayout>
 
+                    <!--Time Warp-->
+                    <StackLayout>
+                        <Label Text="% Chance of Time Warp"></Label>
+                        <Entry x:Name="TimeWarpPercent"></Entry>
+                        <Button Text="Set" Clicked="SetTimeWarpPercent"></Button>
+                    </StackLayout>
+
                     <!-- Rebound Attack  -->
                     <StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
