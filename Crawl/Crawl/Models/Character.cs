@@ -317,8 +317,15 @@ namespace Crawl.Models
             Attribute.CurrentHealth -= damage;
             if (GetHealthCurrent() <= 0)
             {
-                // Death...
-                CauseDeath();
+                if(GameGlobals.EnableReboundAttack)
+                {
+                    Attribute.CurrentHealth = 1;
+                } 
+                else
+                {
+                    // Death...
+                    CauseDeath();
+                }
             }
         }
 

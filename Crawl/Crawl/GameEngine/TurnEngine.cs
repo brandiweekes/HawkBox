@@ -301,6 +301,16 @@ namespace Crawl.GameEngine
                 // deals damage to Monster
                 Target.TakeDamage(this.DamageAmount);
 
+                // Rebound Attack
+                if (HelperEngine.ReboundAttack())
+                {
+                    // get rebound damge precentage as it would be upto 50%.
+                    int _reboundDamagePercentage = HelperEngine.RollDice(1, 50);
+                    int _reboundDamage = (_reboundDamagePercentage * DamageAmount) / 100;
+                    // Character takes damage. does not cause death.
+                    Attacker.TakeDamage(_reboundDamage);
+                }
+
                 // Calculate how much experience the character 
                 // is awarded from hit on monster
                 var XPtoCharacter = Target.CalculateExperienceEarned(this.DamageAmount);

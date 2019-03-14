@@ -42,7 +42,7 @@ namespace Crawl.Views
             PercentToStealItem.Text = string.Format("{0}", GameGlobals.PercentageChanceToStealItems);
             PercentToMultiply.Text = string.Format("{0}", GameGlobals.PercentageChanceToMultiply);
             EnableMiracleMax.IsToggled = GameGlobals.EnableMiracleMaxOnCharacters;
-
+            PercentToRebound.Text = string.Format("{0}", GameGlobals.PercentageChanceToRebound);
         }
 
         #region Database Settings
