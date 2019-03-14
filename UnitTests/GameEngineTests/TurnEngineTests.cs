@@ -1817,6 +1817,36 @@ namespace UnitTests.GameEngineTests
             Assert.AreEqual(returnHitStatus, HitStatusEnum.Hit, "Expected HitStatus: 1, Hit");
         }
         #endregion
-        
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Character_Attacker_Null_Should_Return_Invalid_Character_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter = null;
+            
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 1;
+
+            var testInvalidCharString = " Invalid Character ";
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.AreEqual(testInvalidCharString, returnString, "Expected return String: Invalid Character");
+            
+        }
     }
 }
