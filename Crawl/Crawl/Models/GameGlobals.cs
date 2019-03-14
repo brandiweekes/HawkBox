@@ -104,7 +104,7 @@ namespace Crawl.Models
 
 
         // Debug Settings
-        public static bool EnableCriticalMissProblems = true;
+        public static bool EnableCriticalMissProblems = false;
         public static bool EnableCriticalHitDamage = true;
 
         #region Monsters steal Items
