@@ -41,6 +41,7 @@ namespace Crawl.Views
             EnableCriticalHitDamage.IsToggled = GameGlobals.EnableCriticalHitDamage;
             PercentToStealItem.Text = string.Format("{0}", GameGlobals.PercentageChanceToStealItems);
             PercentToMultiply.Text = string.Format("{0}", GameGlobals.PercentageChanceToMultiply);
+            EnableMiracleMax.IsToggled = GameGlobals.EnableMiracleMaxOnCharacters;
 
         }
 
@@ -377,5 +378,19 @@ namespace Crawl.Views
         }
 
         #endregion Rebound Attack
+
+        #region Miracle Max
+
+        /// <summary>
+        /// Enable Monsters to steal items they dropped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableMiracleMaxSettings_OnToggled(object sender, ToggledEventArgs e)
+        {
+            GameGlobals.EnableMiracleMaxOnCharacters = e.Value;
+        }
+
+        #endregion Miracle Max
     }
 }

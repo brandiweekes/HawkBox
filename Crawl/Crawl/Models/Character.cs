@@ -15,6 +15,10 @@ namespace Crawl.Models
         // Attributes need for character. like attack, speed, Max. health. its hidden from SQLite mapping.
         public AttributeBase Attribute { get; set; }
 
+        [Ignore]
+        // attribute to revive characters from death based on game toggles
+        public bool Revived { get; set; } = false;
+
         /// <summary>
         /// Create new Charater with default values.
         /// </summary>

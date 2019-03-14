@@ -301,6 +301,13 @@
                             <Button Text="Set" Clicked="SetPercentToRebound_Clicked"></Button>
                         </StackLayout>
                     </StackLayout>
+                    
+                    <!-- Miracle Max -->
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
+                        <Label FontSize="Small" Text="Miracle Max" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                        <Switch x:Name="EnableMiracleMax" HorizontalOptions="EndAndExpand" 
+                                    Toggled="EnableMiracleMaxSettings_OnToggled" IsToggled="False"/>
+                    </StackLayout>
 
                 </StackLayout>
             </StackLayout>

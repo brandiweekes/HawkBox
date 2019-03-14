@@ -163,5 +163,16 @@ namespace Crawl.Models
         }
 
         #endregion Rebound Attack
+
+        #region Miracle Max
+
+        public static bool EnableMiracleMaxOnCharacters = false;
+
+        public static void ToogleMiracleMaxOnCharacters()
+        {
+            EnableMiracleMaxOnCharacters = !EnableMiracleMaxOnCharacters;
+        }
+
+        #endregion Miracle Max
     }
 }
