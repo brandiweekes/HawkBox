@@ -1676,14 +1676,12 @@ namespace UnitTests.GameEngineTests
 
             // Act
             var returnBool = testTurnEngine.TurnAsAttack(testMonster, testAttackScore, chosenCharacter, testDefendScore);
-            //var checkIfContains = testTurnEngine.ItemPool.Contains(testFeetItem);
 
             // Reset
             GameGlobals.ToggleRandomState();
             GameGlobals.EnableMiracleMaxOnCharacters = toggleMiracleMax;
 
             // Assert
-            //Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testFeetItem: true");
             Assert.Greater(chosenCharacterRevivedCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
             Assert.IsTrue(returnBool, "Expected return bool: true");
         }
