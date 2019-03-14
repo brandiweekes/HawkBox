@@ -262,6 +262,11 @@ namespace Crawl.GameEngine
             {
                 this.DamageAmount = 0;
 
+                if (GameGlobals.EnableCriticalMissProblems)
+                {
+                    this.TurnMessage += DetermineCriticalMissProblem(Attacker);
+                }
+
                 //TODO CriticalMissProblem
                 return true;
             }
@@ -304,6 +309,15 @@ namespace Crawl.GameEngine
             // Check for Death and handle items dropped to ItemPool
             if(Target.Alive == false)
             {
+                // Sleepless Zombies in Seattle
+                /* if(SleeplessZombies == true) 
+                { 
+                    
+                
+                } 
+                else{}
+                */
+
                 // remove monster from list of available monsters
                 this.MonsterList.Remove(Target);
 
@@ -532,7 +546,69 @@ namespace Crawl.GameEngine
 
         public string DetermineCriticalMissProblem(Character attacker)
         {
-            return " Not Implemented ";
+            if (attacker == null)
+            {
+                return " Invalid Character ";
+            }
+
+            var myReturn = " Nothing Bad Happened ";
+            Item droppedItem;
+
+            // It may be a critical miss, roll again and find out...
+            var rnd = HelperEngine.RollDice(1, 10);
+            /*
+                1. Primary Hand Item breaks, and is lost forever
+                2-4, Character Drops the Primary Hand Item back into the item pool
+                5-6, Character drops a random equipped item back into the item pool
+                7-10, Nothing bad happens, luck was with the attacker
+             */
+
+            switch (rnd)
+            {
+                case 1:
+                    myReturn = " Luckily, nothing to drop from " + ItemLocationEnum.PrimaryHand;
+                    var myItem = ItemsViewModel.Instance.GetItem(attacker.PrimaryHand);
+                    if (myItem != null)
+                    {
+                        myReturn = " Item " + myItem.Name + " from " + ItemLocationEnum.PrimaryHand + " Broke, and lost forever";
+                    }
+
+                    attacker.PrimaryHand = null;
+                    break;
+
+                case 2:
+                case 3:
+                case 4:
+                    // Put on the new item, which drops the one back to the pool
+                    myReturn = " Luckly, nothing to drop from " + ItemLocationEnum.PrimaryHand;
+                    droppedItem = attacker.AddItem(ItemLocationEnum.PrimaryHand, null);
+                    if (droppedItem != null)
+                    {
+                        // Add the dropped item to the pool
+                        ItemPool.Add(droppedItem);
+                        myReturn = " Dropped " + droppedItem.Name + " from " + ItemLocationEnum.PrimaryHand;
+                    }
+                    break;
+
+                case 5:
+                case 6:
+                    var LocationRnd = HelperEngine.RollDice(1, ItemLocationList.GetListCharacter.Count);
+                    var myLocationEnum = ItemLocationList.GetLocationByPosition(LocationRnd);
+                    myReturn = " Luckly, nothing to drop from " + myLocationEnum;
+
+                    // Put on the new item, which drops the one back to the pool
+                    droppedItem = attacker.AddItem(myLocationEnum, null);
+                    if (droppedItem != null)
+                    {
+                        // Add the dropped item to the pool
+                        ItemPool.Add(droppedItem);
+                        myReturn = " Dropped " + droppedItem.Name + " from " + myLocationEnum;
+                    }
+                    break;
+            }
+
+            return myReturn;
         }
+    
     }
 }

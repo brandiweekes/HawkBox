@@ -577,6 +577,65 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
+        public void TurnEngine_Character_TurnAsAttack_Force_CriticalMiss_Should_Add_Message_From_CriticalMissProblem_Call()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter.Name = "Test Name";
+
+            testTurnEngine.MonsterList = new List<Monster>();
+            var lowHealthDeadMonster = new Monster("Low Health Dead",
+                                                "monster dead low health",
+                                                "", 1, 1, false,
+                                                1, 1, 1, 10, 1,
+                                                null, null, null, null,
+                                                null, null, null);
+            var lowHealthMonster = new Monster("Low Health",
+                                                "monster low health",
+                                                "", 1, 1, true,
+                                                1, 1, 10, 10, 2,
+                                                null, null, null, null,
+                                                null, null, null);
+
+            var highHealthMonster = new Monster("High Health",
+                                                "monster high health",
+                                                "", 1, 1, true,
+                                                1, 1, 1, 10, 10,
+                                                null, null, null, null,
+                                                null, null, null);
+            testTurnEngine.MonsterList.Add(lowHealthDeadMonster);
+            testTurnEngine.MonsterList.Add(lowHealthMonster);
+            testTurnEngine.MonsterList.Add(highHealthMonster);
+
+            var returnMonster = testTurnEngine.AttackChoice(testCharacter);
+            var testAttackScore = testCharacter.Level + testCharacter.GetAttack();
+            var testDefendScore = returnMonster.Level + returnMonster.GetDefense();
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 1;
+
+            var testTurnMsgBefore = testTurnEngine.TurnMessage;
+
+            // Act
+            var returnBool = testTurnEngine.TurnAsAttack(testCharacter, testAttackScore, returnMonster, testDefendScore);
+            
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.AreNotEqual(testTurnEngine.TurnMessage, testTurnMsgBefore);
+            Assert.IsTrue(returnBool, "Expected return bool: true");
+        }
+
+        [Test]
         public void TurnEngine_Character_TurnAsAttack_Force_Hit_Should_Set_DamageAmount_Should_Pass()
         {
             MockForms.Init();
@@ -686,6 +745,8 @@ namespace UnitTests.GameEngineTests
             MockForms.Init();
 
             // Arrange
+            var toggleEnableCritHitDmg = GameGlobals.EnableCriticalHitDamage;
+            GameGlobals.EnableCriticalHitDamage = true;
             var testTurnEngine = new TurnEngine();
             var testCharacter = new Character();
             testCharacter.Attribute.Attack = 1;
@@ -726,6 +787,7 @@ namespace UnitTests.GameEngineTests
 
             // Reset
             GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalHitDamage = toggleEnableCritHitDmg;
 
             // Assert
             Assert.AreEqual(testDamageDealt, returnMonster.GetHealthCurrent(), "Expected Health after Damage");
@@ -1375,6 +1437,9 @@ namespace UnitTests.GameEngineTests
             MockForms.Init();
 
             // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
             var testTurnEngine = new TurnEngine();
             var testMonster = new Monster();
             testMonster.Name = "Test Monster";
@@ -1420,6 +1485,7 @@ namespace UnitTests.GameEngineTests
 
             // Reset
             GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
 
             // Assert
             Assert.AreEqual(chosenCharacterHealthAfterDamageDealt, chosenCharacter.GetHealthCurrent(), "Expected Health after Damage");
