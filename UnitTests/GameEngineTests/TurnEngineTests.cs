@@ -1849,7 +1849,7 @@ namespace UnitTests.GameEngineTests
         }
 
         [Test]
-        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_1_No_PrimaryHand_Equipped_Return_Luckily_String()
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_1_Null_PrimaryHand_Item_Return_Luckily_String()
         {
             MockForms.Init();
 
@@ -1859,24 +1859,242 @@ namespace UnitTests.GameEngineTests
 
             var testTurnEngine = new TurnEngine();
             var testCharacter = new Character();
-            testCharacter = null;
-
 
             GameGlobals.ForceRollsToNotRandom = true;
-            GameGlobals.ForceToHitValue = 1;
+            GameGlobals.ForcedRandomValue = 1;
 
-            //var testInvalidCharString = " Invalid Character ";
+            var testRoll1NoItemString = " Luckily, nothing to drop from " + ItemLocationEnum.PrimaryHand;
 
             // Act
             var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItem = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
 
             // Reset
             GameGlobals.ToggleRandomState();
             GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
 
             // Assert
-            //Assert.AreEqual(testInvalidCharString, returnString, "Expected return String: Invalid Character");
-
+            Assert.IsNull(testPrimaryHandItem, "Expected Case 1 Primary Hand Item: null");
+            Assert.AreEqual(testRoll1NoItemString, returnString, "Expected return String: Invalid Character");
         }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_2_Null_PrimaryHand_Item_Return_Luckily_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 2;
+
+            var testRoll2NoItemString = " Luckily, nothing to drop from " + ItemLocationEnum.PrimaryHand;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItem = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItem, "Expected Case 2 Primary Hand Item: null");
+            Assert.AreEqual(testRoll2NoItemString, returnString, "Expected return String: Invalid Character");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_3_Null_PrimaryHand_Item_Return_Luckily_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 3;
+
+            var testRoll3NoItemString = " Luckily, nothing to drop from " + ItemLocationEnum.PrimaryHand;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItem = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItem, "Expected Case 2 Primary Hand Item: null");
+            Assert.AreEqual(testRoll3NoItemString, returnString, "Expected return String: Invalid Character");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_4_Null_PrimaryHand_Item_Return_Luckily_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 4;
+
+            var testRoll4NoItemString = " Luckily, nothing to drop from " + ItemLocationEnum.PrimaryHand;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItem = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItem, "Expected Case 2 Primary Hand Item: null");
+            Assert.AreEqual(testRoll4NoItemString, returnString, "Expected return String: Invalid Character");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_5_Null_RightFinger_Item_Return_Luckily_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 5;
+
+            var testRoll5NoItemString = " Luckily, nothing to drop from " + ItemLocationEnum.RightFinger;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testRightFingerItem = ItemsViewModel.Instance.GetItem(testCharacter.RightFinger);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testRightFingerItem, "Expected Case 5 Right Finger Item: null");
+            Assert.AreEqual(testRoll5NoItemString, returnString, "Expected return String: Invalid Character");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_6_Null_LeftFinger_Item_Return_Luckily_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 6;
+
+            var testRoll6NoItemString = " Luckily, nothing to drop from " + ItemLocationEnum.LeftFinger;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItem = ItemsViewModel.Instance.GetItem(testCharacter.LeftFinger);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItem, "Expected Case 6 Left Finger Item: null");
+            Assert.AreEqual(testRoll6NoItemString, returnString, "Expected return String: Invalid Character");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_7_Null_LeftFinger_Item_Return_Nothing_Happen_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 7;
+
+            var testRoll7NoItemString = " Nothing Bad Happened ";
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItem = ItemsViewModel.Instance.GetItem(testCharacter.LeftFinger);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItem, "Expected Case 7 Left Finger Item: null");
+            Assert.AreEqual(testRoll7NoItemString, returnString, "Expected return String: Nothing Bad Happened");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_1_PrimaryHand_Item_Return_Break_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            var testPrimaryHandItem = new Item("Anti-Gravity Shoes",
+                "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
+                 0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Speed, true);
+            ItemsViewModel.Instance.AddAsync(testPrimaryHandItem).GetAwaiter().GetResult();
+            testCharacter.PrimaryHand = testPrimaryHandItem.Guid;
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 1;
+
+            var testRoll1ItemString = " Item " + testPrimaryHandItem.Name + " from " + ItemLocationEnum.PrimaryHand + " Broke, and lost forever";
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItemNull = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItemNull, "Expected Primary Hand Item: null");
+            Assert.AreEqual(testRoll1ItemString, returnString, "Expected return String: Invalid Character");
+        }
+
+
     }
 }

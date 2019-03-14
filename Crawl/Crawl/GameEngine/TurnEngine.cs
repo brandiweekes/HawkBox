@@ -590,7 +590,7 @@ namespace Crawl.GameEngine
                 case 3:
                 case 4:
                     // Put on the new item, which drops the one back to the pool
-                    myReturn = " Luckly, nothing to drop from " + ItemLocationEnum.PrimaryHand;
+                    myReturn = " Luckily, nothing to drop from " + ItemLocationEnum.PrimaryHand;
                     droppedItem = attacker.AddItem(ItemLocationEnum.PrimaryHand, null);
                     if (droppedItem != null)
                     {
@@ -604,7 +604,7 @@ namespace Crawl.GameEngine
                 case 6:
                     var LocationRnd = HelperEngine.RollDice(1, ItemLocationList.GetListCharacter.Count);
                     var myLocationEnum = ItemLocationList.GetLocationByPosition(LocationRnd);
-                    myReturn = " Luckly, nothing to drop from " + myLocationEnum;
+                    myReturn = " Luckily, nothing to drop from " + myLocationEnum;
 
                     // Put on the new item, which drops the one back to the pool
                     droppedItem = attacker.AddItem(myLocationEnum, null);
