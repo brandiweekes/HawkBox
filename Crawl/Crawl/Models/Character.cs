@@ -456,6 +456,12 @@ namespace Crawl.Models
                 myReturn.Add(_item);
             }
 
+            // condition check if monster can steal items.
+            if (HelperEngine.DoesMonsterHaveChanceToSteal())
+            {
+                myReturn = new List<Item>();
+            }
+
             return myReturn;
         }
 
@@ -471,6 +477,12 @@ namespace Crawl.Models
         public Item RemoveItem(ItemLocationEnum itemlocation)
         {
             var myReturn = AddItem(itemlocation, null);
+
+            // condition check if monster can steal items.
+            if (HelperEngine.DoesMonsterHaveChanceToSteal())
+            {
+                return null;
+            }
 
             return myReturn;
         }
@@ -599,6 +611,28 @@ namespace Crawl.Models
                 
             }
             return myReturn;
+        }
+
+        /// <summary>
+        /// Fetchs no. of items that monster have in each location. 
+        /// flag to include unique item in count or not if unique item exists. default to false.
+        /// </summary>
+        /// <returns></returns>
+        public int GetItemsCount()
+        {
+            int _count = 0;
+
+            // iterate over locations
+            foreach (string loc in ItemLocationList.GetListCharacter)
+            {
+                Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
+                Item _item = GetItemByLocation(locEnum);
+                if (_item != null)
+                {
+                    _count++;
+                }
+            }
+            return _count;
         }
 
         #endregion Items

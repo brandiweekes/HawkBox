@@ -428,12 +428,6 @@ namespace Crawl.Models
 
             }
 
-            // condition check if monster can steal items.
-            if(DoesMonsterHaveChanceToSteal())
-            {
-                myReturn = new List<Item>();
-            }
-
             return myReturn;
         }
 
@@ -449,12 +443,6 @@ namespace Crawl.Models
         public Item RemoveItem(ItemLocationEnum itemLocation)
         {
             Item _item = AddItem(itemLocation, null);
-
-            // condition check if monster can steal items.
-            if (DoesMonsterHaveChanceToSteal())
-            {
-                return null;
-            }
 
             return _item;
         }
@@ -520,97 +508,7 @@ namespace Crawl.Models
             return ItemsViewModel.Instance.GetItem(itemString);
         }
 
-        /// <summary>
-        /// Fetchs no. of items that monster have in each location. 
-        /// flag to include unique item in count or not if unique item exists. default to false.
-        /// </summary>
-        /// <param name="includeUniqueItem"></param>
-        /// <returns></returns>
-        public int GetItemsCount(bool includeUniqueItem = false)
-        {
-            int _count = 0;
-
-            // iterate over locations
-            foreach (string loc in ItemLocationList.GetListCharacter)
-            {
-                Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
-                string _item = GetItemFromLocation(locEnum);
-                if (_item != null)
-                {
-                    _count++;
-                }
-            }
-            if(includeUniqueItem)
-            {
-                if(UniqueItem != null)
-                {
-                    _count++;
-                }
-            }
-            return _count;
-        }
-
-        /// <summary>
-        /// Fetches Item from given Item location. if no item then null is returned.
-        /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
-        public string GetItemFromLocation(ItemLocationEnum location)
-        {
-            string itemId = null;
-            switch (location)
-            {
-                case ItemLocationEnum.Head:
-                    itemId = Head;
-                    break;
-                case ItemLocationEnum.Necklass:
-                    itemId = Necklace;
-                    break;
-                case ItemLocationEnum.PrimaryHand:
-                    itemId = PrimaryHand;
-                    break;
-                case ItemLocationEnum.OffHand:
-                    itemId = OffHand;
-                    break;
-                case ItemLocationEnum.RightFinger:
-                    itemId = RightFinger;
-                    break;
-                case ItemLocationEnum.LeftFinger:
-                    itemId = LeftFinger;
-                    break;
-                case ItemLocationEnum.Feet:
-                    itemId = Feet;
-                    break;
-            }
-            return itemId;
-        }
-
         #endregion Items
 
-        /// <summary>
-        /// Find out if Monster can steal Items.
-        /// </summary>
-        /// <returns></returns>
-        public bool DoesMonsterHaveChanceToSteal()
-        {
-            // check if monster steal items flag is On or Off.
-            if (GameGlobals.EnableMonstersToStealItems)
-            {
-                int diceRoll = HelperEngine.RollDice(1, 20);
-                int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToStealItems * 20) / (double)100);
-                if (diceRoll <= _chance)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 }
