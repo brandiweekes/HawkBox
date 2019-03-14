@@ -155,7 +155,7 @@ namespace Crawl.Models
         public static void SetPercentageChanceToMultiply(int chance)
         {
             EnableMonstersToStealItems = true;
-            PercentageChanceToStealItems = chance;
+            PercentageChanceToMultiply = chance;
         }
 
         #endregion Multiply Monsters
