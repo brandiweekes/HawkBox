@@ -34,5 +34,56 @@ namespace Crawl.GameEngine
 
             return myReturn;
         }
+
+        /// <summary>
+        /// Find out if Monster can steal Items.
+        /// </summary>
+        /// <returns></returns>
+        public static bool DoesMonsterHaveChanceToSteal()
+        {
+            // check if monster steal items flag is On or Off.
+            if (GameGlobals.EnableMonstersToStealItems)
+            {
+                int diceRoll = HelperEngine.RollDice(1, 20);
+                int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToStealItems * 20) / (double)100);
+                if (diceRoll <= _chance)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Find out if Monster can multiply.
+        /// </summary>
+        /// <returns></returns>
+        public static bool CanMonsterMultiply()
+        {
+            if (GameGlobals.EnableMonstersToMultiply)
+            {
+                int diceRoll = HelperEngine.RollDice(1, 20);
+                int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToMultiply * 20) / (double)100);
+                if (diceRoll <= _chance)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
