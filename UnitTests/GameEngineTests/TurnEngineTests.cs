@@ -1845,8 +1845,38 @@ namespace UnitTests.GameEngineTests
             GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
 
             // Assert
-            Assert.AreEqual(testInvalidCharString, returnString, "Expected return String: Invalid Character");
-            
+            Assert.AreEqual(testInvalidCharString, returnString, "Expected return String: Invalid Character");           
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_1_No_PrimaryHand_Equipped_Return_Luckily_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+            testCharacter = null;
+
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForceToHitValue = 1;
+
+            //var testInvalidCharString = " Invalid Character ";
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            //Assert.AreEqual(testInvalidCharString, returnString, "Expected return String: Invalid Character");
+
         }
     }
 }

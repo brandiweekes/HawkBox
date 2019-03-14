@@ -208,6 +208,9 @@ namespace Crawl.GameEngine
                 // remove monster from list of available monsters
                 this.CharacterList.Remove(Target);
 
+                // get item count
+                int _count = Target.GetItemsCount();
+
                 // Drop Items from monster killed
                 var droppedItemsList = Target.DropAllItems();
                 // monster dropped at least 1 item
@@ -216,6 +219,13 @@ namespace Crawl.GameEngine
                     // add all items dropped to the item pool 
                     // for end of round
                     this.ItemPool.AddRange(droppedItemsList);
+                }
+                else
+                {
+                    if(_count != 0)
+                    {
+                        Debug.WriteLine("Items are gone. Monsters stole them...");
+                    }
                 }
             }
 
