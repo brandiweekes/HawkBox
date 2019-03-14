@@ -2070,7 +2070,7 @@ namespace UnitTests.GameEngineTests
             var testTurnEngine = new TurnEngine();
             var testCharacter = new Character();
 
-            var testPrimaryHandItem = new Item("Anti-Gravity Shoes",
+            var testPrimaryHandItem = new Item("Anti-Gravity Primary Hand Weapon",
                 "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
                 "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
                  0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Speed, true);
@@ -2078,7 +2078,7 @@ namespace UnitTests.GameEngineTests
             testCharacter.PrimaryHand = testPrimaryHandItem.Guid;
 
             GameGlobals.ForceRollsToNotRandom = true;
-            GameGlobals.ForceToHitValue = 1;
+            GameGlobals.ForcedRandomValue = 1;
 
             var testRoll1ItemString = " Item " + testPrimaryHandItem.Name + " from " + ItemLocationEnum.PrimaryHand + " Broke, and lost forever";
 
@@ -2095,6 +2095,209 @@ namespace UnitTests.GameEngineTests
             Assert.AreEqual(testRoll1ItemString, returnString, "Expected return String: Invalid Character");
         }
 
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_2_PrimaryHand_Item_Return_Dropped_String()
+        {
+            MockForms.Init();
 
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            var testPrimaryHandItem = new Item("Anti-Gravity Primary Hand Weapon",
+                "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
+                 0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Speed, true);
+            ItemsViewModel.Instance.AddAsync(testPrimaryHandItem).GetAwaiter().GetResult();
+            testCharacter.PrimaryHand = testPrimaryHandItem.Guid;
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 2;
+
+            var testRoll2ItemString = " Dropped " + testPrimaryHandItem.Name + " from " + ItemLocationEnum.PrimaryHand;
+            var testItemPoolBeforeCount = testTurnEngine.ItemPool.Count;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItemNull = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+            var checkIfContains = testTurnEngine.ItemPool.Contains(testPrimaryHandItem);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItemNull, "Expected Primary Hand Item: null");
+            Assert.AreEqual(testRoll2ItemString, returnString, "Expected return String: Dropped");
+            Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testPrimaryHandItem: true");
+            Assert.Less(testItemPoolBeforeCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_3_PrimaryHand_Item_Return_Dropped_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            var testPrimaryHandItem = new Item("Anti-Gravity Primary Hand Weapon",
+                "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
+                 0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Speed, true);
+            ItemsViewModel.Instance.AddAsync(testPrimaryHandItem).GetAwaiter().GetResult();
+            testCharacter.PrimaryHand = testPrimaryHandItem.Guid;
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 3;
+
+            var testRoll3ItemString = " Dropped " + testPrimaryHandItem.Name + " from " + ItemLocationEnum.PrimaryHand;
+            var testItemPoolBeforeCount = testTurnEngine.ItemPool.Count;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItemNull = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+            var checkIfContains = testTurnEngine.ItemPool.Contains(testPrimaryHandItem);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItemNull, "Expected Primary Hand Item: null");
+            Assert.AreEqual(testRoll3ItemString, returnString, "Expected return String: Dropped");
+            Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testPrimaryHandItem: true");
+            Assert.Less(testItemPoolBeforeCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_4_PrimaryHand_Item_Return_Dropped_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            var testPrimaryHandItem = new Item("Anti-Gravity Primary Hand Weapon",
+                "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
+                 0, 10, 10, ItemLocationEnum.PrimaryHand, AttributeEnum.Speed, true);
+            ItemsViewModel.Instance.AddAsync(testPrimaryHandItem).GetAwaiter().GetResult();
+            testCharacter.PrimaryHand = testPrimaryHandItem.Guid;
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 4;
+
+            var testRoll4ItemString = " Dropped " + testPrimaryHandItem.Name + " from " + ItemLocationEnum.PrimaryHand;
+            var testItemPoolBeforeCount = testTurnEngine.ItemPool.Count;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItemNull = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+            var checkIfContains = testTurnEngine.ItemPool.Contains(testPrimaryHandItem);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItemNull, "Expected Primary Hand Item: null");
+            Assert.AreEqual(testRoll4ItemString, returnString, "Expected return String: Dropped");
+            Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testPrimaryHandItem: true");
+            Assert.Less(testItemPoolBeforeCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_5_RightFinger_Item_Return_Dropped_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            var testPrimaryHandItem = new Item("Anti-Gravity Right Finger Weapon",
+                "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
+                 0, 10, 10, ItemLocationEnum.RightFinger, AttributeEnum.Speed, true);
+            ItemsViewModel.Instance.AddAsync(testPrimaryHandItem).GetAwaiter().GetResult();
+            testCharacter.RightFinger = testPrimaryHandItem.Guid;
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 5;
+
+            var testRoll5ItemString = " Dropped " + testPrimaryHandItem.Name + " from " + ItemLocationEnum.RightFinger;
+            var testItemPoolBeforeCount = testTurnEngine.ItemPool.Count;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testRightFingerItemNull = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+            var checkIfContains = testTurnEngine.ItemPool.Contains(testPrimaryHandItem);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testRightFingerItemNull, "Expected Right Finger Item: null");
+            Assert.AreEqual(testRoll5ItemString, returnString, "Expected return String: Dropped");
+            Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testPrimaryHandItem: true");
+            Assert.Less(testItemPoolBeforeCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
+        }
+
+        [Test]
+        public void TurnEngine_DetermineCriticalMissProblem_Force_Roll_6_LeftFinger_Item_Return_Dropped_String()
+        {
+            MockForms.Init();
+
+            // Arrange
+            var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
+            GameGlobals.EnableCriticalMissProblems = true;
+
+            var testTurnEngine = new TurnEngine();
+            var testCharacter = new Character();
+
+            var testPrimaryHandItem = new Item("Anti-Gravity Left Finger Weapon",
+                "These shoes allow the wearer to hover at any given height. When not in use, they revert to their casual form as an ordinary black leather office shoes.",
+                "https://vignette.wikia.nocookie.net/finders-keepers-roblox/images/2/2b/Rocket_Boots.png/revision/latest?cb=20181213142618",
+                 0, 10, 10, ItemLocationEnum.LeftFinger, AttributeEnum.Speed, true);
+            ItemsViewModel.Instance.AddAsync(testPrimaryHandItem).GetAwaiter().GetResult();
+            testCharacter.LeftFinger = testPrimaryHandItem.Guid;
+
+            GameGlobals.ForceRollsToNotRandom = true;
+            GameGlobals.ForcedRandomValue = 6;
+
+            var testRoll6ItemString = " Dropped " + testPrimaryHandItem.Name + " from " + ItemLocationEnum.LeftFinger;
+            var testItemPoolBeforeCount = testTurnEngine.ItemPool.Count;
+
+            // Act
+            var returnString = testTurnEngine.DetermineCriticalMissProblem(testCharacter);
+            var testPrimaryHandItemNull = ItemsViewModel.Instance.GetItem(testCharacter.PrimaryHand);
+            var checkIfContains = testTurnEngine.ItemPool.Contains(testPrimaryHandItem);
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+
+            // Assert
+            Assert.IsNull(testPrimaryHandItemNull, "Expected Left Finger Item: null");
+            Assert.AreEqual(testRoll6ItemString, returnString, "Expected return String: Dropped");
+            Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testPrimaryHandItem: true");
+            Assert.Less(testItemPoolBeforeCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
+        }
     }
 }
