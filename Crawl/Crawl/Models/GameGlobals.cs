@@ -108,10 +108,11 @@ namespace Crawl.Models
         public static bool EnableCriticalHitDamage = true;
 
         #region Monsters steal Items
+
         // flag to enable/disable monster steal items
         public static bool EnableMonstersToStealItems = false;
         // default % of chance
-        public static int PercentageChanceToStealItems = 5;
+        public static int PercentageChanceToStealItems = 0;
 
         /// <summary>
         /// set % of chance that monster can steal items.
@@ -124,5 +125,43 @@ namespace Crawl.Models
         }
 
         #endregion Monsters steal Items
+
+        #region Multiply Monsters
+
+        // flag to enable/disable monster steal items
+        public static bool EnableMonstersToMultiply = false;
+        // default % of chance
+        public static int PercentageChanceToMultiply = 0;
+
+        /// <summary>
+        /// set % of chance that monster can steal items.
+        /// </summary>
+        /// <param name="chance"></param>
+        public static void SetPercentageChanceToMultiply(int chance)
+        {
+            EnableMonstersToStealItems = true;
+            PercentageChanceToStealItems = chance;
+        }
+
+        #endregion Multiply Monsters
+
+        #region Rebound Attack
+
+        // flag to enable/disable monster steal items
+        public static bool EnableReboundAttack= false;
+        // default % of chance
+        public static int PercentageChanceToRebound = 0;
+
+        /// <summary>
+        /// set % of chance that monster can steal items.
+        /// </summary>
+        /// <param name="chance"></param>
+        public static void SetPercentageChanceToRebound(int chance)
+        {
+            EnableReboundAttack = true;
+            PercentageChanceToRebound = chance;
+        }
+
+        #endregion Rebound Attack
     }
 }

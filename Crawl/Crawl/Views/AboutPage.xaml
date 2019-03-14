@@ -273,6 +273,35 @@
                             <Button Text="Set" Clicked="SetPercentToStealItem_Clicked"></Button>
                         </StackLayout>
                     </StackLayout>
+
+                    <!-- Monsters can multiply during rounds -->
+                    <StackLayout>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
+                            <Label FontSize="Small" Text="Multiply Monsters" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                            <Switch x:Name="EnableMultiplyMonsters" HorizontalOptions="EndAndExpand" 
+                                    Toggled="EnableMultiplyMonstersSettings_OnToggled" IsToggled="False"/>
+                        </StackLayout>
+                        <StackLayout x:Name="EnableMultiplyMonstersFrame" IsVisible="False" Orientation="Horizontal" Spacing="10">
+                            <Label Text="% Chance to multiply"></Label>
+                            <Entry x:Name="PercentToMultiply" MaxLength="3"></Entry>
+                            <Button Text="Set" Clicked="SetPercentToMultiply_Clicked"></Button>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <!-- Rebound Attack  -->
+                    <StackLayout>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
+                            <Label FontSize="Small" Text="Rebound Attack" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                            <Switch x:Name="EnableReboundAttack" HorizontalOptions="EndAndExpand" 
+                                    Toggled="EnableReboundAttackSettings_OnToggled" IsToggled="False"/>
+                        </StackLayout>
+                        <StackLayout x:Name="EnableReboundAttackFrame" IsVisible="False" Orientation="Horizontal" Spacing="10">
+                            <Label Text="% Chance to rebound"></Label>
+                            <Entry x:Name="PercentToRebound" MaxLength="3"></Entry>
+                            <Button Text="Set" Clicked="SetPercentToRebound_Clicked"></Button>
+                        </StackLayout>
+                    </StackLayout>
+
                 </StackLayout>
             </StackLayout>
         </StackLayout>

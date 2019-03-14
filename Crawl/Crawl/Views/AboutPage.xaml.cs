@@ -40,6 +40,7 @@ namespace Crawl.Views
             EnableCriticalMissProblems.IsToggled = GameGlobals.EnableCriticalMissProblems;
             EnableCriticalHitDamage.IsToggled = GameGlobals.EnableCriticalHitDamage;
             PercentToStealItem.Text = string.Format("{0}", GameGlobals.PercentageChanceToStealItems);
+            PercentToMultiply.Text = string.Format("{0}", GameGlobals.PercentageChanceToMultiply);
 
         }
 
@@ -239,6 +240,7 @@ namespace Crawl.Views
 
         #endregion Web-Server calls
 
+        #region Monsters steal Items
 
         /// <summary>
         /// Enable Monsters to steal items they dropped.
@@ -281,5 +283,99 @@ namespace Crawl.Views
             }
             GameGlobals.SetPercentageChanceToStealItems(_chance);
         }
+
+        #endregion Monsters steal Items
+
+        #region Multiply Monsters
+
+        /// <summary>
+        /// Enable Monsters to steal items they dropped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableMultiplyMonstersSettings_OnToggled(object sender, ToggledEventArgs e)
+        {
+            if (e.Value)
+            {
+                EnableMultiplyMonstersFrame.IsVisible = true;
+                GameGlobals.EnableMonstersToMultiply = true;
+            }
+            else
+            {
+                EnableMultiplyMonstersFrame.IsVisible = false;
+                GameGlobals.EnableMonstersToMultiply = false;
+            }
+        }
+
+        /// <summary>
+        /// Set % chance to multiply.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetPercentToMultiply_Clicked(object sender, EventArgs e)
+        {
+            var _chance = Convert.ToInt16(PercentToMultiply.Text);
+
+            // Minimum chance
+            if (_chance <= 0)
+            {
+                _chance = 0;
+            }
+
+            // Maximum chance
+            if (_chance > 100)
+            {
+                _chance = 100;
+            }
+            GameGlobals.SetPercentageChanceToMultiply(_chance);
+        }
+
+        #endregion Multiply Monsters
+
+        #region Rebound Attack
+
+        /// <summary>
+        /// Enable Monsters to steal items they dropped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableReboundAttackSettings_OnToggled(object sender, ToggledEventArgs e)
+        {
+            if (e.Value)
+            {
+                EnableReboundAttackFrame.IsVisible = true;
+                GameGlobals.EnableReboundAttack = true;
+            }
+            else
+            {
+                EnableReboundAttackFrame.IsVisible = false;
+                GameGlobals.EnableReboundAttack = false;
+            }
+        }
+
+        /// <summary>
+        /// Set % chance to multiply.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetPercentToRebound_Clicked(object sender, EventArgs e)
+        {
+            var _chance = Convert.ToInt16(PercentToRebound.Text);
+
+            // Minimum chance
+            if (_chance <= 0)
+            {
+                _chance = 0;
+            }
+
+            // Maximum chance
+            if (_chance > 100)
+            {
+                _chance = 100;
+            }
+            GameGlobals.SetPercentageChanceToRebound(_chance);
+        }
+
+        #endregion Rebound Attack
     }
 }
