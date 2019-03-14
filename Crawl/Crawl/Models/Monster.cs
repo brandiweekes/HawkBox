@@ -8,7 +8,9 @@ using Crawl.GameEngine;
 
 namespace Crawl.Models
 {
-    // The Monster is the higher level concept.  This is the Character with all attirbutes defined.
+    /// <summary>
+    /// The Monster is the higher level concept.  This is the Character with all attirbutes defined.
+    /// </summary>
     public class Monster : BasePlayer<Monster>
     {
         // Remaining Experience Points to give
@@ -24,7 +26,9 @@ namespace Crawl.Models
         // Damage the Monster can do.
         public int Damage { get; set; }
 
-        // Make sure Attribute is instantiated in the constructor
+        /// <summary>
+        /// Create new Monster from default values.
+        /// </summary>
         public Monster()
         {
             Name = "Monster name";
@@ -39,10 +43,31 @@ namespace Crawl.Models
             ScaleLevel(Level);
         }
 
+        /// <summary>
+        /// Create new monster based on Name, Description and Image. Rest all parameters are optional.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="imageUri"></param>
+        /// <param name="level"></param>
+        /// <param name="xpTotal"></param>
+        /// <param name="alive"></param>
+        /// <param name="speed"></param>
+        /// <param name="attack"></param>
+        /// <param name="defense"></param>
+        /// <param name="maxHealth"></param>
+        /// <param name="currentHealth"></param>
+        /// <param name="head"></param>
+        /// <param name="feet"></param>
+        /// <param name="necklace"></param>
+        /// <param name="primaryHand"></param>
+        /// <param name="offhand"></param>
+        /// <param name="rightFinger"></param>
+        /// <param name="leftFinger"></param>
         public Monster(string name, string description, string imageUri,
             int level = 1, int xpTotal = 0, bool alive = true,
             int speed = 0, int attack = 0, int defense = 0, int maxHealth = 10, int currentHealth = 10,
-            string head = null, string feet = null, string necklace = null, 
+            string head = null, string feet = null, string necklace = null,
             string primaryHand = null, string offhand = null, string rightFinger = null, string leftFinger = null)
         {
             Name = name;
@@ -67,7 +92,10 @@ namespace Crawl.Models
             LeftFinger = leftFinger;
         }
 
-        // For making a new one for lists etc..
+        /// <summary>
+        /// Create new monster from existing monster.
+        /// </summary>
+        /// <param name="newData"></param>
         public Monster(Monster newData)
         {
             Update(newData);
@@ -75,7 +103,10 @@ namespace Crawl.Models
             ScaleLevel(Level);
         }
 
-        // Update the values passed in
+        /// <summary>
+        /// Update monster with given new monster data.
+        /// </summary>
+        /// <param name="newData"></param>
         public void Update(Monster newData)
         {
             // Base information
@@ -102,7 +133,10 @@ namespace Crawl.Models
             Feet = newData.Feet;
         }
 
-        // Helper to combine the attributes into a single line, to make it easier to display the item as a string
+        /// <summary>
+        /// Helper to combine the attributes into a single line, to make it easier to display the item as a string
+        /// </summary>
+        /// <returns></returns>
         public string FormatOutput()
         {
             var myReturn = $"Name : {Name} \n" +
@@ -124,27 +158,37 @@ namespace Crawl.Models
                 $"Left Finger : {(LeftFinger == null ? null : GetItem(LeftFinger).Name)}\t" +
                 $"Feet : {(Feet == null ? null : GetItem(Feet).Name)}";
 
-            if(UniqueItem != null)
+            if (UniqueItem != null)
             {
                 myReturn += $"\nUnique Item : {GetItem(UniqueItem)}";
             }
             return myReturn;
         }
 
-        // Update Image for Monster
+        /// <summary>
+        /// Update Image for Monster
+        /// </summary>
+        /// <param name="imageUrl"></param>
         public void UpdateMonsterImageURL(string imageUrl)
         {
             ImageURI = imageUrl;
         }
 
-        // Update Attributes for Monster
+        /// <summary>
+        /// Update Attributes for Monster
+        /// </summary>
+        /// <param name="attributeBase"></param>
         public void UpdateMonsterAttributes(AttributeBase attributeBase)
         {
             Attribute = attributeBase;
             AttributeString = AttributeBase.GetAttributeString(Attribute);
         }
 
-        // Upgrades a monster to a set level
+        /// <summary>
+        /// Upgrades a monster to a set level
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public bool ScaleLevel(int level)
         {
             // minimum level is 0
@@ -160,7 +204,7 @@ namespace Crawl.Models
             }
 
             // given level shold not exceed max level.
-            if(level > LevelTable.MaxLevel)
+            if (level > LevelTable.MaxLevel)
             {
                 return false;
             }
@@ -186,10 +230,13 @@ namespace Crawl.Models
             return true;
         }
 
-        // Take Damage
-        // If the damage recived, is > health, then death occurs
-        // Return the number of experience received for this attack 
-        // monsters give experience to characters.  Characters don't accept expereince from monsters
+        /// <summary>
+        /// Take Damage
+        /// If the damage recived, is > health, then death occurs
+        /// Return the number of experience received for this attack 
+        /// monsters give experience to characters.  Characters don't accept expereince from monsters
+        /// </summary>
+        /// <param name="damage"></param>
         public void TakeDamage(int damage)
         {
             if (damage <= 0)
@@ -206,9 +253,13 @@ namespace Crawl.Models
             }
         }
 
-        // Calculate How much experience to return
-        // Formula is the % of Damage done up to 100%  times the current experience
-        // Needs to be called before applying damage
+        /// <summary>
+        /// Calculate How much experience to return
+        /// Formula is the % of Damage done up to 100%  times the current experience
+        /// Needs to be called before applying damage
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <returns></returns>
         public int CalculateExperienceEarned(int damage)
         {
             if (damage < 1)
@@ -239,9 +290,11 @@ namespace Crawl.Models
         }
 
         #region GetAttributes
-        // Get Attributes
 
-        // Get Attack
+        /// <summary>
+        /// Get Attack
+        /// </summary>
+        /// <returns></returns>
         public int GetAttack()
         {
             // Base Attack
@@ -250,7 +303,10 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get Speed
+        /// <summary>
+        ///  Get Speed
+        /// </summary>
+        /// <returns></returns>
         public int GetSpeed()
         {
             // Base value
@@ -259,7 +315,10 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get Defense
+        /// <summary>
+        /// Get Defense
+        /// </summary>
+        /// <returns></returns>
         public int GetDefense()
         {
             // Base value
@@ -268,7 +327,10 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get Max Health
+        /// <summary>
+        /// Get Max Health
+        /// </summary>
+        /// <returns></returns>
         public int GetHealthMax()
         {
             // Base value
@@ -277,7 +339,10 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get Current Health
+        /// <summary>
+        /// Get Current Health
+        /// </summary>
+        /// <returns></returns>
         public int GetHealthCurrent()
         {
             // Base value
@@ -286,8 +351,11 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get the Level based damage
-        // Then add in the monster damage
+        /// <summary>
+        /// Get the Level based damage
+        /// Then add in the monster damage
+        /// </summary>
+        /// <returns></returns>
         public int GetDamage()
         {
             var myReturn = 0;
@@ -296,8 +364,11 @@ namespace Crawl.Models
             return myReturn;
         }
 
-        // Get the Level based damage
-        // Then add the damage for the primary hand item as a Dice Roll
+        /// <summary>
+        /// Get the Level based damage
+        /// Then add the damage for the primary hand item as a Dice Roll
+        /// </summary>
+        /// <returns></returns>
         public int GetDamageRollValue()
         {
             return GetDamage();
@@ -307,26 +378,35 @@ namespace Crawl.Models
 
         #region Items
 
-        // Add or Replace Unique Item to Monster
+        /// <summary>
+        /// Add or Replace Unique Item to Monster
+        /// </summary>
+        /// <param name="itemId"></param>
         public void AddOrReplaceUniqueItem(string itemId)
         {
             UniqueItem = itemId;
         }
 
-        // Gets the unique item (if any) from this monster when it dies...
+        /// <summary>
+        /// Gets the unique item (if any) from this monster when it dies...
+        /// </summary>
+        /// <returns></returns>
         public Item GetUniqueItem()
         {
             return GetItem(UniqueItem);
         }
 
-        // Drop all the items the monster has
+        /// <summary>
+        /// Drop all the items the monster has
+        /// </summary>
+        /// <returns></returns>
         public List<Item> DropAllItems()
         {
             var myReturn = new List<Item>();
 
             // Drop unique Item
             Item myItem;
-            if(!string.IsNullOrWhiteSpace(UniqueItem))
+            if (!string.IsNullOrWhiteSpace(UniqueItem))
             {
                 myItem = GetItem(UniqueItem);
                 if (myItem != null)
@@ -338,34 +418,57 @@ namespace Crawl.Models
             // Drop Item from each location
             foreach (string loc in ItemLocationList.GetListCharacter)
             {
-                
+
                 Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
                 Item _item = RemoveItem(locEnum);
-                if(_item != null)
+                if (_item != null)
                 {
                     myReturn.Add(_item);
                 }
-                
+
+            }
+
+            // condition check if monster can steal items.
+            if(DoesMonsterHaveChanceToSteal())
+            {
+                myReturn = new List<Item>();
             }
 
             return myReturn;
         }
 
-        // Remove Item from a set location
-        // Does this by adding a new item of Null to the location
-        // This will return the previous item, and put null in its place
-        // Returns the item that was at the location
-        // Nulls out the location
+        /// <summary>
+        /// Remove Item from a set location
+        /// Does this by adding a new item of Null to the location
+        /// This will return the previous item, and put null in its place
+        /// Returns the item that was at the location
+        /// Nulls out the location
+        /// </summary>
+        /// <param name="itemLocation"></param>
+        /// <returns></returns>
         public Item RemoveItem(ItemLocationEnum itemLocation)
         {
-            return AddItem(itemLocation, null);
+            Item _item = AddItem(itemLocation, null);
+
+            // condition check if monster can steal items.
+            if (DoesMonsterHaveChanceToSteal())
+            {
+                return null;
+            }
+
+            return _item;
         }
 
-        // Add Item
-        // Looks up the Item
-        // Puts the Item ID as a string in the location slot
-        // If item is null, then puts null in the slot
-        // Returns the item that was in the location
+        /// <summary>
+        /// Add Item
+        /// Looks up the Item
+        /// Puts the Item ID as a string in the location slot
+        /// If item is null, then puts null in the slot
+        /// Returns the item that was in the location
+        /// </summary>
+        /// <param name="itemLocation"></param>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
         public Item AddItem(ItemLocationEnum itemLocation, string itemId)
         {
             Item item = null;
@@ -407,12 +510,107 @@ namespace Crawl.Models
             return GetItem(_prevItem);
         }
 
-        // Get the Item at a known string location (head, foot etc.)
+        /// <summary>
+        /// Get the Item at a known string location (head, foot etc.)
+        /// </summary>
+        /// <param name="itemString"></param>
+        /// <returns></returns>
         public Item GetItem(string itemString)
         {
             return ItemsViewModel.Instance.GetItem(itemString);
         }
 
+        /// <summary>
+        /// Fetchs no. of items that monster have in each location. 
+        /// flag to include unique item in count or not if unique item exists. default to false.
+        /// </summary>
+        /// <param name="includeUniqueItem"></param>
+        /// <returns></returns>
+        public int GetItemsCount(bool includeUniqueItem = false)
+        {
+            int _count = 0;
+
+            // iterate over locations
+            foreach (string loc in ItemLocationList.GetListCharacter)
+            {
+                Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
+                string _item = GetItemFromLocation(locEnum);
+                if (_item != null)
+                {
+                    _count++;
+                }
+            }
+            if(includeUniqueItem)
+            {
+                if(UniqueItem != null)
+                {
+                    _count++;
+                }
+            }
+            return _count;
+        }
+
+        /// <summary>
+        /// Fetches Item from given Item location. if no item then null is returned.
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public string GetItemFromLocation(ItemLocationEnum location)
+        {
+            string itemId = null;
+            switch (location)
+            {
+                case ItemLocationEnum.Head:
+                    itemId = Head;
+                    break;
+                case ItemLocationEnum.Necklass:
+                    itemId = Necklace;
+                    break;
+                case ItemLocationEnum.PrimaryHand:
+                    itemId = PrimaryHand;
+                    break;
+                case ItemLocationEnum.OffHand:
+                    itemId = OffHand;
+                    break;
+                case ItemLocationEnum.RightFinger:
+                    itemId = RightFinger;
+                    break;
+                case ItemLocationEnum.LeftFinger:
+                    itemId = LeftFinger;
+                    break;
+                case ItemLocationEnum.Feet:
+                    itemId = Feet;
+                    break;
+            }
+            return itemId;
+        }
+
         #endregion Items
+
+        /// <summary>
+        /// Find out if Monster can steal Items.
+        /// </summary>
+        /// <returns></returns>
+        public bool DoesMonsterHaveChanceToSteal()
+        {
+            // check if monster steal items flag is On or Off.
+            if (GameGlobals.EnableMonstersToStealItems)
+            {
+                int diceRoll = HelperEngine.RollDice(1, 20);
+                int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToStealItems * 20) / (double)100);
+                if (diceRoll <= _chance)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
