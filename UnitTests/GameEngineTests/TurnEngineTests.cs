@@ -1818,6 +1818,8 @@ namespace UnitTests.GameEngineTests
         }
         #endregion
 
+        //on character critical miss, bad things could happen to items equipped...
+        #region Tests: DetermineCriticalMissProblem(Character attacker)
         [Test]
         public void TurnEngine_DetermineCriticalMissProblem_Character_Attacker_Null_Should_Return_Invalid_Character_String()
         {
@@ -2299,5 +2301,6 @@ namespace UnitTests.GameEngineTests
             Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testPrimaryHandItem: true");
             Assert.Less(testItemPoolBeforeCount, testTurnEngine.ItemPool.Count(), "Expected ItemPool Count: 1");
         }
+        #endregion
     }
 }
