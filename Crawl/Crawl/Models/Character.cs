@@ -3,6 +3,7 @@ using Crawl.ViewModels;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Crawl.Models
 {
@@ -318,6 +319,33 @@ namespace Crawl.Models
             {
                 // Death...
                 CauseDeath();
+            }
+        }
+
+        /// <summary>
+        /// Causes death by setting Alive property to false;
+        /// If Miracle Max Enable, character can be resurrected
+        /// </summary>
+        public override void CauseDeath()
+        {
+            Alive = false;
+
+            if (GameGlobals.EnableMiracleMaxOnCharacters)
+            {
+                if (this.Revived > 0)
+                {
+
+                    Revived--;
+
+                    Attribute.CurrentHealth = Attribute.MaxHealth;
+
+                    Debug.WriteLine("Reincarnation Happened, thanks Miracle Max");
+
+                    Alive = true; // Death did not happen
+
+                    return;
+
+                }
             }
         }
 

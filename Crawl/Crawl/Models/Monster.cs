@@ -289,6 +289,11 @@ namespace Crawl.Models
 
         }
 
+        public override void CauseDeath()
+        {
+            base.CauseDeath();
+        }
+
         #region GetAttributes
 
         /// <summary>

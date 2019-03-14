@@ -319,15 +319,6 @@ namespace Crawl.GameEngine
             // Check for Death and handle items dropped to ItemPool
             if(Target.Alive == false)
             {
-                // Sleepless Zombies in Seattle
-                /* if(SleeplessZombies == true) 
-                { 
-                    
-                
-                } 
-                else{}
-                */
-
                 // remove monster from list of available monsters
                 this.MonsterList.Remove(Target);
 

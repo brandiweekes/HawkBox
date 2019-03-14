@@ -26,7 +26,7 @@ namespace Crawl.Models
         /// <summary>
         /// Causes death by setting Alive property to false;
         /// </summary>
-        public void CauseDeath()
+        public virtual void CauseDeath()
         {
             Alive = false;
         }
