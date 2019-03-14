@@ -7,6 +7,12 @@ namespace Crawl.GameEngine
     {
         private static Random rnd = new Random();
 
+        /// <summary>
+        /// get random number based on dice. rolls is used to try multiple times.
+        /// </summary>
+        /// <param name="rolls"></param>
+        /// <param name="dice"></param>
+        /// <returns></returns>
         public static int RollDice (int rolls, int dice)
         {
             if (rolls < 1)
@@ -44,7 +50,7 @@ namespace Crawl.GameEngine
             // check if monster steal items flag is On or Off.
             if (GameGlobals.EnableMonstersToStealItems)
             {
-                int diceRoll = HelperEngine.RollDice(1, 20);
+                int diceRoll = RollDice(1, 20);
                 int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToStealItems * 20) / (double)100);
                 if (diceRoll <= _chance)
                 {
@@ -69,8 +75,33 @@ namespace Crawl.GameEngine
         {
             if (GameGlobals.EnableMonstersToMultiply)
             {
-                int diceRoll = HelperEngine.RollDice(1, 20);
+                int diceRoll = RollDice(1, 20);
                 int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToMultiply * 20) / (double)100);
+                if (diceRoll <= _chance)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Find out if rebound attack is possible or not.
+        /// </summary>
+        /// <returns></returns>
+        public static bool ReboundAttack()
+        {
+            if (GameGlobals.EnableReboundAttack)
+            {
+                int diceRoll = RollDice(1, 20);
+                int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToRebound * 20) / (double)100);
                 if (diceRoll <= _chance)
                 {
                     return true;

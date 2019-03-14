@@ -325,6 +325,56 @@ namespace UnitTests.GameEngineTests
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
         }
 
+        // Hackathon #25
+        // Testing helper engine code
+        [Test]
+        public void HelperEngine_ReboundAttack_Enable_100_Precent_Chance_Should_Pass()
+        {
+            // Arrange
+            GameGlobals.EnableReboundAttack = true;
+            GameGlobals.SetPercentageChanceToRebound(100);
+            var _olddata = GameGlobals.ForcedRandomValue;
+
+            var Expected = true;
+
+            // Act
+            var Actual = HelperEngine.ReboundAttack();
+
+            // Reset
+            GameGlobals.EnableReboundAttack = false;
+            GameGlobals.SetPercentageChanceToRebound(0);
+
+            // Assert
+            Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        // Hackathon #25
+        // Testing helper engine code
+        [Test]
+        public void HelperEngine_ReboundAttack_Enable_50_Precent_Chance_Should_Pass()
+        {
+            // Arrange
+            GameGlobals.EnableReboundAttack = true;
+            GameGlobals.SetPercentageChanceToRebound(50);
+            var _olddata = GameGlobals.ForcedRandomValue;
+            GameGlobals.ForcedRandomValue = 10;
+            GameGlobals.ForceRollsToNotRandom = true;
+
+            var Expected = true;
+
+            // Act
+            var Actual = HelperEngine.ReboundAttack();
+
+            // Reset
+            GameGlobals.EnableReboundAttack = false;
+            GameGlobals.SetPercentageChanceToRebound(0);
+            GameGlobals.ForcedRandomValue = _olddata;
+            GameGlobals.ForceRollsToNotRandom = false;
+
+            // Assert
+            Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+        }
+
         #endregion Hackathon Tests
     }
 }
