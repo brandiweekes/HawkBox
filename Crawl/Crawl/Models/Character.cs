@@ -17,7 +17,7 @@ namespace Crawl.Models
 
         [Ignore]
         // attribute to revive characters from death based on game toggles
-        public bool Revived { get; set; } = false;
+        public int Revived { get; set; } = 1;
 
         /// <summary>
         /// Create new Charater with default values.
