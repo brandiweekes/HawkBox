@@ -50,6 +50,9 @@ namespace Crawl.Views.Battle
             // start battle - set autobattle flag to false
             _battleEngine.StartBattle(false);
 
+            // start a round
+            _battleEngine.StartRound();
+
             await Navigation.PushModalAsync(new PickMonstersPage(_battleEngine));
         }
 
