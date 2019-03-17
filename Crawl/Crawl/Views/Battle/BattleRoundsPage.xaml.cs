@@ -15,10 +15,20 @@ namespace Crawl.Views.Battle
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BattleRoundsPage : ContentPage
 	{
+        // Holds the view model
+        private BattleViewModel _viewModel;
+
 		public BattleRoundsPage ()
 		{
-			InitializeComponent ();
-		}
+            // this is a singleton & should NOT be null
+            // this should have the updates from prior pages
+            _viewModel = BattleViewModel.Instance;
+
+            InitializeComponent();
+
+            // Load the Characters into the Battle Engine
+            _viewModel.LoadCharacters();
+        }
 
         public async void ItemPagesClicked(object sender, EventArgs e)
         {
