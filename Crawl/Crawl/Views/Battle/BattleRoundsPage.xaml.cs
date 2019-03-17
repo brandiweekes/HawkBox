@@ -15,7 +15,7 @@ namespace Crawl.Views.Battle
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BattleRoundsPage : ContentPage
 	{
-		public BattleRoundsPage (BattleViewModel battleViewModel)
+		public BattleRoundsPage ()
 		{
 			InitializeComponent ();
 		}

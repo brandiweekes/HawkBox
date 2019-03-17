@@ -26,7 +26,7 @@ namespace Crawl.Views.Battle
 
         private async void NextButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new BattleRoundsPage(BattleViewModel.Instance));
+            await Navigation.PushModalAsync(new BattleRoundsPage());
         }
 
         private async void LocationClicked(object sender, EventArgs e)

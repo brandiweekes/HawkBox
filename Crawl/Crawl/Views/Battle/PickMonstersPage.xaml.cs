@@ -37,7 +37,7 @@ namespace Crawl.Views.Battle
 
         private async void NextClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new BattleRoundsPage(BattleViewModel.Instance));
+            await Navigation.PushModalAsync(new BattleRoundsPage());
         }
 
         protected override void OnAppearing()
