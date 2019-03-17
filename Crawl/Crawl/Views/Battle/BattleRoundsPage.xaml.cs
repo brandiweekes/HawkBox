@@ -8,13 +8,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using Crawl.Models;
+using Crawl.ViewModels;
 
 namespace Crawl.Views.Battle
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BattleRoundsPage : ContentPage
 	{
-		public BattleRoundsPage ()
+		public BattleRoundsPage (BattleViewModel battleViewModel)
 		{
 			InitializeComponent ();
 		}
