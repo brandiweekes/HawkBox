@@ -19,6 +19,10 @@
                 
             </Style>
 
+            <Style TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{StaticResource DarkBackgroundColor}" />
+            </Style>
+
             <Style TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="StartAndExpand" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
@@ -63,7 +67,8 @@
                 <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}" />
                 <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=20}" />
             </Style>
-
+            <!--#region Character Relative Boxes-->
+            
             <Style TargetType="Image"
                 x:Key="CharacterRelativeBox1"
                 BasedOn="{StaticResource CharacterRelativeBox}">
@@ -99,6 +104,8 @@
                 BasedOn="{StaticResource CharacterRelativeBox}">
                 <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.85, Constant=20}" />
             </Style>
+            
+            <!--#endregion-->
 
             <Style TargetType="Image"
                 x:Key="MonsterRelativeBox">
@@ -107,7 +114,7 @@
                 <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=10}" />
                 <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=20}" />
             </Style>
-
+            <!--#region Monster Relative Boxes-->
             <Style TargetType="Image"
                 x:Key="MonsterRelativeBox1"
                 BasedOn="{StaticResource MonsterRelativeBox}">
@@ -143,6 +150,8 @@
                 BasedOn="{StaticResource MonsterRelativeBox}">
                 <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.85, Constant=20}" />
             </Style>
+            
+            <!--#endregion-->
 
             <Style TargetType="Stepper">
                 <Setter Property="BackgroundColor" Value="{DynamicResource LightBackgroundColor}"/>
@@ -150,6 +159,7 @@
                 <Setter Property="Increment" Value="1"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
+            <!--#region Steppers-->
 
             <Style TargetType="Stepper"
                 x:Key="Stepper5"
@@ -181,6 +191,8 @@
                 <Setter Property="Maximum" Value="355000"/>
                 <Setter Property="Increment" Value="300"/>
             </Style>
+            
+            <!--#endregion-->
 
             <Style TargetType="Switch">
                 <Setter Property="OnColor"  Value="{DynamicResource LightBackgroundColor}"/>
