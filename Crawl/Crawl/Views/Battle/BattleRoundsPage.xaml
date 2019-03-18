@@ -11,35 +11,23 @@
     <ContentPage.Content>
     <StackLayout>
             <Button Text="Item Pages" Clicked="ItemPagesClicked" />
-            <RelativeLayout BackgroundColor="{DynamicResource Primary}" 
+        <RelativeLayout x:Name="CharacterBox"
+                      BackgroundColor="{DynamicResource Primary}" 
                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=220}" 
                       HeightRequest="75" 
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" >
-        <Image Source="{Static local:HawkboxResources.Aliens_Char_1}"
-               WidthRequest="50"
-               HeightRequest="75"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=20}"/>
-        <Image Source="{Static local:HawkboxResources.Aliens_Char_2}"
-               WidthRequest="50"
-               HeightRequest="75"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2, Constant=20}"/>
-        <Image Source="{Static local:HawkboxResources.Aliens_Char_3}"
-               WidthRequest="50"
-               HeightRequest="75"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4, Constant=20}"/>
-        <Image Source="{Static local:HawkboxResources.Aliens_Char_4}"
-               WidthRequest="50"
-               HeightRequest="75"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6, Constant=20}"/>
-        <Image Source="{Static local:HawkboxResources.Aliens_Char_5}" 
-                 WidthRequest="50"
-                 HeightRequest="75" 
-                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}" 
-                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=20}" />
+        <Image x:Name="char1" 
+               Style="{StaticResource CharacterRelativeBox1}" />
+        <Image x:Name="char2"
+               Style="{StaticResource CharacterRelativeBox2}" />
+        <Image x:Name="char3"
+               Style="{StaticResource CharacterRelativeBox3}" />
+        <Image x:Name="char4"
+               Style="{StaticResource CharacterRelativeBox4}" />
+        <Image x:Name="char5" 
+               Style="{StaticResource CharacterRelativeBox5}" />
+        <Image x:Name="char6"
+               Style="{StaticResource CharacterRelativeBox6}" /> 
       </RelativeLayout>
       
       <RelativeLayout BackgroundColor="{DynamicResource YellowTextColor}"
@@ -165,35 +153,23 @@
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.85, Constant=20}"/>
       </RelativeLayout>
       
-      <RelativeLayout BackgroundColor="{DynamicResource Primary}"
+      <RelativeLayout x:Name="MonsterBox"
+                      BackgroundColor="{DynamicResource Primary}"
                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=220}"
                       HeightRequest="75"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" >
-        <Image Source="{Static local:HawkboxResources.Monsters_Female_Agent_A}"
-               WidthRequest="50"
-               HeightRequest="60"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=10}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=20}"/>
-        <Image Source="{Static local:HawkboxResources.Monsters_Male_Agent_B}"
-               WidthRequest="50"
-               HeightRequest="60"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=10}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2, Constant=20}"/>
-        <Image Source="{Static local:HawkboxResources.Monsters_Female_Agent_C}"
-               WidthRequest="50"
-               HeightRequest="60"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=10}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4, Constant=20}"/>
-        <Image Source="{Static local:HawkboxResources.Monsters_Male_Agent_D}"
-               WidthRequest="50"
-               HeightRequest="60"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=10}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6, Constant=20}"/>
-        <Image Source="{Static local:HawkboxResources.Monsters_Female_Agent_E}"
-               WidthRequest="50"
-               HeightRequest="60"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=10}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8, Constant=20}" />
+        <Image x:Name="mons1" 
+               Style="{StaticResource MonsterRelativeBox1}" />
+        <Image x:Name="mons2"
+               Style="{StaticResource MonsterRelativeBox2}" />
+        <Image x:Name="mons3" 
+               Style="{StaticResource MonsterRelativeBox3}" />
+        <Image x:Name="mons4"
+               Style="{StaticResource MonsterRelativeBox4}" />
+        <Image x:Name="mons5" 
+               Style="{StaticResource MonsterRelativeBox5}" />
+        <Image x:Name="mons6"
+               Style="{StaticResource MonsterRelativeBox6}" />
       </RelativeLayout>
     </StackLayout>
   </ContentPage.Content>

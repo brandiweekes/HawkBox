@@ -28,6 +28,39 @@ namespace Crawl.Views.Battle
 
             // Load the Characters into the Battle Engine
             _viewModel.LoadCharacters();
+
+            PositionPlayersOnScreen();
+        }
+
+        public void PositionPlayersOnScreen()
+        {
+            RelativeLayout myRelativeCharacters = this.FindByName<RelativeLayout>("CharacterBox");
+            AddCharactersToBox(myRelativeCharacters);
+
+            RelativeLayout myRelativeMonsters = this.FindByName<RelativeLayout>("MonsterBox");
+            AddMonstersToBox(myRelativeMonsters);
+        }
+
+        private void AddMonstersToBox(RelativeLayout MonstersRelativeLayout)
+        {
+            MonstersRelativeLayout.FindByName<Image>("mons1").Source = new Uri(HawkboxResources.Monsters_Female_Agent_A);
+            MonstersRelativeLayout.FindByName<Image>("mons2").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
+            MonstersRelativeLayout.FindByName<Image>("mons3").Source = new Uri(HawkboxResources.Monsters_Female_Agent_B);
+            MonstersRelativeLayout.FindByName<Image>("mons4").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
+            MonstersRelativeLayout.FindByName<Image>("mons5").Source = null;
+            MonstersRelativeLayout.FindByName<Image>("mons6").Source = new Uri(HawkboxResources.Monsters_Female_Agent_E);
+        }
+
+        private void AddCharactersToBox(RelativeLayout CharactersRelativeLayout)
+        {
+            
+            CharactersRelativeLayout.FindByName<Image>("char1").Source = new Uri(HawkboxResources.Aliens_Char_7);
+            CharactersRelativeLayout.FindByName<Image>("char2").Source = new Uri(HawkboxResources.Aliens_Char_5);
+            CharactersRelativeLayout.FindByName<Image>("char3").Source = new Uri(HawkboxResources.Aliens_Char_3);
+            CharactersRelativeLayout.FindByName<Image>("char4").Source = new Uri(HawkboxResources.Aliens_Char_1);
+            CharactersRelativeLayout.FindByName<Image>("char5").Source = null;
+            CharactersRelativeLayout.FindByName<Image>("char6").Source = new Uri(HawkboxResources.Aliens_Char_6);
+
         }
 
         public async void ItemPagesClicked(object sender, EventArgs e)

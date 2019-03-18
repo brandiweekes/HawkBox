@@ -56,6 +56,94 @@
                 <Setter Property="WidthRequest" Value="500"/>
             </Style>
 
+            <Style TargetType="Image"
+                x:Key="CharacterRelativeBox">
+                <Setter Property="WidthRequest" Value="50"/>
+                <Setter Property="HeightRequest" Value="75" />
+                <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}" />
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="CharacterRelativeBox1"
+                BasedOn="{StaticResource CharacterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="CharacterRelativeBox2"
+                BasedOn="{StaticResource CharacterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="CharacterRelativeBox3"
+                BasedOn="{StaticResource CharacterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="CharacterRelativeBox4"
+                BasedOn="{StaticResource CharacterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.55, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="CharacterRelativeBox5"
+                BasedOn="{StaticResource CharacterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="CharacterRelativeBox6"
+                BasedOn="{StaticResource CharacterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.85, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="MonsterRelativeBox">
+                <Setter Property="WidthRequest" Value="50"/>
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=10}" />
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="MonsterRelativeBox1"
+                BasedOn="{StaticResource MonsterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="MonsterRelativeBox2"
+                BasedOn="{StaticResource MonsterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="MonsterRelativeBox3"
+                BasedOn="{StaticResource MonsterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="MonsterRelativeBox4"
+                BasedOn="{StaticResource MonsterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.55, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="MonsterRelativeBox5"
+                BasedOn="{StaticResource MonsterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7, Constant=20}" />
+            </Style>
+
+            <Style TargetType="Image"
+                x:Key="MonsterRelativeBox6"
+                BasedOn="{StaticResource MonsterRelativeBox}">
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.85, Constant=20}" />
+            </Style>
+
             <Style TargetType="Stepper">
                 <Setter Property="BackgroundColor" Value="{DynamicResource LightBackgroundColor}"/>
                 <Setter Property="Minimum" Value="1"/>
