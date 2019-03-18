@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Crawl.Views.Battle.PickCharactersPage">
+             x:Class="Crawl.Views.Battle.PickCharactersPage"
+             NavigationPage.HasBackButton="False">
     <StackLayout Padding="5, 20, 5, 0">
         <StackLayout Padding="0, 0, 0, 5" Spacing="15">
             <Label Text="Pick Characters" HorizontalOptions="Center" FontSize="Medium" FontAttributes="Bold"></Label>
@@ -21,11 +22,11 @@
                             <Image Source="{Binding Data.ImageURI}" WidthRequest="75" HeightRequest="75" Margin="10, 0, 0, 0"></Image>
                             <StackLayout Orientation="Vertical" Spacing="5">
                                 <Label Text="{Binding Data.Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" BackgroundColor="Gray">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                     <Label Text="{Binding Data.Level, StringFormat='Lvl: {0}'}" FontSize="12"></Label>
                                     <Label Text="{Binding Data.ExperienceTotal, StringFormat='XP: {0}'}" FontSize="12"></Label>
                                 </StackLayout>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" BackgroundColor="Gray">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                     <Label Text="{Binding Data.Attribute.Attack, StringFormat='ATK: {0}'}" FontSize="12"></Label>
                                     <Label Text="{Binding Data.Attribute.Defense, StringFormat='DEF: {0}'}" FontSize="12"></Label>
                                     <Label Text="{Binding Data.Attribute.Speed, StringFormat='SPD: {0}'}" FontSize="12"></Label>

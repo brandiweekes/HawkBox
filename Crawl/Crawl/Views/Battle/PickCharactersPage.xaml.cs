@@ -3,6 +3,8 @@ using Crawl.Models;
 using Crawl.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 
 using Xamarin.Forms;
@@ -15,16 +17,17 @@ namespace Crawl.Views.Battle
     {
         private PickCharactersViewModel _viewModel;
 
-        private BattleEngine _battleEngine;
+        public BattleViewModel _battleViewModel;
 
-        public PickCharactersPage(BattleEngine battleEngine)
+        public PickCharactersPage()
         {
             InitializeComponent();
             BindingContext = _viewModel = PickCharactersViewModel.Instance;
             if (_viewModel.DataSet.Count == 0)
                 _viewModel.ForceDataRefresh();
 
-            _battleEngine = battleEngine;
+            _battleViewModel = BattleViewModel.Instance;
+
         }
 
         private void OnCharacterTapped(object sender, ItemTappedEventArgs e)
@@ -42,18 +45,12 @@ namespace Crawl.Views.Battle
 
         private async void NextClicked(object sender, EventArgs e)
         {
-            var _list = _viewModel.GetSelectedCharacters();
+            List<Character> _list = _viewModel.GetSelectedCharacters();
 
-            // add selected characters to battle's characters list
-            _battleEngine.CharacterList.AddRange(_list);
+            // Add Selected characters to BattleViewModel
+            _battleViewModel.SelectedCharacters = new ObservableCollection<Character>(_list);
 
-            // start battle - set autobattle flag to false
-            _battleEngine.StartBattle(false);
-
-            // start a round
-            _battleEngine.StartRound();
-
-            await Navigation.PushModalAsync(new PickMonstersPage(_battleEngine));
+            await Navigation.PushModalAsync(new BattleRoundsPage());
         }
 
         private void ValidateSelectedData()

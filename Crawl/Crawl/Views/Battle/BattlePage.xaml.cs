@@ -20,8 +20,7 @@ namespace Crawl.Views.Battle
 
         private async void ManualBattleButton_Command(object sender, EventArgs e)
         {
-            BattleEngine battleEngine = new BattleEngine();
-            await Navigation.PushModalAsync(new PickCharactersPage(battleEngine));
+            await Navigation.PushModalAsync(new PickCharactersPage());
         }
     }
 }
