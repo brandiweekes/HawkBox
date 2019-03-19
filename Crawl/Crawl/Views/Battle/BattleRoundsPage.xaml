@@ -30,28 +30,50 @@
                Style="{StaticResource CharacterRelativeBox6}" /> 
       </RelativeLayout>
       
-      <RelativeLayout BackgroundColor="{DynamicResource YellowTextColor}"
-                      HeightRequest="75">
+      <RelativeLayout x:Name="BattleCharacterStats"
+                    BackgroundColor="{DynamicResource YellowTextColor}"
+                    HeightRequest="75">
         <BoxView BackgroundColor="{DynamicResource YellowTextColor}"
                  HeightRequest="75"
                  RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}" 
                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"/>
+        <!--<BoxView BackgroundColor="{DynamicResource PrimaryDark}"
+                 HeightRequest="75"
+                 WidthRequest="75"
+                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
+                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"/>-->
+        <Label x:Name="CharName" Text="Name here" TextColor="{DynamicResource DarkBackgroundColor}" FontSize="Small" FontAttributes="Bold"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"/>
+        <Label Text="XP" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=10}"/>
+        <Label x:Name="XPStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.075, Constant=0}"/>
+        <Label Text="/" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.23, Constant=0}"/>
+        <Label x:Name="XPMaxStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.25, Constant=0}"/>
         <BoxView BackgroundColor="{DynamicResource PrimaryDark}"
                  HeightRequest="75"
                  WidthRequest="75"
                  RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
-                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"/>
+                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"/>
         <Label Text="HP" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.25, Constant=25}"/>
-        <BoxView BackgroundColor="{DynamicResource Primary}"
-                 HeightRequest="75"
-                 WidthRequest="75"
-                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
-                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"/>
-        <Label Text="XP" TextColor="{DynamicResource DarkBackgroundColor}"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=30}"/>
+        <Label x:Name="HPStat" Text="0000" TextColor="{DynamicResource YellowTextColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=25}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=20}"/>
+        <Label Text="------" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=35}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=15}"/>
+        <Label x:Name="HPMaxStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=20}"/>
         <BoxView BackgroundColor="{DynamicResource PrimaryDark}"
                  HeightRequest="75"
                  WidthRequest="75"
@@ -59,6 +81,9 @@
                  RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.55}"/>
         <Label Text="ATK" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.55, Constant=20}"/>
+        <Label x:Name="ATKStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=35}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.55, Constant=20}"/>
         <BoxView BackgroundColor="{DynamicResource Primary}"
                  HeightRequest="75"
@@ -68,6 +93,9 @@
         <Label Text="DEF" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.7, Constant=20}"/>
+        <Label x:Name="DEFStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=35}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.7, Constant=20}"/>
         <BoxView BackgroundColor="{DynamicResource PrimaryDark}"
                  HeightRequest="75"
                  WidthRequest="75"
@@ -76,7 +104,9 @@
         <Label Text="SPD" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.85, Constant=20}"/>
-        
+        <Label x:Name="SPDStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=35}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.85, Constant=20}"/>
       </RelativeLayout>
       
       <AbsoluteLayout>
