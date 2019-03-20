@@ -15,6 +15,12 @@ namespace Crawl.Views.Battle
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BattleRoundsPage : ContentPage
 	{
+        // Hold the Selected Characters
+        PickCharactersPage _myModalCharacterSelectPage;
+
+        // Hold the Monsters
+        PickMonstersPage _myModalBattleMonsterListPage;
+
         // Holds the view model
         private BattleViewModel _viewModel;
 
@@ -38,9 +44,11 @@ namespace Crawl.Views.Battle
 
             BindingContext = _viewModel;
 
-            //GoToModalPageMonsterList();
+            ShowModalPageMonsterList();
 
             PositionPlayersOnScreen();
+
+
         }
 
         public void PositionPlayersOnScreen()
@@ -81,13 +89,13 @@ namespace Crawl.Views.Battle
                 monsterImages[index++].Source = new Uri(monster.ImageURI);
             }
 
-            //TODO: remove this when have monster list 
-            MonstersRelativeLayout.FindByName<Image>("mons1").Source = new Uri(HawkboxResources.Monsters_Female_Agent_A);
-            MonstersRelativeLayout.FindByName<Image>("mons2").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
-            MonstersRelativeLayout.FindByName<Image>("mons3").Source = new Uri(HawkboxResources.Monsters_Female_Agent_B);
-            MonstersRelativeLayout.FindByName<Image>("mons4").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
-            MonstersRelativeLayout.FindByName<Image>("mons5").Source = null;
-            MonstersRelativeLayout.FindByName<Image>("mons6").Source = new Uri(HawkboxResources.Monsters_Female_Agent_E);
+            ////TODO: remove this when have monster list 
+            //MonstersRelativeLayout.FindByName<Image>("mons1").Source = new Uri(HawkboxResources.Monsters_Female_Agent_A);
+            //MonstersRelativeLayout.FindByName<Image>("mons2").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
+            //MonstersRelativeLayout.FindByName<Image>("mons3").Source = new Uri(HawkboxResources.Monsters_Female_Agent_B);
+            //MonstersRelativeLayout.FindByName<Image>("mons4").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
+            //MonstersRelativeLayout.FindByName<Image>("mons5").Source = null;
+            //MonstersRelativeLayout.FindByName<Image>("mons6").Source = new Uri(HawkboxResources.Monsters_Female_Agent_E);
 
         }
 
@@ -124,6 +132,34 @@ namespace Crawl.Views.Battle
         public async void ItemPagesClicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new ItemLocationSelectPage());
+        }
+
+        private void HandleModalPopping(object sender, ModalPoppingEventArgs e)
+        {
+            if (e.Modal == _myModalBattleMonsterListPage)
+            {
+                _myModalBattleMonsterListPage = null;
+
+                // remember to remove the event handler:
+                App.Current.ModalPopping -= HandleModalPopping;
+            }
+
+            if (e.Modal == _myModalCharacterSelectPage)
+            {
+                _myModalCharacterSelectPage = null;
+
+                // remember to remove the event handler:
+                App.Current.ModalPopping -= HandleModalPopping;
+            }
+        }
+
+        private async void ShowModalPageMonsterList()
+        {
+            // When you want to show the modal page, just call this method
+            // add the event handler for to listen for the modal popping event:
+            Crawl.App.Current.ModalPopping += HandleModalPopping;
+            _myModalBattleMonsterListPage = new PickMonstersPage(_viewModel.BattleEngine);
+            await Navigation.PushModalAsync(_myModalBattleMonsterListPage);
         }
     }
 }
