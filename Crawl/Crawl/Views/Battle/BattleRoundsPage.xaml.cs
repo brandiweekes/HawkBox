@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 
 using Crawl.Models;
 using Crawl.ViewModels;
+using System.Diagnostics;
 
 namespace Crawl.Views.Battle
 {
@@ -32,23 +33,61 @@ namespace Crawl.Views.Battle
 
             InitializeComponent();
 
-            _viewModel.StartBattle();
+            // Show the Next button, hide the Game Over button
+            //GameAttackButton.IsVisible = true;
+            //GameOverButton.IsVisible = false;
 
+
+            _viewModel.StartBattle();
+            Debug.WriteLine("Battle Start" + " Characters :" + _viewModel.BattleEngine.CharacterList.Count);
 
             // Load the Characters into the Battle Engine
             _viewModel.LoadCharacters();
 
 
             _viewModel.StartRound();
-
+            Debug.WriteLine("Round Start" + " Monsters:" + _viewModel.BattleEngine.MonsterList.Count);
 
             BindingContext = _viewModel;
+
+            ResetBattleScreen();
 
             ShowModalPageMonsterList();
 
             PositionPlayersOnScreen();
 
 
+        }
+
+        private void ResetBattleScreen()
+        {
+            RelativeLayout myRelativeCharacterStats = this.FindByName<RelativeLayout>("BattleCharacterStats");
+            RelativeLayout myRelativeMonsterStats = this.FindByName<RelativeLayout>("BattleMonsterStats");
+
+            ResetStatsScreen(myRelativeCharacterStats, "CharName", "c", "Character");
+            ResetStatsScreen(myRelativeMonsterStats, "MonsName", "m", "Monster");
+
+        }
+
+        /// <summary>
+        /// handles player stat box setting values to * at start 
+        /// </summary>
+        /// <param name="playerStats">data where stat box found</param>
+        /// <param name="xName">bound data Label name</param>
+        /// <param name="p">prefix for stat name; c=character, m=monster</param>
+        /// <param name="playerType">character or monster</param>
+        private void ResetStatsScreen(RelativeLayout playerStats, string xName, string p, string playerType)
+        {
+            string playerName = "Battling " + playerType;
+            playerStats.FindByName<Label>(xName).Text = playerName;
+
+            playerStats.FindByName<Label>(p+"XPStat").Text = "***";
+            playerStats.FindByName<Label>(p+"XPMaxStat").Text = "***";
+            playerStats.FindByName<Label>(p+"HPStat").Text = "***";
+            playerStats.FindByName<Label>(p+"HPMaxStat").Text = "***";
+            playerStats.FindByName<Label>(p+"ATKStat").Text = "***";
+            playerStats.FindByName<Label>(p+"DEFStat").Text = "***";
+            playerStats.FindByName<Label>(p+"SPDStat").Text = "***";
         }
 
         public void PositionPlayersOnScreen()
@@ -88,15 +127,6 @@ namespace Crawl.Views.Battle
             {
                 monsterImages[index++].Source = new Uri(monster.ImageURI);
             }
-
-            ////TODO: remove this when have monster list 
-            //MonstersRelativeLayout.FindByName<Image>("mons1").Source = new Uri(HawkboxResources.Monsters_Female_Agent_A);
-            //MonstersRelativeLayout.FindByName<Image>("mons2").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
-            //MonstersRelativeLayout.FindByName<Image>("mons3").Source = new Uri(HawkboxResources.Monsters_Female_Agent_B);
-            //MonstersRelativeLayout.FindByName<Image>("mons4").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
-            //MonstersRelativeLayout.FindByName<Image>("mons5").Source = null;
-            //MonstersRelativeLayout.FindByName<Image>("mons6").Source = new Uri(HawkboxResources.Monsters_Female_Agent_E);
-
         }
 
         private void AddCharactersToBox(RelativeLayout CharactersRelativeLayout)
