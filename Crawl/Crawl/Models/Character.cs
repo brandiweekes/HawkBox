@@ -63,13 +63,14 @@ namespace Crawl.Models
             int level = 1, int xpTotal = 0, bool alive = true, 
             int speed = 1, int attack = 1, int defense = 1, int maxHealth = 10, int currentHealth = 10,
             string head = null, string feet = null, string necklace = null, string primaryHand = null, 
-            string offhand = null, string rightFinger = null, string leftFinger = null)
+            string offhand = null, string rightFinger = null, string leftFinger = null) : this()
         {
             Name = name;
             Description = description;
             ImageURI = imageUri;
 
             Level = level;
+            ScaleLevel(Level);
             ExperienceTotal = xpTotal;
             Alive = alive;
 
