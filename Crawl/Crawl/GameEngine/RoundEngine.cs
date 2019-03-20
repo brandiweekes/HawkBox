@@ -181,9 +181,12 @@ namespace Crawl.GameEngine
         public void EndRound()
         {
             //have each character pick up items
-            foreach(var character in CharacterList)
+            if (BattleScore.AutoBattle == true)
             {
-                PickupItemsFromPool(character);
+                foreach (var character in CharacterList)
+                {
+                    PickupItemsFromPool(character);
+                }
             }
 
             //clear lists

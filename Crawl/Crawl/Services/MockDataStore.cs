@@ -51,42 +51,42 @@ namespace Crawl.Services
             // Load Characters
             _characterDataset.Add(new Character(
                 "3 Eyed", "Predicts future attacks with extra eye.", HawkboxResources.Aliens_Char_1,
-                1, 10, true, 10, 10, 10, 20, 20,
+                1, 10, true, 1, 4, 2, 8, 8,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             _characterDataset.Add(new Character(
                 "Sea Alien", "Small and quick to attack.", HawkboxResources.Aliens_Char_2,
-                1, 10, true, 10, 10, 10, 20, 20,
+                1, 10, true, 2, 2, 3, 9, 9,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             _characterDataset.Add(new Character(
                 "Happy Alien", "Smiling can be dangerous!!", HawkboxResources.Aliens_Char_3,
-                1, 10, true, 10, 10, 10, 20, 20,
+                1, 10, true, 2, 1, 1, 10, 10,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             _characterDataset.Add(new Character(
                 "8 Arms", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_4,
-                1, 10, true, 10, 10, 10, 20, 20,
+                1, 10, true, 1, 3, 4, 5, 5,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             _characterDataset.Add(new Character(
                 "Grass Hopper", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_5,
-                1, 10, true, 10, 10, 10, 20, 20,
+                1, 10, true, 1, 1, 1, 10, 10,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             _characterDataset.Add(new Character(
                 "Pumpkin Ghost", "Aerial attacks are deadly!!!", HawkboxResources.Aliens_Char_6,
-                1, 10, true, 10, 10, 10, 20, 20,
+                1, 10, true, 2, 3, 2, 9, 9,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             _characterDataset.Add(new Character(
                 "Mixed Horns", "Simple creature with most defense.", HawkboxResources.Aliens_Char_7,
-                1, 10, true, 10, 10, 10, 20, 20,
+                1, 10, true, 2, 1, 3, 7, 7,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             _characterDataset.Add(new Character(
                 "Guitar Ghost", "Attacks with sound of red guitar.", HawkboxResources.Aliens_Char_8,
-                1, 10, true, 10, 10, 10, 20, 20,
+                1, 10, true, 1, 3, 3, 4, 4,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
 
@@ -95,52 +95,52 @@ namespace Crawl.Services
             _monsterDataset.Add(new Monster("Agent L",
                 "Elle is the chief scientific officer and an assistant to Zed.",
                 HawkboxResources.Monsters_Female_Agent_A,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 2, 2, 1, 8, 8,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent M",
                 "After an emissary from a powerful alien government is killed Agent M must find the killer and the mole in the MiB organization.",
                 HawkboxResources.Monsters_Female_Agent_B,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 1, 3, 4, 7, 7,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent O",
                 "She is a veteran agent, becoming chief of the MiB after Zed's passing, who was a secretary back in the 1960s to Zed's predeceesor Chief X.",
                 HawkboxResources.Monsters_Female_Agent_C,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 1, 1, 1, 10, 10,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent E",
                 "A friend of Kay who works for The Agency, a special branch of MiB which operates in Hollywood, helping out the careers of alien actors who get to appear on the big screen in their real extraterrestrial forms while pretending to be disguised.",
                 HawkboxResources.Monsters_Female_Agent_D,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 2, 2, 2, 9, 9,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent X",
                 "Chief X was the head of MiB prior to the arrival of Zed, who apparently replaced X as Director of MiB at some point prior or during the incident related to the Light of Zartha which occurred in 1978",
                 HawkboxResources.Monsters_Female_Agent_E,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 2, 2, 3, 6, 6,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent D",
                 "A founding member of the MiB, and partner to Agent K. He is an old veteran agent, and has troubles keeping up.",
                 HawkboxResources.Monsters_Male_Agent_A,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 1, 2, 3, 8, 8,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent T",
                 "Tee was a marine for six years before joining the MiB. He was brought in to be another partner to Agent J after the neuralyzing of Agent K, among his other previous partners.",
                 HawkboxResources.Monsters_Male_Agent_B,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 3, 2, 1, 9, 9,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent J",
                 "An agent of the MiB, after being recruited by Agent K. Jay is energetic, and tries to bring life and emotion back to the bland organization.",
                 HawkboxResources.Monsters_Male_Agent_C,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 2, 1, 1, 8, 8,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent K",
                 "A top agent and a founder of MiB, Kay is a character who is extremely respected, and after working at MiB for nearly 40 years, he's very stoic and shows nearly no emotion",
                 HawkboxResources.Monsters_Male_Agent_D,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 3, 1, 3, 5, 5,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent Z",
                 "Chief Zed was one of the founding members of the MiB, and the former Chief/Head of the MiB in all media forms.",
                 HawkboxResources.Monsters_Male_Agent_E,
-                1, 10, true, 10, 10, 10, 10, 10,
+                1, 10, true, 1, 1, 2, 10, 10,
                 "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             // Load Scores

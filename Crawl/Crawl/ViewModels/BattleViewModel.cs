@@ -190,6 +190,17 @@ namespace Crawl.ViewModels
             return false;
         }
 
+        public async void AddItemsToPoolForTesting()
+        {
+            var items = await DataStore.GetAllAsync_Item(false);
+
+            foreach (var i in items)
+            {
+                BattleEngine.ItemPool.Add(i);
+            }
+
+        }
+
         // Sets the need to refresh
         public void SetNeedsRefresh(bool value)
         {
@@ -258,7 +269,8 @@ namespace Crawl.ViewModels
                 {
                     AvailableCharacters.Add(data);
                 }*/
-
+                
+                
                 AvailableItems.Clear();
                 var available = BattleEngine.ItemPool;
                 foreach (var ch in available)

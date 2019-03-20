@@ -21,6 +21,23 @@ namespace Crawl.Views.Battle
 		{
 			InitializeComponent();
 
+            //delete for final game, testing for items
+            if (BattleViewModel.Instance.BattleEngine.ItemPool.Count < 1)
+            {
+                BattleViewModel.Instance.AddItemsToPoolForTesting();
+            }
+
+            if (BattleViewModel.Instance.RemainingCharacters.Count < 1)
+            {
+                //add remaining characters to remaining character observable collection in BattleViewModel
+                foreach (var ch in BattleViewModel.Instance.BattleEngine.CharacterList)
+                {
+                    BattleViewModel.Instance.RemainingCharacters.Add(ch);
+                    Debug.WriteLine(ch.Name);
+                }
+            }
+            
+            //set binding context
             BindingContext = viewModel = BattleViewModel.Instance;
 		}
 
@@ -36,6 +53,26 @@ namespace Crawl.Views.Battle
 
             var itemList = viewModel.BattleEngine.ItemPool.Where(a => a.Location == buttonEnum).OrderByDescending(a => a.Value).ToList();
 
+            foreach(var item in itemList)
+            {
+                viewModel.AvailableItems.Add(item);
+            }
+
+
+            if(viewModel.pickedCharacter == null)
+            {
+                InstructionLabel.Text = String.Format("Select a character");
+            }
+            else if (viewModel.pickedCharacter.GetItemByLocation(buttonEnum) == null && itemList.Count < 1 )
+            {
+                InstructionLabel.Text = String.Format("No items available for this location");
+            }
+            else
+            {
+                await Navigation.PushModalAsync(new ItemSelectPage(buttonEnum));
+            }
+
+            /*
             try
             {
                 BattleViewModel.Instance.AvailableItems.Clear();
@@ -54,28 +91,23 @@ namespace Crawl.Views.Battle
                 {
                     Debug.WriteLine(ex);
                 }
-            }
+            }*/
 
            // if (!(RemainingListView.SelectedItem is Character character))
              //   return;
 
            // viewModel.pickedCharacter = character;
 
-            await Navigation.PushModalAsync(new ItemSelectPage(viewModel));
+           // await Navigation.PushModalAsync(new ItemSelectPage(viewModel));
         }
         
-        private async void OnCharacterSelected(object sender, SelectedItemChangedEventArgs args)
+        private void OnCharacterSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            if (!(args.SelectedItem is Character character))
+            if (!(args.SelectedItem is Character character)) {
                 return;
-
-            try
-            {
-                BattleViewModel.Instance.pickedCharacter = character;
-            }catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
             }
+
+            viewModel.pickedCharacter = character;
 
             AttackLabel.Text = String.Format("{0}", character.Attribute.Attack);
             DefenseLabel.Text = String.Format("{0}", character.Attribute.Defense);
@@ -83,6 +115,54 @@ namespace Crawl.Views.Battle
             HPLabel.Text = String.Format("{0}", character.Attribute.CurrentHealth);
             XPLabel.Text = String.Format("{0}", character.ExperienceTotal);
 
+            var ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.Head);
+            if(ItemInLocation != null)
+            {
+                HeadImage.Source = ItemInLocation.ImageURI;
+                HeadButton.Text = String.Format(ItemInLocation.Name);
+            }
+
+            ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.Necklass);
+            if (ItemInLocation != null)
+            {
+                NecklaceImage.Source = ItemInLocation.ImageURI;
+                NecklaceButton.Text = String.Format(ItemInLocation.Name);
+            }
+
+            ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.OffHand);
+            if (ItemInLocation != null)
+            {
+                OHImage.Source = ItemInLocation.ImageURI;
+                OHButton.Text = String.Format(ItemInLocation.Name);
+            }
+
+            ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.PrimaryHand);
+            if (ItemInLocation != null)
+            {
+                PHImage.Source = ItemInLocation.ImageURI;
+                PHButton.Text = String.Format(ItemInLocation.Name);
+            }
+
+            ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.LeftFinger);
+            if (ItemInLocation != null)
+            {
+                LFImage.Source = ItemInLocation.ImageURI;
+                LFButton.Text = String.Format(ItemInLocation.Name);
+            }
+
+            ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.RightFinger);
+            if (ItemInLocation != null)
+            {
+                RFImage.Source = ItemInLocation.ImageURI;
+                RFButton.Text = String.Format(ItemInLocation.Name);
+            }
+
+            ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.Feet);
+            if (ItemInLocation != null)
+            {
+                FeetImage.Source = ItemInLocation.ImageURI;
+                FeetButton.Text = String.Format(ItemInLocation.Name);
+            }
 
         }
 	}
