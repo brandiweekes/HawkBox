@@ -127,10 +127,11 @@
                HorizontalOptions="Center"
                AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0.5, .85, .8, .1" />-->
-        <!--<Button Text="AutoBattle" FontSize="Small" Clicked="OnAutoBattleClicked"
+        <Button x:Name="GameAttackButton" IsVisible="True"
+            Text="Attack!" FontSize="Small" Clicked="OnAttackClicked"
                         AbsoluteLayout.LayoutFlags="All, PositionProportional" 
                         AbsoluteLayout.LayoutBounds="0, 1, .3, .1" />
-                <Button Text="Battle" Clicked="OnBattleClicked"
+                <!--<Button Text="Battle" Clicked="OnBattleClicked"
                         AbsoluteLayout.LayoutFlags="All, PositionProportional" 
                         AbsoluteLayout.LayoutBounds="1, 1, .3, .1" />-->
       </AbsoluteLayout>
