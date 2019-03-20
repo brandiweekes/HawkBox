@@ -28,7 +28,10 @@ namespace Crawl.ViewModels
 
         public ObservableCollection<Monster> DataSet { get; set; }
 
-        public PickMonstersViewModel()
+        /// <summary>
+        /// private constructor 
+        /// </summary>
+        private PickMonstersViewModel()
         {
             DataSet = new ObservableCollection<Monster>();
         }
