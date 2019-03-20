@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 
 using Crawl.Models;
 using Crawl.ViewModels;
+using System.Diagnostics;
 
 namespace Crawl.Views.Battle
 {
@@ -32,23 +33,61 @@ namespace Crawl.Views.Battle
 
             InitializeComponent();
 
-            _viewModel.StartBattle();
+            // Show the Next button, hide the Game Over button
+            GameAttackButton.IsVisible = true;
+            //GameOverButton.IsVisible = false;
 
+
+            _viewModel.StartBattle();
+            Debug.WriteLine("Battle Start" + " Characters :" + _viewModel.BattleEngine.CharacterList.Count);
 
             // Load the Characters into the Battle Engine
             _viewModel.LoadCharacters();
 
 
             _viewModel.StartRound();
-
+            Debug.WriteLine("Round Start" + " Monsters:" + _viewModel.BattleEngine.MonsterList.Count);
 
             BindingContext = _viewModel;
+
+            ResetBattleScreen();
 
             ShowModalPageMonsterList();
 
             PositionPlayersOnScreen();
 
+            
+        }
 
+        private void ResetBattleScreen()
+        {
+            RelativeLayout myRelativeCharacterStats = this.FindByName<RelativeLayout>("BattleCharacterStats");
+            RelativeLayout myRelativeMonsterStats = this.FindByName<RelativeLayout>("BattleMonsterStats");
+
+            ResetStatsBox(myRelativeCharacterStats, "CharName", "c", "Character");
+            ResetStatsBox(myRelativeMonsterStats, "MonsName", "m", "Monster");
+
+        }
+
+        /// <summary>
+        /// handles player stat box setting values to * at start 
+        /// </summary>
+        /// <param name="playerStats">data where stat box found</param>
+        /// <param name="xName">bound data Label name</param>
+        /// <param name="p">prefix for stat name; c=character, m=monster</param>
+        /// <param name="playerType">character or monster</param>
+        private void ResetStatsBox(RelativeLayout playerStats, string xName, string p, string playerType)
+        {
+            string playerName = "Battling " + playerType;
+            playerStats.FindByName<Label>(xName).Text = playerName;
+
+            playerStats.FindByName<Label>(p+"XPStat").Text = "***";
+            playerStats.FindByName<Label>(p+"XPMaxStat").Text = "***";
+            playerStats.FindByName<Label>(p+"HPStat").Text = "***";
+            playerStats.FindByName<Label>(p+"HPMaxStat").Text = "***";
+            playerStats.FindByName<Label>(p+"ATKStat").Text = "***";
+            playerStats.FindByName<Label>(p+"DEFStat").Text = "***";
+            playerStats.FindByName<Label>(p+"SPDStat").Text = "***";
         }
 
         public void PositionPlayersOnScreen()
@@ -88,15 +127,6 @@ namespace Crawl.Views.Battle
             {
                 monsterImages[index++].Source = new Uri(monster.ImageURI);
             }
-
-            ////TODO: remove this when have monster list 
-            //MonstersRelativeLayout.FindByName<Image>("mons1").Source = new Uri(HawkboxResources.Monsters_Female_Agent_A);
-            //MonstersRelativeLayout.FindByName<Image>("mons2").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
-            //MonstersRelativeLayout.FindByName<Image>("mons3").Source = new Uri(HawkboxResources.Monsters_Female_Agent_B);
-            //MonstersRelativeLayout.FindByName<Image>("mons4").Source = new Uri(HawkboxResources.Monsters_Male_Agent_B);
-            //MonstersRelativeLayout.FindByName<Image>("mons5").Source = null;
-            //MonstersRelativeLayout.FindByName<Image>("mons6").Source = new Uri(HawkboxResources.Monsters_Female_Agent_E);
-
         }
 
         private void AddCharactersToBox(RelativeLayout CharactersRelativeLayout)
@@ -160,6 +190,77 @@ namespace Crawl.Views.Battle
             Crawl.App.Current.ModalPopping += HandleModalPopping;
             _myModalBattleMonsterListPage = new PickMonstersPage(_viewModel.BattleEngine);
             await Navigation.PushModalAsync(_myModalBattleMonsterListPage);
+        }
+
+        /// <summary>
+        /// Next Turn Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public async void OnAttackClicked(object sender, EventArgs args)
+        {
+            // Do the turn...
+            _viewModel.RoundNextTurn();
+            //MessagingCenter.Send(this, "RoundNextTurn");
+
+            // Hold the current state
+            var CurrentRoundState = _viewModel.BattleEngine.RoundStateEnum;
+
+            // If the round is over start a new one...
+            if (CurrentRoundState == RoundEnum.NewRound)
+            {
+                _viewModel.NewRound();
+                // MessagingCenter.Send(this, "NewRound");
+
+                Debug.WriteLine("New Round :" + _viewModel.BattleEngine.BattleScore.RoundCount);
+
+                ShowModalPageMonsterList();
+            }
+
+            // Check for Game Over
+            if (CurrentRoundState == RoundEnum.GameOver)
+            {
+                _viewModel.EndBattle();
+                ////MessagingCenter.Send(this, "EndBattle");
+                Debug.WriteLine("End Battle");
+
+                // Output Formatted Results 
+                //var myResult = _viewModel.BattleEngine.GetResultsOutput();
+                //Debug.Write(myResult);
+
+                // Let the user know the game is over
+                //ClearMessages();    // Clear message
+                //AppendMessage("Game Over\n"); // Show Game Over
+
+                // Clear the players from the center of the board
+                DrawGameBoardClear();
+
+                // Change to the Game Over Button
+                GameAttackButton.IsVisible = false;
+                //GameOverButton.IsVisible = true;
+
+                // Save the Score to the Score View Model, by sending a message to it.
+                var myScore = _viewModel.BattleEngine.BattleScore;
+                MessagingCenter.Send(this, "AddData", myScore);
+
+                return;
+            }
+
+            // Output the Game Board
+            DrawGameBoardAttackerDefender();
+
+            // Output The Message that happened.
+            //GameMessage();
+        }
+
+        private void DrawGameBoardAttackerDefender()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DrawGameBoardClear()
+        {
+            throw new NotImplementedException();
         }
     }
 }
