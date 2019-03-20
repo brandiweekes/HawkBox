@@ -188,7 +188,7 @@ namespace Crawl.Views.Battle
             // When you want to show the modal page, just call this method
             // add the event handler for to listen for the modal popping event:
             Crawl.App.Current.ModalPopping += HandleModalPopping;
-            _myModalBattleMonsterListPage = new PickMonstersPage(_viewModel.BattleEngine);
+            _myModalBattleMonsterListPage = new PickMonstersPage();
             await Navigation.PushModalAsync(_myModalBattleMonsterListPage);
         }
 
