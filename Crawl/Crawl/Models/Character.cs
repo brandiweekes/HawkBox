@@ -60,20 +60,21 @@ namespace Crawl.Models
         /// <param name="rightFinger"></param>
         /// <param name="leftFinger"></param>
         public Character(string name, string description, string imageUri,
-            int level = 1, int xpTotal = 0, bool alive = true, 
+            int level = 1, int xpTotal = 0, bool alive = true,
             int speed = 1, int attack = 1, int defense = 1, int maxHealth = 10, int currentHealth = 10,
-            string head = null, string feet = null, string necklace = null, string primaryHand = null, 
-            string offhand = null, string rightFinger = null, string leftFinger = null)
+            string head = null, string feet = null, string necklace = null, string primaryHand = null,
+            string offhand = null, string rightFinger = null, string leftFinger = null) : this()
         {
             Name = name;
             Description = description;
             ImageURI = imageUri;
 
             Level = level;
+            ScaleLevel(Level);
             ExperienceTotal = xpTotal;
             Alive = alive;
 
-            Attribute = new AttributeBase(speed, attack, defense, maxHealth,currentHealth);
+            Attribute = new AttributeBase(speed, attack, defense, maxHealth, currentHealth);
             AttributeString = AttributeBase.GetAttributeString(Attribute);
 
             Head = head;
@@ -102,7 +103,7 @@ namespace Crawl.Models
         /// <param name="newData"></param>
         public void Update(Character newData)
         {
-            if(newData == null)
+            if (newData == null)
                 return;
 
             Name = newData.Name;
@@ -164,19 +165,19 @@ namespace Crawl.Models
         public bool ScaleLevel(int level)
         {
             // given level cannot be less than one.
-            if(level < 1)
+            if (level < 1)
             {
                 return false;
             }
 
             // given level cannot be less than current level.
-            if(level < Level)
+            if (level < Level)
             {
                 return false;
             }
 
             // given level cannot be greater than max level defined in LevelTable.
-            if(level > LevelTable.MaxLevel)
+            if (level > LevelTable.MaxLevel)
             {
                 return false;
             }
@@ -249,7 +250,7 @@ namespace Crawl.Models
         public int LevelUpToValue(int value)
         {
             // given level cannot be less than one.
-            if(value < 1)
+            if (value < 1)
             {
                 return Level;
             }
@@ -279,13 +280,13 @@ namespace Crawl.Models
         /// <returns></returns>
         public bool AddExperience(int newExperience)
         {
-            if(newExperience < 0)
+            if (newExperience < 0)
             {
                 return false;
             }
 
             // If Level is Max level, then no need to add experience
-            if(Level >= LevelTable.MaxLevel)
+            if (Level >= LevelTable.MaxLevel)
             {
                 return false;
             }
@@ -317,10 +318,10 @@ namespace Crawl.Models
             Attribute.CurrentHealth -= damage;
             if (GetHealthCurrent() <= 0)
             {
-                if(GameGlobals.EnableReboundAttack)
+                if (GameGlobals.EnableReboundAttack)
                 {
                     Attribute.CurrentHealth = 1;
-                } 
+                }
                 else
                 {
                     // Death...
@@ -463,7 +464,7 @@ namespace Crawl.Models
         {
             var myReturn = GetLevelBasedDamage();
             var _damage = GetDamageDice();
-            if(_damage != 0)
+            if (_damage != 0)
             {
                 // Damage is base damage plus dice of the weapon.  So sword of Damage 10 is d10
                 myReturn += HelperEngine.RollDice(1, _damage);
@@ -640,14 +641,14 @@ namespace Crawl.Models
             {
                 Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
                 Item item = GetItemByLocation(locEnum);
-                if(item != null)
+                if (item != null)
                 {
                     if (item.Attribute.Equals(attributeEnum))
                     {
                         myReturn += item.Value;
-                    }                       
+                    }
                 }
-                
+
             }
             return myReturn;
         }
