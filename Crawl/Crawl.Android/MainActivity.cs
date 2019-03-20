@@ -9,13 +9,15 @@ using Android.OS;
 
 namespace Crawl.Droid
 {
-    [Activity(Label = "Crawl", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "MiBliens - Hawkbox", Icon = "@drawable/splash_screen", Theme = "@style/SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            SetTheme(Resource.Style.MainTheme);
 
             base.OnCreate(bundle);
 
