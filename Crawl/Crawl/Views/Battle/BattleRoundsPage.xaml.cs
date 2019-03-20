@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 
 using Crawl.Models;
 using Crawl.ViewModels;
+using Crawl.GameEngine;
 using System.Diagnostics;
 
 namespace Crawl.Views.Battle
@@ -255,7 +256,9 @@ namespace Crawl.Views.Battle
 
         private void DrawGameBoardAttackerDefender()
         {
-            throw new NotImplementedException();
+            AbsoluteLayout battleArena = this.FindByName<AbsoluteLayout>("BattleArena");
+            battleArena.FindByName<Image>("AttackerImage").Source = _viewModel.BattleEngine.CurrentAttacker.ImageURI;
+            battleArena.FindByName<Image>("DefenderImage").Source = _viewModel.BattleEngine.CurrentDefender.ImageURI;  
         }
 
         private void DrawGameBoardClear()

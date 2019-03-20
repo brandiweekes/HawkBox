@@ -41,6 +41,9 @@ namespace Crawl.GameEngine
         public List<Monster> MonsterList = new List<Monster>();
         public List<Character> CharacterList = new List<Character>();
 
+        public PlayerInfo CurrentAttacker;
+        public PlayerInfo CurrentDefender;
+
         // Attack or Move
         // Roll To Hit
         // Decide Hit or Miss
@@ -90,6 +93,9 @@ namespace Crawl.GameEngine
                 return false;
             }
 
+            CurrentAttacker = new PlayerInfo(Attacker);
+            CurrentDefender = new PlayerInfo(Target);
+
             // attack happened this turn, return true 
             return true;
         }
@@ -134,6 +140,9 @@ namespace Crawl.GameEngine
                 // attack failed in TurnAsAttack
                 return false;
             }
+
+            CurrentAttacker = new PlayerInfo(Attacker);
+            CurrentDefender = new PlayerInfo(Target);
 
             // attack happened this turn, return true 
             return true;

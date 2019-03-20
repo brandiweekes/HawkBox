@@ -51,6 +51,13 @@ namespace Crawl.Models
         // Finally if all of the above are the same, sort based on who was loaded first into the list...
         public int ListOrder;
 
+        // The Image to the Character or Monster
+        public string ImageURI;
+
+        public int CurrentHealth;
+
+        public int MaxHealth;
+
         // Need because of the instantiation below
         public PlayerInfo()
         {
@@ -67,6 +74,9 @@ namespace Crawl.Models
             Level = data.Level;
             Name = data.Name;
             Speed = data.GetSpeed();
+            ImageURI = data.ImageURI;
+            CurrentHealth = data.GetHealthCurrent();
+            MaxHealth = data.GetHealthMax();
         }
 
         // Take a monster and add it to the player
@@ -79,6 +89,9 @@ namespace Crawl.Models
             Level = data.Level;
             Name = data.Name;
             Speed = data.GetSpeed();
+            ImageURI = data.ImageURI;
+            CurrentHealth = data.GetHealthCurrent();
+            MaxHealth = data.GetHealthMax();
         }
     }
 }

@@ -109,16 +109,14 @@
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.85, Constant=20}"/>
       </RelativeLayout>
       
-      <AbsoluteLayout>
+      <AbsoluteLayout x:Name="BattleArena">
         <Image Opacity=".8"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             Source="http://clipart-library.com/data_images/483324.jpg"/>
 
-        <Image x:Name="Alien" AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0, 0.6, .3, .3"
-               Source="{Static local:HawkboxResources.Aliens_Char_3}"/>
-        <Image AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="1, 0.6, .25, .25"
-               Source="{Static local:HawkboxResources.Monsters_Female_Agent_E}"/>
+        <Image x:Name="AttackerImage" AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0.6, .3, .3" />
+        <Image x:Name="DefenderImage" AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="1, 0.6, .25, .25" />
         <!--<Label Text="MiBliens" FontSize="Large" FontAttributes="Bold"
                HorizontalOptions="Center"
                AbsoluteLayout.LayoutFlags="All"
