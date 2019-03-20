@@ -30,16 +30,11 @@ namespace Crawl.Services
         private List<Monster> _monsterDataset = new List<Monster>();
         private List<Score> _scoreDataset = new List<Score>();
 
-        /// <summary>
-        /// private deafult constructor
-        /// </summary>
         private MockDataStore()
         {
             InitializeSeedData();
         }
-        /// <summary>
-        /// initialize mock data
-        /// </summary>
+
         private void InitializeSeedData()
         {
 
@@ -55,55 +50,98 @@ namespace Crawl.Services
 
             // Load Characters
             _characterDataset.Add(new Character(
-                "3 Eyed", "Predicts future attacks with extra eye.", HawkboxResources.Aliens_Char_1));
+                "3 Eyed", "Predicts future attacks with extra eye.", HawkboxResources.Aliens_Char_1,
+                1, 10, true, 1, 4, 2, 8, 8,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+
             _characterDataset.Add(new Character(
-                "Sea Alien", "Small and quick to attack.", HawkboxResources.Aliens_Char_2));
+                "Sea Alien", "Small and quick to attack.", HawkboxResources.Aliens_Char_2,
+                1, 10, true, 2, 2, 3, 9, 9,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+
             _characterDataset.Add(new Character(
-                "Happy Alien", "Smiling can be dangerous!!", HawkboxResources.Aliens_Char_3));
+                "Happy Alien", "Smiling can be dangerous!!", HawkboxResources.Aliens_Char_3,
+                1, 10, true, 2, 1, 1, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+
             _characterDataset.Add(new Character(
-                "8 Arms", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_4));
+                "8 Arms", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_4,
+                1, 10, true, 1, 3, 4, 5, 5,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+
             _characterDataset.Add(new Character(
-                "Grass Hopper", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_5));
+                "Grass Hopper", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_5,
+                1, 10, true, 1, 1, 1, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+
             _characterDataset.Add(new Character(
-                "Pumpkin Ghost", "Aerial attacks are deadly!!!", HawkboxResources.Aliens_Char_6));
+                "Pumpkin Ghost", "Aerial attacks are deadly!!!", HawkboxResources.Aliens_Char_6,
+                1, 10, true, 2, 3, 2, 9, 9,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+
             _characterDataset.Add(new Character(
-                "Mixed Horns", "Simple creature with most defense.", HawkboxResources.Aliens_Char_7));
+                "Mixed Horns", "Simple creature with most defense.", HawkboxResources.Aliens_Char_7,
+                1, 10, true, 2, 1, 3, 7, 7,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
+
             _characterDataset.Add(new Character(
-                "Guitar Ghost", "Attacks with sound of red guitar.", HawkboxResources.Aliens_Char_8));
+                "Guitar Ghost", "Attacks with sound of red guitar.", HawkboxResources.Aliens_Char_8,
+                1, 10, true, 1, 3, 3, 4, 4,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
 
             // Load Monsters
 
             _monsterDataset.Add(new Monster("Agent L",
                 "Elle is the chief scientific officer and an assistant to Zed.",
-                HawkboxResources.Monsters_Female_Agent_A));
+                HawkboxResources.Monsters_Female_Agent_A,
+                1, 10, true, 2, 2, 1, 8, 8,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent M",
                 "After an emissary from a powerful alien government is killed Agent M must find the killer and the mole in the MiB organization.",
-                HawkboxResources.Monsters_Female_Agent_B));
+                HawkboxResources.Monsters_Female_Agent_B,
+                1, 10, true, 1, 3, 4, 7, 7,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent O",
                 "She is a veteran agent, becoming chief of the MiB after Zed's passing, who was a secretary back in the 1960s to Zed's predeceesor Chief X.",
-                HawkboxResources.Monsters_Female_Agent_C));
+                HawkboxResources.Monsters_Female_Agent_C,
+                1, 10, true, 1, 1, 1, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent E",
                 "A friend of Kay who works for The Agency, a special branch of MiB which operates in Hollywood, helping out the careers of alien actors who get to appear on the big screen in their real extraterrestrial forms while pretending to be disguised.",
-                HawkboxResources.Monsters_Female_Agent_D));
+                HawkboxResources.Monsters_Female_Agent_D,
+                1, 10, true, 2, 2, 2, 9, 9,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent X",
                 "Chief X was the head of MiB prior to the arrival of Zed, who apparently replaced X as Director of MiB at some point prior or during the incident related to the Light of Zartha which occurred in 1978",
-                HawkboxResources.Monsters_Female_Agent_E));
+                HawkboxResources.Monsters_Female_Agent_E,
+                1, 10, true, 2, 2, 3, 6, 6,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent D",
                 "A founding member of the MiB, and partner to Agent K. He is an old veteran agent, and has troubles keeping up.",
-                HawkboxResources.Monsters_Male_Agent_A));
+                HawkboxResources.Monsters_Male_Agent_A,
+                1, 10, true, 1, 2, 3, 8, 8,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent T",
                 "Tee was a marine for six years before joining the MiB. He was brought in to be another partner to Agent J after the neuralyzing of Agent K, among his other previous partners.",
-                HawkboxResources.Monsters_Male_Agent_B));
+                HawkboxResources.Monsters_Male_Agent_B,
+                1, 10, true, 3, 2, 1, 9, 9,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent J",
                 "An agent of the MiB, after being recruited by Agent K. Jay is energetic, and tries to bring life and emotion back to the bland organization.",
-                HawkboxResources.Monsters_Male_Agent_C));
+                HawkboxResources.Monsters_Male_Agent_C,
+                1, 10, true, 2, 1, 1, 8, 8,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent K",
                 "A top agent and a founder of MiB, Kay is a character who is extremely respected, and after working at MiB for nearly 40 years, he's very stoic and shows nearly no emotion",
-                HawkboxResources.Monsters_Male_Agent_D));
+                HawkboxResources.Monsters_Male_Agent_D,
+                1, 10, true, 3, 1, 3, 5, 5,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             _monsterDataset.Add(new Monster("Agent Z",
                 "Chief Zed was one of the founding members of the MiB, and the former Chief/Head of the MiB in all media forms.",
-                HawkboxResources.Monsters_Male_Agent_E));
+                HawkboxResources.Monsters_Male_Agent_E,
+                1, 10, true, 1, 1, 2, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             // Load Scores
             _scoreDataset.Add(new Score("Score Name 1", "Description", false));
@@ -113,15 +151,11 @@ namespace Crawl.Services
         }
 
         #region Item
-        /// <summary>
-        /// checks for data in datastore. if present, update else insert.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Item
         public async Task<bool> InsertUpdateAsync_Item(Item data)
         {
             var _count = _itemDataset.Where(i => i.Id == data.Id).Count();
-            if (_count == 0)
+            if(_count == 0)
             {
                 // Add data to store
                 _itemDataset.Add(data);
@@ -134,13 +168,10 @@ namespace Crawl.Services
                 _item.Update(data);
                 return true;
             }
+            return false;
         }
 
-        /// <summary>
-        /// Add new item to dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Add new item to dataset.
         public async Task<bool> AddAsync_Item(Item data)
         {
             _itemDataset.Add(data);
@@ -148,11 +179,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Update item data in dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Update item data in dataset.
         public async Task<bool> UpdateAsync_Item(Item data)
         {
             var myData = _itemDataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -166,11 +193,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Delete a item from dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Delete a item from dataset.
         public async Task<bool> DeleteAsync_Item(Item data)
         {
             var myData = _itemDataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -179,21 +202,13 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Get item data from dataset based in given Id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Get item data from dataset based in given Id.
         public async Task<Item> GetAsync_Item(string id)
         {
             return await Task.FromResult(_itemDataset.FirstOrDefault(s => s.Id == id));
         }
 
-        /// <summary>
-        /// Get all items from dataset.
-        /// </summary>
-        /// <param name="forceRefresh"></param>
-        /// <returns></returns>
+        // Get all items from dataset.
         public async Task<IEnumerable<Item>> GetAllAsync_Item(bool forceRefresh = false)
         {
             return await Task.FromResult(_itemDataset);
@@ -202,11 +217,7 @@ namespace Crawl.Services
         #endregion Item
 
         #region Character
-        /// <summary>
-        /// Add new character to dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Add new character to dataset.
         public async Task<bool> AddAsync_Character(Character data)
         {
             _characterDataset.Add(data);
@@ -214,11 +225,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Update character data in dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Update character data in dataset.
         public async Task<bool> UpdateAsync_Character(Character data)
         {
             // Check if given character exists in dataset
@@ -231,11 +238,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Delete a character from dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Delete a character from dataset.
         public async Task<bool> DeleteAsync_Character(Character data)
         {
             // Check if given character exists in dataset
@@ -245,21 +248,13 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Get character data from dataset based in given Id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Get character data from dataset based in given Id.
         public async Task<Character> GetAsync_Character(string id)
         {
             return await Task.FromResult(_characterDataset.FirstOrDefault(s => s.Id == id));
         }
 
-        /// <summary>
-        /// Get all characters from dataset.
-        /// </summary>
-        /// <param name="forceRefresh"></param>
-        /// <returns></returns>
+        // Get all characters from dataset.
         public async Task<IEnumerable<Character>> GetAllAsync_Character(bool forceRefresh = false)
         {
             var list = new List<Character>();
@@ -273,22 +268,14 @@ namespace Crawl.Services
         #endregion Character
 
         #region Monster
-        /// <summary>
-        /// Add new Monster to dataset
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Add new Monster to dataset
         public async Task<bool> AddAsync_Monster(Monster data)
         {
             _monsterDataset.Add(data);
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Update existing monster in dataset
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Update existing monster in dataset
         public async Task<bool> UpdateAsync_Monster(Monster data)
         {
             // Check if given monster exists in dataset
@@ -299,11 +286,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Delete Monster in dataset
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Delete Monster in dataset
         public async Task<bool> DeleteAsync_Monster(Monster data)
         {
             // Check if given monster exists in dataset
@@ -313,21 +296,13 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Get Monster from dataset based on given Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Get Monster from dataset based on given Id
         public async Task<Monster> GetAsync_Monster(string id)
         {
             return await Task.FromResult(_monsterDataset.FirstOrDefault(s => s.Id == id));
         }
 
-        /// <summary>
-        /// Get all Monsters from dataset
-        /// </summary>
-        /// <param name="forceRefresh"></param>
-        /// <returns></returns>
+        // Get all Monsters from dataset
         public async Task<IEnumerable<Monster>> GetAllAsync_Monster(bool forceRefresh = false)
         {
             var list = new List<Monster>();
@@ -342,22 +317,14 @@ namespace Crawl.Services
 
         #region Score
 
-        /// <summary>
-        /// Add new score to dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Add new score to dataset.
         public async Task<bool> AddAsync_Score(Score data)
         {
             _scoreDataset.Add(data);
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Update a score from dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Update a score from dataset.
         public async Task<bool> UpdateAsync_Score(Score data)
         {
             var myData = _scoreDataset.FirstOrDefault(args => args.Id == data.Id);
@@ -367,11 +334,7 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Delete a score from dataset.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Delete a score from dataset.
         public async Task<bool> DeleteAsync_Score(Score data)
         {
             var myData = _scoreDataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -380,21 +343,13 @@ namespace Crawl.Services
             return await Task.FromResult(true);
         }
 
-        /// <summary>
-        /// Get score data from dataset based in given Id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Get score data from dataset based in given Id.
         public async Task<Score> GetAsync_Score(string id)
         {
             return await Task.FromResult(_scoreDataset.FirstOrDefault(s => s.Id == id));
         }
 
-        /// <summary>
-        /// Get all scores from dataset.
-        /// </summary>
-        /// <param name="forceRefresh"></param>
-        /// <returns></returns>
+        // Get all scores from dataset.
         public async Task<IEnumerable<Score>> GetAllAsync_Score(bool forceRefresh = false)
         {
             return await Task.FromResult(_scoreDataset);

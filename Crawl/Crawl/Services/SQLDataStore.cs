@@ -24,17 +24,11 @@ namespace Crawl.Services
             }
         }
 
-        /// <summary>
-        /// private default constructor
-        /// </summary>
         private SQLDataStore()
         {
             InitializeDatabaseNewTables();
         }
 
-        /// <summary>
-        /// initialize data base table. drop, create new table, add mock data into tables and notofy viewmodels
-        /// </summary>
         public void InitializeDatabaseNewTables()
         {
             // Delete the tables
@@ -51,9 +45,7 @@ namespace Crawl.Services
 
         }
 
-        /// <summary>
-        /// Delete the Database Tables by dropping them
-        /// </summary>
+        // Delete the Database Tables by dropping them
         private void DeleteTables()
         {
             App.Database.DropTableAsync<Character>().Wait();
@@ -62,9 +54,7 @@ namespace Crawl.Services
             App.Database.DropTableAsync<Score>().Wait();
         }
 
-        /// <summary>
-        /// Create the Database Tables
-        /// </summary>
+        // Create the Database Tables
         private void CreateTables()
         {
             App.Database.CreateTableAsync<Character>().Wait();
@@ -73,9 +63,7 @@ namespace Crawl.Services
             App.Database.CreateTableAsync<Score>().Wait();
         }
 
-        /// <summary>
-        /// Tells the View Models to update themselves.
-        /// </summary>
+        // Tells the View Models to update themselves.
         private void NotifyViewModelsOfDataChange()
         {
             CharactersViewModel.Instance.SetNeedsRefresh(true);
@@ -84,57 +72,90 @@ namespace Crawl.Services
             ScoresViewModel.Instance.SetNeedsRefresh(true);
         }
 
-        /// <summary>
-        /// add mock data to database.
-        /// </summary>
         private void InitializeSeedData()
         {
             // Load Characters
             App.Database.InsertAsync(new Character(
-                "3 Eyed", "Predicts future attacks with extra eye.", HawkboxResources.Aliens_Char_1));
+                "3 Eyed", "Predicts future attacks with extra eye.", HawkboxResources.Aliens_Char_1,
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             App.Database.InsertAsync(new Character(
-                "Sea Alien", "Small and quick to attack.", HawkboxResources.Aliens_Char_2));
+                "Sea Alien", "Small and quick to attack.", HawkboxResources.Aliens_Char_2,
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             App.Database.InsertAsync(new Character(
-                "Happy Alien", "Smiling can be dangerous!!", HawkboxResources.Aliens_Char_3));
+                "Happy Alien", "Smiling can be dangerous!!", HawkboxResources.Aliens_Char_3,
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             App.Database.InsertAsync(new Character(
-                "8 Arms", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_4));
+                "8 Arms", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_4,
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             App.Database.InsertAsync(new Character(
-                "Grass Hopper", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_5));
+                "Grass Hopper", "Multiple arms makes it hard to attack.", HawkboxResources.Aliens_Char_5,
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             App.Database.InsertAsync(new Character(
-                "Pumpkin Ghost", "Aerial attacks are deadly!!!", HawkboxResources.Aliens_Char_6));
+                "Pumpkin Ghost", "Aerial attacks are deadly!!!", HawkboxResources.Aliens_Char_6,
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             App.Database.InsertAsync(new Character(
-                "Mixed Horns", "Simple creature with most defense.", HawkboxResources.Aliens_Char_7));
+                "Mixed Horns", "Simple creature with most defense.", HawkboxResources.Aliens_Char_7,
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             App.Database.InsertAsync(new Character(
-                "Guitar Ghost", "Attacks with sound of red guitar.", HawkboxResources.Aliens_Char_8));
+                "Guitar Ghost", "Attacks with sound of red guitar.", HawkboxResources.Aliens_Char_8,
+                1, 10, true, 10, 10, 10, 20, 20,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             // Load Monsters
             App.Database.InsertAsync(new Monster(
-                "Agent A", "desc", HawkboxResources.Monsters_Female_Agent_A));
+                "Agent A", "desc", HawkboxResources.Monsters_Female_Agent_A,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent B", "desc", HawkboxResources.Monsters_Female_Agent_B));
+                "Agent B", "desc", HawkboxResources.Monsters_Female_Agent_B,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent C", "desc", HawkboxResources.Monsters_Female_Agent_C));
+                "Agent C", "desc", HawkboxResources.Monsters_Female_Agent_C,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent D", "desc", HawkboxResources.Monsters_Female_Agent_D));
+                "Agent D", "desc", HawkboxResources.Monsters_Female_Agent_D,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent E", "desc", HawkboxResources.Monsters_Female_Agent_E));
+                "Agent E", "desc", HawkboxResources.Monsters_Female_Agent_E,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent F", "desc", HawkboxResources.Monsters_Male_Agent_A));
+                "Agent F", "desc", HawkboxResources.Monsters_Male_Agent_A,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent G", "desc", HawkboxResources.Monsters_Male_Agent_B));
+                "Agent G", "desc", HawkboxResources.Monsters_Male_Agent_B,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent H", "desc", HawkboxResources.Monsters_Male_Agent_C));
+                "Agent H", "desc", HawkboxResources.Monsters_Male_Agent_C,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent I", "desc", HawkboxResources.Monsters_Male_Agent_D));
+                "Agent I", "desc", HawkboxResources.Monsters_Male_Agent_D,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
             App.Database.InsertAsync(new Monster(
-                "Agent J", "desc", HawkboxResources.Monsters_Male_Agent_E));
+                "Agent J", "desc", HawkboxResources.Monsters_Male_Agent_E,
+                1, 10, true, 10, 10, 10, 10, 10,
+                "head", "feet", "necklace", "primaryHand", "offHand", "rightFinger", "leftFinger"));
 
             // Load Items
             App.Database.InsertAsync(new Item("Gold Sword", "Sword made of Gold, really expensive looking",
@@ -155,17 +176,28 @@ namespace Crawl.Services
         }
 
         #region Item
+        // Item
 
-        /// <summary>
-        /// checks for data in datastore. if present, update else insert.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Add InsertUpdateAsync_Item Method
+
+        // Check to see if the item exists
+        // Add your code here.
+
+        // If it does not exist, then Insert it into the DB
+        // Add your code here.
+        // return true;
+
+        // If it does exist, Update it into the DB
+        // Add your code here
+        // return true;
+
+        // If you got to here then return false;
+
         public async Task<bool> InsertUpdateAsync_Item(Item data)
         {
             // Implement
             var _count = App.Database.Table<Item>().Where(i => i.Id == data.Id).CountAsync().Result;
-            if (_count == 0)
+            if(_count == 0)
             {
                 return await AddAsync_Item(data);
             }
@@ -176,11 +208,7 @@ namespace Crawl.Services
 
         }
 
-        /// <summary>
-        /// Add new Item into database
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Add new Item into database
         public async Task<bool> AddAsync_Item(Item data)
         {
             var result = await App.Database.InsertAsync(data);
@@ -189,11 +217,7 @@ namespace Crawl.Services
             return await Task.FromResult(false);
         }
 
-        /// <summary>
-        /// Update Item details
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Update Item details
         public async Task<bool> UpdateAsync_Item(Item data)
         {
             var result = await App.Database.UpdateAsync(data);
@@ -202,11 +226,7 @@ namespace Crawl.Services
             return await Task.FromResult(false);
         }
 
-        /// <summary>
-        /// Delete Item from database based on given Id
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Delete Item from database based on given Id
         public async Task<bool> DeleteAsync_Item(Item data)
         {
             var result = await App.Database.DeleteAsync(data);
@@ -215,21 +235,13 @@ namespace Crawl.Services
             return await Task.FromResult(false);
         }
 
-        /// <summary>
-        /// Load an Item based on given Id from database
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Load an Item based on given Id from database
         public async Task<Item> GetAsync_Item(string id)
         {
             return await Task.FromResult(App.Database.GetAsync<Item>(id).Result);
         }
 
-        /// <summary>
-        /// Load all Items from database
-        /// </summary>
-        /// <param name="forceRefresh"></param>
-        /// <returns></returns>
+        // Load all Items from database
         public async Task<IEnumerable<Item>> GetAllAsync_Item(bool forceRefresh = false)
         {
             return await Task.FromResult(App.Database.Table<Item>().ToListAsync().Result);
@@ -306,11 +318,7 @@ namespace Crawl.Services
         #endregion Character
 
         #region Monster
-        /// <summary>
-        /// Add new monster to database
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Add new monster to database
         public async Task<bool> AddAsync_Monster(Monster data)
         {
             var result = await App.Database.InsertAsync(data);
@@ -318,11 +326,7 @@ namespace Crawl.Services
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
         }
-        /// <summary>
-        /// Update monster in database.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Update monster in database.
         public async Task<bool> UpdateAsync_Monster(Monster data)
         {
             var result = await App.Database.UpdateAsync(data);
@@ -330,11 +334,7 @@ namespace Crawl.Services
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
         }
-        /// <summary>
-        /// Delete monster from database.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Delete monster from database.
         public async Task<bool> DeleteAsync_Monster(Monster data)
         {
             var result = await App.Database.DeleteAsync(data);
@@ -342,20 +342,12 @@ namespace Crawl.Services
                 return await Task.FromResult(true);
             return await Task.FromResult(false);
         }
-        /// <summary>
-        /// Get monster from database based on given Id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Get monster from database based on given Id.
         public async Task<Monster> GetAsync_Monster(string id)
         {
             return await Task.FromResult(App.Database.GetAsync<Monster>(id).Result);
         }
-        /// <summary>
-        /// Get all monsters from database.
-        /// </summary>
-        /// <param name="forceRefresh"></param>
-        /// <returns></returns>
+        // Get all monsters from database.
         public async Task<IEnumerable<Monster>> GetAllAsync_Monster(bool forceRefresh = false)
         {
             var monstersList = App.Database.Table<Monster>().ToListAsync().Result;
@@ -370,11 +362,7 @@ namespace Crawl.Services
         #endregion Monster
 
         #region Score
-        /// <summary>
-        /// Add new Score to database
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Add new Score to database
         public async Task<bool> AddAsync_Score(Score data)
         {
             var result = await App.Database.InsertAsync(data);
@@ -383,11 +371,7 @@ namespace Crawl.Services
             return await Task.FromResult(false);
         }
 
-        /// <summary>
-        /// Update score details in database
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Update score details in database
         public async Task<bool> UpdateAsync_Score(Score data)
         {
             var result = await App.Database.UpdateAsync(data);
@@ -396,11 +380,7 @@ namespace Crawl.Services
             return await Task.FromResult(false);
         }
 
-        /// <summary>
-        /// Delete Score details in database
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        // Delete Score details in database
         public async Task<bool> DeleteAsync_Score(Score data)
         {
             var result = await App.Database.DeleteAsync(data);
@@ -409,21 +389,13 @@ namespace Crawl.Services
             return await Task.FromResult(false);
         }
 
-        /// <summary>
-        /// Fetch score from database based in given Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Fetch score from database based in given Id
         public async Task<Score> GetAsync_Score(string id)
         {
             return await Task.FromResult(App.Database.GetAsync<Score>(id).Result);
         }
 
-        /// <summary>
-        /// Fetch all scores from database
-        /// </summary>
-        /// <param name="forceRefresh"></param>
-        /// <returns></returns>
+        // Fetch all scores from database
         public async Task<IEnumerable<Score>> GetAllAsync_Score(bool forceRefresh = false)
         {
             return await Task.FromResult(App.Database.Table<Score>().ToListAsync().Result);
