@@ -16,30 +16,44 @@ namespace Crawl.Views.Battle
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PickMonstersPage : ContentPage
 	{
-        private BattleEngine _battleEngine { set; get; }
-
+        // view model for view monsters page
         private PickMonstersViewModel _viewModel;
 
-        public PickMonstersPage (BattleEngine battleEngine)
+        // battle view model instance - singleton
+        public BattleViewModel battleViewModel;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        public PickMonstersPage ()
 		{
 			InitializeComponent ();
-            _battleEngine = battleEngine;
 
             _viewModel = PickMonstersViewModel.Instance;
+            battleViewModel = BattleViewModel.Instance;
 
-            foreach(Monster m in _battleEngine.MonsterList)
+            foreach (Monster m in battleViewModel.BattleEngine.MonsterList)
             {
                 _viewModel.DataSet.Add(m);
             }
 
             BindingContext = _viewModel;
+
 		}
 
+        /// <summary>
+        /// close modal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void NextClicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
         }
 
+        /// <summary>
+        /// disable back buttonon page appearing event
+        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();

@@ -18,11 +18,11 @@
                             <Image Source="{Binding ImageURI}" WidthRequest="50" HeightRequest="50" Margin="10, 0, 0, 0"></Image>
                             <StackLayout Orientation="Vertical">
                                 <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" BackgroundColor="Gray">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                     <Label Text="{Binding Level, StringFormat='Lvl: {0}'}" FontSize="12"></Label>
                                     <Label Text="{Binding ExperienceTotal, StringFormat='XP: {0}'}" FontSize="12"></Label>
                                 </StackLayout>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" BackgroundColor="Gray">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                     <Label Text="{Binding Attribute.Attack, StringFormat='ATK: {0}'}" FontSize="12"></Label>
                                     <Label Text="{Binding Attribute.Defense, StringFormat='DEF: {0}'}" FontSize="12"></Label>
                                     <Label Text="{Binding Attribute.Speed, StringFormat='SPD: {0}'}" FontSize="12"></Label>
