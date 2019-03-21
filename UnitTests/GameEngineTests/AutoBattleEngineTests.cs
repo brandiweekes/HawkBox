@@ -5,6 +5,7 @@ using Crawl.ViewModels;
 using Crawl.Models;
 using System.Linq;
 using System.Diagnostics;
+using System;
 
 namespace UnitTests.GameEngineTests
 {
@@ -136,7 +137,7 @@ namespace UnitTests.GameEngineTests
         }
 
         // run this test when everything is working.
-        //[Test]
+        [Test]
         public void RunAutoBattle_Should_Pass()
         {
             // Initialize Mock
@@ -144,19 +145,18 @@ namespace UnitTests.GameEngineTests
 
             // Arrange
             AutoBattleEngine auto = new AutoBattleEngine();
-            GameGlobals.MaxNumberPartyPlayers = 2;
 
             // Act
             auto.RunAutoBattle();
             var Actual = auto.GetFinalScoreObject();
+            Console.WriteLine(auto.GetFinalScoreObject().FormatOutput());
 
             // Reset
-            //GameGlobals.ToggleRandomState();
-            //GameGlobals.ForcedRandomValue = 1;
-            GameGlobals.MaxNumberPartyPlayers = 6;
 
             // Assert
-            Assert.AreEqual(0, Actual.ScoreTotal, TestContext.CurrentContext.Test.Name);
+            Assert.AreNotEqual(0, Actual.RoundCount, TestContext.CurrentContext.Test.Name);
+            Assert.AreNotEqual(0, Actual.TurnCount, TestContext.CurrentContext.Test.Name);
+            Assert.IsTrue(Actual.AutoBattle, TestContext.CurrentContext.Test.Name);
         }
 
         [Test]
