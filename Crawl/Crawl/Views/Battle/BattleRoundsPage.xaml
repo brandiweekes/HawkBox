@@ -51,12 +51,12 @@
         <Label x:Name="cXPStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.075, Constant=0}"/>
-        <Label Text="/" TextColor="{DynamicResource DarkBackgroundColor}"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.23, Constant=0}"/>
-        <Label x:Name="cXPMaxStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+        <Label Text="Level" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.25, Constant=0}"/>
+        <Label x:Name="cLevelStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.35, Constant=0}"/>
         <BoxView BackgroundColor="{DynamicResource PrimaryDark}"
                  HeightRequest="75"
                  WidthRequest="75"
@@ -65,7 +65,7 @@
         <Label Text="HP" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=30}"/>
-        <Label x:Name="cHPStat" Text="0000" TextColor="{DynamicResource YellowTextColor}"
+        <Label x:Name="cHPStat" Text="0000" 
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=25}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=20}"/>
         <Label Text="------" TextColor="{DynamicResource DarkBackgroundColor}"
@@ -155,12 +155,12 @@
         <Label x:Name="mXPStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.075, Constant=0}"/>
-        <Label Text="/" TextColor="{DynamicResource DarkBackgroundColor}"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.23, Constant=0}"/>
-        <Label x:Name="mXPMaxStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+        <Label Text="Level" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.25, Constant=0}"/>
+        <Label x:Name="mLevelStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=45}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.35, Constant=0}"/>
         <BoxView BackgroundColor="{DynamicResource PrimaryDark}"
                  HeightRequest="75"
                  WidthRequest="75"
@@ -169,7 +169,7 @@
         <Label Text="HP" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=30}"/>
-        <Label x:Name="mHPStat" Text="0000" TextColor="{DynamicResource YellowTextColor}"
+        <Label x:Name="mHPStat" Text="0000" 
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=25}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=20}"/>
         <Label Text="------" TextColor="{DynamicResource DarkBackgroundColor}"
