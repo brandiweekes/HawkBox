@@ -147,7 +147,8 @@ namespace Crawl.Models
             {
                 foreach(Character c in CharacterAtDeathList)
                 {
-                    myReturn += $"{c.FormatOutput()} \n";
+                    if (c != null)
+                        myReturn += $"{c.FormatOutput()} \n";
                 }
             }
 
@@ -160,7 +161,8 @@ namespace Crawl.Models
             {
                 foreach (Monster m in MonstersKilledList)
                 {
-                    myReturn += $"{m.FormatOutput()} \n";
+                    if(m != null)
+                        myReturn += $"{m.FormatOutput()} \n";
                 }
             }
 
@@ -173,7 +175,8 @@ namespace Crawl.Models
             {
                 foreach (Item i in ItemsDroppedList)
                 {
-                    myReturn += $"{i.FormatOutput()} \n";
+                    if (i != null)
+                        myReturn += $"{i.FormatOutput()} \n";
                 }
             }
             return myReturn;

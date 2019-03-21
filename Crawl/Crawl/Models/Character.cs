@@ -224,11 +224,16 @@ namespace Crawl.Models
                     // old max was 10, current health 8, new max is 15 so (15-(10-8)) = current health
                     Attribute.CurrentHealth = (Attribute.MaxHealth - (OldMaxHealth - OldCurrentHealth));
 
-                    // Refresh the Attriburte String
-                    AttributeString = AttributeBase.GetAttributeString(Attribute);
-
                     // Set the new level
                     Level = NewLevel;
+
+                    // Set Attributes
+                    Attribute.Attack = LevelTable.Instance.LevelDetailsList[Level].Attack;
+                    Attribute.Defense = LevelTable.Instance.LevelDetailsList[Level].Defense;
+                    Attribute.Speed = LevelTable.Instance.LevelDetailsList[Level].Speed;
+
+                    // Refresh the Attriburte String
+                    AttributeString = AttributeBase.GetAttributeString(Attribute);
 
                     // Done, exit
                     return true;
