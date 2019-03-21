@@ -21,7 +21,7 @@ namespace Crawl.GameEngine
     public class TurnEngine
     {
         // Holds the official score
-        public Score BattleScore;
+        public Score BattleScore = new Score();
 
         public string AttackerName = string.Empty;
         public string TargetName = string.Empty;
@@ -34,9 +34,9 @@ namespace Crawl.GameEngine
         public int DamageAmount = 0;
         public HitStatusEnum HitStatus = HitStatusEnum.Unknown;
 
-        public List<Item> ItemPool;
-        public List<Monster> MonsterList;
-        public List<Character> CharacterList;
+        public List<Item> ItemPool = new List<Item>();
+        public List<Monster> MonsterList = new List<Monster>();
+        public List<Character> CharacterList = new List<Character>();
 
         public PlayerInfo CurrentAttacker;
         public PlayerInfo CurrentDefender;
