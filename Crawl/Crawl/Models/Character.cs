@@ -61,7 +61,6 @@ namespace Crawl.Models
         /// <param name="leftFinger"></param>
         public Character(string name, string description, string imageUri,
             int level = 1, int xpTotal = 0, bool alive = true,
-            int speed = 1, int attack = 1, int defense = 1, int maxHealth = 10, int currentHealth = 10,
             string head = null, string feet = null, string necklace = null, string primaryHand = null,
             string offhand = null, string rightFinger = null, string leftFinger = null) : this()
         {
@@ -73,9 +72,6 @@ namespace Crawl.Models
             ScaleLevel(Level);
             ExperienceTotal = xpTotal;
             Alive = alive;
-
-            Attribute = new AttributeBase(speed, attack, defense, maxHealth, currentHealth);
-            AttributeString = AttributeBase.GetAttributeString(Attribute);
 
             Head = head;
             Feet = feet;
