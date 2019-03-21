@@ -701,6 +701,7 @@ namespace UnitTests.GameEngineTests
 
             //arrange
             RoundEngine roundEngine = new RoundEngine();
+            roundEngine.BattleScore.AutoBattle = true;
             roundEngine.ItemPool.Clear();
 
             Character ch1 = new Character();
@@ -721,6 +722,7 @@ namespace UnitTests.GameEngineTests
 
             //arrange
             RoundEngine roundEngine = new RoundEngine();
+            roundEngine.BattleScore.AutoBattle = true;
             roundEngine.ItemPool.Clear();
 
             ItemsViewModel ivm = ItemsViewModel.Instance;
@@ -760,6 +762,7 @@ namespace UnitTests.GameEngineTests
         {
             //arrange
             RoundEngine roundEngine = new RoundEngine();
+            roundEngine.BattleScore.AutoBattle = true;
             roundEngine.ItemPool.Clear();
 
             ItemsViewModel ivm = ItemsViewModel.Instance;
@@ -797,6 +800,7 @@ namespace UnitTests.GameEngineTests
         {
             //arrange
             RoundEngine roundEngine = new RoundEngine();
+            roundEngine.BattleScore.AutoBattle = true;
             roundEngine.ItemPool.Clear();
 
             Item it1 = new Item();
