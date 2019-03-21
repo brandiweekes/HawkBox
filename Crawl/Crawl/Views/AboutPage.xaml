@@ -1,323 +1,125 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Crawl.Views.AboutPage"
-             xmlns:vm="clr-namespace:Crawl.ViewModels"
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Crawl.Views.AboutPage" 
+             xmlns:vm="clr-namespace:Crawl.ViewModels" 
              xmlns:local="clr-namespace:Crawl.Models"
-             xmlns:documents="clr-namespace:Windows.UI.Xaml.Documents;assembly=Windows.Foundation.UniversalApiContract"
              Title="{Binding Title}">
-
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
-
-    <ScrollView HorizontalOptions="Center" Padding="0, 20, 0, 0">
-        <StackLayout
-            Padding="5, 0, 5, 0"
-        VerticalOptions="Center"
-        HorizontalOptions="Center" 
-        Orientation="Vertical">
-
-            <StackLayout 
-                VerticalOptions="Center"
-                HorizontalOptions="Center" 
-                Orientation="Vertical">
-
-                <StackLayout 
-                    HorizontalOptions="CenterAndExpand" 
-                    VerticalOptions="StartAndExpand"
-                    Orientation="Vertical">
-
-                    <Image 
-                        Source="{Static local:HawkboxResources.Aliens_Char_3}" 
-                        VerticalOptions="Center" 
-                        HeightRequest="150"
-                        HorizontalOptions="Fill"/>
-
-                    <Label 
-                        FontSize="Large"
-                        Text="Class Dungeon: MiBliens"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="CenterAndExpand" />
-
-                    <Label 
-                        FontSize="Medium"
-                        Text="Mobile Development"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="CenterAndExpand" />
-
-                    <Label 
-                        FontSize="Small"
-                        Text="Team HawkBox"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="CenterAndExpand" />
-
-                    <StackLayout 
-                        x:Name="DateRoot"
-                        HorizontalOptions="CenterAndExpand" 
-                        VerticalOptions="Start"
-                        Orientation="Vertical">
-                    </StackLayout>
-
+    <ScrollView HorizontalOptions="CenterAndExpand" Padding="0, 20, 0, 0">
+        <StackLayout Padding="5, 0, 5, 0" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" WidthRequest="500">
+                <!-- Introduction -->
+                <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+                    <Image Source="{Static local:HawkboxResources.Aliens_Char_3}" HeightRequest="150" />
+                    <Label FontSize="Large" Text="MiBliens" HorizontalOptions="CenterAndExpand" />
+                    <Label FontSize="Medium" Text="Mobile Development" HorizontalOptions="CenterAndExpand" />
+                    <Label FontSize="Small" Text="Team HawkBox" HorizontalOptions="CenterAndExpand" />
+                    <StackLayout x:Name="DateRoot"></StackLayout>
                 </StackLayout>
-
-                <StackLayout
-                    VerticalOptions="StartAndExpand"
-                    HorizontalOptions="CenterAndExpand" 
-                    Orientation="Vertical">
-
+                <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
                     <!--Database Settings-->
-                    <StackLayout
-                        x:Name="DatabaseSettingsFrame"
-                        IsVisible="True"
-                        BackgroundColor="{DynamicResource Primary}"
-                        HorizontalOptions="FillAndExpand">
-
-
-                        <StackLayout 
-                            VerticalOptions="StartAndExpand"
-                            HorizontalOptions="FillAndExpand" 
-                            Orientation="Vertical">
-
-                            <StackLayout
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="Start"
-                                Orientation="Horizontal">
-
-                                <Label 
-                                    FontSize="Small"
-                                    Text="Use Mock DataStore"
-                                    TextColor="{DynamicResource DarkBackgroundColor}"
-                                    FontAttributes="Bold"    
-                                    HorizontalTextAlignment="Start"
-                                    HorizontalOptions="StartAndExpand"/>
-
-                                <Switch 
-                                        x:Name="UseMockDataSource"
-                                        HorizontalOptions="EndAndExpand"
-                                        Toggled="UseMockDataSourceSwitch_OnToggled"
-                                        IsToggled="False"/>
+                    <StackLayout x:Name="DatabaseSettingsFrame" IsVisible="True">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Use Mock DataStore" TextColor="{StaticResource YellowTextColor}" />
+                                <Switch x:Name="UseMockDataSource" HorizontalOptions="EndAndExpand" Toggled="UseMockDataSourceSwitch_OnToggled" IsToggled="False" />
                             </StackLayout>
-
-                            <StackLayout
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-
-                                <Label 
-                                    FontSize="Small"
-                                    Text="Clear Database"
-                                    TextColor="{DynamicResource DarkBackgroundColor}"
-                                    FontAttributes="Bold"
-                                    HorizontalTextAlignment="Start"
-                                    HorizontalOptions="Start"/>
-
-                                <Button  
-                                    Text="Clear" 
-                                    Clicked="ClearDatabase_Command" 
-                                    HorizontalOptions="EndAndExpand"
-                                    TextColor="Black" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Clear Database" TextColor="{StaticResource YellowTextColor}" />
+                                <Button Text="Clear" Clicked="ClearDatabase_Command" HorizontalOptions="EndAndExpand" TextColor="Black" />
                             </StackLayout>
-
-
-                            <StackLayout
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal">
-
-                                <Label 
-                                    FontSize="Small"
-                                    Text="Server Items"
-                                    TextColor="{DynamicResource DarkBackgroundColor}"
-                                    FontAttributes="Bold"
-                                    HorizontalTextAlignment="Start"
-                                    HorizontalOptions="Start"/>
-                                
-                                <Entry x:Name="ServerItemValue"
-                                     Text="1" 
-                                     MaxLength="3"
-                                     HorizontalTextAlignment="Start"
-                                     HorizontalOptions="Start"
-                                       BackgroundColor="{DynamicResource Primary}"/>
-
-                                <Button  
-                                    Text="Get" 
-                                    Clicked="GetItems_Command" 
-                                    HorizontalOptions="EndAndExpand"
-                                    TextColor="Black" />
-
-                                <Button  
-                                    Text="Post" 
-                                    Clicked="GetItemsPost_Command" 
-                                    HorizontalOptions="EndAndExpand"
-                                    TextColor="Black" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Server Items" TextColor="{StaticResource YellowTextColor}" />
+                                <Entry x:Name="ServerItemValue" Text="1" MaxLength="3" HorizontalOptions="EndAndExpand" BackgroundColor="{DynamicResource Primary}" />
+                                <Button Text="Get" Clicked="GetItems_Command" HorizontalOptions="End" TextColor="Black" />
+                                <Button Text="Post" Clicked="GetItemsPost_Command" HorizontalOptions="End" TextColor="Black" />
                             </StackLayout>
-
-                        </StackLayout>
                     </StackLayout>
-
-
-<!-- Debug Settings -->
-                    <StackLayout 
-                        HorizontalOptions="CenterAndExpand"
-                        VerticalOptions="Start"
-                        Orientation="Vertical">
-
-                        <StackLayout
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start"
-                        Orientation="Horizontal">
-
-                            <Label 
-                            FontSize="Small"
-                            Text="Debug Settings"
-                            HorizontalTextAlignment="Start"
-                            HorizontalOptions="Start"/>
-
-                            <Switch 
-                            x:Name="EnableDebugSettings"
-                            HorizontalOptions="EndAndExpand"
-                            Toggled="EnableDebugSettings_OnToggled"
-                            IsToggled="True"/>
-                        </StackLayout>
-
-                        <StackLayout
-                            x:Name="DebugSettingsFrame"
-                            IsVisible="True"
-                            BackgroundColor="{DynamicResource YellowTextColor}"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="StartAndExpand">
-
-                            <StackLayout
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal">
-
-                                <Label 
-                                    Text="Critical Hit Double Damage"
-                                    Style="{DynamicResource DebugSwitchLabel}"
-                                />
-
-                                <Switch 
-                                    x:Name="EnableCriticalHitDamage"
-                                    HorizontalOptions="EndAndExpand"
-                                    Toggled="EnableCriticalHitDamage_OnToggled"
-                                    IsToggled="False"/>
-                                </StackLayout>
-
-
-                            <StackLayout
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal">
-
-                                <Label 
-                                    Text="Critical Miss Bad Things"
-                                    Style="{DynamicResource DebugSwitchLabel}"
-                                />
-
-                                <Switch 
-                                    x:Name="EnableCriticalMissProblems"
-                                    HorizontalOptions="EndAndExpand"
-                                    Toggled="EnableCriticalMissProblems_OnToggled"
-                                    IsToggled="False"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </StackLayout>
-
-                    <!-- Force Random Settings -->
-
+                     <!--Debug Settings--> 
                     <StackLayout>
-                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
-                            <Label FontSize="Small" Text="Force Random Number" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
-                            <Switch x:Name="EnableForceRandomSettings" HorizontalOptions="EndAndExpand" 
-                                    Toggled="EnableFoceRandomSettings_OnToggled" IsToggled="False"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Debug Settings" />
+                            <Switch x:Name="EnableDebugSettings" HorizontalOptions="EndAndExpand" Toggled="EnableDebugSettings_OnToggled" IsToggled="True" />
                         </StackLayout>
-                        <StackLayout x:Name="ForceRandomSettingsFrame" IsVisible="False"
-                            HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
-                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                <Label Text="Force Random Number Value" HorizontalTextAlignment="Start"
-                                    HorizontalOptions="Start" />
-                                <Label x:Name="ForceRandomValue" Text="1" HorizontalTextAlignment="Start" HorizontalOptions="EndAndExpand"></Label>
-                                <Stepper
-                                  Value="1"
-                                  Minimum="1"
-                                  Maximum="20"
-                                  Increment="1"
-                                  ValueChanged="ForcedRandomValue_OnStepperValueChanged"
-                                  HorizontalOptions="End"
-                                  VerticalOptions="Center"/>
+                        <StackLayout x:Name="DebugSettingsFrame" IsVisible="True" Padding="30, 0, 0, 0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Critical Hit Double Damage" Style="{DynamicResource DebugSwitchLabel}" />
+                                <Switch x:Name="EnableCriticalHitDamage" HorizontalOptions="EndAndExpand" Toggled="EnableCriticalHitDamage_OnToggled" IsToggled="False" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Critical Miss Bad Things" Style="{DynamicResource DebugSwitchLabel}" />
+                                <Switch x:Name="EnableCriticalMissProblems" HorizontalOptions="EndAndExpand" Toggled="EnableCriticalMissProblems_OnToggled" IsToggled="False" />
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                     <!--Force Random Settings--> 
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Force Random Number" />
+                            <Switch x:Name="EnableForceRandomSettings" HorizontalOptions="EndAndExpand" Toggled="EnableFoceRandomSettings_OnToggled" IsToggled="False" />
+                        </StackLayout>
+                        <StackLayout x:Name="ForceRandomSettingsFrame" IsVisible="False" Padding="30, 0, 0, 0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Force Random Number Value" Style="{DynamicResource DebugSwitchLabel}" />
+                                <Label x:Name="ForceRandomValue" Text="1"  HorizontalOptions="EndAndExpand"></Label>
+                                <Stepper Value="1" Minimum="1" Maximum="20" Increment="1" ValueChanged="ForcedRandomValue_OnStepperValueChanged" HorizontalOptions="End" />
                             </StackLayout>
                             <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                <Label Text="Force Random To Hit" HorizontalTextAlignment="Start"
-                                    HorizontalOptions="Start"/>
-                                <Label x:Name="ForceRandomValueToHit" Text="1" HorizontalTextAlignment="Start" HorizontalOptions="EndAndExpand"></Label>
-                                <Stepper
-                                  Value="1"
-                                  Minimum="1"
-                                  Maximum="20"
-                                  Increment="1"
-                                  ValueChanged="ForceRandomValueToHit_OnStepperValueChanged"
-                                  HorizontalOptions="End"
-                                  VerticalOptions="Center"/>
+                                <Label Text="Force Random To Hit" Style="{DynamicResource DebugSwitchLabel}" />
+                                <Label x:Name="ForceRandomValueToHit" Text="1" HorizontalOptions="EndAndExpand"></Label>
+                                <Stepper Value="1" Minimum="1" Maximum="20" Increment="1" ValueChanged="ForceRandomValueToHit_OnStepperValueChanged" HorizontalOptions="End" />
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
-                
-                    <!-- Steal Items dropped by monster -->
+                     <!--Steal Items dropped by monster--> 
                     <StackLayout>
-                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
-                            <Label FontSize="Small" Text="Monster Steal Item's Dropped" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
-                            <Switch x:Name="EnableMonsterSteal" HorizontalOptions="EndAndExpand" 
-                                    Toggled="EnableMonsterStealSettings_OnToggled" IsToggled="False"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Monster Steal Item's Dropped" />
+                            <Switch x:Name="EnableMonsterSteal" HorizontalOptions="EndAndExpand" Toggled="EnableMonsterStealSettings_OnToggled" IsToggled="False" />
                         </StackLayout>
-                        <StackLayout x:Name="EnableMonstersStealFrame" IsVisible="False" Orientation="Horizontal" Spacing="10">
-                            <Label Text="% Chance to steal"></Label>
-                            <Entry x:Name="PercentToStealItem" MaxLength="3"></Entry>
+                        <StackLayout x:Name="EnableMonstersStealFrame" IsVisible="False" Orientation="Horizontal" Padding="30, 0, 0, 0">
+                            <Label Text="% Chance to steal" Style="{DynamicResource DebugSwitchLabel}"></Label>
+                            <Entry x:Name="PercentToStealItem" MaxLength="3" BackgroundColor="{DynamicResource Primary}" ></Entry>
                             <Button Text="Set" Clicked="SetPercentToStealItem_Clicked"></Button>
                         </StackLayout>
                     </StackLayout>
-
-                    <!-- Monsters can multiply during rounds -->
+                     <!--Monsters can multiply during rounds--> 
                     <StackLayout>
-                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
-                            <Label FontSize="Small" Text="Multiply Monsters" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
-                            <Switch x:Name="EnableMultiplyMonsters" HorizontalOptions="EndAndExpand" 
-                                    Toggled="EnableMultiplyMonstersSettings_OnToggled" IsToggled="False"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Multiply Monsters" />
+                            <Switch x:Name="EnableMultiplyMonsters" HorizontalOptions="EndAndExpand" Toggled="EnableMultiplyMonstersSettings_OnToggled" IsToggled="False" />
                         </StackLayout>
-                        <StackLayout x:Name="EnableMultiplyMonstersFrame" IsVisible="False" Orientation="Horizontal" Spacing="10">
-                            <Label Text="% Chance to multiply"></Label>
-                            <Entry x:Name="PercentToMultiply" MaxLength="3"></Entry>
+                        <StackLayout x:Name="EnableMultiplyMonstersFrame" IsVisible="False" Orientation="Horizontal" Padding="30, 0, 0, 0">
+                            <Label Text="% Chance to multiply" Style="{DynamicResource DebugSwitchLabel}"></Label>
+                            <Entry x:Name="PercentToMultiply" MaxLength="3" BackgroundColor="{DynamicResource Primary}"></Entry>
                             <Button Text="Set" Clicked="SetPercentToMultiply_Clicked"></Button>
                         </StackLayout>
                     </StackLayout>
-
                     <!--Time Warp-->
-                    <StackLayout>
-                        <Label Text="% Chance of Time Warp"></Label>
-                        <Entry x:Name="TimeWarpPercent"></Entry>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="% Chance of Time Warp" TextColor="{StaticResource YellowTextColor}"></Label>
+                        <Entry x:Name="TimeWarpPercent"  BackgroundColor="{DynamicResource Primary}"></Entry>
                         <Button Text="Set" Clicked="SetTimeWarpPercent"></Button>
                     </StackLayout>
-
-                    <!-- Rebound Attack  -->
+                     <!--Rebound Attack-->  
                     <StackLayout>
-                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
-                            <Label FontSize="Small" Text="Rebound Attack" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
-                            <Switch x:Name="EnableReboundAttack" HorizontalOptions="EndAndExpand" 
-                                    Toggled="EnableReboundAttackSettings_OnToggled" IsToggled="False"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Rebound Attack" />
+                            <Switch x:Name="EnableReboundAttack" HorizontalOptions="EndAndExpand" Toggled="EnableReboundAttackSettings_OnToggled" IsToggled="False" />
                         </StackLayout>
-                        <StackLayout x:Name="EnableReboundAttackFrame" IsVisible="False" Orientation="Horizontal" Spacing="10">
-                            <Label Text="% Chance to rebound"></Label>
-                            <Entry x:Name="PercentToRebound" MaxLength="3"></Entry>
+                        <StackLayout x:Name="EnableReboundAttackFrame" IsVisible="False" Orientation="Horizontal" Padding="30, 0, 0, 0 ">
+                        <Label Text="% Chance to rebound" Style="{DynamicResource DebugSwitchLabel}"></Label>
+                        <Entry x:Name="PercentToRebound" MaxLength="3" BackgroundColor="{DynamicResource Primary}"></Entry>
                             <Button Text="Set" Clicked="SetPercentToRebound_Clicked"></Button>
                         </StackLayout>
                     </StackLayout>
-                    
-                    <!-- Miracle Max -->
-                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Orientation="Horizontal">
-                        <Label FontSize="Small" Text="Miracle Max" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
-                        <Switch x:Name="EnableMiracleMax" HorizontalOptions="EndAndExpand" 
-                                    Toggled="EnableMiracleMaxSettings_OnToggled" IsToggled="False"/>
+                     <!--Miracle Max--> 
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Miracle Max" />
+                        <Switch x:Name="EnableMiracleMax" HorizontalOptions="EndAndExpand" Toggled="EnableMiracleMaxSettings_OnToggled" IsToggled="False" />
                     </StackLayout>
-
                 </StackLayout>
-            </StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>
