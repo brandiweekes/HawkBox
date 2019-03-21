@@ -136,7 +136,7 @@ namespace UnitTests.GameEngineTests
         }
 
         // run this test when everything is working.
-       // [Test]
+        //[Test]
         public void RunAutoBattle_Should_Pass()
         {
             // Initialize Mock
@@ -144,18 +144,19 @@ namespace UnitTests.GameEngineTests
 
             // Arrange
             AutoBattleEngine auto = new AutoBattleEngine();
-            GameGlobals.SetForcedRandomNumbers(1, 20);
+            GameGlobals.MaxNumberPartyPlayers = 2;
 
             // Act
             auto.RunAutoBattle();
             var Actual = auto.GetFinalScoreObject();
 
             // Reset
-            GameGlobals.ToggleRandomState();
-            GameGlobals.ForcedRandomValue = 1;
+            //GameGlobals.ToggleRandomState();
+            //GameGlobals.ForcedRandomValue = 1;
+            GameGlobals.MaxNumberPartyPlayers = 6;
 
             // Assert
-            Assert.AreNotEqual(0, Actual.ScoreTotal, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(0, Actual.ScoreTotal, TestContext.CurrentContext.Test.Name);
         }
 
         [Test]

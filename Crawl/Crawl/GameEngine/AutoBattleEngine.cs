@@ -59,7 +59,7 @@ namespace Crawl.GameEngine
             Debug.WriteLine($"Round Starting... Round Count: {BattleEngine.BattleScore.RoundCount}");
             Debug.WriteLine($"Monster list count: {BattleEngine.MonsterList.Count}");
 
-            RoundEnum result;
+            RoundEnum result = RoundEnum.Unknown;
 
             do
             {
@@ -67,6 +67,7 @@ namespace Crawl.GameEngine
                 BattleEngine.RoundNextTurn();
                 Debug.WriteLine($"Turn over... Turn Count: {BattleEngine.BattleScore.TurnCount}");
                 result = BattleEngine.RoundStateEnum;
+                Debug.WriteLine($"round enum result {result}");
 
                 // do the Round
                 // Turn loop happens inside the Round
