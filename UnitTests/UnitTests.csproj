@@ -119,8 +119,11 @@
   <ItemGroup>
     <Compile Include="GameEngineTests\AutoBattleEngineTests.cs" />
     <Compile Include="GameEngineTests\BattleEngineTests.cs" />
+    <Compile Include="GameEngineTests\HackathonTests.cs" />
     <Compile Include="GameEngineTests\RoundEngineTests.cs" />
     <Compile Include="GameEngineTests\TurnEngineTests.cs" />
+    <Compile Include="ModelTests\CharacterTests.cs" />
+    <Compile Include="ModelTests\MonsterTests.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
