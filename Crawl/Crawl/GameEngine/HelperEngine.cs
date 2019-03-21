@@ -50,9 +50,8 @@ namespace Crawl.GameEngine
             // check if monster steal items flag is On or Off.
             if (GameGlobals.EnableMonstersToStealItems)
             {
-                int diceRoll = RollDice(1, 20);
-                int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToStealItems * 20) / (double)100);
-                if (diceRoll <= _chance)
+                int diceRoll = RollDice(1, 100);
+                if (diceRoll <= GameGlobals.PercentageChanceToStealItems)
                 {
                     return true;
                 }
@@ -75,9 +74,8 @@ namespace Crawl.GameEngine
         {
             if (GameGlobals.EnableMonstersToMultiply)
             {
-                int diceRoll = RollDice(1, 20);
-                int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToMultiply * 20) / (double)100);
-                if (diceRoll <= _chance)
+                int diceRoll = RollDice(1, 100);
+                if (diceRoll <= GameGlobals.PercentageChanceToMultiply)
                 {
                     return true;
                 }
@@ -100,9 +98,8 @@ namespace Crawl.GameEngine
         {
             if (GameGlobals.EnableReboundAttack)
             {
-                int diceRoll = RollDice(1, 20);
-                int _chance = (int)Math.Floor((GameGlobals.PercentageChanceToRebound * 20) / (double)100);
-                if (diceRoll <= _chance)
+                int diceRoll = RollDice(1, 100);
+                if (diceRoll <= GameGlobals.PercentageChanceToRebound)
                 {
                     return true;
                 }
