@@ -25,25 +25,25 @@ namespace Crawl.Views.Battle
             var myAutoBattleEngine = new AutoBattleEngine();
 
             myAutoBattleEngine.RunAutoBattle();
-            if (myAutoBattleEngine.BattleEngine.CharacterList.Count != 6)
-            {
-                var answer = await DisplayAlert("Error", "No Characters to battle with", "OK","Cancel");
-                if (answer)
-                {
-                    var a = 1;
-                    // Can't run auto battle, no characters...
-                }
-            }
+            //if (myAutoBattleEngine.BattleEngine.CharacterList.Count != 6)
+            //{
+            //    var answer = await DisplayAlert("Error", "No Characters to battle with", "OK","Cancel");
+            //    if (answer)
+            //    {
+            //        var a = 1;
+            //        // Can't run auto battle, no characters...
+            //    }
+            //}
 
-            if (myAutoBattleEngine.GetFinalScoreObject().RoundCount < 1)
-            {
-                var answer = await DisplayAlert("Error", "No Rounds Fought", "OK", "Cancel");
-                if (answer)
-                {
-                    var a = 1;
-                    // Can't run auto battle, no characters...
-                }
-            }
+            //if (myAutoBattleEngine.GetFinalScoreObject().RoundCount < 1)
+            //{
+            //    var answer = await DisplayAlert("Error", "No Rounds Fought", "OK", "Cancel");
+            //    if (answer)
+            //    {
+            //        var a = 1;
+            //        // Can't run auto battle, no characters...
+            //    }
+            //}
 
             var display = await DisplayAlert("AutoBattle Details", myAutoBattleEngine.FormatOutput(), "OK", "Cancel");
 

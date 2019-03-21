@@ -140,14 +140,14 @@ namespace Crawl.Models
                 $"Speed : {Attribute.Speed}\t" +
                 $"Current Health : {Attribute.CurrentHealth}\t" +
                 $"Max. Health : {Attribute.MaxHealth}" +
-                $"*** Items at given location ***\n" +
-                $"Head : {(Head == null ? null : GetItem(Head).Name)}\t" +
-                $"Necklace : {(Necklace == null ? null : GetItem(Necklace).Name)}\t" +
-                $"Primary Hand : {(PrimaryHand == null ? null : GetItem(PrimaryHand).Name)}\t" +
-                $"Off Hand : {(OffHand == null ? null : GetItem(OffHand).Name)}\t" +
-                $"Right Finger : {(RightFinger == null ? null : GetItem(RightFinger).Name)}\t" +
-                $"Left Finger : {(LeftFinger == null ? null : GetItem(LeftFinger).Name)}\t" +
-                $"Feet : {(Feet == null ? null : GetItem(Feet).Name)}";
+                $"\n*** Items at given location ***\n" +
+                $"Head : {(Head == null ? "None" : GetItem(Head).Name)}\t" +
+                $"Necklace : {(Necklace == null ? "None" : GetItem(Necklace).Name)}\t" +
+                $"Primary Hand : {(PrimaryHand == null ? "None" : GetItem(PrimaryHand).Name)}\t" +
+                $"Off Hand : {(OffHand == null ? "None" : GetItem(OffHand).Name)}\t" +
+                $"Right Finger : {(RightFinger == null ? "None" : GetItem(RightFinger).Name)}\t" +
+                $"Left Finger : {(LeftFinger == null ? "None" : GetItem(LeftFinger).Name)}\t" +
+                $"Feet : {(Feet == null ? "None" : GetItem(Feet).Name)}";
             return myReturn;
         }
 

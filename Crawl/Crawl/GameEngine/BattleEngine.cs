@@ -68,16 +68,7 @@ namespace Crawl.GameEngine
         /// <returns></returns>
         public string FormatOutput()
         {
-            var myReturn = $"Battle Report\n" +
-                $"*** Characters played in battle ***\n";
-
-            foreach (var data in CharacterList)
-            {
-                myReturn += $"{data.Name}\n";
-            }
-
-            myReturn += BattleScore.FormatOutput();
-
+            var myReturn = $"Battle Report\n {BattleScore.FormatOutput()}";
             return myReturn;
         }
 

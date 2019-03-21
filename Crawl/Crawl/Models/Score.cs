@@ -138,7 +138,7 @@ namespace Crawl.Models
             var myReturn = $"Game Date: {GameDate}\nTotal Score: {ScoreTotal}\nAuto Battle: {AutoBattle}\n" +
                 $"No. of Rounds: {RoundCount}\nNo. of Turns: {TurnCount}\n" +
                 $"Dead Monsters: {MonsterSlainNumber}\nXP Gained: {ExperienceGainedTotal}\n" +
-                $"*** Died Aliens ***\n";
+                $"\n--- Died Aliens ---\n";
             if(CharacterAtDeathList.Count == 0)
             {
                 myReturn += $"No Data \n";
@@ -152,7 +152,7 @@ namespace Crawl.Models
                 }
             }
 
-            myReturn += $"*** Died Agents ***\n";
+            myReturn += $"\n--- Died Agents ---\n";
             if (MonstersKilledList.Count == 0)
             {
                 myReturn += $"No Data \n";
@@ -166,7 +166,7 @@ namespace Crawl.Models
                 }
             }
 
-            myReturn += $"*** Items Dropped ***\n";
+            myReturn += $"\n--- Items Dropped ---\n";
             if (ItemsDroppedList.Count == 0)
             {
                 myReturn += $"No Data \n";
