@@ -135,6 +135,29 @@ namespace UnitTests.GameEngineTests
             Assert.IsFalse(Actual, TestContext.CurrentContext.Test.Name);
         }
 
+        // run this test when everything is working.
+       // [Test]
+        public void RunAutoBattle_Should_Pass()
+        {
+            // Initialize Mock
+            MockForms.Init();
+
+            // Arrange
+            AutoBattleEngine auto = new AutoBattleEngine();
+            GameGlobals.SetForcedRandomNumbers(1, 20);
+
+            // Act
+            auto.RunAutoBattle();
+            var Actual = auto.GetFinalScoreObject();
+
+            // Reset
+            GameGlobals.ToggleRandomState();
+            GameGlobals.ForcedRandomValue = 1;
+
+            // Assert
+            Assert.AreNotEqual(0, Actual.ScoreTotal, TestContext.CurrentContext.Test.Name);
+        }
+
         [Test]
         public void GetFinalScoreObject_Default_Score_Should_Pass()
         {
