@@ -214,7 +214,7 @@ namespace Crawl.Views.Battle
             // When you want to show the modal page, just call this method
             // add the event handler for to listen for the modal popping event:
             Crawl.App.Current.ModalPopping += HandleModalPopping;
-            _myModalScorePage = new ScoreDetailPage();
+            _myModalScorePage = new ScoreDetailPage(new ScoreDetailViewModel(_viewModel.BattleEngine.BattleScore));
             await Navigation.PushModalAsync(_myModalScorePage);
         }
 
