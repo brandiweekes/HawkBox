@@ -306,5 +306,36 @@ namespace UnitTests.ModelTests
         }
 
         #endregion Tests: LevelUpToValue
+
+        #region Tests: AddExperience
+
+        [Test]
+        public void Character_AddExperience_NegValue_Should_Pass()
+        {
+            // arrange
+            Character character = new Character();
+
+            //Act
+            var Actual = character.AddExperience(-1);
+
+            // assert
+            Assert.IsFalse(Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void Character_AddExperience_MaxLevel_Should_Pass()
+        {
+            // arrange
+            Character character = new Character();
+            character.Level = LevelTable.MaxLevel;
+
+            //Act
+            var Actual = character.AddExperience(100);
+
+            // assert
+            Assert.IsFalse(Actual, TestContext.CurrentContext.Test.Name);
+        }
+
+        #endregion Tests: AddExperience
     }
 }

@@ -43,14 +43,14 @@ namespace Crawl.Views.Battle
             GameAttackButton.IsVisible = true;
             GameOverButton.IsVisible = false;
 
-
+            // start battle
             _viewModel.StartBattle();
-            Debug.WriteLine("Battle Start" + " Characters :" + _viewModel.BattleEngine.CharacterList.Count);
-
+            
             // Load the Characters into the Battle Engine
             _viewModel.LoadCharacters();
+            Debug.WriteLine("Battle Start" + " Characters :" + _viewModel.BattleEngine.CharacterList.Count);
 
-
+            // start round
             _viewModel.StartRound();
             Debug.WriteLine("Round Start" + " Monsters:" + _viewModel.BattleEngine.MonsterList.Count);
 
@@ -271,9 +271,8 @@ namespace Crawl.Views.Battle
             // Check for Game Over
             if (CurrentRoundState == RoundEnum.GameOver)
             {
-                _viewModel.EndBattle();
+                
                 ////MessagingCenter.Send(this, "EndBattle");
-                Debug.WriteLine("End Battle");
 
                 // Output Formatted Results 
                 //var myResult = _viewModel.BattleEngine.GetResultsOutput();
@@ -294,7 +293,14 @@ namespace Crawl.Views.Battle
                 var myScore = _viewModel.BattleEngine.BattleScore;
                 MessagingCenter.Send(this, "AddData", myScore);
 
-                _viewModel.BattleEngine.ClearData();
+                _viewModel.EndRound();
+
+                _viewModel.EndBattle();
+
+                Debug.WriteLine("Round count :" + _viewModel.BattleEngine.BattleScore.RoundCount);
+                Debug.WriteLine("Turn count :" + _viewModel.BattleEngine.BattleScore.TurnCount);
+                Debug.WriteLine("End Battle");
+
                 return;
             }
 
