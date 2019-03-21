@@ -33,7 +33,10 @@ namespace Crawl.ViewModels
 
         private bool _needsRefresh;
 
-        public MonstersViewModel()
+        /// <summary>
+        /// initialize properties and define Messages
+        /// </summary>
+        private MonstersViewModel()
         {
             Dataset = new ObservableCollection<Monster>();
             LoadMonstersCommand = new Command(async () => await ExecuteLoadDataCommand());
@@ -61,8 +64,11 @@ namespace Crawl.ViewModels
 
         #region Refresh
 
-        // Return True if a refresh is needed
-        // It sets the refresh flag to false
+        /// <summary>
+        /// Return True if a refresh is needed
+        /// It sets the refresh flag to false
+        /// </summary>
+        /// <returns></returns>
         public bool NeedsRefresh()
         {
             if (_needsRefresh)
@@ -74,12 +80,19 @@ namespace Crawl.ViewModels
             return false;
         }
 
-        // Sets the need to refresh
+        /// <summary>
+        /// Sets the need to refresh
+        /// </summary>
+        /// <param name="value"></param>
         public void SetNeedsRefresh(bool value)
         {
             _needsRefresh = value;
         }
 
+        /// <summary>
+        /// reset dataset and load data from datastore
+        /// </summary>
+        /// <returns></returns>
         private async Task ExecuteLoadDataCommand()
         {
             if (IsBusy)
@@ -108,9 +121,11 @@ namespace Crawl.ViewModels
 
         }
 
-        
+
+        /// <summary>
         /// Force Data Refresh
         /// Used  when DataSore is toggled between Mock and SQL. Check <see cref="Services.MasterDataStore"/>
+        /// </summary>
         public void ForceDataRefresh()
         {
             LoadMonstersCommand.Execute(null);
@@ -119,6 +134,11 @@ namespace Crawl.ViewModels
 
         #region DataOperations
 
+        /// <summary>
+        /// Add new monster data
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> AddAsync(Monster data)
         {
             Dataset.Add(data);
@@ -138,6 +158,11 @@ namespace Crawl.ViewModels
             return await DataStore.DeleteAsync_Monster(data);
         }
 
+        /// <summary>
+        /// update monster
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateAsync(Monster data)
         {
             var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -149,7 +174,11 @@ namespace Crawl.ViewModels
             return await DataStore.UpdateAsync_Monster(data);
         }
 
-        // Call to database to ensure most recent
+        /// <summary>
+        /// Call to database to ensure most recent
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Monster> GetAsync(string id)
         {
             return await DataStore.GetAsync_Monster(id);

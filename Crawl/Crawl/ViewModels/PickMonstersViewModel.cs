@@ -26,6 +26,7 @@ namespace Crawl.ViewModels
         }
         #endregion Singleton
 
+        // list of data
         public ObservableCollection<Monster> DataSet { get; set; }
 
         /// <summary>
