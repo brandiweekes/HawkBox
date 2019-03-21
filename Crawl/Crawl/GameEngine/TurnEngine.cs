@@ -216,10 +216,12 @@ namespace Crawl.GameEngine
                     }
                 }
 
-                this.TurnMessageSpecial = " remaining health is " + Target.Attribute.CurrentHealth;
+                
 
                 // deals damage to Character
                 Target.TakeDamage(this.DamageAmount);
+
+                this.TurnMessageSpecial = " remaining health is " + Target.Attribute.CurrentHealth;
             }
 
             // Check for Death and handle items dropped to ItemPool
