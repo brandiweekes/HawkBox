@@ -11,7 +11,9 @@ using Xamarin.Forms;
 
 namespace Crawl.ViewModels
 {
-    // this class represent selected character in multi-select view
+    /// <summary>
+    /// this class represent selected character in multi-select view
+    /// </summary>
     public class MultiSelectData : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -57,6 +59,9 @@ namespace Crawl.ViewModels
 
     }
 
+    /// <summary>
+    /// view model for PickCharactersPage
+    /// </summary>
     public class PickCharactersViewModel : BaseViewModel
     {
         #region Singleton
@@ -80,7 +85,7 @@ namespace Crawl.ViewModels
 
         private bool _needsRefresh;
 
-        public PickCharactersViewModel()
+        private PickCharactersViewModel()
         {
             DataSet = new ObservableCollection<MultiSelectData>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
@@ -88,8 +93,11 @@ namespace Crawl.ViewModels
 
         #region Refresh
 
-        // Return True if a refresh is needed
-        // It sets the refresh flag to false
+        /// <summary>
+        /// Return True if a refresh is needed
+        /// It sets the refresh flag to false
+        /// </summary>
+        /// <returns></returns>
         public bool NeedsRefresh()
         {
             if (_needsRefresh)
@@ -102,13 +110,19 @@ namespace Crawl.ViewModels
 
         }
 
-        // Sets the need to refresh
+        /// <summary>
+        /// Sets the need to refresh
+        /// </summary>
+        /// <param name="value"></param>
         public void SetNeedsRefresh(bool value)
         {
             _needsRefresh = value;
         }
 
-        // Command function which is executed to refresh dataset from datastore.
+        /// <summary>
+        /// Command function which is executed to refresh dataset from datastore.
+        /// </summary>
+        /// <returns></returns>
         async Task ExecuteLoadCommand()
         {
             if (IsBusy)
@@ -136,7 +150,9 @@ namespace Crawl.ViewModels
             }
         }
 
-        // called to force refresh dataset from datastore.
+        /// <summary>
+        /// called to force refresh dataset from datastore.
+        /// </summary>
         public void ForceDataRefresh()
         {
             LoadCommand.Execute(null);

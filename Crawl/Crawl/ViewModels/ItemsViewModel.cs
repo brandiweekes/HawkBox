@@ -37,7 +37,10 @@ namespace Crawl.ViewModels
 
         private bool _needsRefresh;
 
-        public ItemsViewModel()
+        /// <summary>
+        /// initialize properties and define Messages
+        /// </summary>
+        private ItemsViewModel()
         {
 
             Title = "Item List";
@@ -134,7 +137,11 @@ namespace Crawl.ViewModels
 
         #region DataOperations
 
-        // Add new item to dataset and datastore.
+        /// <summary>
+        /// Add new item to dataset and datastore.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> AddAsync(Item data)
         {
             Dataset.Add(data);
@@ -158,7 +165,11 @@ namespace Crawl.ViewModels
             return true;
         }
 
-        // delete item from dataset and datastore.
+        /// <summary>
+        /// delete item from dataset and datastore.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(Item data)
         {
             Dataset.Remove(data);
@@ -166,7 +177,11 @@ namespace Crawl.ViewModels
             return myReturn;
         }
 
-        // update existing item in dataset and datastore.
+        /// <summary>
+        /// update existing item in dataset and datastore.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateAsync(Item data)
         {
             // Find the Item, then update it
@@ -184,15 +199,23 @@ namespace Crawl.ViewModels
             return true;
         }
 
-        // Call to database to ensure most recent
+        /// <summary>
+        /// Call to database to ensure most recent
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Item> GetAsync(string id)
         {
             var myData = await DataStore.GetAsync_Item(id);
             return myData;
         }
 
-        // Having this at the ViewModel, because it has the DataStore
-        // That allows the feature to work for both SQL and the MOCk datastores...
+        /// <summary>
+        /// Having this at the ViewModel, because it has the DataStore
+        /// That allows the feature to work for both SQL and the MOCk datastores...
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> InsertUpdateAsync(Item data)
         {
             var _count = Dataset.Where(i => i.Id == data.Id).Count<Item>();

@@ -37,7 +37,10 @@ namespace Crawl.ViewModels
 
         private bool _needsRefresh;
 
-        public ScoresViewModel()
+        /// <summary>
+        /// initialize properties and define Messages
+        /// </summary>
+        private ScoresViewModel()
         {
             Title = "Score List";
             Dataset = new ObservableCollection<Score>();
@@ -67,8 +70,11 @@ namespace Crawl.ViewModels
 
         #region Refresh
 
-        // Return True if a refresh is needed
-        // It sets the refresh flag to false
+        /// <summary>
+        /// Return True if a refresh is needed
+        /// It sets the refresh flag to false
+        /// </summary>
+        /// <returns></returns>
         public bool NeedsRefresh()
         {
             if(_needsRefresh)
@@ -81,13 +87,19 @@ namespace Crawl.ViewModels
 
         }
 
-        // Sets the need to refresh. used to refresh data from datastore.
+        /// <summary>
+        /// Sets the need to refresh. used to refresh data from datastore.
+        /// </summary>
+        /// <param name="value"></param>
         public void SetNeedsRefresh(bool value)
         {
             _needsRefresh = value;
         }
 
-        // Command function which is executed to refresh dataset from data store.
+        /// <summary>
+        /// Command function which is executed to refresh dataset from data store.
+        /// </summary>
+        /// <returns></returns>
         private async Task ExecuteLoadDataCommand()
         {
             if (IsBusy)
@@ -116,10 +128,10 @@ namespace Crawl.ViewModels
 
         }
 
-        /**
-         * Force Data Refresh
-         *  -- Used  when DataSore is toggled between Mock and SQL. Check <see cref="Services.MasterDataStore"/>
-         */
+        /// <summary>
+        /// Force Data Refresh
+        /// -- Used when DataSore is toggled between Mock and SQL.Check<see cref="Services.MasterDataStore"/>
+        /// </summary>
         public void ForceDataRefresh()
         {
             LoadScoresCommand.Execute(null);
@@ -129,7 +141,11 @@ namespace Crawl.ViewModels
 
         #region Data Operations
 
-        // Call to database operation for delete
+        /// <summary>
+        /// Call to database operation for delete
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(Score data)
         {
             var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -138,14 +154,22 @@ namespace Crawl.ViewModels
             return myReturn;
         }
 
-        // Call to database operation for add
+        /// <summary>
+        /// Call to database operation for add
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> AddAsync(Score data)
         {
             Dataset.Add(data);
             return await DataStore.AddAsync_Score(data);
         }
 
-        // Call to database operation for update
+        /// <summary>
+        /// Call to database operation for update
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateAsync(Score data)
         {
             var myData = Dataset.FirstOrDefault(arg => arg.Id == data.Id);
@@ -157,7 +181,11 @@ namespace Crawl.ViewModels
             return await DataStore.UpdateAsync_Score(data);
         }
 
-        // Call to database to ensure most recent
+        /// <summary>
+        /// Call to database to ensure most recent
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Score> GetAsync(string id)
         {
             return await DataStore.GetAsync_Score(id);
