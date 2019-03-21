@@ -156,7 +156,7 @@ namespace Crawl.GameEngine
                         monster.Name += " " + (1 + MonsterList.Count()).ToString();
                         //scale round and add to list
                         var roundscale = HelperEngine.RollDice(1, scaleavg + 1);
-                        monster.ScaleLevel(roundscale);
+                        monster.ScaleLevel(scalemax);
                         MonsterList.Add(monster);
                     }
                 } while (MonsterList.Count < GameGlobals.MaxNumberPartyPlayers);
@@ -405,8 +405,12 @@ namespace Crawl.GameEngine
         //equip character with a better item if applicable in a given location
         public void GetItemFromPoolIfBetter(Character character, ItemLocationEnum setLocation)
         {
+            if(ItemPool == null)
+            {
+                return;
+            }
             //get items with location = setlocation
-            var itemList = ItemPool.Where(a => a.Location == setLocation).OrderByDescending(a => a.Value).ToList();
+            var itemList = ItemPool.Where(a => a?.Location == setLocation).OrderByDescending(a => a.Value).ToList();
 
             //if no items found
             if(itemList.Count < 1)
