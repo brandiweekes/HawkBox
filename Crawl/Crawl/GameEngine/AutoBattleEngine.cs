@@ -147,7 +147,7 @@ namespace Crawl.GameEngine
                 var Data = GetRandomCharacter(ScaleLevelMin, ScaleLevelMax);
 
                 if (myReturn.Any(ch => ch.Id == Data.Id) == false) {
-                    myReturn.Add(Data);
+                    myReturn.Add(new Character(Data));
                 }
 
                 /*
