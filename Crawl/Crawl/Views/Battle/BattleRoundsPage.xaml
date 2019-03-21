@@ -10,7 +10,7 @@
   -->  
     <ContentPage.Content>
     <StackLayout>
-            <Button Text="Item Pages" Clicked="ItemPagesClicked" />
+            <!--<Button Text="Item Pages" Clicked="ItemPagesClicked" />-->
         <RelativeLayout x:Name="CharacterBox"
                       BackgroundColor="{DynamicResource Primary}" 
                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=220}" 
@@ -65,7 +65,7 @@
         <Label Text="HP" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=30}"/>
-        <Label x:Name="cHPStat" Text="0000" 
+                <Label x:Name="cHPStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=25}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=20}"/>
         <Label Text="------" TextColor="{DynamicResource DarkBackgroundColor}"
@@ -129,9 +129,10 @@
             Text="Attack!" FontSize="Small" Clicked="OnAttackClicked"
                         AbsoluteLayout.LayoutFlags="All, PositionProportional" 
                         AbsoluteLayout.LayoutBounds="0, 1, .3, .1" />
-                <!--<Button Text="Battle" Clicked="OnBattleClicked"
-                        AbsoluteLayout.LayoutFlags="All, PositionProportional" 
-                        AbsoluteLayout.LayoutBounds="1, 1, .3, .1" />-->
+        <Button x:Name="GameOverButton" IsVisible="False" 
+                Text="Game Over" Clicked="OnGameOverClicked"
+                AbsoluteLayout.LayoutFlags="All, PositionProportional" 
+                AbsoluteLayout.LayoutBounds="1, 1, .3, .1" />
       </AbsoluteLayout>
       
       <RelativeLayout x:Name="BattleMonsterStats"
@@ -169,7 +170,7 @@
         <Label Text="HP" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=30}"/>
-        <Label x:Name="mHPStat" Text="0000" 
+                <Label x:Name="mHPStat" Text="0000" TextColor="{DynamicResource DarkBackgroundColor}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=25}"
                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.4, Constant=20}"/>
         <Label Text="------" TextColor="{DynamicResource DarkBackgroundColor}"
