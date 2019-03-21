@@ -3,6 +3,7 @@ using Crawl.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Crawl.GameEngine
 {
@@ -141,8 +142,19 @@ namespace Crawl.GameEngine
             // Get Characters and scale them.
             do
             {
+                //bool inList = false;
+
                 var Data = GetRandomCharacter(ScaleLevelMin, ScaleLevelMax);
-                myReturn.Add(Data);
+
+                if (myReturn.Any(ch => ch.Id == Data.Id) == false) {
+                    myReturn.Add(Data);
+                }
+
+                /*
+                if(inList == false)
+                {
+                    myReturn.Add(Data);
+                }*/
             } while (myReturn.Count < number);
 
             Debug.WriteLine($"Characters randomly choosen from datastore.");
