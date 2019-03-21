@@ -21,7 +21,7 @@ namespace Crawl.GameEngine
     public class TurnEngine
     {
         // Holds the official score
-        public Score BattleScore = new Score();
+        public Score BattleScore;
 
         public string AttackerName = string.Empty;
         public string TargetName = string.Empty;
@@ -34,12 +34,9 @@ namespace Crawl.GameEngine
         public int DamageAmount = 0;
         public HitStatusEnum HitStatus = HitStatusEnum.Unknown;
 
-        public List<Item> ItemPool = new List<Item>();
-
-        //public List<Item> ItemList = new List<Item>();
-
-        public List<Monster> MonsterList = new List<Monster>();
-        public List<Character> CharacterList = new List<Character>();
+        public List<Item> ItemPool;
+        public List<Monster> MonsterList;
+        public List<Character> CharacterList;
 
         public PlayerInfo CurrentAttacker;
         public PlayerInfo CurrentDefender;
@@ -217,10 +214,13 @@ namespace Crawl.GameEngine
                 // remove monster from list of available monsters
                 this.CharacterList.Remove(Target);
 
+                // add to dead character list
+                BattleScore.AddCharacterToList(Target);
+
                 // get item count
                 int _count = Target.GetItemsCount();
 
-                // Drop Items from monster killed
+                // Drop Items from characters death
                 var droppedItemsList = Target.DropAllItems();
                 // monster dropped at least 1 item
                 if (droppedItemsList.Count > 0)
@@ -228,6 +228,7 @@ namespace Crawl.GameEngine
                     // add all items dropped to the item pool 
                     // for end of round
                     this.ItemPool.AddRange(droppedItemsList);
+                    BattleScore.AddItemToList(droppedItemsList);
                 }
                 else
                 {
@@ -332,6 +333,9 @@ namespace Crawl.GameEngine
                     this.LevelUpMessage = Attacker.Name + " is now Level " + Attacker.Level + " With Health Max of " + Attacker.GetHealthMax();
                     Debug.WriteLine(LevelUpMessage);
                 }
+
+                // add XP gained to battle score
+                BattleScore.ExperienceGainedTotal += XPtoCharacter;
             }
 
 
@@ -356,6 +360,7 @@ namespace Crawl.GameEngine
                     // add all items dropped to the item pool 
                     // for end of round
                     this.ItemPool.AddRange(droppedItemsList);
+                    BattleScore.AddItemToList(droppedItemsList);
                 }
             }
             
