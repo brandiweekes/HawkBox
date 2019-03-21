@@ -112,7 +112,9 @@
       <AbsoluteLayout x:Name="BattleArena">
         <Image Opacity=".8"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             Source="http://clipart-library.com/data_images/483324.jpg"/>
-                <Label x:Name="BattleMsg" Text="Battle Message" AbsoluteLayout.LayoutFlags="All"
+        <BoxView BackgroundColor="{DynamicResource DarkBackgroundColor}" AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, .25" />
+        <Label x:Name="BattleMsg" Text="Select Attack to Begin" AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0, 0, 1, .25" />
                 <Image x:Name="AttackerImage" AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0, 0.6, .3, .3" />

@@ -427,7 +427,9 @@ namespace Crawl.Views.Battle
             RelativeLayout battleMonsStatBox = this.FindByName<RelativeLayout>("BattleMonsterStats");
             ResetStatsBox(battleCharStatBox, "CharName", "c", "Character");
             ResetStatsBox(battleMonsStatBox, "MonsName", "m", "Monster");
-            
+
+            Label BattleMsgLabel = this.FindByName<Label>("BattleMsg");
+            BattleMsgLabel.Text = "Game Over";
         }
     }
 }
