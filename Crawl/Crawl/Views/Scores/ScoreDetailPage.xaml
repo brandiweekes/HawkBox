@@ -130,6 +130,7 @@
                     <Label x:Name="ItemsDroppedLabel" Text="No Data" IsVisible="True" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"></Label>
                 </StackLayout>
             </Grid>
+            <Button x:Name="ExitButton" IsVisible="False" Text="Exit" Clicked="OnExitClicked" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

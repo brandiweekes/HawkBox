@@ -18,9 +18,16 @@ namespace Crawl.Views.Battle
 			InitializeComponent ();
 		}
 
+        // redirects to start of game to select characters
         private async void ManualBattleButton_Command(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new PickCharactersPage());
+        }
+
+        // Cancel battle event. navigates to previous page by popping current page in navigation stack
+        private async void CancelBattle(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
-
+﻿using Crawl.Models;
+using Crawl.ViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using Crawl.Models;
-using Crawl.ViewModels;
 
 namespace Crawl.Views
 {
@@ -20,6 +18,16 @@ namespace Crawl.Views
             BindingContext = _viewModel = viewModel;
 
             ToggleLists();
+
+            Button exitButton = this.FindByName<Button>("ExitButton");
+            exitButton.IsVisible = false;
+
+            int numModals = Application.Current.MainPage.Navigation.ModalStack.Count;
+
+            if (numModals > 0)
+            {
+                exitButton.IsVisible = true;
+            }
         }
 
         public ScoreDetailPage()
@@ -37,6 +45,10 @@ namespace Crawl.Views
             _viewModel = new ScoreDetailViewModel(data);
             BindingContext = _viewModel;
             ToggleLists();
+
+            Button exitButton = this.FindByName<Button>("ExitButton");
+            exitButton.IsVisible = false;
+
         }
 
         // Show and hide 'No Data' label based on list count
@@ -76,6 +88,23 @@ namespace Crawl.Views
         private async void CancelScore(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
+        }
+
+        /// <summary>
+        /// Pop all modal pages and return to new battle page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public async void OnExitClicked(object sender, EventArgs args)
+        {
+            int numModals = Application.Current.MainPage.Navigation.ModalStack.Count;
+            for (int currModal = 0; currModal < numModals; currModal++)
+            {
+                await Application.Current.MainPage.Navigation.PopModalAsync();
+            }
+
+            // Back up to the Start of Battle
+            await Navigation.PopToRootAsync();
         }
     }
 }
