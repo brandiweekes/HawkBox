@@ -18,15 +18,6 @@ namespace Crawl.GameEngine
         /// </summary>
         public BattleEngine() : base()
         {
-            BattleEngineInit();
-        }
-
-        /// <summary>
-        /// Sets the new state for the variables for Battle
-        /// </summary>
-        private void BattleEngineInit()
-        {
-            BattleScore = new Score();
             CharacterList = new List<Character>();
         }
 
@@ -42,6 +33,7 @@ namespace Crawl.GameEngine
             }
 
             Debug.WriteLine("Battle Starting...");
+            BattleScore = new Score();
             isBattleRunning = true;
             BattleScore.AutoBattle = isAutoBattle;
 
@@ -66,7 +58,6 @@ namespace Crawl.GameEngine
         /// </summary>
         public void ClearData()
         {
-            BattleScore = new Score();
             CharacterList.Clear();
             MonsterList.Clear();
         }

@@ -32,6 +32,9 @@ namespace Crawl.Views.Battle
             _viewModel = PickMonstersViewModel.Instance;
             battleViewModel = BattleViewModel.Instance;
 
+            // clear dataset
+            _viewModel.DataSet.Clear();
+
             foreach (Monster m in battleViewModel.BattleEngine.MonsterList)
             {
                 _viewModel.DataSet.Add(m);

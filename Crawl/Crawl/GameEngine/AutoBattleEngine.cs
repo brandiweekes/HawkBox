@@ -46,7 +46,7 @@ namespace Crawl.GameEngine
                 return;
             }
 
-            Debug.WriteLine("Adding characters to Battle.");
+            Debug.WriteLine($"Adding characters to Battle. count: {CharacterList.Count}");
             // Assign characters to Battle.
             BattleEngine.CharacterList = CharacterList;
 
@@ -56,26 +56,31 @@ namespace Crawl.GameEngine
 
             // Start a Round
             BattleEngine.StartRound();
-            Debug.WriteLine("Round Starting...");
+            Debug.WriteLine($"Round Starting... Round Count: {BattleEngine.BattleScore.RoundCount}");
+            Debug.WriteLine($"Monster list count: {BattleEngine.MonsterList.Count}");
 
             RoundEnum result;
 
             do
             {
                 Debug.WriteLine("Performing next turn...");
-                result = BattleEngine.RoundNextTurn();
-                Debug.WriteLine("Turn over...");
+                BattleEngine.RoundNextTurn();
+                Debug.WriteLine($"Turn over... Turn Count: {BattleEngine.BattleScore.TurnCount}");
+                result = BattleEngine.RoundStateEnum;
 
                 // do the Round
                 // Turn loop happens inside the Round
                 if (result == RoundEnum.NewRound)
                 {
                     BattleEngine.NewRound();
-                    Debug.WriteLine("New round beginning...");
+                    Debug.WriteLine($"New round beginning...Round Count: {BattleEngine.BattleScore.RoundCount}");
                 }
 
             }
             while (result != RoundEnum.GameOver);//end condition);
+
+            BattleEngine.EndRound();
+            Debug.WriteLine("Round ended.");
 
             // Save Score
             var myScore = GetFinalScoreObject();
@@ -152,8 +157,8 @@ namespace Crawl.GameEngine
         public Character GetRandomCharacter(int ScaleLevelMin, int ScaleLevelMax)
         {
             // roll dice to pick characters from datastore.
-            var rnd = HelperEngine.RollDice(0, _instance.Dataset.Count);
-            var myData = _instance.Dataset[rnd];
+            var rnd = HelperEngine.RollDice(1, _instance.Dataset.Count);
+            var myData = _instance.Dataset[rnd - 1];
 
             // roll dice to selecte random level between given min. level and max. level.
             var rndScale = HelperEngine.RollDice(ScaleLevelMin, ScaleLevelMax);

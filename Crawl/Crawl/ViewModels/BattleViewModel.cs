@@ -55,7 +55,7 @@ namespace Crawl.ViewModels
         // Flag to check if the data needs refreshing
         private bool _needsRefresh;
 
-        public BattleViewModel()
+        private BattleViewModel()
         {
             Title = "Battle";
 
@@ -90,7 +90,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void StartBattle()
         {
-            BattleViewModel.Instance.BattleEngine.StartBattle(false);
+            BattleEngine.StartBattle(false);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void EndBattle()
         {
-            BattleViewModel.Instance.BattleEngine.EndBattle();
+            BattleEngine.EndBattle();
         }
 
         /// <summary>
@@ -106,7 +106,15 @@ namespace Crawl.ViewModels
         /// </summary>
         public void StartRound()
         {
-            BattleViewModel.Instance.BattleEngine.StartRound();
+            BattleEngine.StartRound();
+        }
+
+        /// <summary>
+        /// End Round.
+        /// </summary>
+        public void EndRound()
+        {
+            BattleEngine.EndRound();
         }
 
         /// <summary>
@@ -117,7 +125,7 @@ namespace Crawl.ViewModels
         {
             foreach (var data in SelectedCharacters)
             {
-                BattleViewModel.Instance.BattleEngine.CharacterList.Add(new Character(data));
+                BattleEngine.CharacterList.Add(new Character(data));
             }
 
         }
@@ -127,7 +135,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void RoundNextTurn()
         {
-            BattleViewModel.Instance.BattleEngine.RoundNextTurn();
+            BattleEngine.RoundNextTurn();
         }
 
         /// <summary>
@@ -135,7 +143,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void NewRound()
         {
-            BattleViewModel.Instance.BattleEngine.NewRound();
+            BattleEngine.NewRound();
         }
 
         #region DataOperations

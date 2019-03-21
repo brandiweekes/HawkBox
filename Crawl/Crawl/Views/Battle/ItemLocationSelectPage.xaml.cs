@@ -43,7 +43,7 @@ namespace Crawl.Views.Battle
 
         private async void NextButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new BattleRoundsPage());
+            await Navigation.PopModalAsync();
         }
 
         private async void LocationClicked(object sender, EventArgs e)

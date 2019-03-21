@@ -50,6 +50,9 @@ namespace Crawl.Views.Battle
             // Add Selected characters to BattleViewModel
             _battleViewModel.SelectedCharacters = new ObservableCollection<Character>(_list);
 
+            // clear selcted characters from viewmodel
+            _viewModel.ForceDataRefresh();
+
             await Navigation.PushModalAsync(new BattleRoundsPage());
         }
 

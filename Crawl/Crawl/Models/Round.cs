@@ -113,5 +113,10 @@ namespace Crawl.Models
             Attack = data.GetAttack();
             Defense = data.GetDefense();
         }
+
+        public string FormatOutput()
+        {
+            return $"speed: {Speed}, level: {Level}, XP: {ExperiencePoints}, Name: {Name}, Type: {PlayerType}, listorder: {ListOrder}";
+        }
     }
 }

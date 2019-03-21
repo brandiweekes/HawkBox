@@ -69,7 +69,7 @@ namespace Crawl.Models
             RoundCount = 0;
             MonsterSlainNumber = 0;
             ExperienceGainedTotal = 0;
-            AutoBattle = true;
+            AutoBattle = false;
 
             GameDate = DateTime.Now;
             CharacterAtDeathList = new List<Character>();
@@ -211,9 +211,22 @@ namespace Crawl.Models
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public bool AddItemToList( Item data)
+        public bool AddItemToList(Item data)
         {
             ItemsDroppedList.Add(data);
+            ItemsDroppedString = JsonConvert.SerializeObject(ItemsDroppedList);
+            return true;
+
+        }
+
+        /// <summary>
+        /// All an item to the list of items for score and their stats
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool AddItemToList(List<Item> data)
+        {
+            ItemsDroppedList.AddRange(data);
             ItemsDroppedString = JsonConvert.SerializeObject(ItemsDroppedList);
             return true;
 

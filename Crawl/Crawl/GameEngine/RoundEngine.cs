@@ -19,7 +19,7 @@ namespace Crawl.GameEngine
         //state of the round
         public RoundEnum RoundStateEnum = RoundEnum.Unknown; 
         //constructor
-        public RoundEngine()
+        public RoundEngine() : base()
         {
             //clear item pool & monster list
             ClearLists();
@@ -32,6 +32,7 @@ namespace Crawl.GameEngine
             ItemPool = new List<Item>();
             //clear monster list
             MonsterList = new List<Monster>();
+            PlayerCurrent = null;
         }
 
         // Start the round, need to get the ItemPool, and Characters
@@ -62,6 +63,7 @@ namespace Crawl.GameEngine
             }
             //create player list of monsters and characters
             MakePlayerList();
+            
             //increment round count
             BattleScore.RoundCount++;
         }
@@ -157,13 +159,13 @@ namespace Crawl.GameEngine
                         monster.ScaleLevel(roundscale);
                         MonsterList.Add(monster);
                     }
-                } while (MonsterList.Count < 6);
+                } while (MonsterList.Count < GameGlobals.MaxNumberPartyPlayers);
 
             }
             else  //if no monsters in viewmodel
             {
                 //add 6 monsters
-                for(var i = 0; i < 6; i++)
+                for(var i = 0; i < GameGlobals.MaxNumberPartyPlayers; i++)
                 {
                     //new monster
                     var monster = new Monster();
@@ -212,9 +214,10 @@ namespace Crawl.GameEngine
             if(MonsterList.Count < 1)
             {
                 //call for a new round
-                return RoundEnum.NewRound;
+                RoundStateEnum = RoundEnum.NewRound;
+                return RoundStateEnum;
             }
-            else if (MonsterList.Count < 6)
+            else if (MonsterList.Count < GameGlobals.MaxNumberPartyPlayers)
             {
                 // check for monstser multiply chance
                 // if true then add monsters
@@ -227,6 +230,8 @@ namespace Crawl.GameEngine
 
             //get player whose turn it is
             PlayerCurrent = GetNextPlayerTurn();
+
+            Debug.WriteLine($"current player for turn: {PlayerCurrent.FormatOutput()}");
             //if current player is character
             if(PlayerCurrent.PlayerType == PlayerTypeEnum.Character)
             {
@@ -335,6 +340,8 @@ namespace Crawl.GameEngine
                     listOrder++;
                 }
             }
+
+            Debug.WriteLine($"PlayerList count: {PlayerList.Count}");
         }
 
         //return next player in player list 
