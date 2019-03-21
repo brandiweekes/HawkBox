@@ -120,14 +120,7 @@
                AbsoluteLayout.LayoutBounds="0, 0.6, .3, .3" />
         <Image x:Name="DefenderImage" AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="1, 0.6, .25, .25" />
-        <!--<Label Text="MiBliens" FontSize="Large" FontAttributes="Bold"
-               HorizontalOptions="Center"
-               AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0.5, 0.1, .4, .1" />
-        <Label Text="Let the intergalactic battle begin!" FontSize="Medium" FontAttributes="Bold" TextColor="{DynamicResource LightBackgroundColor}"
-               HorizontalOptions="Center"
-               AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0.5, .85, .8, .1" />-->
+       
         <Button x:Name="GameAttackButton" IsVisible="True"
             Text="Attack!" FontSize="Small" Clicked="OnAttackClicked"
                         AbsoluteLayout.LayoutFlags="All, PositionProportional" 

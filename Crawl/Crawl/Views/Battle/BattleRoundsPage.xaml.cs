@@ -27,6 +27,8 @@ namespace Crawl.Views.Battle
         // Hold the Items
         private ItemLocationSelectPage _myModalItemSelectionPage;
 
+        private ScoreDetailPage _myModalScorePage;
+
         // Holds the view model
         private BattleViewModel _viewModel;
         
@@ -189,11 +191,13 @@ namespace Crawl.Views.Battle
             var outputString = "Battle Over! Score " + myScore.ToString();
             Debug.WriteLine(outputString);
 
+            Label gameOverbattleMsg = this.FindByName<Label>("BattleMsg");
+            BattleMsg.Text = outputString;
 
-            ShowModalItemSelectionPage();
+            ShowModalScorePage();
 
             // Back up to the Start of Battle
-            await Navigation.PushModalAsync(new PickCharactersPage());
+            //await Navigation.PushModalAsync(new PickCharactersPage());
         }
 
         private async void ShowModalItemSelectionPage()
@@ -205,7 +209,15 @@ namespace Crawl.Views.Battle
             await Navigation.PushModalAsync(_myModalItemSelectionPage);
         }
 
-   
+        private async void ShowModalScorePage()
+        {
+            // When you want to show the modal page, just call this method
+            // add the event handler for to listen for the modal popping event:
+            Crawl.App.Current.ModalPopping += HandleModalPopping;
+            _myModalScorePage = new ScoreDetailPage();
+            await Navigation.PushModalAsync(_myModalScorePage);
+        }
+
 
         private void HandleModalPopping(object sender, ModalPoppingEventArgs e)
         {
@@ -228,6 +240,14 @@ namespace Crawl.Views.Battle
             if (e.Modal == _myModalItemSelectionPage)
             {
                 _myModalItemSelectionPage = null;
+
+                // remember to remove the event handler:
+                App.Current.ModalPopping -= HandleModalPopping;
+            }
+
+            if (e.Modal == this._myModalScorePage)
+            {
+                _myModalScorePage = null;
 
                 // remember to remove the event handler:
                 App.Current.ModalPopping -= HandleModalPopping;
@@ -284,9 +304,6 @@ namespace Crawl.Views.Battle
                 //Debug.Write(myResult);
 
                 // Let the user know the game is over
-                //ClearMessages();    // Clear message
-                //AppendMessage("Game Over\n"); // Show Game Over
-
                 // Clear the players from the center of the board
                 DrawGameBoardClear();
 
