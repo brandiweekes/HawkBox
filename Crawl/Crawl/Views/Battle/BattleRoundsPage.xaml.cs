@@ -312,7 +312,7 @@ namespace Crawl.Views.Battle
             // Output the Game Board
             DrawGameBoardAttackerDefender();
             
-
+            
 
             // Move attacker on battle field
             //Crawl.App.Current.BindingContextChanged += AnimateAttacker;
@@ -412,6 +412,9 @@ namespace Crawl.Views.Battle
                 ResetStatsBox(battleCharStatBox, "CharName", "c", "Character");
                 ResetStatsBox(battleMonsStatBox, "MonsName", "m", "Monster");
             }
+            Label BattleMsgLabel = this.FindByName<Label>("BattleMsg");
+            BattleMsgLabel.Text = _viewModel.BattleEngine.TurnMessage;
+
         }
 
         private void DrawGameBoardClear()

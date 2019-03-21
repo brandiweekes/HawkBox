@@ -494,7 +494,11 @@ namespace Crawl.Models
             {
                 Enum.TryParse(loc, true, out ItemLocationEnum locEnum);
                 Item _item = RemoveItem(locEnum);
-                myReturn.Add(_item);
+                if(_item != null)
+                {
+                    myReturn.Add(_item);
+                }
+                
             }
 
             // condition check if monster can steal items.

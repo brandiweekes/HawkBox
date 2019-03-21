@@ -158,6 +158,10 @@ namespace Crawl.GameEngine
         /// <returns>true if attack happens</returns>
         public bool TurnAsAttack(Monster Attacker, int AttackScore, Character Target, int DefenseScore)
         {
+            TurnMessage = string.Empty;
+            TurnMessageSpecial = string.Empty;
+            AttackStatus = string.Empty;
+
             // set name variables for messages
             this.AttackerName = Attacker.Name;
             this.TargetName = Target.Name;
@@ -173,6 +177,9 @@ namespace Crawl.GameEngine
             // On miss, no damage dealt
             if (HitStatus == HitStatusEnum.Miss)
             {
+                this.TurnMessage = this.AttackerName + " misses " + this.TargetName;
+                Debug.WriteLine(this.TurnMessage);
+
                 this.DamageAmount = 0;
                 return true;
             }
@@ -180,6 +187,8 @@ namespace Crawl.GameEngine
             // On CriticalMiss, no damage dealt
             if (HitStatus == HitStatusEnum.CriticalMiss)
             {
+                this.TurnMessage = this.AttackerName + " swings & really misses " + this.TargetName;
+
                 this.DamageAmount = 0;
 
                 //TODO CriticalMissProblem
@@ -194,6 +203,7 @@ namespace Crawl.GameEngine
                 // set variable for messages
                 this.DamageAmount = damage;
 
+                this.AttackStatus = string.Format(" hits for {0} damage on ", this.DamageAmount);
                 // check for criticalHit status, apply double damage
                 if (GameGlobals.EnableCriticalHitDamage)
                 {
@@ -201,8 +211,12 @@ namespace Crawl.GameEngine
                     if (HitStatus == HitStatusEnum.CriticalHit)
                     {
                         this.DamageAmount += damage;
+                        this.AttackStatus = string.Format(" hits really hard for {0} damage on ", this.DamageAmount);
+
                     }
                 }
+
+                this.TurnMessageSpecial = " remaining health is " + Target.Attribute.CurrentHealth;
 
                 // deals damage to Character
                 Target.TakeDamage(this.DamageAmount);
@@ -213,6 +227,8 @@ namespace Crawl.GameEngine
             {
                 // remove monster from list of available monsters
                 this.CharacterList.Remove(Target);
+
+                this.TurnMessageSpecial = " and causes death";
 
                 // add to dead character list
                 BattleScore.AddCharacterToList(Target);
@@ -229,15 +245,23 @@ namespace Crawl.GameEngine
                     // for end of round
                     this.ItemPool.AddRange(droppedItemsList);
                     BattleScore.AddItemToList(droppedItemsList);
+                    foreach(var item in droppedItemsList)
+                    {
+                        this.TurnMessageSpecial += " Item " + item.Name + " dropped";
+                    }
                 }
                 else
                 {
                     if(_count != 0)
                     {
+                        this.TurnMessageSpecial += " Items are gone. Monsters stole them...";
                         Debug.WriteLine("Items are gone. Monsters stole them...");
                     }
                 }
             }
+
+            this.TurnMessage = this.AttackerName + this.AttackStatus + this.TargetName + this.TurnMessageSpecial;
+            Debug.WriteLine(this.TurnMessage);
 
             // Turn Over
             return true;
@@ -257,7 +281,12 @@ namespace Crawl.GameEngine
         /// <param name="DefenseScore">monster defense</param>
         /// <returns>true if attack happens</returns>
         public bool TurnAsAttack(Character Attacker, int AttackScore, Monster Target, int DefenseScore)
-        { //TODO battle messages
+        { 
+            TurnMessage = string.Empty;
+            TurnMessageSpecial = string.Empty;
+            AttackStatus = string.Empty;
+            LevelUpMessage = string.Empty;
+            
             // set name variables for messages
             this.AttackerName = Attacker.Name;
             this.TargetName = Target.Name;
@@ -273,6 +302,9 @@ namespace Crawl.GameEngine
             // On miss, no damage dealt
             if (HitStatus == HitStatusEnum.Miss)
             {
+                this.TurnMessage = this.AttackerName + " misses " + this.TargetName;
+                Debug.WriteLine(this.TurnMessage);
+
                 this.DamageAmount = 0;
                 return true;
             }
@@ -282,12 +314,16 @@ namespace Crawl.GameEngine
             {
                 this.DamageAmount = 0;
 
+                this.TurnMessage = this.AttackerName + " swings and really misses " + this.TargetName;
+                
+
                 if (GameGlobals.EnableCriticalMissProblems)
                 {
                     this.TurnMessage += DetermineCriticalMissProblem(Attacker);
                 }
 
-                //TODO CriticalMissProblem
+                Debug.WriteLine(this.TurnMessage);
+
                 return true;
             }
             
@@ -299,13 +335,16 @@ namespace Crawl.GameEngine
                 // set variable for messages
                 this.DamageAmount = damage;
 
+                this.AttackStatus = string.Format(" hits for {0} damage on ", this.DamageAmount);
+
                 // check for criticalHit status, apply double damage
-                if(GameGlobals.EnableCriticalHitDamage)
+                if (GameGlobals.EnableCriticalHitDamage)
                 {
                     // CriticalHit deals double damage
                     if(HitStatus == HitStatusEnum.CriticalHit)
                     {
                         this.DamageAmount += damage;
+                        this.AttackStatus = string.Format(" hits really hard for {0} damage on ", this.DamageAmount);
                     }
                 }
                 // deals damage to Monster
@@ -338,12 +377,16 @@ namespace Crawl.GameEngine
                 BattleScore.ExperienceGainedTotal += XPtoCharacter;
             }
 
+            this.TurnMessageSpecial = " remaining health is " + Target.Attribute.CurrentHealth;
 
             // Check for Death and handle items dropped to ItemPool
             if(Target.Alive == false)
             {
+                this.TurnMessageSpecial = " and causes death";
+
                 // remove monster from list of available monsters
                 this.MonsterList.Remove(Target);
+
 
                 // Add one to the monsters killed count...
                 BattleScore.MonsterSlainNumber++;
@@ -354,6 +397,8 @@ namespace Crawl.GameEngine
 
                 // Drop Items from monster killed
                 var droppedItemsList = Target.DropAllItems();
+
+                droppedItemsList.AddRange(GetRandomMonsterItemDrops(BattleScore.RoundCount));
                 // monster dropped at least 1 item
                 if (droppedItemsList.Count > 0)
                 {
@@ -361,9 +406,16 @@ namespace Crawl.GameEngine
                     // for end of round
                     this.ItemPool.AddRange(droppedItemsList);
                     BattleScore.AddItemToList(droppedItemsList);
+                    foreach (var item in droppedItemsList)
+                    {
+                        this.TurnMessageSpecial += " Item " + item.Name + " dropped";
+                    }
                 }
             }
-            
+
+            this.TurnMessage = this.AttackerName + this.AttackStatus + this.TargetName + this.TurnMessageSpecial;
+            Debug.WriteLine(TurnMessage);
+
             // Turn Over
             return true;
         }

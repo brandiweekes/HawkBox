@@ -112,8 +112,9 @@
       <AbsoluteLayout x:Name="BattleArena">
         <Image Opacity=".8"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             Source="http://clipart-library.com/data_images/483324.jpg"/>
-
-        <Image x:Name="AttackerImage" AbsoluteLayout.LayoutFlags="All"
+                <Label x:Name="BattleMsg" Text="Battle Message" AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, .25" />
+                <Image x:Name="AttackerImage" AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0, 0.6, .3, .3" />
         <Image x:Name="DefenderImage" AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="1, 0.6, .25, .25" />
