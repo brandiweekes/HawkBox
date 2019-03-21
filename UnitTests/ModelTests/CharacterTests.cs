@@ -208,6 +208,10 @@ namespace UnitTests.ModelTests
 
             // assert
             Assert.IsTrue(Actual, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Attack, LevelTable.Instance.LevelDetailsList[10].Attack, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Defense, LevelTable.Instance.LevelDetailsList[10].Defense, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Speed, LevelTable.Instance.LevelDetailsList[10].Speed, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Level, LevelTable.Instance.LevelDetailsList[10].Level, TestContext.CurrentContext.Test.Name);
         }
 
         #endregion Test: ScaleLevel
@@ -237,13 +241,17 @@ namespace UnitTests.ModelTests
             var _oldLevel = character.Level;
 
             //Act
-            character.ScaleLevel(4);
+            //character.ScaleLevel(4);
             var Actual = character.LevelUp();
             var _newLevel = character.Level;
 
             // assert
             Assert.IsTrue(Actual, TestContext.CurrentContext.Test.Name);
-            Assert.AreNotEqual(_oldLevel, _newLevel, TestContext.CurrentContext.Test.Name);
+            //Assert.AreNotEqual(_oldLevel, _newLevel, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Attack, LevelTable.Instance.LevelDetailsList[_newLevel].Attack, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Defense, LevelTable.Instance.LevelDetailsList[_newLevel].Defense, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Speed, LevelTable.Instance.LevelDetailsList[_newLevel].Speed, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Level, LevelTable.Instance.LevelDetailsList[_newLevel].Level, TestContext.CurrentContext.Test.Name);
         }
 
         #endregion Tests: LevelUp
@@ -303,6 +311,10 @@ namespace UnitTests.ModelTests
             // assert
             Assert.AreNotEqual(_testLevel, Actual, TestContext.CurrentContext.Test.Name);
             Assert.AreEqual(Expected, Actual, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Attack, LevelTable.Instance.LevelDetailsList[6].Attack, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Defense, LevelTable.Instance.LevelDetailsList[6].Defense, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Attribute.Speed, LevelTable.Instance.LevelDetailsList[6].Speed, TestContext.CurrentContext.Test.Name);
+            Assert.AreEqual(character.Level, LevelTable.Instance.LevelDetailsList[6].Level, TestContext.CurrentContext.Test.Name);
         }
 
         #endregion Tests: LevelUpToValue
