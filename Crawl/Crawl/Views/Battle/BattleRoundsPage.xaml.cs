@@ -83,7 +83,7 @@ namespace Crawl.Views.Battle
             playerStats.FindByName<Label>(xName).Text = playerName;
 
             playerStats.FindByName<Label>(p+"XPStat").Text = "***";
-            playerStats.FindByName<Label>(p+"XPMaxStat").Text = "***";
+            playerStats.FindByName<Label>(p+"LevelStat").Text = "***";
             playerStats.FindByName<Label>(p+"HPStat").Text = "***";
             playerStats.FindByName<Label>(p+"HPMaxStat").Text = "***";
             playerStats.FindByName<Label>(p+"ATKStat").Text = "***";
@@ -278,7 +278,7 @@ namespace Crawl.Views.Battle
                 battleCharStatBox.FindByName<Label>("CharName").Text = currentAttacker.Name;
 
                 battleCharStatBox.FindByName<Label>("cXPStat").Text = currentAttacker.ExperiencePoints.ToString();
-                battleCharStatBox.FindByName<Label>("cXPMaxStat").Text = currentAttacker.Level.ToString();
+                battleCharStatBox.FindByName<Label>("cLevelStat").Text = currentAttacker.Level.ToString();
                 battleCharStatBox.FindByName<Label>("cHPStat").Text = currentAttacker.CurrentHealth.ToString();
                 battleCharStatBox.FindByName<Label>("cHPMaxStat").Text = currentAttacker.MaxHealth.ToString();
                 battleCharStatBox.FindByName<Label>("cATKStat").Text = currentAttacker.Attack.ToString();
@@ -288,7 +288,7 @@ namespace Crawl.Views.Battle
                 battleMonsStatBox.FindByName<Label>("MonsName").Text = currentDefender.Name;
 
                 battleMonsStatBox.FindByName<Label>("mXPStat").Text = currentDefender.ExperiencePoints.ToString();
-                battleMonsStatBox.FindByName<Label>("mXPMaxStat").Text = currentDefender.Level.ToString();
+                battleMonsStatBox.FindByName<Label>("mLevelStat").Text = currentDefender.Level.ToString();
                 battleMonsStatBox.FindByName<Label>("mHPStat").Text = currentDefender.CurrentHealth.ToString();
                 battleMonsStatBox.FindByName<Label>("mHPMaxStat").Text = currentDefender.MaxHealth.ToString();
                 battleMonsStatBox.FindByName<Label>("mATKStat").Text = currentDefender.Attack.ToString();
@@ -300,7 +300,7 @@ namespace Crawl.Views.Battle
                 battleCharStatBox.FindByName<Label>("CharName").Text = currentDefender.Name;
 
                 battleCharStatBox.FindByName<Label>("cXPStat").Text = currentDefender.ExperiencePoints.ToString();
-                battleCharStatBox.FindByName<Label>("cXPMaxStat").Text = currentDefender.Level.ToString();
+                battleCharStatBox.FindByName<Label>("cLevelStat").Text = currentDefender.Level.ToString();
                 battleCharStatBox.FindByName<Label>("cHPStat").Text = currentDefender.CurrentHealth.ToString();
                 battleCharStatBox.FindByName<Label>("cHPMaxStat").Text = currentDefender.MaxHealth.ToString();
                 battleCharStatBox.FindByName<Label>("cATKStat").Text = currentDefender.Attack.ToString();
@@ -310,7 +310,7 @@ namespace Crawl.Views.Battle
                 battleMonsStatBox.FindByName<Label>("MonsName").Text = currentAttacker.Name;
 
                 battleMonsStatBox.FindByName<Label>("mXPStat").Text = currentAttacker.ExperiencePoints.ToString();
-                battleMonsStatBox.FindByName<Label>("mXPMaxStat").Text = currentAttacker.Level.ToString();
+                battleMonsStatBox.FindByName<Label>("mLevelStat").Text = currentAttacker.Level.ToString();
                 battleMonsStatBox.FindByName<Label>("mHPStat").Text = currentAttacker.CurrentHealth.ToString();
                 battleMonsStatBox.FindByName<Label>("mHPMaxStat").Text = currentAttacker.MaxHealth.ToString();
                 battleMonsStatBox.FindByName<Label>("mATKStat").Text = currentAttacker.Attack.ToString();
