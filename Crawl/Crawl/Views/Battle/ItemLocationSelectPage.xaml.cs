@@ -50,8 +50,9 @@ namespace Crawl.Views.Battle
         {
             var button = (Button)sender;
             ItemLocationEnum buttonEnum = (ItemLocationEnum)Int32.Parse(button.ClassId);
+            viewModel.AvailableItems.Clear();
 
-            var itemList = viewModel.BattleEngine.ItemPool.Where(a => a.Location == buttonEnum).OrderByDescending(a => a.Value).ToList();
+            var itemList = viewModel.BattleEngine.ItemPool.Where(a => a?.Location == buttonEnum).OrderByDescending(a => a.Value).ToList();
 
             foreach(var item in itemList)
             {
@@ -121,12 +122,22 @@ namespace Crawl.Views.Battle
                 HeadImage.Source = ItemInLocation.ImageURI;
                 HeadButton.Text = String.Format(ItemInLocation.Name);
             }
+            else
+            {
+                HeadImage.Source = "https://screenshotlayer.com/images/assets/placeholder.png";
+                HeadButton.Text = String.Format("None");
+            }
 
             ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.Necklass);
             if (ItemInLocation != null)
             {
                 NecklaceImage.Source = ItemInLocation.ImageURI;
                 NecklaceButton.Text = String.Format(ItemInLocation.Name);
+            }
+            else
+            {
+                NecklaceImage.Source = "https://screenshotlayer.com/images/assets/placeholder.png";
+                NecklaceButton.Text = String.Format("None");
             }
 
             ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.OffHand);
@@ -135,12 +146,22 @@ namespace Crawl.Views.Battle
                 OHImage.Source = ItemInLocation.ImageURI;
                 OHButton.Text = String.Format(ItemInLocation.Name);
             }
+            else
+            {
+                OHImage.Source = "https://screenshotlayer.com/images/assets/placeholder.png";
+                OHButton.Text = String.Format("None");
+            }
 
             ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.PrimaryHand);
             if (ItemInLocation != null)
             {
                 PHImage.Source = ItemInLocation.ImageURI;
                 PHButton.Text = String.Format(ItemInLocation.Name);
+            }
+            else
+            {
+                PHImage.Source = "https://screenshotlayer.com/images/assets/placeholder.png";
+                PHButton.Text = String.Format("None");
             }
 
             ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.LeftFinger);
@@ -149,6 +170,11 @@ namespace Crawl.Views.Battle
                 LFImage.Source = ItemInLocation.ImageURI;
                 LFButton.Text = String.Format(ItemInLocation.Name);
             }
+            else
+            {
+                LFImage.Source = "https://screenshotlayer.com/images/assets/placeholder.png";
+                LFButton.Text = String.Format("None");
+            }
 
             ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.RightFinger);
             if (ItemInLocation != null)
@@ -156,12 +182,22 @@ namespace Crawl.Views.Battle
                 RFImage.Source = ItemInLocation.ImageURI;
                 RFButton.Text = String.Format(ItemInLocation.Name);
             }
+            else
+            {
+                RFImage.Source = "https://screenshotlayer.com/images/assets/placeholder.png";
+                RFButton.Text = String.Format("None");
+            }
 
             ItemInLocation = viewModel.pickedCharacter.GetItemByLocation(ItemLocationEnum.Feet);
             if (ItemInLocation != null)
             {
                 FeetImage.Source = ItemInLocation.ImageURI;
                 FeetButton.Text = String.Format(ItemInLocation.Name);
+            }
+            else
+            {
+                FeetImage.Source = "https://screenshotlayer.com/images/assets/placeholder.png";
+                FeetButton.Text = String.Format("None");
             }
 
         }

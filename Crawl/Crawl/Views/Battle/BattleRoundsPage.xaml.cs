@@ -64,6 +64,11 @@ namespace Crawl.Views.Battle
 
             
         }
+        /*for testing item pages
+        public async void ItemPagesClicked(object sender, EventArgs args)
+        {
+            await Navigation.PushModalAsync(new ItemLocationSelectPage());
+        }*/
 
         private void ResetBattleScreen()
         {

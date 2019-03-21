@@ -119,6 +119,9 @@ namespace Crawl.Views.Battle
 
         public async void CancelButtonClicked(object sender, EventArgs e)
         {
+            viewModel.pickedCharacter = null;
+            viewModel.AvailableItems.Clear();
+           
             await Navigation.PopModalAsync();
         }
 

@@ -11,7 +11,7 @@
     <ContentPage.Content>
     <StackLayout>
             <!--<Button Text="Item Pages" Clicked="ItemPagesClicked" />-->
-        <RelativeLayout x:Name="CharacterBox"
+            <RelativeLayout x:Name="CharacterBox"
                       BackgroundColor="{DynamicResource Primary}" 
                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=220}" 
                       HeightRequest="75" 
