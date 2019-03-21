@@ -36,6 +36,12 @@ namespace Crawl.Models
         // Total speed, including level and items
         public int Speed;
 
+        // Total attack
+        public int Attack;
+
+        // Total defense
+        public int Defense;
+
         // Level of character or monster
         public int Level;
 
@@ -84,6 +90,8 @@ namespace Crawl.Models
             ImageURI = data.ImageURI;
             CurrentHealth = data.GetHealthCurrent();
             MaxHealth = data.GetHealthMax();
+            Attack = data.GetAttack();
+            Defense = data.GetDefense();
         }
 
         /// <summary>
@@ -102,6 +110,8 @@ namespace Crawl.Models
             ImageURI = data.ImageURI;
             CurrentHealth = data.GetHealthCurrent();
             MaxHealth = data.GetHealthMax();
+            Attack = data.GetAttack();
+            Defense = data.GetDefense();
         }
     }
 }

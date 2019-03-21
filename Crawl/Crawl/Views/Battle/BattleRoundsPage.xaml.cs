@@ -91,6 +91,8 @@ namespace Crawl.Views.Battle
             playerStats.FindByName<Label>(p+"SPDStat").Text = "***";
         }
 
+        
+
         public void PositionPlayersOnScreen()
         {
             RelativeLayout myRelativeCharacters = this.FindByName<RelativeLayout>("CharacterBox");
@@ -258,7 +260,68 @@ namespace Crawl.Views.Battle
         {
             AbsoluteLayout battleArena = this.FindByName<AbsoluteLayout>("BattleArena");
             battleArena.FindByName<Image>("AttackerImage").Source = _viewModel.BattleEngine.CurrentAttacker.ImageURI;
-            battleArena.FindByName<Image>("DefenderImage").Source = _viewModel.BattleEngine.CurrentDefender.ImageURI;  
+            battleArena.FindByName<Image>("DefenderImage").Source = _viewModel.BattleEngine.CurrentDefender.ImageURI;
+
+            DrawStatsBoxAttackerDefender();
+        }
+
+        private void DrawStatsBoxAttackerDefender()
+        {
+            var currentAttacker = _viewModel.BattleEngine.CurrentAttacker;
+            var currentDefender = _viewModel.BattleEngine.CurrentDefender;
+            RelativeLayout battleCharStatBox = this.FindByName<RelativeLayout>("BattleCharacterStats");
+            RelativeLayout battleMonsStatBox = this.FindByName<RelativeLayout>("BattleMonsterStats");
+
+            if (currentAttacker.PlayerType == PlayerTypeEnum.Character)
+            {
+                
+                battleCharStatBox.FindByName<Label>("CharName").Text = currentAttacker.Name;
+
+                battleCharStatBox.FindByName<Label>("cXPStat").Text = currentAttacker.ExperiencePoints.ToString();
+                battleCharStatBox.FindByName<Label>("cXPMaxStat").Text = currentAttacker.Level.ToString();
+                battleCharStatBox.FindByName<Label>("cHPStat").Text = currentAttacker.CurrentHealth.ToString();
+                battleCharStatBox.FindByName<Label>("cHPMaxStat").Text = currentAttacker.MaxHealth.ToString();
+                battleCharStatBox.FindByName<Label>("cATKStat").Text = currentAttacker.Attack.ToString();
+                battleCharStatBox.FindByName<Label>("cDEFStat").Text = currentAttacker.Defense.ToString();
+                battleCharStatBox.FindByName<Label>("cSPDStat").Text = currentAttacker.Speed.ToString();
+
+                battleMonsStatBox.FindByName<Label>("MonsName").Text = currentDefender.Name;
+
+                battleMonsStatBox.FindByName<Label>("mXPStat").Text = currentDefender.ExperiencePoints.ToString();
+                battleMonsStatBox.FindByName<Label>("mXPMaxStat").Text = currentDefender.Level.ToString();
+                battleMonsStatBox.FindByName<Label>("mHPStat").Text = currentDefender.CurrentHealth.ToString();
+                battleMonsStatBox.FindByName<Label>("mHPMaxStat").Text = currentDefender.MaxHealth.ToString();
+                battleMonsStatBox.FindByName<Label>("mATKStat").Text = currentDefender.Attack.ToString();
+                battleMonsStatBox.FindByName<Label>("mDEFStat").Text = currentDefender.Defense.ToString();
+                battleMonsStatBox.FindByName<Label>("mSPDStat").Text = currentDefender.Speed.ToString();
+            }
+            else if(currentAttacker.PlayerType == PlayerTypeEnum.Monster)
+            {
+                battleCharStatBox.FindByName<Label>("CharName").Text = currentDefender.Name;
+
+                battleCharStatBox.FindByName<Label>("cXPStat").Text = currentDefender.ExperiencePoints.ToString();
+                battleCharStatBox.FindByName<Label>("cXPMaxStat").Text = currentDefender.Level.ToString();
+                battleCharStatBox.FindByName<Label>("cHPStat").Text = currentDefender.CurrentHealth.ToString();
+                battleCharStatBox.FindByName<Label>("cHPMaxStat").Text = currentDefender.MaxHealth.ToString();
+                battleCharStatBox.FindByName<Label>("cATKStat").Text = currentDefender.Attack.ToString();
+                battleCharStatBox.FindByName<Label>("cDEFStat").Text = currentDefender.Defense.ToString();
+                battleCharStatBox.FindByName<Label>("cSPDStat").Text = currentDefender.Speed.ToString();
+
+                battleMonsStatBox.FindByName<Label>("MonsName").Text = currentAttacker.Name;
+
+                battleMonsStatBox.FindByName<Label>("mXPStat").Text = currentAttacker.ExperiencePoints.ToString();
+                battleMonsStatBox.FindByName<Label>("mXPMaxStat").Text = currentAttacker.Level.ToString();
+                battleMonsStatBox.FindByName<Label>("mHPStat").Text = currentAttacker.CurrentHealth.ToString();
+                battleMonsStatBox.FindByName<Label>("mHPMaxStat").Text = currentAttacker.MaxHealth.ToString();
+                battleMonsStatBox.FindByName<Label>("mATKStat").Text = currentAttacker.Attack.ToString();
+                battleMonsStatBox.FindByName<Label>("mDEFStat").Text = currentAttacker.Defense.ToString();
+                battleMonsStatBox.FindByName<Label>("mSPDStat").Text = currentAttacker.Speed.ToString();
+            }
+            else
+            {
+                ResetStatsBox(battleCharStatBox, "CharName", "c", "Character");
+                ResetStatsBox(battleMonsStatBox, "MonsName", "m", "Monster");
+            }
         }
 
         private void DrawGameBoardClear()
