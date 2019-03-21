@@ -54,17 +54,24 @@ namespace Crawl.Models
         // The Image to the Character or Monster
         public string ImageURI;
 
+        // health of player
         public int CurrentHealth;
 
+        // max health of player
         public int MaxHealth;
 
-        // Need because of the instantiation below
+        /// <summary>
+        ///  Need because of the instantiation below
+        /// </summary>
         public PlayerInfo()
         {
 
         }
 
-        // Take a character and add it to the Player
+        /// <summary>
+        /// Take a character and add it to the Player
+        /// </summary>
+        /// <param name="data"></param>
         public PlayerInfo(Character data)
         {
             PlayerType = PlayerTypeEnum.Character;
@@ -79,7 +86,10 @@ namespace Crawl.Models
             MaxHealth = data.GetHealthMax();
         }
 
-        // Take a monster and add it to the player
+        /// <summary>
+        /// Take a monster and add it to the player
+        /// </summary>
+        /// <param name="data"></param>
         public PlayerInfo(Monster data)
         {
             PlayerType = PlayerTypeEnum.Monster;

@@ -55,7 +55,9 @@ namespace Crawl.Models
         [Ignore]
         public List<Item> ItemsDroppedList { get; set; }
 
-        // Instantiate new Score
+        /// <summary>
+        /// Instantiate new Score
+        /// </summary>
         public Score()
         {
             // Implement
@@ -75,6 +77,12 @@ namespace Crawl.Models
             ItemsDroppedList = new List<Item>();
         }
 
+        /// <summary>
+        /// create score object.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="desc"></param>
+        /// <param name="autoBattle"></param>
         public Score(string name, string desc, bool autoBattle)
         {
             Name = name;
@@ -93,7 +101,10 @@ namespace Crawl.Models
             ItemsDroppedList = new List<Item>();
         }
 
-        // Update the score based on the passed in values.
+        /// <summary>
+        /// Update the score based on the passed in values.
+        /// </summary>
+        /// <param name="newData"></param>
         public void Update(Score newData)
         {
             AutoBattle = newData.AutoBattle;
@@ -170,7 +181,11 @@ namespace Crawl.Models
 
         #region ScoreItems
 
-        // Adding a character to the score output as a text string
+        /// <summary>
+        /// Adding a character to the score output as a text string
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool AddCharacterToList( Character data)
         {
             CharacterAtDeathList.Add(data);
@@ -178,7 +193,11 @@ namespace Crawl.Models
             return true;
         }
 
-        // All a monster to the list of monsters and their stats
+        /// <summary>
+        /// All a monster to the list of monsters and their stats
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool AddMonsterToList( Monster data)
         {
             MonstersKilledList.Add(data);
@@ -187,7 +206,11 @@ namespace Crawl.Models
            
         }
 
-        // All an item to the list of items for score and their stats
+        /// <summary>
+        /// All an item to the list of items for score and their stats
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool AddItemToList( Item data)
         {
             ItemsDroppedList.Add(data);

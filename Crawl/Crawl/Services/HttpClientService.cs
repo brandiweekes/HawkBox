@@ -10,11 +10,14 @@ using Crawl.Models;
 
 namespace Crawl.Services
 {
+    /// <summary>
+    /// Http client service to make web serice calls.
+    /// </summary>
     public class HttpClientService
     {
 
         // Make this a singleton so it only exist one time because holds all the data records in memory
-        private static HttpClientService _instance;
+        
 
         private HttpClient _httpClientInstance;
 
@@ -34,7 +37,9 @@ namespace Crawl.Services
             }
         }
 
-    public static HttpClientService Instance
+        private static HttpClientService _instance;
+
+        public static HttpClientService Instance
         {
             get
             {
@@ -46,12 +51,22 @@ namespace Crawl.Services
             }
         }
 
+        /// <summary>
+        /// set http client.
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <returns></returns>
         public HttpClient SetHttpClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
             return _httpClient;
         }
 
+        /// <summary>
+        /// Parse HttpResponse to string.
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
         public async Task<string> JsonParseResult(HttpResponseMessage response)
         {
             if (response == null)
@@ -132,6 +147,12 @@ namespace Crawl.Services
             return data;
         }
 
+        /// <summary>
+        /// Make Post request based on given url and parameters.
+        /// </summary>
+        /// <param name="RestUrl"></param>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
         public async Task<string> GetJsonPostAsync(string RestUrl, JObject jsonString)
         {
             // Take the post paramaters, and add the Version and Device to it
@@ -186,6 +207,11 @@ namespace Crawl.Services
             return data;
         }
 
+        /// <summary>
+        /// Make Get request based on given url.
+        /// </summary>
+        /// <param name="RestUrl"></param>
+        /// <returns></returns>
         public async Task<string> GetJsonGetAsync(string RestUrl)
         {
             // Take the post paramaters, and add the Version and Device to it

@@ -11,9 +11,17 @@ using Crawl.Services;
 
 namespace Crawl.Services
 {
+    /// <summary>
+    /// Helper methods to parse, convert and validate JSON
+    /// </summary>
     public static class JsonHelper
     {
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a string from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static string GetJsonString(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -39,7 +47,12 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a DateTime from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static DateTime GetJsonDateTime(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -66,7 +79,12 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a TimeSpan from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static TimeSpan GetJsonTimeSpan(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -149,7 +167,12 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a bool from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static bool GetJsonBool(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -180,7 +203,12 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a int from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static int GetJsonInteger(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -207,7 +235,12 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a double from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static double GetJsonDouble(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -234,6 +267,12 @@ namespace Crawl.Services
             }
         }
 
+        /// <summary>
+        /// Takes a json object, and retrieves a long from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static long GetJsonLong(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -260,6 +299,12 @@ namespace Crawl.Services
             }
         }
 
+        /// <summary>
+        /// Takes a json object, and retrieves a uLong from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static ulong GetJsonuLong(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -286,7 +331,13 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a list of objects of provided type from it matching the field
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static List<T> GetJsonList<T>(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -318,7 +369,13 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a object of provided type from it matching the field
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static T GetObject<T>(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -350,7 +407,12 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a list of strings from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static List<string> GetJsonStringList(JObject json, string field)
         {
             var myStringList = new List<string>();
@@ -386,7 +448,12 @@ namespace Crawl.Services
             }
         }
 
-        // Takes a json object, and retrieves a string from it matching the field
+        /// <summary>
+        /// Takes a json object, and retrieves a JObject from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static JObject GetJsonObject(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -428,6 +495,12 @@ namespace Crawl.Services
             }
         }
 
+        /// <summary>
+        /// Takes a json object, and retrieves a list of JObject from it matching the field
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static List<JObject> GetJObjectList(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))
@@ -468,6 +541,13 @@ namespace Crawl.Services
             }
         }
 
+        /// <summary>
+        /// Takes a json object, and retrieves a list of object of provided type from it matching the field. parses json array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static List<T> GetObjectList<T>(JObject json, string field)
         {
             if (string.IsNullOrEmpty(field))

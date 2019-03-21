@@ -4,16 +4,9 @@ using Crawl.Models;
 
 namespace Crawl.Services
 {
-    //public interface IDataStore<T> where T : class
-    //{
-    //    Task<bool> AddAsync(T item);
-    //    Task<bool> UpdateAsync(T item);
-    //    Task<bool> DeleteAsync(T item);
-    //    Task<T> GetAsync(string id);
-    //    Task<IEnumerable<T>> GetAllAsync(bool forceRefresh = false);
-
-    //}
-
+    /// <summary>
+    /// Common interface for Datastore methods.
+    /// </summary>
     public interface IDataStore
     {
         // Implement Item
