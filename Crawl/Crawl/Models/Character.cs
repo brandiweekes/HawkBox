@@ -90,7 +90,7 @@ namespace Crawl.Models
         {
             Update(newData);
 
-            ScaleLevel(Level);
+            //ScaleLevel(Level);
         }
 
         /// <summary>
