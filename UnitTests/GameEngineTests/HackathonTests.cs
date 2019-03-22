@@ -201,6 +201,8 @@ namespace UnitTests.GameEngineTests
         public void HelperEngine_ReboundAttack_Enable_50_Precent_Chance_Should_Pass()
         {
             // Arrange
+            var resetEnableReboundAttack = GameGlobals.EnableReboundAttack;
+            var resetPercentageChance = GameGlobals.PercentageChanceToRebound;
             GameGlobals.EnableReboundAttack = true;
             GameGlobals.SetPercentageChanceToRebound(50);
             var _olddata = GameGlobals.ForcedRandomValue;
@@ -213,8 +215,8 @@ namespace UnitTests.GameEngineTests
             var Actual = HelperEngine.ReboundAttack();
 
             // Reset
-            GameGlobals.EnableReboundAttack = false;
-            GameGlobals.SetPercentageChanceToRebound(0);
+            GameGlobals.EnableReboundAttack = resetEnableReboundAttack;
+            GameGlobals.SetPercentageChanceToRebound(resetPercentageChance);
             GameGlobals.ForcedRandomValue = _olddata;
             GameGlobals.ForceRollsToNotRandom = false;
 

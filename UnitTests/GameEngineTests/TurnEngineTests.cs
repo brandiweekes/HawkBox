@@ -1437,6 +1437,9 @@ namespace UnitTests.GameEngineTests
             MockForms.Init();
 
             // Arrange
+            var resetEnableReboundAttack = GameGlobals.EnableReboundAttack;
+            GameGlobals.EnableReboundAttack = false;
+
             var toggleEnableCriticalMissProblemsBool = GameGlobals.EnableCriticalMissProblems;
             GameGlobals.EnableCriticalMissProblems = true;
 
@@ -1486,6 +1489,7 @@ namespace UnitTests.GameEngineTests
             // Reset
             GameGlobals.ToggleRandomState();
             GameGlobals.EnableCriticalMissProblems = toggleEnableCriticalMissProblemsBool;
+            GameGlobals.EnableReboundAttack = resetEnableReboundAttack;
 
             // Assert
             Assert.AreEqual(chosenCharacterHealthAfterDamageDealt, chosenCharacter.GetHealthCurrent(), "Expected Health after Damage");
@@ -1498,6 +1502,9 @@ namespace UnitTests.GameEngineTests
             MockForms.Init();
 
             // Arrange
+            var resetEnableReboundAttack = GameGlobals.EnableReboundAttack;
+            GameGlobals.EnableReboundAttack = false;
+
             var testTurnEngine = new TurnEngine();
             var testMonster = new Monster();
             testMonster.Name = "Test Monster";
@@ -1545,6 +1552,7 @@ namespace UnitTests.GameEngineTests
 
             // Reset
             GameGlobals.ToggleRandomState();
+            GameGlobals.EnableReboundAttack = resetEnableReboundAttack;
 
             // Assert
             Assert.IsFalse(checkIfContains, "Expected CharacterList to contain chosenCharacter: false");
@@ -1561,6 +1569,8 @@ namespace UnitTests.GameEngineTests
             var monsterDropItemsState = GameGlobals.AllowMonsterDropItems;
             GameGlobals.AllowMonsterDropItems = false;
 
+            var resetEnableReboundAttack = GameGlobals.EnableReboundAttack;
+            GameGlobals.EnableReboundAttack = false;
 
             var testTurnEngine = new TurnEngine();
             var testMonster = new Monster();
@@ -1616,6 +1626,7 @@ namespace UnitTests.GameEngineTests
             // Reset
             GameGlobals.ToggleRandomState();
             GameGlobals.AllowMonsterDropItems = monsterDropItemsState;
+            GameGlobals.EnableReboundAttack = resetEnableReboundAttack;
 
             // Assert
             Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testFeetItem: true");
