@@ -157,6 +157,14 @@ namespace Crawl.GameEngine
                         //scale round and add to list
                         var roundscale = HelperEngine.RollDice(1, scaleavg + 1);
                         monster.ScaleLevel(scalemax);
+
+                        // Check if Unique Item is possible
+                        //if(HelperEngine.IsUniqueItemPossible())
+                        //{
+                        //    // get Item; its should not repeat
+                        //    string _uniqueItemId = "";
+                        //    monster.AddOrReplaceUniqueItem(_uniqueItemId);
+                        //}
                         MonsterList.Add(monster);
                     }
                 } while (MonsterList.Count < GameGlobals.MaxNumberPartyPlayers);
@@ -171,6 +179,15 @@ namespace Crawl.GameEngine
                     var monster = new Monster();
                     //set monster name
                     monster.Name += " " + MonsterList.Count + 1;
+
+                    // Check if Unique Item is possible
+                    //if (HelperEngine.IsUniqueItemPossible())
+                    //{
+                    //    // get Item; its should not repeat
+                    //    string _uniqueItemId = "";
+                    //    monster.AddOrReplaceUniqueItem(_uniqueItemId);
+                    //}
+
                     //add to list
                     MonsterList.Add(monster);
                 }

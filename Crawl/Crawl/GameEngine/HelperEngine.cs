@@ -118,24 +118,24 @@ namespace Crawl.GameEngine
         /// Find out if Monster can Unique items are not.
         /// </summary>
         /// <returns></returns>
-        public static bool IsUniqueItemPossible()
-        {
-            if (GameGlobals.EnableUniqueItems)
-            {
-                int diceRoll = RollDice(1, 100);
-                if (diceRoll <= GameGlobals.PercentageChanceForUniqueItem)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public static bool IsUniqueItemPossible()
+        //{
+        //    if (GameGlobals.EnableUniqueItems)
+        //    {
+        //        int diceRoll = RollDice(1, 100);
+        //        if (diceRoll <= GameGlobals.PercentageChanceForUniqueItem)
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }

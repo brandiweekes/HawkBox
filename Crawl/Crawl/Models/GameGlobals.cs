@@ -192,27 +192,27 @@ namespace Crawl.Models
 
         #region Unique Items
 
-        public static bool EnableUniqueItems = true;
-        public static int PercentageChanceForUniqueItem = 30;
+        //public static bool EnableUniqueItems = true;
+        //public static int PercentageChanceForUniqueItem = 30;
 
         /// <summary>
         /// enable unique item flag and set new % chance. default chance is 0
         /// </summary>
         /// <param name="chance"></param>
-        public static void SetPercentageChanceForUniqueItem(int chance = 0)
-        {
-            EnableUniqueItems = true;
-            PercentageChanceForUniqueItem = chance;
-        }
+        //public static void SetPercentageChanceForUniqueItem(int chance = 0)
+        //{
+        //    EnableUniqueItems = true;
+        //    PercentageChanceForUniqueItem = chance;
+        //}
 
         /// <summary>
         /// diable unique items and reset % chance of unique item
         /// </summary>
-        public static void DisableUniqueItems()
-        {
-            EnableUniqueItems = false;
-            PercentageChanceForUniqueItem = 30;
-        }
+        //public static void DisableUniqueItems()
+        //{
+        //    EnableUniqueItems = false;
+        //    PercentageChanceForUniqueItem = 30;
+        //}
 
         #endregion Unique Items
     }
