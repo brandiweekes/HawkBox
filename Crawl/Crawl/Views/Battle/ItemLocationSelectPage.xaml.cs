@@ -26,10 +26,11 @@ namespace Crawl.Views.Battle
 			InitializeComponent();
 
             //delete for final game, testing for items
-            if (BattleViewModel.Instance.BattleEngine.ItemPool.Count < 1)
-            {
-                BattleViewModel.Instance.AddItemsToPoolForTesting();
-            }
+            /* if (BattleViewModel.Instance.BattleEngine.ItemPool.Count < 1)
+             {
+                 BattleViewModel.Instance.AddItemsToPoolForTesting();
+             }*/
+            //var ct = BattleViewModel.Instance.BattleEngine.ItemPool.Count;
 
             if (BattleViewModel.Instance.RemainingCharacters.Count < 1)
             {
@@ -41,7 +42,8 @@ namespace Crawl.Views.Battle
                     Debug.WriteLine(ch.Name);
                 }
             }
-            
+           // viewModel = BattleViewModel.Instance;
+            //var ct = viewModel.BattleEngine.ItemPool.Count;
             //set binding context
             BindingContext = viewModel = BattleViewModel.Instance;
 		}
@@ -70,7 +72,8 @@ namespace Crawl.Views.Battle
             //clear viewmodel available items observablecollection
             viewModel.AvailableItems.Clear();
             //get available items at location
-            var itemList = viewModel.BattleEngine.ItemPool.Where(a => a?.Location == buttonEnum).OrderByDescending(a => a.Value).ToList();
+            var itemList = viewModel.BattleEngine.ItemPool.Where(a => a.Location == buttonEnum).OrderByDescending(a => a.Value).ToList();
+            //var ct = viewModel.BattleEngine.ItemPool.Count;
             //add items to available items
             foreach(var item in itemList)
             {
