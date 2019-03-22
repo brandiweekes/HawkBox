@@ -140,7 +140,7 @@ namespace Crawl.ViewModels
             foreach (var data in SelectedCharacters)
             {
                 //add to character list
-                BattleEngine.CharacterList.Add(data);
+                BattleEngine.CharacterList.Add(new Character(data));
             }
 
         }
