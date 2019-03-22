@@ -43,6 +43,8 @@ namespace Crawl.Views
             PercentToMultiply.Text = string.Format("{0}", GameGlobals.PercentageChanceToMultiply);
             EnableMiracleMax.IsToggled = GameGlobals.EnableMiracleMaxOnCharacters;
             PercentToRebound.Text = string.Format("{0}", GameGlobals.PercentageChanceToRebound);
+
+            ToogleUniqueItem();
         }
 
         #region Database Settings
@@ -393,12 +395,68 @@ namespace Crawl.Views
 
         #endregion Miracle Max
 
-
         #region Time Warp
         private void SetTimeWarpPercent(object sender, EventArgs e)
         {
             GameGlobals.setTimeWarpChance(Convert.ToInt32(TimeWarpPercent.Text));
         }
         #endregion Time Warp
+
+        #region Unique Items
+
+        /// <summary>
+        /// toggle Unique item switch based on game globals.
+        /// </summary>
+        private void ToogleUniqueItem()
+        {
+            EnableUniqueItems.IsToggled = GameGlobals.EnableUniqueItems;
+            PercentToUniqueItem.Text = string.Format("{0}", GameGlobals.PercentageChanceForUniqueItem);
+        }
+
+        /// <summary>
+        /// Enable unique items for monsters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableUniqueItemsSettings_OnToggled(object sender, ToggledEventArgs e)
+        {
+            if(e.Value)
+            {
+                GameGlobals.EnableUniqueItems = e.Value;
+            }
+            else
+            {
+                GameGlobals.DisableUniqueItems();
+                ToogleUniqueItem();
+            }
+        }
+
+        /// <summary>
+        /// Set % chance for unique item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetPercentToUniqueItem_Clicked(object sender, EventArgs e)
+        {
+            var _chance = Convert.ToInt16(PercentToUniqueItem.Text);
+
+            // Minimum chance
+            if (_chance <= 0)
+            {
+                _chance = 0;
+                PercentToUniqueItem.Text = string.Format("{0}", _chance);
+            }
+
+            // Maximum chance
+            if (_chance > 100)
+            {
+                _chance = 100;
+                PercentToUniqueItem.Text = string.Format("{0}", _chance);
+            }
+            GameGlobals.SetPercentageChanceForUniqueItem(_chance);
+        }
+
+
+        #endregion Unique Items
     }
 }
