@@ -317,5 +317,37 @@ namespace Crawl.ViewModels
 
             return myReturn.Guid;
         }
+
+        // holds counter value to fetch unique items
+        private int _count { get; set; } = 0;
+
+        /// <summary>
+        /// fetch unique items from dataset based on count value. reset count if it exceed dataset size.
+        /// </summary>
+        /// <returns></returns>
+        public Item GetUniqueItemFromDataset()
+        {
+            if(Dataset == null || Dataset.Count < 1)
+            {
+                return null;
+            }
+
+            var uniqueList = Dataset.Where(i => i.IsUnique).ToList();
+
+            if(uniqueList.Count < 1)
+            {
+                return null;
+            }
+            else
+            {
+                if (_count > uniqueList.Count)
+                {
+                    _count = 0;
+                }
+                Item myReturn = uniqueList[_count];
+                _count++;
+                return myReturn;
+            }
+        }
     }
 }

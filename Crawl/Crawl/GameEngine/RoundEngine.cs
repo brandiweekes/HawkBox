@@ -159,12 +159,13 @@ namespace Crawl.GameEngine
                         monster.ScaleLevel(scalemax);
 
                         // Check if Unique Item is possible
-                        //if(HelperEngine.IsUniqueItemPossible())
-                        //{
-                        //    // get Item; its should not repeat
-                        //    string _uniqueItemId = "";
-                        //    monster.AddOrReplaceUniqueItem(_uniqueItemId);
-                        //}
+                        if (HelperEngine.IsUniqueItemPossible())
+                        {
+                            // get Item; its should not repeat
+                            Item _uniqueItem = ItemsViewModel.Instance.GetUniqueItemFromDataset();
+                            string _uniqueItemId = _uniqueItem == null ? null : _uniqueItem.Id;
+                            monster.AddOrReplaceUniqueItem(_uniqueItemId);
+                        }
                         MonsterList.Add(monster);
                     }
                 } while (MonsterList.Count < GameGlobals.MaxNumberPartyPlayers);
@@ -181,12 +182,13 @@ namespace Crawl.GameEngine
                     monster.Name += " " + MonsterList.Count + 1;
 
                     // Check if Unique Item is possible
-                    //if (HelperEngine.IsUniqueItemPossible())
-                    //{
-                    //    // get Item; its should not repeat
-                    //    string _uniqueItemId = "";
-                    //    monster.AddOrReplaceUniqueItem(_uniqueItemId);
-                    //}
+                    if (HelperEngine.IsUniqueItemPossible())
+                    {
+                        // get Item; its should not repeat
+                        Item _uniqueItem = ItemsViewModel.Instance.GetUniqueItemFromDataset();
+                        string _uniqueItemId = _uniqueItem == null ? null : _uniqueItem.Id;
+                        monster.AddOrReplaceUniqueItem(_uniqueItemId);
+                    }
 
                     //add to list
                     MonsterList.Add(monster);
