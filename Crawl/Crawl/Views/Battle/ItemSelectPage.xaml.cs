@@ -36,11 +36,14 @@ namespace Crawl.Views.Battle
 
 
             CharPic.Source = viewModel.pickedCharacter.ImageURI;
-            AttackLabel.Text = String.Format("{0}", viewModel.pickedCharacter.Attribute.Attack);
-            DefenseLabel.Text = String.Format("{0}", viewModel.pickedCharacter.Attribute.Defense);
-            SpeedLabel.Text = String.Format("{0}", viewModel.pickedCharacter.Attribute.Speed);
+            AttackLabel.Text = String.Format("{0}", viewModel.pickedCharacter.Attribute.Attack + viewModel.pickedCharacter.GetItemBonus(AttributeEnum.Attack));
+            DefenseLabel.Text = String.Format("{0}", viewModel.pickedCharacter.Attribute.Defense + viewModel.pickedCharacter.GetItemBonus(AttributeEnum.Defense));
+            SpeedLabel.Text = String.Format("{0}", viewModel.pickedCharacter.Attribute.Speed + viewModel.pickedCharacter.GetItemBonus(AttributeEnum.Speed));
             HPLabel.Text = String.Format("{0}", viewModel.pickedCharacter.Attribute.CurrentHealth);
             XPLabel.Text = String.Format("{0}", viewModel.pickedCharacter.ExperienceTotal);
+
+            ItemDescLabel.Text = "To add an item, press Equip then Save\nTo remove item, press Unequip and Save\n" +
+                   "To discard changes, press Cancel\nSave must be pressed to finalize equipped or unequipped items.";
         }
 
         public ItemSelectPage(BattleViewModel vm)
@@ -51,9 +54,12 @@ namespace Crawl.Views.Battle
 
 
             CharPic.Source = BattleViewModel.Instance.pickedCharacter.ImageURI;
-            AttackLabel.Text = String.Format("{0}", BattleViewModel.Instance.pickedCharacter.Attribute.Attack);
-            DefenseLabel.Text = String.Format("{0}", BattleViewModel.Instance.pickedCharacter.Attribute.Defense);
-            SpeedLabel.Text = String.Format("{0}", BattleViewModel.Instance.pickedCharacter.Attribute.Speed);
+            AttackLabel.Text = String.Format("{0}", BattleViewModel.Instance.pickedCharacter.Attribute.Attack 
+                + BattleViewModel.Instance.pickedCharacter.GetItemBonus(AttributeEnum.Attack));
+            DefenseLabel.Text = String.Format("{0}", BattleViewModel.Instance.pickedCharacter.Attribute.Defense
+                + BattleViewModel.Instance.pickedCharacter.GetItemBonus(AttributeEnum.Defense));
+            SpeedLabel.Text = String.Format("{0}", BattleViewModel.Instance.pickedCharacter.Attribute.Speed 
+                + BattleViewModel.Instance.pickedCharacter.GetItemBonus(AttributeEnum.Speed));
             HPLabel.Text = String.Format("{0}", BattleViewModel.Instance.pickedCharacter.Attribute.CurrentHealth);
             XPLabel.Text = String.Format("{0}", BattleViewModel.Instance.pickedCharacter.ExperienceTotal);
 
@@ -114,7 +120,8 @@ namespace Crawl.Views.Battle
             viewModel.pickedCharacter = null;
             viewModel.AvailableItems.Clear();
 
-            await Navigation.PushModalAsync(new ItemLocationSelectPage());
+            await Navigation.PopModalAsync();
+            //await Navigation.PushModalAsync(new ItemLocationSelectPage());
         }
 
         public async void CancelButtonClicked(object sender, EventArgs e)
@@ -145,6 +152,8 @@ namespace Crawl.Views.Battle
                 viewModel.AvailableItems.Remove(SelectedItem);
                 ItemPic.Source = EquippedItem.ImageURI;
             }
+
+            ItemDescLabel.Text = String.Format("{0} equipped, press Save to finalize and return", EquippedItem.Name);
         }
 
         public void UnequipButtonClicked(object sender, EventArgs e)
@@ -152,6 +161,7 @@ namespace Crawl.Views.Battle
             if (EquippedItem != null)
             {
                 viewModel.AvailableItems.Add(EquippedItem);
+                ItemDescLabel.Text = String.Format("{0} unequipped, press Save to finalize and return", EquippedItem.Name);
                 EquippedItem = null;
                 ItemPic.Source = "https://screenshotlayer.com/images/assets/placeholder.png";
             }

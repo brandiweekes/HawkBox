@@ -70,36 +70,17 @@ namespace Crawl.Views.Battle
             }
             else
             {
+                RemainingListView.SelectedItem = null;
+
+                AttackLabel.Text = String.Format("--");
+                DefenseLabel.Text = String.Format("--");
+                SpeedLabel.Text = String.Format("--");
+                HPLabel.Text = String.Format("--");
+                XPLabel.Text = String.Format("--");
+
                 await Navigation.PushModalAsync(new ItemSelectPage(buttonEnum));
             }
 
-            /*
-            try
-            {
-                BattleViewModel.Instance.AvailableItems.Clear();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-
-            foreach (var item in itemList)
-            {
-                try
-                {
-                    BattleViewModel.Instance.AvailableItems.Add(item);
-                }catch(Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
-            }*/
-
-           // if (!(RemainingListView.SelectedItem is Character character))
-             //   return;
-
-           // viewModel.pickedCharacter = character;
-
-           // await Navigation.PushModalAsync(new ItemSelectPage(viewModel));
         }
         
         private void OnCharacterSelected(object sender, SelectedItemChangedEventArgs args)
@@ -110,9 +91,9 @@ namespace Crawl.Views.Battle
 
             viewModel.pickedCharacter = character;
 
-            AttackLabel.Text = String.Format("{0}", character.Attribute.Attack);
-            DefenseLabel.Text = String.Format("{0}", character.Attribute.Defense);
-            SpeedLabel.Text = String.Format("{0}", character.Attribute.Speed);
+            AttackLabel.Text = String.Format("{0}", character.Attribute.Attack + character.GetItemBonus(AttributeEnum.Attack));
+            DefenseLabel.Text = String.Format("{0}", character.Attribute.Defense + character.GetItemBonus(AttributeEnum.Defense));
+            SpeedLabel.Text = String.Format("{0}", character.Attribute.Speed + character.GetItemBonus(AttributeEnum.Speed));
             HPLabel.Text = String.Format("{0}", character.Attribute.CurrentHealth);
             XPLabel.Text = String.Format("{0}", character.ExperienceTotal);
 
