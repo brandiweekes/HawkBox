@@ -46,6 +46,7 @@ namespace Crawl.Views.Battle
             // Show the Next button, hide the Game Over button
             GameAttackButton.IsVisible = true;
             GameOverButton.IsVisible = false;
+            GameNextRoundButton.IsVisible = false;
 
             // start battle
             _viewModel.StartBattle();
@@ -97,13 +98,17 @@ namespace Crawl.Views.Battle
             if (CurrentRoundState == RoundEnum.NewRound)
             {
                 ShowModalItemSelectionPage();
-                
-                _viewModel.NewRound();
+
+                Button nextRoundButton = this.FindByName<Button>("GameNextRoundButton");
+                nextRoundButton.IsVisible = true;
+                Button attackButton = this.FindByName<Button>("GameAttackButton");
+                attackButton.IsVisible = false;
+                //_viewModel.NewRound();
                 // MessagingCenter.Send(this, "NewRound");
 
-                Debug.WriteLine("New Round :" + _viewModel.BattleEngine.BattleScore.RoundCount);
+                //Debug.WriteLine("New Round :" + _viewModel.BattleEngine.BattleScore.RoundCount);
 
-                ShowModalPageMonsterList();
+                //ShowModalPageMonsterList();
 
                 PositionPlayersOnScreen();
             }
@@ -144,14 +149,30 @@ namespace Crawl.Views.Battle
             // Output the Game Board
             DrawGameBoardAttackerDefender();
 
-
-
             // Move attacker on battle field
             //Crawl.App.Current.BindingContextChanged += AnimateAttacker;
 
 
             // Output The Message that happened.
             // GameMessage();
+        }
+
+        /// <summary>
+        /// Show the Game Over Screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public async void OnNextRoundClicked(object sender, EventArgs args)
+        {
+            _viewModel.NewRound();
+            // MessagingCenter.Send(this, "NewRound");
+            ShowModalPageMonsterList();
+            Debug.WriteLine("New Round :" + _viewModel.BattleEngine.BattleScore.RoundCount);
+            //DrawGameBoardAttackerDefender();
+            PositionPlayersOnScreen();
+
+            GameNextRoundButton.IsVisible = false;
+            GameAttackButton.IsVisible = true;
         }
 
         /// <summary>
@@ -287,11 +308,12 @@ namespace Crawl.Views.Battle
 
             foreach (var character in this._viewModel.BattleEngine.CharacterList)
             {
-                characterImages[index++].Source = new Uri(character.ImageURI);
+                characterImages[index].Source = new Uri(character.ImageURI);
                 if (character.Alive == false)
                 {
                     characterImages[index].Opacity = .75;
                 }
+                index++;
             }
 
         }

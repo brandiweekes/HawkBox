@@ -125,6 +125,10 @@
             Text="Attack!" FontSize="Small" Clicked="OnAttackClicked"
                         AbsoluteLayout.LayoutFlags="All, PositionProportional" 
                         AbsoluteLayout.LayoutBounds="0, 1, .3, .1" />
+        <Button x:Name="GameNextRoundButton" IsVisible="False" 
+                Text="Next Round" Clicked="OnNextRoundClicked"
+                AbsoluteLayout.LayoutFlags="All, PositionProportional" 
+                AbsoluteLayout.LayoutBounds=".5, 1, .3, .1" />
         <Button x:Name="GameOverButton" IsVisible="False" 
                 Text="Game Over" Clicked="OnGameOverClicked"
                 AbsoluteLayout.LayoutFlags="All, PositionProportional" 
