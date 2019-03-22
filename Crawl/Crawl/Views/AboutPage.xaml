@@ -73,7 +73,7 @@
                     </StackLayout>
                 </StackLayout>
                 <!-- Unique Items -->
-                <!--<StackLayout>
+                <StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Enable Unique Items" />
                         <Switch x:Name="EnableUniqueItems" HorizontalOptions="EndAndExpand" Toggled="EnableUniqueItemsSettings_OnToggled" IsToggled="False" />
@@ -83,7 +83,7 @@
                         <Entry x:Name="PercentToUniqueItem" MaxLength="3" BackgroundColor="{DynamicResource Primary}" ></Entry>
                         <Button Text="Set" Clicked="SetPercentToUniqueItem_Clicked"></Button>
                     </StackLayout>
-                </StackLayout>-->
+                </StackLayout>
                 <!--Steal Items dropped by monster-->
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
