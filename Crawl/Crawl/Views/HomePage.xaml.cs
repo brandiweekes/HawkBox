@@ -24,6 +24,11 @@ namespace Crawl.Views
 
 		}
 
+        /// <summary>
+        /// button directs to autobattle page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         async void OnAutoBattleClicked(object sender, EventArgs args)
         {
 
@@ -43,6 +48,11 @@ namespace Crawl.Views
             await Navigation.PushAsync(new Battle.AutoBattlePage());
         }
 
+        /// <summary>
+        /// button directs to battle page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         async void OnBattleClicked(object sender, EventArgs args)
         {
             await Navigation.PushAsync(new Battle.BattlePage());

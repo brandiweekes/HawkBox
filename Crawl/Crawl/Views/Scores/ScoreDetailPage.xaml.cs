@@ -11,6 +11,12 @@ namespace Crawl.Views
     {
         private ScoreDetailViewModel _viewModel;
 
+        /// <summary>
+        /// passing in a viewmodel allows for saving a data object
+        /// also checks if page is a modal
+        /// if yes, enables button to exit which pops all modals
+        /// </summary>
+        /// <param name="viewModel"></param>
         public ScoreDetailPage(ScoreDetailViewModel viewModel)
         {
             InitializeComponent();

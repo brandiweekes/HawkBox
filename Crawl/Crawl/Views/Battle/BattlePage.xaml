@@ -9,7 +9,22 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="how-to-play and/or story landing page for game"
+            <Label Text="You've been lied to this whole time." FontSize="Micro" FontAttributes="Bold"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="The Men In Black are not the heroes." FontSize="Medium" FontAttributes="Bold"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="The real heroes are the aliens." FontSize="Small" FontAttributes="Bold"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Get ready to experience" FontSize="Medium" FontAttributes="Bold"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="the untold adventure of" FontSize="Medium" FontAttributes="Bold"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="the MiBliens!" FontSize="Large" FontAttributes="Bold"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Button Text="Battle"

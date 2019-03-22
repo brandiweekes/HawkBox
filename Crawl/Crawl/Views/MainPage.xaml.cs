@@ -20,6 +20,11 @@ namespace Crawl.Views
             MenuPages.Add((int)MenuItemType.Home, (NavigationPage)Detail);
 		}
 
+        /// <summary>
+        /// builds pages for menu in master detail page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task NavigateFromMenu(int id)
         {
 

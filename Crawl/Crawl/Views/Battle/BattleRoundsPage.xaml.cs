@@ -32,7 +32,9 @@ namespace Crawl.Views.Battle
         // Holds the view model
         private BattleViewModel _viewModel;
         
-
+        /// <summary>
+        /// sets the page and battle screen for game play
+        /// </summary>
         public BattleRoundsPage ()
 		{
             // this is a singleton & should NOT be null
@@ -72,6 +74,109 @@ namespace Crawl.Views.Battle
             await Navigation.PushModalAsync(new ItemLocationSelectPage());
         }*/
 
+        
+
+        /// <summary>
+        /// Next Turn Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public async void OnAttackClicked(object sender, EventArgs args)
+        {
+            //Thread.Sleep(2000);
+            //AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0, 0.6, .3, .3));
+
+            // Do the turn...
+            _viewModel.RoundNextTurn();
+            //MessagingCenter.Send(this, "RoundNextTurn");
+
+            // Hold the current state
+            var CurrentRoundState = _viewModel.BattleEngine.RoundStateEnum;
+
+            // If the round is over start a new one...
+            if (CurrentRoundState == RoundEnum.NewRound)
+            {
+                ShowModalItemSelectionPage();
+                
+                _viewModel.NewRound();
+                // MessagingCenter.Send(this, "NewRound");
+
+                Debug.WriteLine("New Round :" + _viewModel.BattleEngine.BattleScore.RoundCount);
+
+                ShowModalPageMonsterList();
+
+                PositionPlayersOnScreen();
+            }
+
+            // Check for Game Over
+            if (CurrentRoundState == RoundEnum.GameOver)
+            {
+
+                ////MessagingCenter.Send(this, "EndBattle");
+
+                // Output Formatted Results 
+                //var myResult = _viewModel.BattleEngine.GetResultsOutput();
+                //Debug.Write(myResult);
+
+                // Let the user know the game is over
+                // Clear the players from the center of the board
+                DrawGameBoardClear();
+
+                // Change to the Game Over Button
+                GameAttackButton.IsVisible = false;
+                GameOverButton.IsVisible = true;
+
+                // Save the Score to the Score View Model, by sending a message to it.
+                var myScore = _viewModel.BattleEngine.BattleScore;
+                MessagingCenter.Send(this, "AddData", myScore);
+
+                _viewModel.EndRound();
+
+                _viewModel.EndBattle();
+
+                Debug.WriteLine("Round count :" + _viewModel.BattleEngine.BattleScore.RoundCount);
+                Debug.WriteLine("Turn count :" + _viewModel.BattleEngine.BattleScore.TurnCount);
+                Debug.WriteLine("End Battle");
+
+                return;
+            }
+
+            // Output the Game Board
+            DrawGameBoardAttackerDefender();
+
+
+
+            // Move attacker on battle field
+            //Crawl.App.Current.BindingContextChanged += AnimateAttacker;
+
+
+            // Output The Message that happened.
+            // GameMessage();
+        }
+
+        /// <summary>
+        /// Show the Game Over Screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public async void OnGameOverClicked(object sender, EventArgs args)
+        {
+            var myScore = _viewModel.BattleEngine.BattleScore.ScoreTotal;
+            var outputString = "Battle Over! Score " + myScore.ToString();
+            Debug.WriteLine(outputString);
+
+            Label gameOverbattleMsg = this.FindByName<Label>("BattleMsg");
+            BattleMsg.Text = outputString;
+
+            ShowModalScorePage();
+
+            // Back up to the Start of Battle
+            //await Navigation.PushModalAsync(new PickCharactersPage());
+        }
+
+        /// <summary>
+        /// sets battle screen back to blank
+        /// </summary>
         private void ResetBattleScreen()
         {
             RelativeLayout myRelativeCharacterStats = this.FindByName<RelativeLayout>("BattleCharacterStats");
@@ -94,17 +199,20 @@ namespace Crawl.Views.Battle
             string playerName = "Battling " + playerType;
             playerStats.FindByName<Label>(xName).Text = playerName;
 
-            playerStats.FindByName<Label>(p+"XPStat").Text = "***";
-            playerStats.FindByName<Label>(p+"LevelStat").Text = "***";
-            playerStats.FindByName<Label>(p+"HPStat").Text = "***";
-            playerStats.FindByName<Label>(p+"HPMaxStat").Text = "***";
-            playerStats.FindByName<Label>(p+"ATKStat").Text = "***";
-            playerStats.FindByName<Label>(p+"DEFStat").Text = "***";
-            playerStats.FindByName<Label>(p+"SPDStat").Text = "***";
+            playerStats.FindByName<Label>(p + "XPStat").Text = "***";
+            playerStats.FindByName<Label>(p + "LevelStat").Text = "***";
+            playerStats.FindByName<Label>(p + "HPStat").Text = "***";
+            playerStats.FindByName<Label>(p + "HPMaxStat").Text = "***";
+            playerStats.FindByName<Label>(p + "ATKStat").Text = "***";
+            playerStats.FindByName<Label>(p + "DEFStat").Text = "***";
+            playerStats.FindByName<Label>(p + "SPDStat").Text = "***";
         }
 
-        
 
+        /// <summary>
+        /// helper function to draw players to respective box in battle screen
+        /// </summary>
+        /// <param name="CharactersRelativeLayout"></param>
         public void PositionPlayersOnScreen()
         {
             RelativeLayout myRelativeCharacters = this.FindByName<RelativeLayout>("CharacterBox");
@@ -114,9 +222,13 @@ namespace Crawl.Views.Battle
             AddMonstersToBox(myRelativeMonsters);
         }
 
+        /// <summary>
+        /// draws monsters to monster box in battle screen
+        /// </summary>
+        /// <param name="CharactersRelativeLayout"></param>
         private void AddMonstersToBox(RelativeLayout MonstersRelativeLayout)
         {
-            
+
             int index = 0;
 
             Image monster1 = MonstersRelativeLayout.FindByName<Image>("mons1");
@@ -141,11 +253,15 @@ namespace Crawl.Views.Battle
             foreach (var monster in this._viewModel.BattleEngine.MonsterList)
             {
                 monsterImages[index].Source = new Uri(monster.ImageURI);
-                
+
                 index++;
             }
         }
 
+        /// <summary>
+        /// draws characters to character box in battle screen
+        /// </summary>
+        /// <param name="CharactersRelativeLayout"></param>
         private void AddCharactersToBox(RelativeLayout CharactersRelativeLayout)
         {
             int index = 0;
@@ -162,44 +278,39 @@ namespace Crawl.Views.Battle
                 character1, character2, character3, character4, character5, character6
             };
 
-            foreach(Image image in characterImages)
+            foreach (Image image in characterImages)
             {
                 image.Source = null;
             }
 
             List<Uri> imageURIs = new List<Uri>();
-            
-            foreach(var character in this._viewModel.BattleEngine.CharacterList)
+
+            foreach (var character in this._viewModel.BattleEngine.CharacterList)
             {
                 characterImages[index++].Source = new Uri(character.ImageURI);
                 if (character.Alive == false)
                 {
-                    characterImages[index].Opacity = .5;
+                    characterImages[index].Opacity = .75;
                 }
             }
-            
+
         }
 
         /// <summary>
-        /// Show the Game Over Screen
+        /// handles modal page for monster list page for new round
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        public async void OnGameOverClicked(object sender, EventArgs args)
+        private async void ShowModalPageMonsterList()
         {
-            var myScore = _viewModel.BattleEngine.BattleScore.ScoreTotal;
-            var outputString = "Battle Over! Score " + myScore.ToString();
-            Debug.WriteLine(outputString);
-
-            Label gameOverbattleMsg = this.FindByName<Label>("BattleMsg");
-            BattleMsg.Text = outputString;
-
-            ShowModalScorePage();
-
-            // Back up to the Start of Battle
-            //await Navigation.PushModalAsync(new PickCharactersPage());
+            // When you want to show the modal page, just call this method
+            // add the event handler for to listen for the modal popping event:
+            Crawl.App.Current.ModalPopping += HandleModalPopping;
+            _myModalBattleMonsterListPage = new PickMonstersPage();
+            await Navigation.PushModalAsync(_myModalBattleMonsterListPage);
         }
 
+        /// <summary>
+        /// handles modal page for item select page between rounds
+        /// </summary>
         private async void ShowModalItemSelectionPage()
         {
             // When you want to show the modal page, just call this method
@@ -209,6 +320,9 @@ namespace Crawl.Views.Battle
             await Navigation.PushModalAsync(_myModalItemSelectionPage);
         }
 
+        /// <summary>
+        /// handles modal page for score page at game over
+        /// </summary>
         private async void ShowModalScorePage()
         {
             // When you want to show the modal page, just call this method
@@ -219,6 +333,10 @@ namespace Crawl.Views.Battle
         }
 
 
+        /// <summary>
+        /// event handler for resetting modal pages and 
+        /// removing event handler
+        /// </summary>
         private void HandleModalPopping(object sender, ModalPoppingEventArgs e)
         {
             if (e.Modal == _myModalBattleMonsterListPage)
@@ -254,113 +372,10 @@ namespace Crawl.Views.Battle
             }
         }
 
-        private async void ShowModalPageMonsterList()
-        {
-            // When you want to show the modal page, just call this method
-            // add the event handler for to listen for the modal popping event:
-            Crawl.App.Current.ModalPopping += HandleModalPopping;
-            _myModalBattleMonsterListPage = new PickMonstersPage();
-            await Navigation.PushModalAsync(_myModalBattleMonsterListPage);
-        }
-
+        
         /// <summary>
-        /// Next Turn Button
+        /// sets image for attacker and defender and calls for setting stats
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        public async void OnAttackClicked(object sender, EventArgs args)
-        {
-            //Thread.Sleep(2000);
-            //AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0, 0.6, .3, .3));
-
-            // Do the turn...
-            _viewModel.RoundNextTurn();
-            //MessagingCenter.Send(this, "RoundNextTurn");
-
-            // Hold the current state
-            var CurrentRoundState = _viewModel.BattleEngine.RoundStateEnum;
-
-            // If the round is over start a new one...
-            if (CurrentRoundState == RoundEnum.NewRound)
-            {
-                ShowModalItemSelectionPage();
-
-                _viewModel.NewRound();
-                // MessagingCenter.Send(this, "NewRound");
-
-                Debug.WriteLine("New Round :" + _viewModel.BattleEngine.BattleScore.RoundCount);
-
-                ShowModalPageMonsterList();
-            }
-
-            // Check for Game Over
-            if (CurrentRoundState == RoundEnum.GameOver)
-            {
-                
-                ////MessagingCenter.Send(this, "EndBattle");
-
-                // Output Formatted Results 
-                //var myResult = _viewModel.BattleEngine.GetResultsOutput();
-                //Debug.Write(myResult);
-
-                // Let the user know the game is over
-                // Clear the players from the center of the board
-                DrawGameBoardClear();
-
-                // Change to the Game Over Button
-                GameAttackButton.IsVisible = false;
-                GameOverButton.IsVisible = true;
-
-                // Save the Score to the Score View Model, by sending a message to it.
-                var myScore = _viewModel.BattleEngine.BattleScore;
-                MessagingCenter.Send(this, "AddData", myScore);
-
-                _viewModel.EndRound();
-
-                _viewModel.EndBattle();
-
-                Debug.WriteLine("Round count :" + _viewModel.BattleEngine.BattleScore.RoundCount);
-                Debug.WriteLine("Turn count :" + _viewModel.BattleEngine.BattleScore.TurnCount);
-                Debug.WriteLine("End Battle");
-
-                return;
-            }
-
-            // Output the Game Board
-            DrawGameBoardAttackerDefender();
-            
-            
-
-            // Move attacker on battle field
-            //Crawl.App.Current.BindingContextChanged += AnimateAttacker;
-            
-
-            // Output The Message that happened.
-            // GameMessage();
-        }
-
-        private void AnimateAttacker(object sender, EventArgs e)
-        {
-            //Thread.Sleep(1000);
-            AbsoluteLayout battleArena = this.FindByName<AbsoluteLayout>("BattleArena");
-            var AttackingAnimation = battleArena.FindByName<Image>("AttackerImage");
-            var DefendingAnimation = battleArena.FindByName<Image>("DefenderImage");
-
-            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.1, 0.1, .3, .3));
-            //Thread.Sleep(1000);
-            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.2, 0.2, .3, .3));
-            //Thread.Sleep(1000);
-            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.3, 0.3, .3, .3));
-            //Thread.Sleep(1000);
-            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.4, 0.4, .3, .3));
-            //Thread.Sleep(1000);
-            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.5, 0.5, .3, .3));
-
-            DrawGameBoardAttackerDefender();
-            Crawl.App.Current.PropertyChanging -= AnimateAttacker;
-            
-        }
-
         private void DrawGameBoardAttackerDefender()
         {
             AbsoluteLayout battleArena = this.FindByName<AbsoluteLayout>("BattleArena");
@@ -372,6 +387,9 @@ namespace Crawl.Views.Battle
             
         }
 
+        /// <summary>
+        /// populates current attacker & defender stats
+        /// </summary>
         private void DrawStatsBoxAttackerDefender()
         {
             var currentAttacker = _viewModel.BattleEngine.CurrentAttacker;
@@ -434,6 +452,9 @@ namespace Crawl.Views.Battle
 
         }
 
+        /// <summary>
+        /// resets the battle screen to blank
+        /// </summary>
         private void DrawGameBoardClear()
         {
             AbsoluteLayout battleArena = this.FindByName<AbsoluteLayout>("BattleArena");
@@ -448,5 +469,33 @@ namespace Crawl.Views.Battle
             Label BattleMsgLabel = this.FindByName<Label>("BattleMsg");
             BattleMsgLabel.Text = "Game Over";
         }
+
+        /// <summary>
+        /// moves attacker on battle screen to show attack
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AnimateAttacker(object sender, EventArgs e)
+        {
+            //Thread.Sleep(1000);
+            AbsoluteLayout battleArena = this.FindByName<AbsoluteLayout>("BattleArena");
+            var AttackingAnimation = battleArena.FindByName<Image>("AttackerImage");
+            var DefendingAnimation = battleArena.FindByName<Image>("DefenderImage");
+
+            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.1, 0.1, .3, .3));
+            //Thread.Sleep(1000);
+            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.2, 0.2, .3, .3));
+            //Thread.Sleep(1000);
+            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.3, 0.3, .3, .3));
+            //Thread.Sleep(1000);
+            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.4, 0.4, .3, .3));
+            //Thread.Sleep(1000);
+            AbsoluteLayout.SetLayoutBounds(AttackerImage, new Rectangle(0.5, 0.5, .3, .3));
+
+            DrawGameBoardAttackerDefender();
+            Crawl.App.Current.PropertyChanging -= AnimateAttacker;
+
+        }
+
     }
 }
