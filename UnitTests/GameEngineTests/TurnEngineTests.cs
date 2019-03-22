@@ -1558,6 +1558,10 @@ namespace UnitTests.GameEngineTests
             MockForms.Init();
 
             // Arrange
+            var monsterDropItemsState = GameGlobals.AllowMonsterDropItems;
+            GameGlobals.AllowMonsterDropItems = false;
+
+
             var testTurnEngine = new TurnEngine();
             var testMonster = new Monster();
             testMonster.Name = "Test Monster";
@@ -1611,6 +1615,7 @@ namespace UnitTests.GameEngineTests
 
             // Reset
             GameGlobals.ToggleRandomState();
+            GameGlobals.AllowMonsterDropItems = monsterDropItemsState;
 
             // Assert
             Assert.IsTrue(checkIfContains, "Expected ItemPool to contain testFeetItem: true");
