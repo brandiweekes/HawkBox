@@ -41,6 +41,11 @@
                 <Label Text="Value : " FontSize="Medium" HorizontalOptions="Start"/>
                 <Label Text="{Binding Data.Value}" HorizontalOptions="CenterAndExpand"/>
             </StackLayout>
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                <Label Text="Unique : " FontSize="Medium" HorizontalOptions="Start"/>
+                <Label Text="{Binding Data.IsUnique}" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>

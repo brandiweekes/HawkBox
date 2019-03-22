@@ -210,6 +210,13 @@ namespace Crawl.Controllers
                 myData.Location = (ItemLocationEnum)JsonHelper.GetJsonInteger(json, "Location");
                 myData.Attribute = (AttributeEnum)JsonHelper.GetJsonInteger(json, "Attribute");
 
+                myData.Category = JsonHelper.GetJsonInteger(json, "Category");
+
+                if(myData.Category == 3)
+                {
+                    myData.IsUnique = true;
+                }
+
             }
 
             catch (Exception Ex)

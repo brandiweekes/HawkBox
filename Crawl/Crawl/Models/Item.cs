@@ -36,6 +36,9 @@ namespace Crawl.Models
         // Flag use to determine it item is unique or not...
         public bool IsUnique { get; set; } = false;
 
+        // Category to identify our group items from server. - our Group no. is 3
+        public int Category { get; set; }
+
         // Inheritated properties
         // Id comes from BaseEntity class
         // Name comes from the Entity class... 

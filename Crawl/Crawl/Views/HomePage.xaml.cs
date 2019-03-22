@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crawl.Controllers;
 using Crawl.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,6 +18,9 @@ namespace Crawl.Views
 		{
 			InitializeComponent();
 
+            // load items from server and update in database
+            Debug.WriteLine("Load items from server");
+            ItemsController.Instance.GetItemsFromServer().GetAwaiter();
 
 		}
 

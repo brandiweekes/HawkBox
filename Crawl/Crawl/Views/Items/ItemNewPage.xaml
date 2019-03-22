@@ -73,6 +73,11 @@
                                      Value="{Binding Data.Value, Mode=OneTime}" />
                     </StackLayout>
                 </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Is Unique" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                    <Switch IsToggled="{Binding Data.IsUnique, Mode=TwoWay}" HorizontalOptions="EndAndExpand"></Switch>
+                </StackLayout>
                 
                 
             </StackLayout>
