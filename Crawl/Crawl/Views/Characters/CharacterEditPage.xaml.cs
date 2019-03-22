@@ -42,6 +42,7 @@ namespace Crawl.Views
             Data.Attribute.Defense = Int32.Parse(DefenseLabel.Text);
             Data.Attribute.Speed = Int32.Parse(SpeedLabel.Text);
             Data.Attribute.MaxHealth = Int32.Parse(MaxHealthLabel.Text);
+            Data.Attribute.CurrentHealth = Data.Attribute.MaxHealth;
             Data.ExperienceTotal = Int32.Parse(XPLabel.Text);
 
             //set attribute string
