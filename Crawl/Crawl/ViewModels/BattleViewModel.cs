@@ -41,33 +41,42 @@ namespace Crawl.ViewModels
         // Class for the AvailableCharacters
         public ObservableCollection<Character> AvailableCharacters { get; set; }
 
+        //remaining characteres for item pages
         public ObservableCollection<Character> RemainingCharacters { get; set; }
-
+        
+        //available items for item pages
         public ObservableCollection<Item> AvailableItems { get; set; }
 
+        //picked character to add and remove items 
         public Character pickedCharacter; 
 
         // Load the Data command
         public Command LoadDataCommand { get; set; }
 
+        //load items command
         public Command LoadItemsCommand { get; set; }
 
         // Flag to check if the data needs refreshing
         private bool _needsRefresh;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         private BattleViewModel()
         {
+            //set title
             Title = "Battle";
-
+            //initialize
             SelectedCharacters = new ObservableCollection<Character>();
             AvailableCharacters = new ObservableCollection<Character>();
             RemainingCharacters = new ObservableCollection<Character>();
             AvailableItems = new ObservableCollection<Item>();
 
+            //set commands
             LoadDataCommand = new Command(async () => await ExecuteLoadDataCommand());
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
+            //initialize
             BattleEngine = new BattleEngine();
             pickedCharacter = new Character();
 
@@ -90,6 +99,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void StartBattle()
         {
+            //call startbattle
             BattleEngine.StartBattle(false);
         }
 
@@ -98,6 +108,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void EndBattle()
         {
+            //call endbattle
             BattleEngine.EndBattle();
         }
 
@@ -106,6 +117,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void StartRound()
         {
+            //call startround
             BattleEngine.StartRound();
         }
 
@@ -114,6 +126,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void EndRound()
         {
+            //call endround
             BattleEngine.EndRound();
         }
 
@@ -123,8 +136,10 @@ namespace Crawl.ViewModels
         /// </summary>
         public void LoadCharacters()
         {
+            //add characters 
             foreach (var data in SelectedCharacters)
             {
+                //add to character list
                 BattleEngine.CharacterList.Add(new Character(data));
             }
 
@@ -135,6 +150,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void RoundNextTurn()
         {
+            //call roundnextturn
             BattleEngine.RoundNextTurn();
         }
 
@@ -143,6 +159,7 @@ namespace Crawl.ViewModels
         /// </summary>
         public void NewRound()
         {
+            //call newround
             BattleEngine.NewRound();
         }
 
@@ -150,6 +167,7 @@ namespace Crawl.ViewModels
         // Call to database operation for delete
         public bool SelectedListRemove(Character data)
         {
+            //remove the character
             SelectedCharacters.Remove(data);
             return true;
         }
@@ -157,6 +175,7 @@ namespace Crawl.ViewModels
         // Call to database operation for add
         public bool SelectedListAdd(Character data)
         {
+            //add the character
             SelectedCharacters.Add(data);
             return true;
         }
@@ -164,12 +183,14 @@ namespace Crawl.ViewModels
         // Call to database to ensure most recent
         public Character Get(string id)
         {
+            //get the character
             var myData = SelectedCharacters.FirstOrDefault(arg => arg.Id == id);
+            //if null
             if (myData == null)
             {
                 return null;
             }
-
+            //return character
             return myData;
 
         }
@@ -179,9 +200,10 @@ namespace Crawl.ViewModels
         // Clear current lists so they can get rebuilt
         public async void ClearCharacterLists()
         {
+            //clear lists
             AvailableCharacters.Clear();
             SelectedCharacters.Clear();
-
+            //load data
             await ExecuteLoadDataCommand();
         }
 
@@ -189,19 +211,25 @@ namespace Crawl.ViewModels
         // It sets the refresh flag to false
         public bool NeedsRefresh()
         {
+            //return true, set needsrefresh to false
             if (_needsRefresh)
             {
                 _needsRefresh = false;
                 return true;
             }
-
+            //else return false
             return false;
         }
 
+        /// <summary>
+        /// for testing item pages
+        /// </summary>
         public async void AddItemsToPoolForTesting()
         {
+            //get items in db
             var items = await DataStore.GetAllAsync_Item(false);
 
+            //add to item pool
             foreach (var i in items)
             {
                 BattleEngine.ItemPool.Add(i);
@@ -212,6 +240,7 @@ namespace Crawl.ViewModels
         // Sets the need to refresh
         public void SetNeedsRefresh(bool value)
         {
+            //set value
             _needsRefresh = value;
         }
 
@@ -237,7 +266,9 @@ namespace Crawl.ViewModels
                     AvailableCharacters.Add(data);
                 }*/
 
+                //clear remaining characters
                 RemainingCharacters.Clear();
+                //add characters in character list to remaining list
                 var remaining = BattleEngine.CharacterList;
                 foreach(var ch in remaining)
                 {
@@ -278,7 +309,7 @@ namespace Crawl.ViewModels
                     AvailableCharacters.Add(data);
                 }*/
                 
-                
+                //clear and reload item pool
                 AvailableItems.Clear();
                 var available = BattleEngine.ItemPool;
                 foreach (var ch in available)
@@ -298,6 +329,9 @@ namespace Crawl.ViewModels
             }
         }
 
+        /// <summary>
+        /// force refresh
+        /// </summary>
         public void ForceDataRefresh()
         {
             // Reset
