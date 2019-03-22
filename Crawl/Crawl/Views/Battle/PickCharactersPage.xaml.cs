@@ -23,7 +23,7 @@ namespace Crawl.Views.Battle
         {
             InitializeComponent();
             BindingContext = _viewModel = PickCharactersViewModel.Instance;
-            if (_viewModel.DataSet.Count == 0)
+            //if (_viewModel.DataSet.Count == 0)
                 _viewModel.ForceDataRefresh();
 
             _battleViewModel = BattleViewModel.Instance;
