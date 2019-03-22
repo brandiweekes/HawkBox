@@ -28,7 +28,9 @@ namespace Crawl.GameEngine
         /// </summary>
         public AutoBattleEngine()
         {
+            //instantiate battleengine
             BattleEngine = new BattleEngine();
+            //set _instance to characterviewmodel instance
             _instance = CharactersViewModel.Instance;
             
         }
@@ -40,9 +42,10 @@ namespace Crawl.GameEngine
         {
             // Pick Characters based on maximum party number.
             var CharacterList = GetListOfCharacter(GameGlobals.MaxNumberPartyPlayers);
-
+            //if getlistofcharacter fails
             if(CharacterList == null)
             {
+                //debug line & return
                 Debug.WriteLine($"No Characters. Battle didn't happen. returning....");
                 return;
             }
@@ -64,23 +67,29 @@ namespace Crawl.GameEngine
 
             do
             {
+                //next turn
                 Debug.WriteLine("Performing next turn...");
                 BattleEngine.RoundNextTurn();
                 Debug.WriteLine($"Turn over... Turn Count: {BattleEngine.BattleScore.TurnCount}");
+                //get roundstateenum result
                 result = BattleEngine.RoundStateEnum;
                 Debug.WriteLine($"round enum result {result}");
 
                 // do the Round
                 // Turn loop happens inside the Round
+
+                //if new round
                 if (result == RoundEnum.NewRound)
                 {
+                    //call newround
                     BattleEngine.NewRound();
                     Debug.WriteLine($"New round beginning...Round Count: {BattleEngine.BattleScore.RoundCount}");
                 }
 
             }
-            while (result != RoundEnum.GameOver);//end condition);
+            while (result != RoundEnum.GameOver);//end condition-game over
 
+            //call endround
             BattleEngine.EndRound();
             Debug.WriteLine("Round ended.");
 
@@ -90,10 +99,10 @@ namespace Crawl.GameEngine
 
             ScoresViewModel.Instance.AddAsync(myScore).GetAwaiter().GetResult();
             Debug.WriteLine("Final score saved");
-
+            //end battle
             BattleEngine.EndBattle();
             Debug.WriteLine("Battle ended.");
-
+            //output results
             var myOutput = FormatOutput();
             Debug.WriteLine("End of AutoBattle RunAutoBattle()");
         }
@@ -112,8 +121,9 @@ namespace Crawl.GameEngine
                 return null;
             }
 
+            //load possible characters for the upcoming battle
             _instance.LoadCharactersCommand.Execute(null);
-
+            //set dataset & count
             var _charactersDataset = _instance.Dataset;
             var _count = _charactersDataset.Count;
 
@@ -131,6 +141,7 @@ namespace Crawl.GameEngine
                 return null;
             }
 
+            //init list of characters to return
             var myReturn = new List<Character>();
 
             // add Characters up to that strength...
@@ -139,24 +150,20 @@ namespace Crawl.GameEngine
 
             Debug.WriteLine($"Getting Characters with level between {ScaleLevelMin} and {ScaleLevelMax}");
 
-            // Get Characters and scale them.
+            // Get Characters.
             do
             {
-                //bool inList = false;
-
+                //get random character
                 var Data = GetRandomCharacter(ScaleLevelMin, ScaleLevelMax);
 
+                //if character not already in list, add copy of character to list
                 if (myReturn.Any(ch => ch.Id == Data.Id) == false) {
                     myReturn.Add(new Character(Data));
                 }
-
-                /*
-                if(inList == false)
-                {
-                    myReturn.Add(Data);
-                }*/
+                
             } while (myReturn.Count < number);
 
+            //return list
             Debug.WriteLine($"Characters randomly choosen from datastore.");
             return myReturn;
         }
@@ -176,7 +183,7 @@ namespace Crawl.GameEngine
             // roll dice to selecte random level between given min. level and max. level.
             var rndScale = HelperEngine.RollDice(ScaleLevelMin, ScaleLevelMax);
             myData.ScaleLevel(rndScale);
-
+            //return character
             return myData;
         }
 
@@ -186,6 +193,7 @@ namespace Crawl.GameEngine
         /// <returns></returns>
         public Score GetFinalScoreObject()
         {
+            //get score
             return BattleEngine.GetFinalScore();
         }
 
@@ -195,6 +203,7 @@ namespace Crawl.GameEngine
         /// <returns></returns>
         public string FormatOutput()
         {
+            //call formatoutput
             return BattleEngine.FormatOutput();
         }
 

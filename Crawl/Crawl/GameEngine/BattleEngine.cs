@@ -18,6 +18,7 @@ namespace Crawl.GameEngine
         /// </summary>
         public BattleEngine() : base()
         {
+            //initialize characterlist
             CharacterList = new List<Character>();
         }
 
@@ -27,14 +28,18 @@ namespace Crawl.GameEngine
         /// <param name="isAutoBattle"></param>
         public bool StartBattle(bool isAutoBattle)
         {
+            //if battle already started
             if(isBattleRunning)
             {
                 return false;
             }
 
             Debug.WriteLine("Battle Starting...");
+            //init score
             BattleScore = new Score();
+            //set battlerunning
             isBattleRunning = true;
+            //set autobattle bool
             BattleScore.AutoBattle = isAutoBattle;
 
             return true;
@@ -58,6 +63,7 @@ namespace Crawl.GameEngine
         /// </summary>
         public void ClearData()
         {
+            //clear character and monster lists
             CharacterList.Clear();
             MonsterList.Clear();
         }
@@ -68,6 +74,7 @@ namespace Crawl.GameEngine
         /// <returns></returns>
         public string FormatOutput()
         {
+            //format score
             var myReturn = $"Battle Report\n {BattleScore.FormatOutput()}";
             return myReturn;
         }
@@ -78,6 +85,7 @@ namespace Crawl.GameEngine
         /// <returns></returns>
         public Score GetFinalScore()
         {
+            //return score
             return BattleScore;
         }
 
@@ -88,6 +96,7 @@ namespace Crawl.GameEngine
         /// <returns></returns>
         public bool GetAutoBattleState()
         {
+            //return autobattle bool
             return BattleScore.AutoBattle;
         }
 
@@ -97,6 +106,7 @@ namespace Crawl.GameEngine
         /// <returns></returns>
         public bool BattleRunningState()
         {
+            //return isbattlerunning
             return isBattleRunning;
         }
     }
