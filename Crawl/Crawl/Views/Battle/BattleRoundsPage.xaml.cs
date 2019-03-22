@@ -186,6 +186,10 @@ namespace Crawl.Views.Battle
             var outputString = "Battle Over! Score " + myScore.ToString();
             Debug.WriteLine(outputString);
 
+            // save score to db
+            ScoresViewModel.Instance.AddAsync(_viewModel.BattleEngine.BattleScore).GetAwaiter().GetResult();
+            ScoresViewModel.Instance.SetNeedsRefresh(true);
+
             Label gameOverbattleMsg = this.FindByName<Label>("BattleMsg");
             BattleMsg.Text = outputString;
 
